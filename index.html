@@ -202,7 +202,7 @@
           </div>
         </header>
         <main class="mx-auto max-w-6xl px-4 pb-16">
-          ${STATE.activeTab!=='problems' ? `
+          ${STATE.activeTab==='roi' ? `
           <div class="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
             ${chip('Minutes saved (per user/per month)', String(STATE.impact.minutes), 'emerald')}
             ${chip('Packaging hours avoided', String(STATE.impact.pkgHours), 'sky')}
