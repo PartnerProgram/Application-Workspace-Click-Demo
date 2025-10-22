@@ -93,37 +93,37 @@
         editBuffers: { change: '', now: '', recast: '' },
         currentStateTexts: {
           change: [
-            'Teams spend more time troubleshooting compatibility and packaging than deploying.',
-            'Application readiness is now the biggest reason pilots and rollouts miss timelines.',
+            'Applications are the new bottleneck = According to Gartner, application complexity now surpasses infrastructure as the top driver of IT delays. Every app behaves differently across environments—slowing delivery and inflating operational cost.',
+            'Manual work no longer scales = Packaging, testing, and fixing apps by hand consumes over 40% of IT effort (Forrester 2025), diverting focus from modernization and innovation.',
             'Security teams must patch faster while delivery remains manual and fragmented.'
           ],
           now: [
-            'The platform is ready — but the applications aren’t.',
-            'Simplifying app delivery can cut pilot timelines by 50–70%.',
-            'As orgs move from SCCM to Intune, complexity is in app readiness — not infra.'
+            'Everything changes faster =  Apps used to update yearly—now it’s daily. IT can’t keep pace using yesterday’s tools.',
+            'Security never sleeps. Every patch matters, and the window for mistakes keeps shrinking. Speed now equals safety.',
+            'People expect instant access. Hybrid workers don’t care where an app runs—just that it’s there when they need it.'
           ],
           recast: [
-            'Control layer that eliminates application friction.',
-            'End-to-end lifecycle: package → deploy → update → retire.',
-            'One platform, complete control. Package, patch, and deliver 7,500+ curated enterprise apps from one workspace.'
+           'End to End Application lifecycle management = Deploy and manage 8000+ curated apps across Windows, macOS, Cloud PCs, Citrix, AVD, and hybrid setups — all from a single, consistent platform.',
+              'Faster modernization, fewer roadblocks = Streamlines migrations and app readiness across on-prem and cloud environments so transformation projects don’t get stuck waiting on packaging or testing.',
+              'Built to work with what you have = Designed to extend Intune and existing tools — not replace them — while scaling reliably across thousands of apps and environments.'
           ]
         },
         defaultsCurrentState() {
           return JSON.parse(JSON.stringify({
             change: [
-              'Teams spend more time troubleshooting compatibility and packaging than deploying.',
-              'Application readiness is now the biggest reason pilots and rollouts miss timelines.',
+              'Applications are the new bottleneck = According to Gartner, application complexity now surpasses infrastructure as the top driver of IT delays. Every app behaves differently across environments—slowing delivery and inflating operational cost.',
+              'Manual work no longer scales = Packaging, testing, and fixing apps consumes over 40% of IT effort (Forrester 2025), diverting focus from modernization and innovation.',
               'Security teams must patch faster while delivery remains manual and fragmented.'
             ],
             now: [
-              'The platform is ready — but the applications aren’t.',
-              'Simplifying app delivery can cut pilot timelines by 50–70%.',
-              'As orgs move from SCCM to Intune, complexity is in app readiness — not infra.'
+              'Everything changes faster =  Apps used to update yearly—now it’s daily. IT can’t keep pace using yesterday’s tools.',
+              'Security never sleeps. Every patch matters, and the window for mistakes keeps shrinking. Speed now equals safety.',
+              'People expect instant access. Hybrid workers don’t care where an app runs—just that it’s there when they need it.'
             ],
             recast: [
-              'Control layer that eliminates application friction.',
-              'End-to-end lifecycle: package → deploy → update → retire.',
-              'One platform, complete control. Package, patch, and deliver 7,500+ curated enterprise apps from one workspace.'
+              'End to End Application lifecycle management = Deploy and manage 8000+ curated apps across Windows, macOS, Cloud PCs, Citrix, AVD, and hybrid setups — all from a single, consistent platform.',
+              'Faster modernization, fewer roadblocks = Streamlines migrations and app readiness across on-prem and cloud environments so transformation projects don’t get stuck waiting on packaging or testing.',
+              'Built to work with what you have = Designed to extend Intune and existing tools — not replace them — while scaling reliably across thousands of apps and environments.'
             ]
           }));
         }
@@ -202,7 +202,7 @@
               <h1 class="text-[40px] md:text-[56px] font-semibold leading-tight"><span style="color:var(--re-blue-bright)">Re</span><span style="color:var(--re-white)">cast</span> Software</h1>
               <p class="mt-2 max-w-2xl text-[16px] leading-[1.5] opacity-90">
                 ${STATE.activeTab==='problems'
-                  ? 'Application deployment isn’t the problem. Doing it fast, consistently, and securely across the business is. — Microsoft MVP'
+                  ? '“Managing applications shouldn’t be harder than using them — AI-powered, end-to-end application management is where IT is headed.”  — Forrester'
                   : 'Recast works across SCCM, Intune, Citrix, VMware Workspace ONE, and more—making the tools you already use faster, smarter, and easier to manage'}
               </p>
             </div>
@@ -318,9 +318,14 @@
                 </button>
               </div>
               <div class="p-8 bg-[rgba(255,255,255,0.04)]">
-                <ul class="list-disc pl-8 space-y-4 text-lg leading-relaxed text-white/90 marker:text-[var(--re-blue-light)]">
-                  ${bullets.map(b=>`<li class="pl-2">${b}</li>`).join('')}
-                </ul>
+                <div class="space-y-4">
+                  ${bullets.map(b=>`
+                    <div class="flex items-start gap-3">
+                      <i data-lucide="check-circle" class="w-5 h-5 text-[var(--re-blue-light)] flex-shrink-0 mt-0.5"></i>
+                      <p class="text-lg leading-relaxed text-white/90">${b}</p>
+                    </div>
+                  `).join('')}
+                </div>
                 ${cta?`
                   <div class="mt-8 flex justify-center">
                     <button id="btnAdvanceToSolution" type="button" data-action="advance" data-next="solution" class="inline-flex re-primary text-base font-semibold px-6 py-3 items-center gap-3 focus-ring shadow-md hover:shadow-lg transition-shadow">
@@ -425,7 +430,7 @@
           <div class="p-4">
             <div class="sub-card p-3 text-sm">
               <div class="flex items-center gap-2 font-medium"><i data-lucide="wand-sparkles" class="w-4 h-4"></i> Critical app updates</div>
-              <label class="mt-2 flex items-center gap-2 text-xs">
+              <label class="mt-2 flexitems-center gap-2 text-xs">
                 <span class="opacity-80">Hours/package</span>
                 <input class="w-16 rounded bg-black/30 px-2 py-1" value="${STATE.packHrs}" inputmode="decimal" data-action="set-pack-hrs" aria-label="Hours per package">
                 <span>→</span>
