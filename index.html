@@ -78,10 +78,8 @@
       @keyframes fadeIn{to{opacity:1}}
       .overlay-tag{opacity:0;transition:opacity 0.3s ease;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,255,255,0.9);padding:1rem;border-radius:var(--radius);box-shadow:0 4px 6px rgba(0,0,0,0.1);z-index:10}
       .show-labels .overlay-tag{opacity:1;transition-delay:0.5s}
-      .meta-label{font-size:0.6rem;color:#4A5568;background:#F7F9FB;border:1px solid var(--border-subtle);border-radius:4px;padding:0.1rem 0.3rem;opacity:0;transform:translateY(5px);transition:all 0.3s ease;position:relative;top:auto;left:auto;z-index:5;white-space:nowrap}
-      .show-labels .meta-label{opacity:1;transform:translateY(0);display:flex;flex-wrap:wrap;gap:0.2rem;width:100%;justify-content:flex-start}
-      .show-labels .logo-wrap:hover .meta-label{background:var(--re-white);box-shadow:0 2px 4px rgba(0,0,0,0.1)}
-      .logo-wrap .meta-label span{margin-right:0}
+      .meta-label{font-size:0.6rem;color:#4A5568;opacity:0;transform:translateY(5px);transition:all 0.3s ease;position:relative;top:auto;left:auto;z-index:5;white-space:nowrap;display:flex;flex-direction:column;gap:0.1rem;align-items:flex-start;width:100%;justify-content:flex-start}
+      .show-labels .meta-label{opacity:1;transform:translateY(0)}
       .show-labels .cat-row{grid-template-columns:15ch 1fr;gap:1rem}
       .show-labels #flowCard .flex-wrap{gap:1rem}
       .show-labels .logo-wrap{width:calc(33.333% - 0.666rem);margin-bottom:0.5rem}
@@ -572,7 +570,7 @@
                     <div id="${s.id}" class="flex flex-wrap gap-2"></div>
                   </div>
                 `).join('')}
-                <div id="overlayTag" class="overlay-tag hidden text-center text-sm text-[#4A5568]">Every app mapped to ring, policy, and scope.</div>
+                <div id="overlayTag" class="overlay-tag hidden text-center text-sm text-[#4A5568]">Every app mapped to stage, policy, region, and device.</div>
               </div>
               <div id="flowHubFlash" class="mt-2 hidden text-[#0070F3]"><span class="inline-flex items-center gap-1 text-[12px]"><i data-lucide="bolt" class="h-4 w-4"></i><span>Update published</span></span></div>
               <div class="mt-3 grid grid-cols-3 gap-2 relative" aria-hidden="true">
@@ -793,6 +791,18 @@
           logo('ZoomIt / Sysinternals','ZI','#58595B')
         ]}
       ];
+      const appConfigs = [
+        {stage:'Prod', policy:'MFA + VPN', region:'AMER', device:'Windows'},
+        {stage:'QA', policy:'Compliant only', region:'APAC', device:'Any'},
+        {stage:'Dev', policy:'MFA required', region:'EMEA', device:'Mac'},
+        {stage:'Prod', policy:'VPN only', region:'Global', device:'Windows'},
+        {stage:'QA', policy:'MFA + Compliant', region:'AMER', device:'Any'},
+        {stage:'Dev', policy:'MFA required', region:'APAC', device:'Mac'},
+        {stage:'Prod', policy:'Compliant only', region:'EMEA', device:'Windows'},
+        {stage:'QA', policy:'VPN only', region:'Global', device:'Any'}
+      ];
+      let flatIndex = 0;
+      CATALOG.forEach(sec => sec.items.forEach(itm => { itm.config = appConfigs[flatIndex % appConfigs.length]; flatIndex++; }));
       function logo(name,letter,color){ return { name, svg: mark(letter,color) }; }
       function mark(letter,color){
         return `
@@ -1068,8 +1078,8 @@
             wrap.appendChild(ring);
             if(STATE.showLabels){
               const label=document.createElement('span'); label.className='logo-name'; label.textContent=itm.name; wrap.appendChild(label);
-              const meta=document.createElement('div'); meta.className='meta-label flex flex-wrap gap-1 mt-1';
-              meta.innerHTML = `<span>Ring: Pilot</span><span>Policy: MFA required</span><span>Region: EMEA</span>`;
+              const meta=document.createElement('div'); meta.className='meta-label';
+              meta.innerHTML = `<span>Stage: ${itm.config.stage}</span><span>Policy: ${itm.config.policy}</span><span>Region: ${itm.config.region}</span><span>Device: ${itm.config.device}</span>`;
               wrap.appendChild(meta);
             }
             mount.appendChild(wrap);
