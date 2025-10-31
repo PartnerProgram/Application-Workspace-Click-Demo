@@ -5,62 +5,63 @@
     <title>Recast — Compact Click-Through (Realistic Catalog)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="dark light">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://unpkg.com">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-      :root{
-        --re-navy:#F7F9FB;
-        --re-blue-mid:#0A1C60;
-        --re-blue-bright:#0070F3;
-        --re-blue-hover:#005AD0;
-        --re-green:#10B981;
-        --re-gray:#E2E8F0;
-        --re-white:#FFFFFF;
-        --radius:12px;
-        --border-subtle:#E2E8F0;
+      :root {
+        --bg-main: #f9fafb;
+        --text-primary: #111827;
+        --primary: #2563eb;
+        --primary-hover: #1d4ed8;
+        --radius: 1rem;
+        --border-subtle: #e5e7eb;
+        --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        --shadow-hover: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
       }
-      html,body{
-        background:var(--re-navy);
-        color:var(--re-blue-mid);
-        font-family:Inter,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      html, body {
+        background: var(--bg-main);
+        color: var(--text-primary);
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       }
-      .focus-ring:focus-visible{outline:2px solid rgba(0,0,0,0.3);outline-offset:2px}
-      .section-card{border-radius:var(--radius);border:1px solid var(--border-subtle);background:#FFFFFF;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)}
-      .sub-card{border-radius:var(--radius);border:1px solid var(--border-subtle);background:#F7F9FB}
-      .tile{width:.45rem;height:.45rem;border-radius:0;background:#E2E8F0;opacity:.9}
-      .run .tile{animation:tilePulse 1s ease-in-out var(--d,0s) 1 forwards}
-      @keyframes tilePulse{0%{transform:scale(.7);background:var(--re-gray);opacity:.4}60%{transform:scale(1);background:var(--re-blue-bright);opacity:1}100%{background:var(--re-gray);opacity:.9}}
-      .flow-bar{height:.22rem;border-radius:0;transform-origin:left center;transform:scaleX(0)}
-      .run .flow-bar{animation:barGrow .9s ease forwards var(--d,0s)}
-      @keyframes barGrow{to{transform:scaleX(1)}}
-      .bolt-line{width:.22rem;border-radius:0;transform-origin:top center;transform:scaleY(0)}
-      .run .bolt-line{animation:boltDrop .9s ease forwards var(--d,0s)}
-      @keyframes boltDrop{to{transform:scaleY(1)}}
-      .logo-ring{width:2.1rem;height:2.1rem;border-radius:9999px;display:grid;place-items:center;background:#FFFFFF;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15);transition:all 0.2s ease}
-      .logo-ring:hover{box-shadow:0 0 8px rgba(0,112,243,0.5)}
-      .logo-wrap{display:flex;align-items:center;gap:.4rem;position:relative}
-      .logo-name{font-size:.7rem;color:#4A5568;opacity:0;transform:translateX(-10px);transition:all 0.3s ease}
-      .show-labels .logo-wrap{flex-direction:column;align-items:flex-start;gap:0.2rem}
-      .show-labels .logo-name{opacity:1;transform:translateX(0);white-space:normal;text-align:left}
-      .show-labels .logo-wrap .logo-ring{width:1.8rem;height:1.8rem}
-      .run .logo-ring{animation:appLiftPulse 1.2s cubic-bezier(.2,.8,.2,1) var(--d,0s) 1 forwards}
-      @keyframes appLiftPulse{0%{transform:translateY(0) scale(1);filter:saturate(.4);opacity:.65}30%{transform:translateY(-4px) scale(1.05)}60%{transform:translateY(-2px) scale(1.02);filter:saturate(1);opacity:1}100%{transform:translateY(0) scale(1)}}
-      .user-beam{height:.38rem;border-radius:0;transform-origin:left center;transform:scaleX(0)}
-      .run .user-beam{animation:barGrow 1s ease forwards var(--d,0s)}
-      .badge{width:1.15rem;height:1.15rem;border-radius:0;opacity:0;transform:translateY(-6px) scale(.9)}
-      .run .badge{animation:badgeDrop .8s ease-out var(--d,0s) forwards}
-      @keyframes badgeDrop{to{opacity:1;transform:translateY(0) scale(1)}}
-      .cat-row{display:grid;grid-template-columns:15ch 1fr;gap:.5rem;align-items:center;border-top:1px solid var(--re-gray);padding-top:0.5rem}
-      .cat-row:first-child{border-top:none;padding-top:0}
-      .cat-title{font-size:.7rem;letter-spacing:.08em;display:flex;align-items:center;gap:0.5rem}
-      .re-primary{background:#0070F3!important;color:#fff!important;border:0;border-radius:var(--radius)}
-      .re-primary:hover{background:#005AD0!important}
-      .re-primary:focus-visible{outline:2px solid rgba(0,0,0,0.3);outline-offset:2px}
-      .re-secondary{background:transparent!important;color:#0A1C60!important;border:2px solid #0A1C60!important;border-radius:var(--radius)}
-      .re-secondary:hover{color:#0070F3!important;border-color:#0070F3!important}
+      .focus-ring:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+      .section-card { border-radius: var(--radius); background: #ffffff; box-shadow: var(--shadow-card); transition: box-shadow 300ms ease, transform 300ms ease; }
+      .section-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+      .sub-card { border-radius: calc(var(--radius) / 1.5); border: 1px solid var(--border-subtle); background: #f9fafb; transition: box-shadow 300ms ease; }
+      .tile { width: 0.45rem; height: 0.45rem; border-radius: 2px; background: #e5e7eb; opacity: 0.9; }
+      .run .tile { animation: tilePulse 1s ease-in-out var(--d, 0s) 1 forwards; }
+      @keyframes tilePulse { 0% { transform: scale(0.7); background: #e5e7eb; opacity: 0.4; } 60% { transform: scale(1); background: var(--primary); opacity: 1; } 100% { background: #e5e7eb; opacity: 0.9; } }
+      .flow-bar { height: 0.22rem; border-radius: 2px; transform-origin: left center; transform: scaleX(0); }
+      .run .flow-bar { animation: barGrow 0.9s ease forwards var(--d, 0s); }
+      @keyframes barGrow { to { transform: scaleX(1); } }
+      .bolt-line { width: 0.22rem; border-radius: 2px; transform-origin: top center; transform: scaleY(0); }
+      .run .bolt-line { animation: boltDrop 0.9s ease forwards var(--d, 0s); }
+      @keyframes boltDrop { to { transform: scaleY(1); } }
+      .logo-ring { width: 2.1rem; height: 2.1rem; border-radius: 9999px; display: grid; place-items: center; background: #ffffff; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+      .logo-ring:hover { box-shadow: 0 0 8px rgba(37,99,235,0.3); transform: scale(1.05); }
+      .logo-wrap { display: flex; align-items: center; gap: 0.4rem; position: relative; transition: all 300ms ease; }
+      .logo-name { font-size: 0.7rem; color: #6b7280; opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; }
+      .show-labels .logo-wrap { flex-direction: column; align-items: flex-start; gap: 0.2rem; }
+      .show-labels .logo-name { opacity: 1; transform: translateX(0); white-space: normal; text-align: left; }
+      .show-labels .logo-wrap .logo-ring { width: 1.8rem; height: 1.8rem; }
+      .run .logo-ring { animation: appLiftPulse 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0s) 1 forwards; }
+      @keyframes appLiftPulse { 0% { transform: translateY(0) scale(1); filter: saturate(0.4); opacity: 0.65; } 30% { transform: translateY(-4px) scale(1.05); } 60% { transform: translateY(-2px) scale(1.02); filter: saturate(1); opacity: 1; } 100% { transform: translateY(0) scale(1); } }
+      .user-beam { height: 0.38rem; border-radius: 2px; transform-origin: left center; transform: scaleX(0); }
+      .run .user-beam { animation: barGrow 1s ease forwards var(--d, 0s); }
+      .badge { width: 1.15rem; height: 1.15rem; border-radius: 9999px; opacity: 0; transform: translateY(-6px) scale(0.9); }
+      .run .badge { animation: badgeDrop 0.8s ease-out var(--d, 0s) forwards; }
+      @keyframes badgeDrop { to { opacity: 1; transform: translateY(0) scale(1); } }
+      .cat-row { display: grid; grid-template-columns: 15ch 1fr; gap: 0.5rem; align-items: center; border-top: 1px solid #e5e7eb; padding-top: 0.5rem; transition: all 300ms ease; }
+      .cat-row:first-child { border-top: none; padding-top: 0; }
+      .cat-title { font-size: 0.7rem; letter-spacing: 0.08em; display: flex; align-items: center; gap: 0.5rem; }
+      .re-primary { background: var(--primary) !important; color: #fff !important; border: 0; border-radius: 9999px; padding: 0.5rem 1.5rem; transition: background 0.2s ease, transform 0.2s ease; }
+      .re-primary:hover { background: var(--primary-hover) !important; transform: scale(1.02); }
+      .re-primary:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+      .re-secondary { background: transparent !important; color: var(--text-primary) !important; border: 2px solid var(--text-primary) !important; border-radius: 9999px; padding: 0.5rem 1.5rem; transition: all 0.2s ease, transform 0.2s ease; }
+      .re-secondary:hover { color: var(--primary) !important; border-color: var(--primary) !important; transform: scale(1.02); }
       @media (prefers-reduced-motion: reduce) {
         .accordion-content { transition: none !important; }
       }
@@ -70,15 +71,15 @@
       .modal-closed .modal-content { transform: scale(0.95); opacity: 0; }
       .check-appear{opacity:0;animation:fadeInOut 1.5s ease var(--d,0s) forwards}
       @keyframes fadeInOut{0%{opacity:0}30%{opacity:1}70%{opacity:1}100%{opacity:0}}
-      .flow-connect{background-image:linear-gradient(to right, transparent 50%, var(--re-gray) 50%);background-size:4px 1px;background-repeat:repeat-x;height:1px;opacity:0.5}
-      .end-user-expand{transition:all 0.5s ease;transform:scale(1.05);background:var(--re-white);border-color:var(--re-green)}
+      .flow-connect{background-image:linear-gradient(to right, transparent 50%, #e5e7eb 50%);background-size:4px 1px;background-repeat:repeat-x;height:1px;opacity:0.5}
+      .end-user-expand{transition:all 0.5s ease;transform:scale(1.05);background:#ffffff;border-color:#10b981}
       .icon-launch{animation:iconLaunch 0.5s ease forwards}
       @keyframes iconLaunch{0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1)}}
       .tagline-fade{opacity:0;animation:fadeIn 1s ease 10s forwards}
       @keyframes fadeIn{to{opacity:1}}
-      .overlay-tag{opacity:0;transition:opacity 0.3s ease;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,255,255,0.9);padding:1rem;border-radius:var(--radius);box-shadow:0 4px 6px rgba(0,0,0,0.1);z-index:10}
+      .overlay-tag{opacity:0;transition:opacity 0.3s ease;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,255,255,0.9);padding:1rem;border-radius:var(--radius);box-shadow:var(--shadow-card);z-index:10}
       .show-labels .overlay-tag{opacity:1;transition-delay:0.5s}
-      .meta-label{font-size:0.6rem;color:#4A5568;opacity:0;transform:translateY(5px);transition:all 0.3s ease;position:relative;top:auto;left:auto;z-index:5;white-space:nowrap;display:flex;flex-direction:column;gap:0.1rem;align-items:flex-start;width:100%;justify-content:flex-start}
+      .meta-label{font-size:0.6rem;color:#6b7280;opacity:0;transform:translateY(5px);transition:all 0.3s ease;position:relative;top:auto;left:auto;z-index:5;white-space:nowrap;display:flex;flex-direction:column;gap:0.1rem;align-items:flex-start;width:100%;justify-content:flex-start}
       .show-labels .meta-label{opacity:1;transform:translateY(0)}
       .show-labels .cat-row{grid-template-columns:15ch 1fr;gap:1rem}
       .show-labels #flowCard .flex-wrap{gap:1rem}
@@ -107,7 +108,7 @@
         editBuffers: { change: { intro: '', bullets: '', analyst: '' }, now: { intro: '', bullets: '', analyst: '' }, recast: { intro: '', bullets: '', analyst: '' } },
         currentState: {
           change: {
-            intro: "Everyone's saying the same thing: the app layer is the bottleneck. McKinsey calls it \"the final mile of digital transformation.\ Forrester warns that \"endpoint complexity is now the biggest drag on IT productivity.",
+            intro: "Everyone's saying the same thing: the app layer is the bottleneck. McKinsey calls it \"the final mile of digital transformation.\" Forrester warns that \"endpoint complexity is now the biggest drag on IT productivity.\"",
             bullets: [
               'The work has outgrown the tools. Thousands of apps. Hybrid platforms. Endless updates. Manual processes simply don\'t scale anymore.',
               'Teams can\'t keep up. Headcount is flat, but demand has exploded. IT is running at 120% capacity — doing more with less isn\'t sustainable.',
@@ -137,7 +138,7 @@
         defaultsCurrentState() {
           return JSON.parse(JSON.stringify({
             change: {
-              intro: "Everyone's saying the same thing: the app layer is the bottleneck. McKinsey calls it \"the final mile of digital transformation.\ Forrester warns that \"endpoint complexity is now the biggest drag on IT productivity.",
+              intro: "Everyone's saying the same thing: the app layer is the bottleneck. McKinsey calls it \"the final mile of digital transformation.\" Forrester warns that \"endpoint complexity is now the biggest drag on IT productivity.\"",
               bullets: [
                 'The work has outgrown the tools. Thousands of apps. Hybrid platforms. Endless updates. Manual processes simply don\'t scale anymore.',
                 'Teams can\'t keep up. Headcount is flat, but demand has exploded. IT is running at 120% capacity — doing more with less isn\'t sustainable.',
@@ -187,8 +188,8 @@
           ],
           closer: 'Configured once — Delivered everywhere.',
           timeline: false,
-          bgHeader: 'bg-[var(--re-navy)]',
-          bgContent: 'bg-slate-50'
+          bgHeader: 'bg-[#f9fafb]',
+          bgContent: 'bg-[#f9fafb]'
         },
         {
           id: 'onboarding',
@@ -203,8 +204,8 @@
           ],
           closer: 'From first call to production in weeks, not months.',
           timeline: true,
-          bgHeader: 'bg-[var(--re-navy)]',
-          bgContent: 'bg-slate-50'
+          bgHeader: 'bg-[#f9fafb]',
+          bgContent: 'bg-[#f9fafb]'
         },
         {
           id: 'trust',
@@ -219,8 +220,8 @@
           ],
           closer: 'Trusted by organizations that can’t afford downtime.',
           timeline: false,
-          bgHeader: 'bg-[var(--re-navy)]',
-          bgContent: 'bg-slate-50'
+          bgHeader: 'bg-[#f9fafb]',
+          bgContent: 'bg-[#f9fafb]'
         }
       ];
       const onboardingMiniTimelineEnabled = true;
@@ -241,8 +242,8 @@
               <h1 class="text-[40px] md:text-[56px] font-semibold leading-tight"><span style="color:#0070F3">Re</span><span style="color:#0A1C60">cast</span> Software</h1>
               <p class="mt-2 max-w-2xl text-[16px] leading-[1.5] text-[#4A5568]">
                 ${STATE.activeTab==='problems'
-                  ? 'Recast Application Workspace connects SCCM, Intune, Citrix, VMware, Azure Virtual Desktop, and more—making the tools you already use faster, smarter, and easier to manage'
-                  : 'Recast Application Workspace connects SCCM, Intune, Citrix, VMware, Azure Virtual Desktop, and more—making the tools you already use faster, smarter, and easier to manage'}
+                  ? 'Recast works across SCCM, Intune, Citrix, VMware Workspace ONE, and more—making the tools you already use faster, smarter, and easier to manage'
+                  : 'Recast works across SCCM, Intune, Citrix, VMware Workspace ONE, and more—making the tools you already use faster, smarter, and easier to manage'}
               </p>
             </div>
             <div class="relative mx-auto max-w-6xl px-4">
@@ -1113,7 +1114,7 @@
         const overlay = document.getElementById('overlayTag');
         if(STATE.showLabels){
           overlay.classList.remove('hidden');
-          setTimeout(()=>{ overlay.classList.add('hidden'); }, 3000);
+          setTimeout(()=>{ overlay.classList.add('hidden'); },3000);
         }
       }
       function buildFlow(){
