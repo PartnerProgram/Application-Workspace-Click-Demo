@@ -107,63 +107,61 @@
         editBuffers: { change: { intro: '', bullets: '', analyst: '' }, now: { intro: '', bullets: '', analyst: '' }, recast: { intro: '', bullets: '', analyst: '' } },
         currentState: {
           change: {
-            intro: "The world around IT has evolved — but the way we manage applications hasn’t. Infrastructure is mature. Security is strong. Yet the way organizations manage and deliver applications remains the top barrier to transformation.",
+            intro: "Everyone's saying the same thing: the app layer is the bottleneck. McKinsey calls it \"the final mile of digital transformation.\ Forrester warns that \"endpoint complexity is now the biggest drag on IT productivity.",
             bullets: [
-              'The work has outgrown the tools. Enterprises now manage thousands of applications across hybrid platforms — each requiring updates, validation, and packaging. Manual effort no longer scales.',
-              'The team hasn’t grown, but the demand has. Headcount and budgets stay flat while the number of apps, devices, and compliance needs keeps climbing. Teams are forced to do more with less — and it’s not sustainable.',
-              'Transformation keeps stalling at the app layer. Every initiative — Intune migrations, AVD deployments, ARM pilots — hits the same wall: app readiness. Modernization isn’t waiting on vision; it’s waiting on capacity.'
+              'The work has outgrown the tools. Thousands of apps. Hybrid platforms. Endless updates. Manual processes simply don\'t scale anymore.',
+              'Teams can\'t keep up. Headcount is flat, but demand has exploded. IT is running at 120% capacity — doing more with less isn\'t sustainable.',
+              'Transformation keeps stalling. Cloud migrations, AVD pilots, All rollouts — they all hit the same wall: app readiness. Modernization isn\'t waiting on vision; it\'s waiting on capacity.'
             ],
-            analyst: "Analyst trends | In Forrester’s latest application-modernization wave, 4 out of 5 enterprises identified application readiness and ongoing operations as their primary barrier to cloud/multicloud migration — not infrastructure"
+            analyst: "The industry's aligned: transformation fails or flies at the app layer — and right now, it's failing."
           },
           now: {
-            intro: "Because the gap between what IT can handle and what the business demands is widening fast.",
+            intro: "We're at an inflection point. Teams are being asked to manage ten times the workload, with the same tools and the same headcount. Something has to give.",
             bullets: [
-              'Workloads have doubled, but headcount hasn’t. Teams are being asked to manage twice as much with the same tools.',
-              'Apps must move with users. Work happens everywhere — across clouds, devices, and networks — and the old control models can’t keep up.',
-              'Every delay adds risk. Each missed update opens new vulnerabilities and creates friction for users who expect secure, instant access everywhere.'
+              'The math no longer works. The number of apps, platforms, and compliance checks keeps climbing, but teams aren\'t growing. You can\'t scale people the way you scale software.',
+              'Work is everywhere, all the time. Users expect instant, secure access from any device, anywhere. The perimeter is gone — but the management model hasn\'t caught up.',
+              'Waiting is the real risk. Every delay — every manual update or stalled rollout — compounds into security gaps, user frustration, and lost momentum. By the time the pain is visible, it\'s too late to react.'
             ],
-            analyst: "Analyst trends | Gartner predicts that by 2026, 75% of large enterprises will face significant operational risk due to delays in modernizing legacy applications — making app readiness the new competitive gap."
+            analyst: "Analysts say this capacity crisis will define the next two years of IT. The question isn't if you modernize app delivery — it's whether you do it before the breaking point."
           },
           recast: {
-            intro: "Recast closes the gap between how fast IT needs to move and how fast app management allows them to.",
+            intro: "Recast closes the gap between how fast IT needs to move and how slow app management allows them to. While others talk about modernization, Recast makes it real — automating the last mile of app delivery that's been holding everyone back.",
             bullets: [
-              'One workspace for every app. Installs, updates, and access — unified across platforms. No more tool sprawl or manual packaging.',
-              'Built for Microsoft’s ecosystem. Recast extends Intune, ConfigMgr, and AVD — automating what teams still do by hand and scaling what already works.',
-              'Frees IT to move faster. What took hours now takes minutes — freeing time for migrations, pilots, and modernization work that drives progress.',
-              'Seamless for users. Apps just work — no retraining, no disruption, no new tools — even as IT shifts everything behind the scenes.'
+              'One workspace for every app. Installs, updates, access — unified across Intune, ConfigMgr, AVD, and beyond. No tool sprawl, no repackaging chaos.',
+              'Built to extend Microsoft\'s ecosystem. Recast doesn\'t replace — it amplifies. Automating what teams still do by hand and scaling what already works.',
+              'Frees IT to move at business speed. What took hours now takes minutes. Migrations, pilots, patch cycles, and modernization work finally keep up with demand.'
             ],
-            analyst: "Analyst trends | According to Forrester, organizations that automate 50% or more of their app lifecycle processes realize projects 3× faster and with 40% less operational cost — proving automation is now the differentiator in digital transformation."
+            analyst: "Recast turns app management from a bottleneck into a competitive advantage — making readiness the new speed of business."
           }
         },
         defaultsCurrentState() {
           return JSON.parse(JSON.stringify({
             change: {
-              intro: "The world around IT has evolved — but the way we manage applications hasn’t. Infrastructure is mature. Security is strong. Yet the way organizations manage and deliver applications remains the top barrier to transformation.",
+              intro: "Everyone's saying the same thing: the app layer is the bottleneck. McKinsey calls it \"the final mile of digital transformation.\ Forrester warns that \"endpoint complexity is now the biggest drag on IT productivity.",
               bullets: [
-                'The work has outgrown the tools. Enterprises now manage thousands of applications across hybrid platforms — each requiring updates, validation, and packaging. Manual effort no longer scales.',
-                'The team hasn’t grown, but the demand has. Headcount and budgets stay flat while the number of apps, devices, and compliance needs keeps climbing. Teams are forced to do more with less — and it’s not sustainable.',
-                'Transformation keeps stalling at the app layer. Every initiative — Intune migrations, AVD deployments, ARM pilots — hits the same wall: app readiness. Modernization isn’t waiting on vision; it’s waiting on capacity.'
+                'The work has outgrown the tools. Thousands of apps. Hybrid platforms. Endless updates. Manual processes simply don\'t scale anymore.',
+                'Teams can\'t keep up. Headcount is flat, but demand has exploded. IT is running at 120% capacity — doing more with less isn\'t sustainable.',
+                'Transformation keeps stalling. Cloud migrations, AVD pilots, All rollouts — they all hit the same wall: app readiness. Modernization isn\'t waiting on vision; it\'s waiting on capacity.'
               ],
-              analyst: "Analyst trends | In Forrester’s latest application-modernization wave, 4 out of 5 enterprises identified application readiness and ongoing operations as their primary barrier to cloud/multicloud migration — not infrastructure"
+              analyst: "The industry's aligned: transformation fails or flies at the app layer — and right now, it's failing."
             },
             now: {
-              intro: "Because the gap between what IT can handle and what the business demands is widening fast.",
+              intro: "We're at an inflection point. Teams are being asked to manage ten times the workload, with the same tools and the same headcount. Something has to give.",
               bullets: [
-                'Workloads have doubled, but headcount hasn’t. Teams are being asked to manage twice as much with the same tools.',
-                'Apps must move with users. Work happens everywhere — across clouds, devices, and networks — and the old control models can’t keep up.',
-                'Every delay adds risk. Each missed update opens new vulnerabilities and creates friction for users who expect secure, instant access everywhere.'
+                'The math no longer works. The number of apps, platforms, and compliance checks keeps climbing, but teams aren\'t growing. You can\'t scale people the way you scale software.',
+                'Work is everywhere, all the time. Users expect instant, secure access from any device, anywhere. The perimeter is gone — but the management model hasn\'t caught up.',
+                'Waiting is the real risk. Every delay — every manual update or stalled rollout — compounds into security gaps, user frustration, and lost momentum. By the time the pain is visible, it\'s too late to react.'
               ],
-              analyst: "Analyst trends | Gartner predicts that by 2026, 75% of large enterprises will face significant operational risk due to delays in modernizing legacy applications — making app readiness the new competitive gap."
+              analyst: "Analysts say this capacity crisis will define the next two years of IT. The question isn't if you modernize app delivery — it's whether you do it before the breaking point."
             },
             recast: {
-              intro: "Recast closes the gap between how fast IT needs to move and how fast app management allows them to.",
+              intro: "Recast closes the gap between how fast IT needs to move and how slow app management allows them to. While others talk about modernization, Recast makes it real — automating the last mile of app delivery that's been holding everyone back.",
               bullets: [
-                'One workspace for every app. Installs, updates, and access — unified across platforms. No more tool sprawl or manual packaging.',
-                'Built for Microsoft’s ecosystem. Recast extends Intune, ConfigMgr, and AVD — automating what teams still do by hand and scaling what already works.',
-                'Frees IT to move faster. What took hours now takes minutes — freeing time for migrations, pilots, and modernization work that drives progress.',
-                'Seamless for users. Apps just work — no retraining, no disruption, no new tools — even as IT shifts everything behind the scenes.'
+                'One workspace for every app. Installs, updates, access — unified across Intune, ConfigMgr, AVD, and beyond. No tool sprawl, no repackaging chaos.',
+                'Built to extend Microsoft\'s ecosystem. Recast doesn\'t replace — it amplifies. Automating what teams still do by hand and scaling what already works.',
+                'Frees IT to move at business speed. What took hours now takes minutes. Migrations, pilots, patch cycles, and modernization work finally keep up with demand.'
               ],
-              analyst: "Analyst trends | According to Forrester, organizations that automate 50% or more of their app lifecycle processes realize projects 3× faster and with 40% less operational cost — proving automation is now the differentiator in digital transformation."
+              analyst: "Recast turns app management from a bottleneck into a competitive advantage — making readiness the new speed of business."
             }
           }));
         },
@@ -243,8 +241,8 @@
               <h1 class="text-[40px] md:text-[56px] font-semibold leading-tight"><span style="color:#0070F3">Re</span><span style="color:#0A1C60">cast</span> Software</h1>
               <p class="mt-2 max-w-2xl text-[16px] leading-[1.5] text-[#4A5568]">
                 ${STATE.activeTab==='problems'
-                  ? 'Recast works across SCCM, Intune, Citrix, VMware Workspace ONE, and more—making the tools you already use faster, smarter, and easier to manage'
-                  : 'Recast works across SCCM, Intune, Citrix, VMware Workspace ONE, and more—making the tools you already use faster, smarter, and easier to manage'}
+                  ? 'Recast Application Workspace connects SCCM, Intune, Citrix, VMware, Azure Virtual Desktop, and more—making the tools you already use faster, smarter, and easier to manage'
+                  : 'Recast Application Workspace connects SCCM, Intune, Citrix, VMware, Azure Virtual Desktop, and more—making the tools you already use faster, smarter, and easier to manage'}
               </p>
             </div>
             <div class="relative mx-auto max-w-6xl px-4">
@@ -348,7 +346,7 @@
         const cta = id === 'recast';
         return `
           <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 modal-overlay" role="dialog" aria-modal="true" aria-labelledby="why-modal-title-${id}">
-            <div class="w-full max-w-3xl mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden transform modal-content" style="max-height: 90vh; overflow-y: auto;">
+            <div class="w-full max-w-4xl mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden transform modal-content" style="max-height: 95vh; overflow-y: auto;">
               <div class="${headerTone} px-8 py-6 flex items-center justify-between" style="border-bottom:1px solid var(--border-subtle)">
                 <div class="flex items-center gap-3">
                   <i data-lucide="${iconMap[id]}" class="w-8 h-8 text-[#0A1C60]" aria-hidden="true"></i>
@@ -359,16 +357,19 @@
                 </button>
               </div>
               <div class="p-8 bg-slate-50">
-                <p class="text-lg leading-relaxed text-[#4A5568] mb-4">${data.intro}</p>
+                <p class="text-base leading-relaxed text-[#4A5568] mb-4">${data.intro}</p>
                 <div class="space-y-4">
                   ${data.bullets.map(b=>`
                     <div class="bg-white p-4 rounded-lg shadow-sm flex items-start gap-3 hover:shadow-md transition-shadow">
-                      <i data-lucide="check-circle" class="w-6 h-6 text-[#0070F3] flex-shrink-0 mt-0.5"></i>
-                      <p class="text-lg leading-relaxed text-[#4A5568]">${b}</p>
+                      <i data-lucide="check-circle" class="w-5 h-5 text-[#0070F3] flex-shrink-0 mt-0.5"></i>
+                      <p class="text-base leading-relaxed text-[#4A5568]">${b}</p>
                     </div>
                   `).join('')}
                 </div>
-                <div class="mt-6 bg-white p-4 rounded-lg shadow-sm text-md italic text-[#4A5568] hover:shadow-md transition-shadow">${data.analyst}</div>
+                <div class="mt-6 bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-start gap-3">
+                  <i data-lucide="lightbulb" class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"></i>
+                  <p class="text-base italic text-[#4A5568]">${data.analyst}</p>
+                </div>
                 ${cta?`
                   <div class="mt-8 flex justify-center">
                     <button id="btnAdvanceToSolution" type="button" data-action="advance" data-next="solution" class="inline-flex bg-[#0070F3] text-white text-base font-semibold px-6 py-3 items-center gap-3 focus-ring shadow-md hover:shadow-lg hover:bg-[#005AD0] transition-shadow">
@@ -924,6 +925,8 @@
             e.preventDefault();
             clearDraft();
             writeFields(DEFAULT_CURRENT_STATE);
+            STATE.currentState = STATE.defaultsCurrentState();
+            render();
           });
         }
       }
@@ -1286,6 +1289,8 @@
           clearDraft();
           captureDefaultsOnce();
           writeFields(DEFAULT_CURRENT_STATE);
+          STATE.currentState = STATE.defaultsCurrentState();
+          render();
         }
       });
       document.addEventListener('keydown',(e)=>{
