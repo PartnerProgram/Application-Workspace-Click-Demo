@@ -375,8 +375,8 @@
           <main class="mx-auto max-w-6xl px-4 pb-16">
             ${STATE.activeTab==='roi' ? `
             <div class="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
-              ${chip('Reactive Work Reduced', String(STATE.impact.minutes)+' min/user/mo', 'emerald')}
-              ${chip('Hours Saved from Packaging', String(round(STATE.impact.pkgHours)), 'sky')}
+              ${chip('Less Time Lost to App Issue', String(STATE.impact.minutes)+' min/user/mo', 'emerald')}
+              ${chip('Engineering Time Reclaimed from App Packaging', String(round(STATE.impact.pkgHours)), 'sky')}
               ${chip('Hours Saved from Faster Patching', String(round(STATE.impact.riskHrs)), 'yellow')}
             </div>` : ''}
             <section class="mt-5">${renderActivePanel()}</section>
@@ -1110,30 +1110,30 @@
           <section id="panel-roi" class="space-y-6">
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">
               <div class="section-card p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300 bg-white col-span-1 md:col-span-2">
-                <h3 class="text-2xl font-light mb-6 text-gray-900">Impact Breakdown</h3>
+                <h3 class="text-2xl font-light mb-6 text-gray-900">How IT Gets Time Back</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
-                    <h4 class="text-xl font-light mb-4 text-gray-900">Where the Time Comes From</h4>
+                    <h4 class="text-xl font-light mb-4 text-gray-900">Where IT Gets Time Back</h4>
                     <div class="space-y-4 text-lg">
-                      ${kv('Packaging Work Reduced / Month', num(round(r.packagingHoursMonth)))}
-                      ${kv('Zero-Day Patch Time Reduced / Month', num(round(r.patchHoursMonth)))}
-                      ${kv('App-Related Reactive Work Reduced / Month', num(round(r.reactiveHoursMonth)))}
+                      ${kv('Manual App Packaging Eliminated (hrs / month)', num(round(r.packagingHoursMonth)))}
+                      ${kv('Patch Cycle Time Reduced (hrs / month)', num(round(r.patchHoursMonth)))}
+                      ${kv('Reactive App Support Avoided (events / month)', num(round(r.reactiveHoursMonth)))}
                     </div>
                   </div>
                   <div>
-                    <h4 class="text-xl font-light mb-4 text-gray-900">Technical Debt Impact</h4>
+                    <h4 class="text-xl font-light mb-4 text-gray-900">Reduction in Application-Layer Technical Debt</h4>
                     <div class="space-y-4 text-lg">
-                      ${kv('App Version Reduction (estimated)', '30-50% fewer active versions')}
-                      ${kv('Faster Patch Window', `${STATE.currentHrs} → 1.5 hrs (${r.patchReductionPct}% reduction)`)}
-                      ${kv('Tickets Avoided (est.)', num(round(r.ticketsAvoided)) + ' / month')}
+                      ${kv('Fewer Active App Versions to Maintain', '30-50% fewer active versions')}
+                      ${kv('Patch Windows Shrink from Days to Hours', `${STATE.currentHrs} → 1.5 hrs (${r.patchReductionPct}% reduction)`)}
+                      ${kv('App-Related Tickets Avoided', num(round(r.ticketsAvoided)) + ' / month')}
                     </div>
                   </div>
                   <div>
-                    <h4 class="text-xl font-light mb-4 text-gray-900">Project Velocity Impact</h4>
+                    <h4 class="text-xl font-light mb-4 text-gray-900">Impact on Delivery and Strategic Initiatives</h4>
                     <ul class="space-y-4 text-lg list-disc pl-5">
-                      <li>Faster migration and pilot cycles (apps ready sooner)</li>
-                      <li>Reduces blockers for AVD, W365, AI, and modernization projects</li>
-                      <li>Frees capacity for strategic initiatives</li>
+                      <li>Cloud, VDI, and modernization projects move faster because apps are ready sooner.</li>
+                      <li>Fewer delivery blockers caused by app readiness and version mismatches.</li>
+                      <li>Engineering time shifts from firefighting to forward-looking work.</li>
                     </ul>
                   </div>
                 </div>
@@ -1157,10 +1157,10 @@
                 </div>
               </div>
               <div class="section-card p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
-                <h3 class="text-2xl font-light mb-6 text-gray-900">Results</h3>
+                <h3 class="text-2xl font-light mb-6 text-gray-900">Recovered Execution Capacity</h3>
                 <div class="space-y-4 text-lg">
-                  ${kv('Hours Returned / Month', num(round(r.totalHoursMonth)))}
-                  ${kv('Hours Returned / Year', num(round(r.totalHoursYear)))}
+                  ${kv('IT Capacity Recovered Each Month', num(round(r.totalHoursMonth)))}
+                  ${kv('IT Capacity Recovered Each Year, num(round(r.totalHoursYear)))}
                 </div>
                 <div class="mt-8 flex flex-wrap gap-4">
                   <button type="button" data-action="reset-calculator" class="inline-flex items-center gap-2 bg-transparent text-gray-600 border-2 border-gray-300 px-5 py-3 text-base font-light focus-ring rounded-full hover:text-[#0070F3] hover:border-[#0070F3]">Reset</button>
