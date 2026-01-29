@@ -750,6 +750,7 @@
           </div>
         `;
       }
+      const whyOrder = ['change', 'now', 'recast'];
       function renderWhyModal(){
         if(!STATE.openWhyModal) return '';
         const id = STATE.openWhyModal;
@@ -757,37 +758,66 @@
         const labelMap = { change: 'Why Change', now: 'Why Now', recast: 'Why Recast' };
         const data = STATE.currentState[id];
         const headerTone = 'bg-slate-50';
-        const cta = id === 'recast';
+        const cta = id === 'now';
         const modalClass = id === 'recast' ? 'w-[95vw] h-[95vh] max-w-none mx-0 bg-white rounded-2xl shadow-2xl overflow-hidden transform modal-content' : 'w-full max-w-4xl mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden transform modal-content';
-        const content = id === 'recast' ? `
-          <div class="p-8 bg-slate-50 h-full flex flex-col">
-            ${renderMindMap(true, 'relative w-full h-full flex-grow')}
-          </div>
-        ` : `
-          <div class="p-8 bg-slate-50">
-            <p class="text-base leading-relaxed text-[#4A5568] mb-4">${data.intro}</p>
-            <div class="space-y-4">
-              ${data.bullets.map(b=>`
-                <div class="bg-white p-4 rounded-lg shadow-sm flex items-start gap-3 hover:shadow-md transition-shadow">
-                  <i data-lucide="check-circle" class="w-5 h-5 text-[#0070F3] flex-shrink-0 mt-0.5"></i>
-                  <p class="text-base leading-relaxed text-[#4A5568]">${b}</p>
-                </div>
-              `).join('')}
-            </div>
-            <div class="mt-6 bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-start gap-3">
-              <i data-lucide="lightbulb" class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"></i>
-              <p class="text-base italic text-[#4A5568]">${data.analyst}</p>
-            </div>
-            ${cta?`
-              <div class="mt-8 flex justify-center">
-                <button id="btnAdvanceToSolution" type="button" data-action="advance" data-next="solution" class="inline-flex bg-[#0070F3] text-white text-base font-semibold px-6 py-3 items-center gap-3 focus-ring shadow-md hover:shadow-lg hover:bg-[#005AD0] transition-shadow">
-                  <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                  How Recast solves it
-                </button>
+        const currentIdx = whyOrder.indexOf(id);
+        const prev = currentIdx > 0 ? whyOrder[currentIdx - 1] : null;
+        const next = currentIdx < whyOrder.length - 1 ? whyOrder[currentIdx + 1] : null;
+        let content;
+        if (id === 'recast') {
+          content = `
+            <div class="p-8 bg-slate-50 h-full flex flex-col">
+              ${renderMindMap(true, 'relative w-full h-full flex-grow')}
+              <p class="text-base leading-relaxed text-[#4A5568] mb-4">${data.intro}</p>
+              <div class="space-y-4">
+                ${data.bullets.map(b=>`
+                  <div class="bg-white p-4 rounded-lg shadow-sm flex items-start gap-3 hover:shadow-md transition-shadow">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-[#0070F3] flex-shrink-0 mt-0.5"></i>
+                    <p class="text-base leading-relaxed text-[#4A5568]">${b}</p>
+                  </div>
+                `).join('')}
               </div>
-            `:''}
-          </div>
-        `;
+              <div class="mt-6 bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-start gap-3">
+                <i data-lucide="lightbulb" class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"></i>
+                <p class="text-base italic text-[#4A5568]">${data.analyst}</p>
+              </div>
+              <div class="mt-8 flex justify-between">
+                ${prev ? `<button type="button" class="re-secondary inline-flex items-center gap-2" data-action="why-nav" data-to="${prev}"><i data-lucide="arrow-left" class="w-4 h-4"></i> Back</button>` : '<div></div>'}
+                ${next ? `<button type="button" class="re-primary inline-flex items-center gap-2" data-action="why-nav" data-to="${next}">Next <i data-lucide="arrow-right" class="w-4 h-4"></i></button>` : `<button type="button" class="re-primary inline-flex items-center gap-2" data-action="advance" data-next="solution">See Approach <i data-lucide="arrow-right" class="w-4 h-4"></i></button>`}
+              </div>
+            </div>
+          `;
+        } else {
+          content = `
+            <div class="p-8 bg-slate-50">
+              <p class="text-base leading-relaxed text-[#4A5568] mb-4">${data.intro}</p>
+              <div class="space-y-4">
+                ${data.bullets.map(b=>`
+                  <div class="bg-white p-4 rounded-lg shadow-sm flex items-start gap-3 hover:shadow-md transition-shadow">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-[#0070F3] flex-shrink-0 mt-0.5"></i>
+                    <p class="text-base leading-relaxed text-[#4A5568]">${b}</p>
+                  </div>
+                `).join('')}
+              </div>
+              <div class="mt-6 bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-start gap-3">
+                <i data-lucide="lightbulb" class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"></i>
+                <p class="text-base italic text-[#4A5568]">${data.analyst}</p>
+              </div>
+              ${cta?`
+                <div class="mt-8 flex justify-center">
+                  <button id="btnAdvanceToSolution" type="button" data-action="advance" data-next="solution" class="inline-flex bg-[#0070F3] text-white text-base font-semibold px-6 py-3 items-center gap-3 focus-ring shadow-md hover:shadow-lg hover:bg-[#005AD0] transition-shadow">
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    How Recast solves it
+                  </button>
+                </div>
+              `:''}
+              <div class="mt-8 flex justify-between">
+                ${prev ? `<button type="button" class="re-secondary inline-flex items-center gap-2" data-action="why-nav" data-to="${prev}"><i data-lucide="arrow-left" class="w-4 h-4"></i> Back</button>` : '<div></div>'}
+                ${next ? `<button type="button" class="re-primary inline-flex items-center gap-2" data-action="why-nav" data-to="${next}">Next <i data-lucide="arrow-right" class="w-4 h-4"></i></button>` : `<button type="button" class="re-primary inline-flex items-center gap-2" data-action="advance" data-next="solution">See Approach <i data-lucide="arrow-right" class="w-4 h-4"></i></button>`}
+              </div>
+            </div>
+          `;
+        }
         return `
           <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 modal-overlay" role="dialog" aria-modal="true" aria-labelledby="why-modal-title-${id}">
             <div class="${modalClass}" style="max-height: none;" ${id === 'recast' ? 'id="recast-modal-content"' : ''}>
@@ -1449,6 +1479,12 @@
             if (action === 'close-insight-modal') {
               STATE.insightContent = null;
               render();
+            }
+            if (action === 'why-nav') {
+              const to = act.getAttribute('data-to');
+              STATE.openWhyModal = to;
+              render();
+              return;
             }
           }
           const node = e.target.closest('.interactive-node');
