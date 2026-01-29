@@ -1737,6 +1737,14 @@
           }
         });
       }
+      STATE.drivers[0].state = 'accelerating';
+      STATE.drivers[1].state = 'accelerating';
+      STATE.drivers[2].state = 'accelerating';
+      STATE.drivers[3].state = 'accelerating';
+      updateCurves();
+      STATE.currentDemandExponent = STATE.targetDemandExponent;
+      STATE.currentCapacitySlope = STATE.targetCapacitySlope;
+      STATE.showTippingPoint = true;
       document.addEventListener('DOMContentLoaded', render);
       document.addEventListener('click', (e)=>{
         const act = e.target.closest('[data-action]');
