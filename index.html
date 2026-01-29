@@ -134,8 +134,7 @@
           { id: "constant_updates", label: "Constant Updates", subtext: "Security patches, compatibility, vendor releases", markerYear: 2026.2, bullets: ["Updates are continuous, not occasional—work never clears.", "Security patches and compatibility changes create perpetual churn.", "Release velocity outpaces admin capacity."], short: "Updates are continuous; stability requires constant change.", state: 'off' },
           { id: "too_many_tools", label: "Too Many Tools", subtext: "Fragmented delivery across platforms", markerYear: 2026.8, bullets: ["App delivery is fragmented across tools and environments (e.g., Intune/ConfigMgr/VDI).", "Teams rebuild packaging and deployment logic per platform.", "Tool fragmentation creates handoffs, duplication, and drift."], short: "Same app, different platforms, rebuilt logic everywhere.", state: 'off' },
           { id: "manual_rework", label: "Manual Rework", subtext: "Rebuilds, exceptions, one-off fixes", markerYear: 2027.3, bullets: ["Manual rebuilds per version create packaging backlog and rework.", "Reactive fixes become permanent exceptions (technical debt).", "Firefighting displaces planned work and modernization."], short: "Rebuilds, retesting, one-off fixes consume senior time.", state: 'off' },
-          { id: "security_compliance", label: "Security & Compliance", subtext: "Higher urgency, higher risk", markerYear: 2027.7, bullets: ["Security/compliance raises the urgency and risk of app change.", "Inconsistent versions and installs increase exposure and escalations.", "Patching timelines stretch when workflows are manual and fragmented."], short: "More urgency, less tolerance; complexity amplifies risk.", state: 'off' },
-          { id: "resources", label: "Resources", subtext: "Budget, headcount, time", state: 'off' }
+          { id: "security_compliance", label: "Security & Compliance", subtext: "Higher urgency, higher risk", markerYear: 2027.7, bullets: ["Security/compliance raises the urgency and risk of app change.", "Inconsistent versions and installs increase exposure and escalations.", "Patching timelines stretch when workflows are manual and fragmented."], short: "More urgency, less tolerance; complexity amplifies risk.", state: 'off' }
         ],
         tippingPointYear: 2027.8,
         tippingPoint: {
@@ -145,8 +144,8 @@
         },
         currentDemandExponent: 1.6,
         targetDemandExponent: 1.6,
-        currentCapacitySlope: 0.05,
-        targetCapacitySlope: 0.05,
+        currentCapacitySlope: 0,
+        targetCapacitySlope: 0,
         showTippingPoint: false,
         currentState: {
           change: {
@@ -526,7 +525,7 @@
         svg.appendChild(capacityLine);
         // Gap shading
         let numNormal = 0, numAccelerating = 0;
-        STATE.drivers.forEach(d => { if (d.id !== 'resources') { if (d.state === 'normal') numNormal++; if (d.state === 'accelerating') numAccelerating++; } });
+        STATE.drivers.forEach(d => { if (d.state === 'normal') numNormal++; if (d.state === 'accelerating') numAccelerating++; });
         const pressure = numNormal + numAccelerating * 2;
         const lightness = 95 - pressure * 1.5;
         const gapPath = demandPoints.map(p => `L ${p.x} ${p.y}`).join(' ') + capacityPoints.reverse().map(p => `L ${p.x} ${p.y}`).join(' ') + 'Z';
@@ -565,20 +564,18 @@
             svg.appendChild(g);
           }
         });
-        // Resources tooltip
-        if (STATE.drivers.find(d => d.id === 'resources').state === 'accelerating') {
-          const endT = 1;
-          const endCap = 0.3 + slope * endT;
-          const endX = xScale(endT);
-          const endY = yScale(endCap) + 20;
-          const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-          text.setAttribute('x', endX - 50);
-          text.setAttribute('y', endY);
-          text.setAttribute('font-size', '12');
-          text.setAttribute('fill', '#6b7280');
-          text.textContent = 'Capacity is maxed.';
-          svg.appendChild(text);
-        }
+        // Always-on resources limited label
+        const endT = 1;
+        const endCap = 0.3 + slope * endT;
+        const endX = xScale(endT);
+        const endY = yScale(endCap) + 20;
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', endX - 50);
+        text.setAttribute('y', endY);
+        text.setAttribute('font-size', '12');
+        text.setAttribute('fill', '#6b7280');
+        text.textContent = 'Capacity is limited';
+        svg.appendChild(text);
         // Tipping point
         if (STATE.showTippingPoint) {
           const t = (STATE.tippingPointYear - 2025) / 3;
@@ -613,12 +610,11 @@
       }
       function updateCurves(){
         let numNormal = 0, numAccelerating = 0;
-        STATE.drivers.forEach(d => { if (d.id !== 'resources') { if (d.state === 'normal') numNormal++; if (d.state === 'accelerating') numAccelerating++; } });
+        STATE.drivers.forEach(d => { if (d.state === 'normal') numNormal++; if (d.state === 'accelerating') numAccelerating++; });
         STATE.targetDemandExponent = 1.6 + (numNormal * 0.15 + numAccelerating * 0.3);
         STATE.targetDemandExponent = Math.min(STATE.targetDemandExponent, 3);
-        const resState = STATE.drivers.find(d => d.id === 'resources').state;
-        STATE.targetCapacitySlope = resState === 'off' ? 0.05 : resState === 'normal' ? 0.025 : 0;
-        STATE.showTippingPoint = numAccelerating >= 3 && (resState === 'normal' || resState === 'accelerating');
+        STATE.targetCapacitySlope = 0;
+        STATE.showTippingPoint = numAccelerating >= 3;
       }
       function animateCurves(timestamp){
         STATE.currentDemandExponent += (STATE.targetDemandExponent - STATE.currentDemandExponent) * 0.1;
@@ -641,8 +637,8 @@
         STATE.drivers.forEach(d => d.state = 'off');
         STATE.currentDemandExponent = 1.6;
         STATE.targetDemandExponent = 1.6;
-        STATE.currentCapacitySlope = 0.05;
-        STATE.targetCapacitySlope = 0.05;
+        STATE.currentCapacitySlope = 0;
+        STATE.targetCapacitySlope = 0;
         STATE.showTippingPoint = false;
         render();
       }
@@ -1503,11 +1499,11 @@
           const id=e.currentTarget.getAttribute('data-why');
           if (id === 'change') {
             STATE.drivers.forEach(d => {
-              if (['more_apps', 'constant_updates', 'too_many_tools', 'manual_rework', 'resources'].includes(d.id)) d.state = 'normal';
+              if (['more_apps', 'constant_updates', 'too_many_tools', 'manual_rework'].includes(d.id)) d.state = 'normal';
             });
           } else if (id === 'now') {
             STATE.drivers.forEach(d => {
-              if (['more_apps', 'constant_updates', 'too_many_tools', 'manual_rework', 'security_compliance', 'resources'].includes(d.id)) d.state = 'accelerating';
+              if (['more_apps', 'constant_updates', 'too_many_tools', 'manual_rework', 'security_compliance'].includes(d.id)) d.state = 'accelerating';
             });
             STATE.showTippingPoint = true;
           } else if (id === 'recast') {
