@@ -433,7 +433,7 @@
                   <svg id="capacity-gap-chart" class="w-full h-96"></svg>
                 </div>
                 <div class="w-full lg:w-80 bg-white rounded-2xl shadow-md p-6">
-                  <h3 class="text-xl font-medium mb-6">Insights</h3>
+                  <h3 class="text-xl font-medium mb-6">Modern IT</h3>
                   <div class="grid grid-cols-1 gap-6 items-stretch">
                     ${calloutDropdown('change','alert-triangle','Why Change','bg-slate-50')}
                     ${calloutDropdown('now','clock-4','Why Now','bg-slate-50')}
@@ -465,7 +465,7 @@
               <text x="${x}" y="${margin.top + height + 25}" text-anchor="middle" font-size="12" fill="#111827">${year}</text>
             `;
           }).join('')}
-          <text x="${margin.left + width / 2}" y="${margin.top + height + 60}" text-anchor="middle" font-size="12" fill="#6b7280">Budget, Headcount, Bandwidth</text>
+          <text x="${margin.left + width / 2}" y="${margin.top + height + 60}" text-anchor="middle" font-size="12" fill="#6b7280"> Limited Budget, Flat Headcount, Net Negative Bandwidth</text>
         `;
         svg.appendChild(xAxis);
         const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'g');
@@ -553,7 +553,7 @@
         text.setAttribute('y', endY);
         text.setAttribute('font-size', '12');
         text.setAttribute('fill', '#6b7280');
-        text.textContent = 'Capacity is limited';
+        text.textContent = 'Limited Capacity';
         svg.appendChild(text);
         // Tipping point
         if (STATE.showTippingPoint) {
