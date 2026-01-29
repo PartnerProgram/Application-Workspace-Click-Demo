@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -126,6 +125,105 @@
         openBuckets: { one: false, zero: false, per: false },
         modalOpen: false,
         editBuffers: { change: { intro: '', bullets: '', analyst: '' }, now: { intro: '', bullets: '', analyst: '' }, recast: { intro: '', bullets: '', analyst: '' } },
+        insightContent: null,
+        mode: 'current_state',
+        activeDrivers: new Set(),
+        currentDemandExponent: 1.6,
+        targetDemandExponent: 1.6,
+        currentCapacitySlope: 0.05,
+        targetCapacitySlope: 0.05,
+        showTippingPoint: false,
+        showAbsorption: false,
+        tippingAddressed: false,
+        years: [2025, 2026, 2027, 2028],
+        drivers: [
+          {
+            id: "new_apps",
+            label: "More Applications",
+            short: "More apps = more packaging, updates, testing, support.",
+            bullets: [
+              "Every new app adds ongoing work—packaging, testing, updates, support.",
+              "App sprawl compounds across Windows, macOS, VDI, and web delivery paths.",
+              "Portfolio growth increases version drift and troubleshooting load."
+            ],
+            markerYear: 2025.6
+          },
+          {
+            id: "continuous_updates",
+            label: "Constant Updates",
+            short: "Updates are continuous; stability requires constant change.",
+            bullets: [
+              "Updates are continuous, not occasional—work never clears.",
+              "Security patches and compatibility changes create perpetual churn.",
+              "Release velocity outpaces admin capacity."
+            ],
+            markerYear: 2026.2
+          },
+          {
+            id: "tool_fragmentation",
+            label: "Too Many Tools",
+            short: "Same app, different platforms, rebuilt logic everywhere.",
+            bullets: [
+              "App delivery is fragmented across tools and environments (e.g., Intune/ConfigMgr/VDI).",
+              "Teams rebuild packaging and deployment logic per platform.",
+              "Tool fragmentation creates handoffs, duplication, and drift."
+            ],
+            markerYear: 2026.8
+          },
+          {
+            id: "manual_rework",
+            label: "Manual Rework",
+            short: "Rebuilds, retesting, one-off fixes consume senior time.",
+            bullets: [
+              "Manual rebuilds per version create packaging backlog and rework.",
+              "Reactive fixes become permanent exceptions (technical debt).",
+              "Firefighting displaces planned work and modernization."
+            ],
+            markerYear: 2027.3
+          },
+          {
+            id: "security_compliance",
+            label: "Security & Compliance Pressure",
+            short: "More urgency, less tolerance; complexity amplifies risk.",
+            bullets: [
+              "Security/compliance raises the urgency and risk of app change.",
+              "Inconsistent versions and installs increase exposure and escalations.",
+              "Patching timelines stretch when workflows are manual and fragmented."
+            ],
+            markerYear: 2027.7
+          },
+          {
+            id: "flat_resources",
+            label: "Flat Budget / Headcount / Bandwidth",
+            short: "Capacity stays linear while demand accelerates.",
+            bullets: [
+              "Headcount and budget stay mostly flat.",
+              "Capacity grows linearly (if at all) while expectations grow faster.",
+              "The result is a widening execution gap."
+            ],
+            markerYear: null
+          }
+        ],
+        tippingPointYear: 2027.8,
+        tippingPoint: {
+          title: "Projected Tipping Point (If Nothing Changes)",
+          bullets: [
+            "Changes take longer",
+            "Risk increases",
+            "Teams burn out",
+            "Initiatives stall"
+          ],
+          closing: "Not because IT failed — because the model didn’t scale."
+        },
+        changeAbsorption: {
+          title: "Change Absorption at the Application Layer",
+          bullets: [
+            "Reduce repeat work and rebuilds",
+            "Stop re-creating app logic per platform",
+            "Make change predictable again",
+            "Recover capacity without adding headcount"
+          ]
+        },
         currentState: {
           change: {
             intro: "The app layer has become the biggest slowdown in IT. Teams are drowning in apps, constant updates, and one-off fixes, and every project ends up paying the price.",
@@ -135,7 +233,7 @@
               'Big initiatives keep getting stuck. Cloud moves, Citrix or AVD projects, hardware refreshes, and AI efforts all run into the same wall — app readiness.',
               'Technical debt keeps piling up. Different versions of the same app are everywhere, creating more risk, more tickets, and slower recovery when things break.'
             ],
-            analyst: "When the application layer is a mess, transformation projects stall or fail. It’s not because the strategy is wrong, but because there’s no capacity left to execute."
+            analyst: "When the application layer is a mess, transformation projects stall or fail. It’s not because the strategy is wrong, but because there’s no capacity left to execute. The chart shows this widening execution gap."
           },
           now: {
             intro: "IT teams are being asked to manage more apps and more change with the same people and the same tools. The gap between what’s expected and what’s possible keeps getting wider.",
@@ -168,7 +266,7 @@
                 'Big initiatives keep getting stuck. Cloud moves, Citrix or AVD projects, hardware refreshes, and AI efforts all run into the same wall — app readiness.',
                 'Technical debt keeps piling up. Different versions of the same app are everywhere, creating more risk, more tickets, and slower recovery when things break.'
               ],
-              analyst: "When the application layer is a mess, transformation projects stall or fail. It’s not because the strategy is wrong, but because there’s no capacity left to execute."
+              analyst: "When the application layer is a mess, transformation projects stall or fail. It’s not because the strategy is wrong, but because there’s no capacity left to execute. The chart shows this widening execution gap."
             },
             now: {
               intro: "IT teams are being asked to manage more apps and more change with the same people and the same tools. The gap between what’s expected and what’s possible keeps getting wider.",
@@ -359,14 +457,21 @@
           </main>
           ${renderModal()}
           ${renderWhyModal()}
+          ${renderInsightModal()}
         `;
         if (window.lucide?.createIcons) { try { window.lucide.createIcons(); } catch {} }
         attachEvents();
         if (STATE.activeTab === 'solution') { buildFlow(); }
         if (STATE.activeTab === 'roi') { updateROIOutputs(); }
         if (STATE.activeTab === 'solution') { attachAccordionKeyboard(); }
-        if (STATE.activeTab === 'problems' && STATE.activePopover) { positionPopover('.relative.w-full.h-72', NODE_DATA); }
-        if (STATE.openWhyModal === 'recast' && STATE.activePopover) { positionPopover('#recast-mindmap-container', NODE_DATA_RECAST); }
+        if (STATE.activeTab === 'problems') {
+          renderDriverPanel();
+          renderCapacityChart();
+          if (Math.abs(STATE.currentDemandExponent - STATE.targetDemandExponent) > 0.001 || Math.abs(STATE.currentCapacitySlope - STATE.targetCapacitySlope) > 0.001) {
+            requestAnimationFrame(animateCurves);
+          }
+          if (STATE.activePopover) { positionPopover('.relative.w-full.h-72', NODE_DATA); }
+        }
       }
       function positionPopover(containerSel = '.relative.w-full.h-72', data = NODE_DATA) {
         const container = document.querySelector(containerSel);
@@ -454,11 +559,13 @@
               `).join('')}
             </div>
             <div class="section-card p-6">
-              <h3 class="text-xl font-semibold mb-4 text-center">Modern IT Reality</h3>
-              ${renderMindMap(false, 'relative w-full h-72')}
-              <p class="mt-4 text-sm text-center text-gray-500">
-                Change is accelerating from every direction — and it all converges at the application layer.
-              </p>
+              <h3 class="text-xl font-semibold mb-4 text-center">Capacity Gap (2025–2028)</h3>
+              <div class="flex flex-col md:flex-row gap-6">
+                <div id="driver-panel" class="w-full md:w-64 bg-slate-50 p-4 rounded-lg"></div>
+                <div class="flex-1">
+                  <svg id="capacity-chart" class="w-full h-96"></svg>
+                </div>
+              </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-16 items-stretch">
               ${calloutDropdown('change','alert-triangle','Why Change','bg-slate-50')}
@@ -466,6 +573,273 @@
               ${calloutDropdown('recast','sparkles','Why Recast','bg-slate-50', true)}
             </div>
           </section>
+        `;
+      }
+      function renderDriverPanel(){
+        const panel = document.getElementById('driver-panel');
+        if (!panel) return;
+        panel.innerHTML = `
+          <h3 class="text-lg font-medium mb-4">Demand Drivers</h3>
+          <div class="space-y-2">
+            ${STATE.drivers.map(d => `
+              <label class="flex items-center gap-2 text-sm cursor-pointer">
+                <input type="checkbox" class="focus-ring" ${STATE.activeDrivers.has(d.id) ? 'checked' : ''} data-action="toggle-driver" data-id="${d.id}" aria-label="Toggle ${d.label}">
+                <span>${d.label}</span>
+              </label>
+            `).join('')}
+          </div>
+          <button type="button" class="mt-4 text-sm text-blue-600 hover:underline" data-action="reset-chart">Reset</button>
+        `;
+      }
+      function renderCapacityChart(){
+        const svg = document.getElementById('capacity-chart');
+        if (!svg) return;
+        svg.innerHTML = '';
+        svg.setAttribute('viewBox', '0 0 800 400');
+        const width = 700, height = 300, margin = {left: 50, bottom: 50, top: 50, right: 50};
+        const xScale = t => margin.left + t * width;
+        const yScale = v => margin.top + height - v * height;
+        // Axes
+        const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        xAxis.innerHTML = `
+          <line x1="${margin.left}" y1="${margin.top + height}" x2="${margin.left + width}" y2="${margin.top + height}" stroke="#d1d5db" stroke-width="2"/>
+          <text x="${margin.left + width / 2}" y="${margin.top + height + 40}" text-anchor="middle" font-size="14" fill="#111827">Time</text>
+          ${STATE.years.map((year, i) => {
+            const x = xScale(i / 3);
+            return `
+              <line x1="${x}" y1="${margin.top + height}" x2="${x}" y2="${margin.top + height + 10}" stroke="#d1d5db" stroke-width="2"/>
+              <text x="${x}" y="${margin.top + height + 25}" text-anchor="middle" font-size="12" fill="#111827">${year}</text>
+            `;
+          }).join('')}
+        `;
+        svg.appendChild(xAxis);
+        const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        yAxis.innerHTML = `
+          <line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + height}" stroke="#d1d5db" stroke-width="2"/>
+          <text x="${margin.left - 10}" y="${margin.top + height / 2}" text-anchor="middle" font-size="14" fill="#111827" transform="rotate(-90, ${margin.left - 10}, ${margin.top + height / 2})">Expectations & Requests</text>
+        `;
+        svg.appendChild(yAxis);
+        // Curves
+        const exp = STATE.currentDemandExponent;
+        const slope = STATE.currentCapacitySlope;
+        let demandPath = `M ${xScale(0)} ${yScale(0)}`;
+        let capacityPath = `M ${xScale(0)} ${yScale(0.3)}`;
+        let absorptionPath = `M ${xScale(0)} ${yScale(0.1)}`;
+        let demandPoints = [];
+        let capacityPoints = [];
+        for (let i = 0; i <= 100; i++) {
+          let t = i / 100;
+          let dem = Math.pow(t, exp);
+          let cap = 0.3 + slope * t;
+          let abs = 0.1 + 0.5 * Math.pow(t, 1.2);
+          demandPath += ` L ${xScale(t)} ${yScale(dem)}`;
+          capacityPath += ` L ${xScale(t)} ${yScale(cap)}`;
+          absorptionPath += ` L ${xScale(t)} ${yScale(abs)}`;
+          demandPoints.push({x: xScale(t), y: yScale(dem)});
+          capacityPoints.push({x: xScale(t), y: yScale(cap)});
+        }
+        const demandLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        demandLine.setAttribute('d', demandPath);
+        demandLine.setAttribute('stroke', '#ef4444');
+        demandLine.setAttribute('stroke-width', '3');
+        demandLine.setAttribute('fill', 'none');
+        svg.appendChild(demandLine);
+        const capacityLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        capacityLine.setAttribute('d', capacityPath);
+        capacityLine.setAttribute('stroke', '#3b82f6');
+        capacityLine.setAttribute('stroke-width', '3');
+        capacityLine.setAttribute('fill', 'none');
+        svg.appendChild(capacityLine);
+        if (STATE.showAbsorption) {
+          const absorptionLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          absorptionLine.setAttribute('d', absorptionPath);
+          absorptionLine.setAttribute('stroke', '#10b981');
+          absorptionLine.setAttribute('stroke-width', '3');
+          absorptionLine.setAttribute('fill', 'none');
+          svg.appendChild(absorptionLine);
+        }
+        // Gap shading
+        const numDemand = STATE.activeDrivers.size - (STATE.activeDrivers.has('flat_resources') ? 1 : 0);
+        const lightness = 95 - numDemand * 1.5;
+        const gapPath = demandPoints.map(p => `L ${p.x} ${p.y}`).join(' ') + capacityPoints.reverse().map(p => `L ${p.x} ${p.y}`).join(' ') + 'Z';
+        const gap = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        gap.setAttribute('d', `M ${demandPoints[0].x} ${demandPoints[0].y} ` + gapPath);
+        gap.setAttribute('fill', `hsl(220, 10%, ${lightness}%)`);
+        svg.appendChild(gap);
+        const gapLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        gapLabel.setAttribute('x', xScale(0.5));
+        gapLabel.setAttribute('y', yScale(0.5));
+        gapLabel.setAttribute('text-anchor', 'middle');
+        gapLabel.setAttribute('font-size', '16');
+        gapLabel.setAttribute('fill', '#6b7280');
+        gapLabel.textContent = 'The Widening Gap';
+        svg.appendChild(gapLabel);
+        // Markers
+        STATE.drivers.forEach(d => {
+          if (d.markerYear && STATE.activeDrivers.has(d.id)) {
+            const t = (d.markerYear - 2025) / 3;
+            const dem = Math.pow(t, exp);
+            const x = xScale(t);
+            const y = yScale(dem);
+            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            g.setAttribute('role', 'button');
+            g.setAttribute('tabindex', '0');
+            g.setAttribute('aria-label', `Learn more about ${d.label}`);
+            g.innerHTML = `
+              <title>${d.short}</title>
+              <circle cx="${x}" cy="${y}" r="20" fill="transparent" stroke="none"/>
+              <circle cx="${x}" cy="${y}" r="6" fill="#ef4444"/>
+              <text x="${x + 10}" y="${y + 4}" font-size="12" fill="#111827">${d.label}</text>
+            `;
+            g.addEventListener('click', () => openInsight('driver', d.id));
+            g.addEventListener('keydown', e => { if (e.key === 'Enter') openInsight('driver', d.id); });
+            svg.appendChild(g);
+          }
+        });
+        // Flat resources tooltip
+        if (STATE.activeDrivers.has('flat_resources')) {
+          const endT = 1;
+          const endCap = 0.3 + slope * endT;
+          const endX = xScale(endT);
+          const endY = yScale(endCap) + 20;
+          const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          text.setAttribute('x', endX - 50);
+          text.setAttribute('y', endY);
+          text.setAttribute('font-size', '12');
+          text.setAttribute('fill', '#6b7280');
+          text.textContent = 'Resources remain flat';
+          svg.appendChild(text);
+        }
+        // Tipping point
+        if (STATE.showTippingPoint) {
+          const t = (STATE.tippingPointYear - 2025) / 3;
+          const x = xScale(t);
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('x1', x);
+          line.setAttribute('y1', yScale(0));
+          line.setAttribute('x2', x);
+          line.setAttribute('y2', yScale(1));
+          line.setAttribute('stroke', STATE.tippingAddressed ? '#10b981' : '#ef4444');
+          line.setAttribute('stroke-width', '2');
+          line.setAttribute('stroke-dasharray', '5 5');
+          svg.appendChild(line);
+          const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          g.setAttribute('role', 'button');
+          g.setAttribute('tabindex', '0');
+          g.setAttribute('aria-label', 'Learn more about Projected Tipping Point');
+          g.innerHTML = `
+            <title>Projected Tipping Point (If Nothing Changes)</title>
+            <rect x="${x - 10}" y="${yScale(1) - 20}" width="20" height="${height}" fill="transparent"/>
+          `;
+          g.addEventListener('click', () => openInsight('tipping'));
+          g.addEventListener('keydown', e => { if (e.key === 'Enter') openInsight('tipping'); });
+          svg.appendChild(g);
+        }
+      }
+      function updateChartState(){
+        STATE.activeDrivers.clear();
+        STATE.showAbsorption = false;
+        STATE.tippingAddressed = false;
+        if (STATE.mode === 'why_change') {
+          ['new_apps', 'continuous_updates', 'tool_fragmentation', 'manual_rework', 'flat_resources'].forEach(id => STATE.activeDrivers.add(id));
+          STATE.showTippingPoint = false;
+        } else if (STATE.mode === 'why_now') {
+          ['new_apps', 'continuous_updates', 'security_compliance', 'flat_resources'].forEach(id => STATE.activeDrivers.add(id));
+          STATE.showTippingPoint = true;
+        } else if (STATE.mode === 'why_recast') {
+          ['new_apps', 'continuous_updates', 'security_compliance', 'flat_resources'].forEach(id => STATE.activeDrivers.add(id));
+          STATE.showTippingPoint = true;
+          STATE.showAbsorption = true;
+          STATE.tippingAddressed = true;
+        } else {
+          STATE.showTippingPoint = false;
+        }
+        updateCurves();
+      }
+      function updateCurves(){
+        let numDemandDrivers = STATE.activeDrivers.size - (STATE.activeDrivers.has('flat_resources') ? 1 : 0);
+        STATE.targetDemandExponent = 1.6 + numDemandDrivers * 0.15;
+        if (STATE.mode === 'why_now') STATE.targetDemandExponent = Math.max(STATE.targetDemandExponent, 2.4);
+        STATE.targetDemandExponent = Math.min(STATE.targetDemandExponent, 3);
+        STATE.targetCapacitySlope = STATE.activeDrivers.has('flat_resources') ? 0 : 0.05;
+      }
+      function animateCurves(){
+        STATE.currentDemandExponent += (STATE.targetDemandExponent - STATE.currentDemandExponent) * 0.1;
+        STATE.currentCapacitySlope += (STATE.targetCapacitySlope - STATE.currentCapacitySlope) * 0.1;
+        renderCapacityChart();
+        if (Math.abs(STATE.currentDemandExponent - STATE.targetDemandExponent) > 0.001 || Math.abs(STATE.currentCapacitySlope - STATE.targetCapacitySlope) > 0.001) {
+          requestAnimationFrame(animateCurves);
+        }
+      }
+      function toggleDriver(id){
+        if (STATE.activeDrivers.has(id)) {
+          STATE.activeDrivers.delete(id);
+        } else {
+          STATE.activeDrivers.add(id);
+        }
+        updateCurves();
+        renderCapacityChart();
+        requestAnimationFrame(animateCurves);
+      }
+      function resetChart(){
+        STATE.mode = 'current_state';
+        STATE.activeDrivers.clear();
+        STATE.currentDemandExponent = 1.6;
+        STATE.targetDemandExponent = 1.6;
+        STATE.currentCapacitySlope = 0.05;
+        STATE.targetCapacitySlope = 0.05;
+        STATE.showTippingPoint = false;
+        STATE.showAbsorption = false;
+        STATE.tippingAddressed = false;
+        render();
+      }
+      function openInsight(type, id = null){
+        let content = {};
+        if (type === 'driver') {
+          const d = STATE.drivers.find(driver => driver.id === id);
+          if (d) {
+            content = { title: d.label, intro: d.short, bullets: d.bullets, analyst: '' };
+          }
+        } else if (type === 'tipping') {
+          content = { title: STATE.tippingPoint.title, intro: '', bullets: STATE.tippingPoint.bullets, analyst: STATE.tippingPoint.closing };
+        }
+        STATE.insightContent = content;
+        render();
+      }
+      function renderInsightModal(){
+        if (!STATE.insightContent) return '';
+        const { title, intro, bullets, analyst } = STATE.insightContent;
+        return `
+          <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 modal-overlay" role="dialog" aria-modal="true" aria-labelledby="insight-modal-title">
+            <div class="w-full max-w-4xl mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden transform modal-content">
+              <div class="bg-slate-50 px-8 py-6 flex items-center justify-between" style="border-bottom:1px solid var(--border-subtle)">
+                <div class="flex items-center gap-3">
+                  <i data-lucide="lightbulb" class="w-8 h-8 text-[#0A1C60]" aria-hidden="true"></i>
+                  <h2 id="insight-modal-title" class="text-3xl font-bold tracking-tight text-[#0A1C60]">${title}</h2>
+                </div>
+                <button type="button" class="text-slate-500 hover:text-slate-700 focus-ring p-2" data-action="close-insight-modal" aria-label="Close">
+                  <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+              </div>
+              <div class="p-8 bg-slate-50">
+                ${intro ? `<p class="text-base leading-relaxed text-[#4A5568] mb-4">${intro}</p>` : ''}
+                <div class="space-y-4">
+                  ${bullets.map(b=>`
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex items-start gap-3 hover:shadow-md transition-shadow">
+                      <i data-lucide="check-circle" class="w-5 h-5 text-[#0070F3] flex-shrink-0 mt-0.5"></i>
+                      <p class="text-base leading-relaxed text-[#4A5568]">${b}</p>
+                    </div>
+                  `).join('')}
+                </div>
+                ${analyst ? `
+                  <div class="mt-6 bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-start gap-3">
+                    <i data-lucide="lightbulb" class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"></i>
+                    <p class="text-base italic text-[#4A5568]">${analyst}</p>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          </div>
         `;
       }
       function renderMindMap(isRecast = false, containerClass = 'relative w-full h-72') {
@@ -558,17 +932,21 @@
         const id = STATE.openWhyModal;
         const iconMap = { change: 'alert-triangle', now: 'clock-4', recast: 'sparkles' };
         const labelMap = { change: 'Why Change', now: 'Why Now', recast: 'Why Recast' };
-        const data = STATE.currentState[id];
-        const headerTone = 'bg-slate-50';
-        const cta = id === 'recast';
-        const modalClass = id === 'recast' ? 'w-[95vw] h-[95vh] max-w-none mx-0 bg-white rounded-2xl shadow-2xl overflow-hidden transform modal-content' : 'w-full max-w-4xl mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden transform modal-content';
-        const content = id === 'recast' ? `
-          <div class="p-8 bg-slate-50 h-full flex flex-col">
-            ${renderMindMap(true, 'relative w-full h-full flex-grow')}
-          </div>
-        ` : `
+        let data, modalTitle;
+        if (id === 'change') {
+          data = STATE.currentState.change;
+          modalTitle = labelMap[id];
+        } else if (id === 'now') {
+          data = { intro: '', bullets: STATE.tippingPoint.bullets, analyst: STATE.tippingPoint.closing };
+          modalTitle = STATE.tippingPoint.title;
+        } else if (id === 'recast') {
+          data = { intro: '', bullets: STATE.changeAbsorption.bullets, analyst: '' };
+          modalTitle = STATE.changeAbsorption.title;
+        }
+        const modalClass = 'w-full max-w-4xl mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden transform modal-content';
+        const content = `
           <div class="p-8 bg-slate-50">
-            <p class="text-base leading-relaxed text-[#4A5568] mb-4">${data.intro}</p>
+            ${data.intro ? `<p class="text-base leading-relaxed text-[#4A5568] mb-4">${data.intro}</p>` : ''}
             <div class="space-y-4">
               ${data.bullets.map(b=>`
                 <div class="bg-white p-4 rounded-lg shadow-sm flex items-start gap-3 hover:shadow-md transition-shadow">
@@ -577,27 +955,21 @@
                 </div>
               `).join('')}
             </div>
-            <div class="mt-6 bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-start gap-3">
-              <i data-lucide="lightbulb" class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"></i>
-              <p class="text-base italic text-[#4A5568]">${data.analyst}</p>
-            </div>
-            ${cta?`
-              <div class="mt-8 flex justify-center">
-                <button id="btnAdvanceToSolution" type="button" data-action="advance" data-next="solution" class="inline-flex bg-[#0070F3] text-white text-base font-semibold px-6 py-3 items-center gap-3 focus-ring shadow-md hover:shadow-lg hover:bg-[#005AD0] transition-shadow">
-                  <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                  How Recast solves it
-                </button>
+            ${data.analyst ? `
+              <div class="mt-6 bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-start gap-3">
+                <i data-lucide="lightbulb" class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"></i>
+                <p class="text-base italic text-[#4A5568]">${data.analyst}</p>
               </div>
-            `:''}
+            ` : ''}
           </div>
         `;
         return `
           <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 modal-overlay" role="dialog" aria-modal="true" aria-labelledby="why-modal-title-${id}">
-            <div class="${modalClass}" style="max-height: none;" ${id === 'recast' ? 'id="recast-modal-content"' : ''}>
-              <div class="${headerTone} px-8 py-6 flex items-center justify-between" style="border-bottom:1px solid var(--border-subtle)">
+            <div class="${modalClass}">
+              <div class="bg-slate-50 px-8 py-6 flex items-center justify-between" style="border-bottom:1px solid var(--border-subtle)">
                 <div class="flex items-center gap-3">
                   <i data-lucide="${iconMap[id]}" class="w-8 h-8 text-[#0A1C60]" aria-hidden="true"></i>
-                  <h2 id="why-modal-title-${id}" class="text-3xl font-bold tracking-tight text-[#0A1C60]">${labelMap[id]}</h2>
+                  <h2 id="why-modal-title-${id}" class="text-3xl font-bold tracking-tight text-[#0A1C60]">${modalTitle}</h2>
                 </div>
                 <button type="button" class="text-slate-500 hover:text-slate-700 focus-ring p-2" data-action="close-why-modal" aria-label="Close">
                   <i data-lucide="x" class="w-6 h-6"></i>
@@ -1235,6 +1607,21 @@
       function attachEvents(){
         const root=document.getElementById('app');
         root.addEventListener('click', e => {
+          const act = e.target.closest('[data-action]');
+          if (act) {
+            const action = act.getAttribute('data-action');
+            if (action === 'toggle-driver') {
+              const id = act.getAttribute('data-id');
+              toggleDriver(id);
+            }
+            if (action === 'reset-chart') {
+              resetChart();
+            }
+            if (action === 'close-insight-modal') {
+              STATE.insightContent = null;
+              render();
+            }
+          }
           const node = e.target.closest('.interactive-node');
           if (node) {
             const id = node.dataset.id;
@@ -1243,10 +1630,6 @@
             return;
           }
           if (STATE.activeTab === 'problems' && STATE.activePopover && !e.target.closest('.popover')) {
-            STATE.activePopover = null;
-            render();
-          }
-          if (STATE.openWhyModal === 'recast' && STATE.activePopover && !e.target.closest('.popover')) {
             STATE.activePopover = null;
             render();
           }
@@ -1264,8 +1647,9 @@
         }));
         root.querySelectorAll('[data-action="open-why-modal"]').forEach(b=>b.addEventListener('click',e=>{
           const id=e.currentTarget.getAttribute('data-why');
+          STATE.mode = `why_${id}`;
+          updateChartState();
           STATE.openWhyModal = id;
-          STATE.activePopover = null;
           render();
         }));
         root.querySelectorAll('[data-action="close-why-modal"]').forEach(b=>b.addEventListener('click',()=>{
@@ -1566,13 +1950,13 @@
         }
       });
       document.addEventListener('keydown',(e)=>{
-        if(e.key==='Escape' && (STATE.modalOpen || STATE.openWhyModal)){
+        if(e.key==='Escape' && (STATE.modalOpen || STATE.openWhyModal || STATE.insightContent)){
           STATE.modalOpen=false;
           STATE.openWhyModal=null;
+          STATE.insightContent=null;
           render();
         }
       });
     </script>
   </body>
 </html>
-```
