@@ -136,7 +136,7 @@
           { id: "manual_rework", label: "Manual Rework", subtext: "Rebuilds, exceptions, one-off fixes", markerYear: 2027.3, bullets: ["Manual rebuilds per version create packaging backlog and rework.", "Reactive fixes become permanent exceptions (technical debt).", "Firefighting displaces planned work and modernization."], short: "Rebuilds, retesting, one-off fixes consume senior time.", state: 'off' },
           { id: "security_compliance", label: "Security & Compliance", subtext: "Higher urgency, higher risk", markerYear: 2027.7, bullets: ["Security/compliance raises the urgency and risk of app change.", "Inconsistent versions and installs increase exposure and escalations.", "Patching timelines stretch when workflows are manual and fragmented."], short: "More urgency, less tolerance; complexity amplifies risk.", state: 'off' }
         ],
-        tippingPointYear: 2027.8,
+        tippingPointYear: 2027.0,
         tippingPoint: {
           title: "Projected Tipping Point",
           bullets: ["Changes take longer", "Risk increases", "Teams burn out", "Strategic initiatives stall"],
@@ -216,6 +216,10 @@
         progress: { apps: 0, time: 0, tickets: 0 },
         envProgress: { appsProcessed: 0 }
       };
+      STATE.drivers.forEach(d => d.state = 'accelerating');
+      updateCurves();
+      STATE.currentDemandExponent = STATE.targetDemandExponent;
+      STATE.currentCapacitySlope = STATE.targetCapacitySlope;
       const TABS = [
         { id: 'problems', label: 'Current State', icon: 'alert-triangle' },
         { id: 'solution', label: 'Recast Approach', icon: 'workflow' },
@@ -1103,39 +1107,39 @@
       function renderROI(){
         const r = calcROI();
         return `
-          <section id="panel-roi" class="space-y-8">
-            <div class="section-card p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
-              <h3 class="text-2xl font-semibold mb-6 text-gray-900">Impact Breakdown</h3>
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="p-4 rounded-lg bg-gray-50">
-                  <h4 class="text-lg font-medium mb-4 text-gray-900">Where the Time Comes From</h4>
-                  <div class="space-y-3 text-base">
-                    ${kv('Packaging Work Reduced / Month', num(round(r.packagingHoursMonth)))}
-                    ${kv('Zero-Day Patch Time Reduced / Month', num(round(r.patchHoursMonth)))}
-                    ${kv('App-Related Reactive Work Reduced / Month', num(round(r.reactiveHoursMonth)))}
+          <section id="panel-roi" class="space-y-6">
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">
+              <div class="section-card p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300 bg-white col-span-1 md:col-span-2">
+                <h3 class="text-2xl font-light mb-6 text-gray-900">Impact Breakdown</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <h4 class="text-xl font-light mb-4 text-gray-900">Where the Time Comes From</h4>
+                    <div class="space-y-4 text-lg">
+                      ${kv('Packaging Work Reduced / Month', num(round(r.packagingHoursMonth)))}
+                      ${kv('Zero-Day Patch Time Reduced / Month', num(round(r.patchHoursMonth)))}
+                      ${kv('App-Related Reactive Work Reduced / Month', num(round(r.reactiveHoursMonth)))}
+                    </div>
                   </div>
-                </div>
-                <div class="p-4 rounded-lg bg-gray-50">
-                  <h4 class="text-lg font-medium mb-4 text-gray-900">Technical Debt Impact</h4>
-                  <div class="space-y-3 text-base">
-                    ${kv('App Version Reduction (estimated)', '30-50% fewer active versions')}
-                    ${kv('Faster Patch Window', `${STATE.currentHrs} → 1.5 hrs (${r.patchReductionPct}% reduction)`)}
-                    ${kv('Tickets Avoided (est.)', num(round(r.ticketsAvoided)) + ' / month')}
+                  <div>
+                    <h4 class="text-xl font-light mb-4 text-gray-900">Technical Debt Impact</h4>
+                    <div class="space-y-4 text-lg">
+                      ${kv('App Version Reduction (estimated)', '30-50% fewer active versions')}
+                      ${kv('Faster Patch Window', `${STATE.currentHrs} → 1.5 hrs (${r.patchReductionPct}% reduction)`)}
+                      ${kv('Tickets Avoided (est.)', num(round(r.ticketsAvoided)) + ' / month')}
+                    </div>
                   </div>
-                </div>
-                <div class="p-4 rounded-lg bg-gray-50">
-                  <h4 class="text-lg font-medium mb-4 text-gray-900">Project Velocity Impact</h4>
-                  <ul class="space-y-3 text-base list-disc pl-5">
-                    <li>Faster migration and pilot cycles (apps ready sooner)</li>
-                    <li>Reduces blockers for AVD, W365, AI, and modernization projects</li>
-                    <li>Frees capacity for strategic initiatives</li>
-                  </ul>
+                  <div>
+                    <h4 class="text-xl font-light mb-4 text-gray-900">Project Velocity Impact</h4>
+                    <ul class="space-y-4 text-lg list-disc pl-5">
+                      <li>Faster migration and pilot cycles (apps ready sooner)</li>
+                      <li>Reduces blockers for AVD, W365, AI, and modernization projects</li>
+                      <li>Frees capacity for strategic initiatives</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div class="section-card p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
-                <h3 class="text-2xl font-semibold mb-6 text-gray-900">Assumptions</h3>
+              <div class="section-card p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
+                <h3 class="text-2xl font-light mb-6 text-gray-900">Assumptions</h3>
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
                   ${numInput('# users','users', r.i.users)}
                   ${numInput('Tickets per user / mo','ticketsPerUserPerMonth', r.i.ticketsPerUserPerMonth)}
@@ -1147,20 +1151,20 @@
                   ${bucketAccordion('zero', 'shield-check', 'Hours Saved from Faster Patching', zeroDayContent)}
                 </div>
                 <div class="mt-8">
-                  <button type="button" data-action="open-currentstate-editor" class="inline-flex items-center gap-2 bg-transparent text-gray-600 border-2 border-gray-300 px-5 py-3 text-base font-medium focus-ring rounded-full hover:text-[#0070F3] hover:border-[#0070F3]">
+                  <button type="button" data-action="open-currentstate-editor" class="inline-flex items-center gap-2 bg-transparent text-gray-600 border-2 border-gray-300 px-5 py-3 text-base font-light focus-ring rounded-full hover:text-[#0070F3] hover:border-[#0070F3]">
                     <i data-lucide="edit-3" class="w-5 h-5"></i> Edit Current State
                   </button>
                 </div>
               </div>
-              <div class="section-card p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
-                <h3 class="text-2xl font-semibold mb-6 text-gray-900">Results</h3>
+              <div class="section-card p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
+                <h3 class="text-2xl font-light mb-6 text-gray-900">Results</h3>
                 <div class="space-y-4 text-lg">
                   ${kv('Hours Returned / Month', num(round(r.totalHoursMonth)))}
                   ${kv('Hours Returned / Year', num(round(r.totalHoursYear)))}
                 </div>
                 <div class="mt-8 flex flex-wrap gap-4">
-                  <button type="button" data-action="reset-calculator" class="inline-flex items-center gap-2 bg-transparent text-gray-600 border-2 border-gray-300 px-5 py-3 text-base font-medium focus-ring rounded-full hover:text-[#0070F3] hover:border-[#0070F3]">Reset</button>
-                  <button type="button" data-action="copy-onepager" class="inline-flex items-center gap-2 bg-[#0070F3] text-white px-5 py-3 text-base font-medium focus-ring rounded-full hover:bg-[#005AD0]">
+                  <button type="button" data-action="reset-calculator" class="inline-flex items-center gap-2 bg-transparent text-gray-600 border-2 border-gray-300 px-5 py-3 text-base font-light focus-ring rounded-full hover:text-[#0070F3] hover:border-[#0070F3]">Reset</button>
+                  <button type="button" data-action="copy-onepager" class="inline-flex items-center gap-2 bg-[#0070F3] text-white px-5 py-3 text-base font-light focus-ring rounded-full hover:bg-[#005AD0]">
                     <i data-lucide="clipboard" class="w-5 h-5"></i> ${STATE.copied ? 'Copied!' : 'Copy capacity summary'}
                   </button>
                 </div>
@@ -1812,4 +1816,3 @@
     </script>
   </body>
 </html>
-.```
