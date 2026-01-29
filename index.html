@@ -130,15 +130,15 @@
         activePopover: null,
         years: [2025, 2026, 2027, 2028],
         drivers: [
-          { id: "more_apps", label: "More Applications", subtext: "Portfolio growth across Windows, macOS, VDI, web", markerYear: 2025.6, bullets: ["Every new app adds ongoing work—packaging, testing, updates, support.", "App sprawl compounds across Windows, macOS, VDI, and web delivery paths.", "Portfolio growth increases version drift and troubleshooting load."], short: "More apps = more packaging, updates, testing, support.", state: 'off' },
-          { id: "constant_updates", label: "Constant Updates", subtext: "Security patches, compatibility, vendor releases", markerYear: 2026.2, bullets: ["Updates are continuous, not occasional—work never clears.", "Security patches and compatibility changes create perpetual churn.", "Release velocity outpaces admin capacity."], short: "Updates are continuous; stability requires constant change.", state: 'off' },
-          { id: "too_many_tools", label: "Hybrid Enviroments", subtext: "Fragmented delivery across platforms", markerYear: 2026.8, bullets: ["App delivery is fragmented across tools and environments (e.g., Intune/ConfigMgr/VDI).", "Teams rebuild packaging and deployment logic per platform.", "Tool fragmentation creates handoffs, duplication, and drift."], short: "Same app, different platforms, rebuilt logic everywhere.", state: 'off' },
-          { id: "manual_rework", label: "Manual Rework", subtext: "Rebuilds, exceptions, one-off fixes", markerYear: 2027.3, bullets: ["Manual rebuilds per version create packaging backlog and rework.", "Reactive fixes become permanent exceptions (technical debt).", "Firefighting displaces planned work and modernization."], short: "Rebuilds, retesting, one-off fixes consume senior time.", state: 'off' },
+          { id: "more_apps", label: "More Applications", subtext: "Portfolio growth across Windows, macOS, VDI, web", markerYear: 2025.6, bullets: ["Every new app adds ongoing work—packaging, testing, updates, support.", "App sprawl compounds across Windows, macOS, VDI, and web delivery paths.", "Portfolio growth increases version drift and troubleshooting load."], short: "More apps = more packaging, updates, testing, support.", state: 'normal' },
+          { id: "constant_updates", label: "Constant Updates", subtext: "Security patches, compatibility, vendor releases", markerYear: 2026.2, bullets: ["Updates are continuous, not occasional—work never clears.", "Security patches and compatibility changes create perpetual churn.", "Release velocity outpaces admin capacity."], short: "Updates are continuous; stability requires constant change.", state: 'normal' },
+          { id: "too_many_tools", label: "Hybrid Enviroments", subtext: "Fragmented delivery across platforms", markerYear: 2026.8, bullets: ["App delivery is fragmented across tools and environments (e.g., Intune/ConfigMgr/VDI).", "Teams rebuild packaging and deployment logic per platform.", "Tool fragmentation creates handoffs, duplication, and drift."], short: "Same app, different platforms, rebuilt logic everywhere.", state: 'normal' },
+          { id: "manual_rework", label: "Manual Rework", subtext: "Rebuilds, exceptions, one-off fixes", markerYear: 2027.3, bullets: ["Manual rebuilds per version create packaging backlog and rework.", "Reactive fixes become permanent exceptions (technical debt).", "Firefighting displaces planned work and modernization."], short: "Rebuilds, retesting, one-off fixes consume senior time.", state: 'normal' },
           { id: "security_compliance", label: "Security & Compliance", subtext: "Higher urgency, higher risk", markerYear: 2027.7, bullets: ["Security/compliance raises the urgency and risk of app change.", "Inconsistent versions and installs increase exposure and escalations.", "Patching timelines stretch when workflows are manual and fragmented."], short: "More urgency, less tolerance; complexity amplifies risk.", state: 'off' }
         ],
-        tippingPointYear: 2027.8,
+        tippingPointYear: 2027,
         tippingPoint: {
-          title: "Projected Tipping Point",
+          title: "Inflection Point",
           bullets: ["Changes take longer", "Risk increases", "Teams burn out", "Strategic initiatives stall"],
           closing: "This isn’t failure — it’s the limit of a model that no longer scales."
         },
@@ -387,6 +387,7 @@
         if (STATE.activeTab === 'roi') { updateROIOutputs(); }
         if (STATE.activeTab === 'solution') { attachAccordionKeyboard(); }
         if (STATE.activeTab === 'problems') {
+          updateCurves();
           renderCapacityGapChart();
           if (Math.abs(STATE.currentDemandExponent - STATE.targetDemandExponent) > 0.001 || Math.abs(STATE.currentCapacitySlope - STATE.targetCapacitySlope) > 0.001) {
             requestAnimationFrame(animateCurves);
@@ -433,7 +434,7 @@
                   <svg id="capacity-gap-chart" class="w-full h-96"></svg>
                 </div>
                 <div class="w-full lg:w-80 bg-white rounded-2xl shadow-md p-6">
-                  <h3 class="text-xl font-medium mb-6">Modern IT Challenges</h3>
+                  <h3 class="text-xl font-medium mb-6">Modern IT</h3>
                   <div class="grid grid-cols-1 gap-6 items-stretch">
                     ${calloutDropdown('change','alert-triangle','Why Change','bg-slate-50')}
                     ${calloutDropdown('now','clock-4','Why Now','bg-slate-50')}
@@ -565,7 +566,7 @@
           line.setAttribute('x2', x);
           line.setAttribute('y2', yScale(1));
           line.setAttribute('stroke', '#ef4444');
-          line.setAttribute('stroke-width', '2');
+          line.setAttribute('stroke-width', '3');
           line.setAttribute('stroke-dasharray', '5 5');
           svg.appendChild(line);
           const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -573,12 +574,12 @@
           label.setAttribute('y', yScale(1) - 10);
           label.setAttribute('font-size', '12');
           label.setAttribute('fill', '#111827');
-          label.textContent = 'Projected Tipping Point';
+          label.textContent = 'Inflection Point';
           svg.appendChild(label);
           const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
           g.setAttribute('role', 'button');
           g.setAttribute('tabindex', '0');
-          g.setAttribute('aria-label', 'Learn more about Projected Tipping Point');
+          g.setAttribute('aria-label', 'Learn more about Inflection Point');
           g.innerHTML = `
             <rect x="${x - 10}" y="${yScale(1) - 20}" width="20" height="${height}" fill="transparent"/>
           `;
@@ -593,7 +594,7 @@
         STATE.targetDemandExponent = 1.6 + (numNormal * 0.15 + numAccelerating * 0.3);
         STATE.targetDemandExponent = Math.min(STATE.targetDemandExponent, 3);
         STATE.targetCapacitySlope = 0;
-        STATE.showTippingPoint = numAccelerating >= 3;
+        STATE.showTippingPoint = numNormal >= 4 || numAccelerating >= 3;
       }
       function animateCurves(timestamp){
         STATE.currentDemandExponent += (STATE.targetDemandExponent - STATE.currentDemandExponent) * 0.1;
@@ -750,7 +751,6 @@
           </div>
         `;
       }
-      const whyOrder = ['change', 'now', 'recast'];
       function renderWhyModal(){
         if(!STATE.openWhyModal) return '';
         const id = STATE.openWhyModal;
@@ -758,11 +758,8 @@
         const labelMap = { change: 'Why Change', now: 'Why Now', recast: 'Why Recast' };
         const data = STATE.currentState[id];
         const headerTone = 'bg-slate-50';
-        const cta = id === 'now';
+        const cta = id === 'recast';
         const modalClass = 'w-full max-w-4xl mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden transform modal-content';
-        const currentIdx = whyOrder.indexOf(id);
-        const prev = currentIdx > 0 ? whyOrder[currentIdx - 1] : null;
-        const next = currentIdx < whyOrder.length - 1 ? whyOrder[currentIdx + 1] : null;
         const content = `
           <div class="p-8 bg-slate-50">
             <p class="text-base leading-relaxed text-[#4A5568] mb-4">${data.intro}</p>
@@ -786,12 +783,12 @@
                 </button>
               </div>
             `:''}
-            <div class="mt-8 flex justify-between">
-              ${prev ? `<button type="button" class="re-secondary inline-flex items-center gap-2" data-action="why-nav" data-to="${prev}"><i data-lucide="arrow-left" class="w-4 h-4"></i> Back</button>` : '<div></div>'}
-              ${next ? `<button type="button" class="re-primary inline-flex items-center gap-2" data-action="why-nav" data-to="${next}">Next <i data-lucide="arrow-right" class="w-4 h-4"></i></button>` : `<button type="button" class="re-primary inline-flex items-center gap-2" data-action="advance" data-next="solution">See Approach <i data-lucide="arrow-right" class="w-4 h-4"></i></button>`}
-            </div>
           </div>
         `;
+        const sections = ['change', 'now', 'recast'];
+        const currentIndex = sections.indexOf(id);
+        const prevId = currentIndex > 0 ? sections[currentIndex - 1] : null;
+        const nextId = currentIndex < sections.length - 1 ? sections[currentIndex + 1] : null;
         return `
           <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 modal-overlay" role="dialog" aria-modal="true" aria-labelledby="why-modal-title-${id}">
             <div class="${modalClass}" style="max-height: none;" ${id === 'recast' ? 'id="recast-modal-content"' : ''}>
@@ -805,6 +802,14 @@
                 </button>
               </div>
               ${content}
+              <div class="mt-8 flex justify-between">
+                ${prevId ? `<button type="button" data-action="open-why-modal" data-why="${prevId}" class="inline-flex bg-[#0070F3] text-white text-base font-semibold px-6 py-3 items-center gap-3 focus-ring shadow-md hover:shadow-lg hover:bg-[#005AD0] transition-shadow">
+                  <i data-lucide="arrow-left" class="w-5 h-5"></i> Back
+                </button>` : '<div></div>'}
+                ${nextId ? `<button type="button" data-action="open-why-modal" data-why="${nextId}" class="inline-flex bg-[#0070F3] text-white text-base font-semibold px-6 py-3 items-center gap-3 focus-ring shadow-md hover:shadow-lg hover:bg-[#005AD0] transition-shadow">
+                  <i data-lucide="arrow-right" class="w-5 h-5"></i> Next
+                </button>` : '<div></div>'}
+              </div>
             </div>
           </div>
         `;
@@ -1454,12 +1459,6 @@
               STATE.insightContent = null;
               render();
             }
-            if (action === 'why-nav') {
-              const to = act.getAttribute('data-to');
-              STATE.openWhyModal = to;
-              render();
-              return;
-            }
           }
           const node = e.target.closest('.interactive-node');
           if (node) {
@@ -1737,14 +1736,6 @@
           }
         });
       }
-      STATE.drivers[0].state = 'accelerating';
-      STATE.drivers[1].state = 'accelerating';
-      STATE.drivers[2].state = 'accelerating';
-      STATE.drivers[3].state = 'accelerating';
-      updateCurves();
-      STATE.currentDemandExponent = STATE.targetDemandExponent;
-      STATE.currentCapacitySlope = STATE.targetCapacitySlope;
-      STATE.showTippingPoint = true;
       document.addEventListener('DOMContentLoaded', render);
       document.addEventListener('click', (e)=>{
         const act = e.target.closest('[data-action]');
