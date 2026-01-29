@@ -130,11 +130,11 @@
         activePopover: null,
         years: [2025, 2026, 2027, 2028],
         drivers: [
-          { id: "more_apps", label: "Application Sprawl", subtext: "Portfolio growth across Windows, macOS, VDI, web", markerYear: 2025.6, bullets: ["Every new app adds ongoing work—packaging, testing, updates, support.", "App sprawl compounds across Windows, macOS, VDI, and web delivery paths.", "Portfolio growth increases version drift and troubleshooting load."], short: "More apps = more packaging, updates, testing, support.", state: 'off' },
-          { id: "constant_updates", label: "Relentless Change", subtext: "Security patches, compatibility, vendor releases", markerYear: 2026.2, bullets: ["Updates are continuous, not occasional—work never clears.", "Security patches and compatibility changes create perpetual churn.", "Release velocity outpaces admin capacity."], short: "Updates are continuous; stability requires constant change.", state: 'off' },
-          { id: "too_many_tools", label: "Permanent Hybrid", subtext: "Fragmented delivery across platforms", markerYear: 2026.8, bullets: ["App delivery is fragmented across tools and environments (e.g., Intune/ConfigMgr/VDI).", "Teams rebuild packaging and deployment logic per platform.", "Tool fragmentation creates handoffs, duplication, and drift."], short: "Same app, different platforms, rebuilt logic everywhere.", state: 'off' },
-          { id: "manual_rework", label: "Operational Rework", subtext: "Rebuilds, exceptions, one-off fixes", markerYear: 2027.3, bullets: ["Manual rebuilds per version create packaging backlog and rework.", "Reactive fixes become permanent exceptions (technical debt).", "Firefighting displaces planned work and modernization."], short: "Rebuilds, retesting, one-off fixes consume senior time.", state: 'off' },
-          { id: "security_compliance", label: "Rising Risk Exposure", subtext: "Higher urgency, higher risk", markerYear: 2027.7, bullets: ["Security/compliance raises the urgency and risk of app change.", "Inconsistent versions and installs increase exposure and escalations.", "Patching timelines stretch when workflows are manual and fragmented."], short: "More urgency, less tolerance; complexity amplifies risk.", state: 'off' }
+          { id: "more_apps", label: "More Applications", subtext: "Portfolio growth across Windows, macOS, VDI, web", markerYear: 2025.6, bullets: ["Every new app adds ongoing work—packaging, testing, updates, support.", "App sprawl compounds across Windows, macOS, VDI, and web delivery paths.", "Portfolio growth increases version drift and troubleshooting load."], short: "More apps = more packaging, updates, testing, support.", state: 'off' },
+          { id: "constant_updates", label: "Constant Updates", subtext: "Security patches, compatibility, vendor releases", markerYear: 2026.2, bullets: ["Updates are continuous, not occasional—work never clears.", "Security patches and compatibility changes create perpetual churn.", "Release velocity outpaces admin capacity."], short: "Updates are continuous; stability requires constant change.", state: 'off' },
+          { id: "too_many_tools", label: "Hybrid Enviroments", subtext: "Fragmented delivery across platforms", markerYear: 2026.8, bullets: ["App delivery is fragmented across tools and environments (e.g., Intune/ConfigMgr/VDI).", "Teams rebuild packaging and deployment logic per platform.", "Tool fragmentation creates handoffs, duplication, and drift."], short: "Same app, different platforms, rebuilt logic everywhere.", state: 'off' },
+          { id: "manual_rework", label: "Manual Rework", subtext: "Rebuilds, exceptions, one-off fixes", markerYear: 2027.3, bullets: ["Manual rebuilds per version create packaging backlog and rework.", "Reactive fixes become permanent exceptions (technical debt).", "Firefighting displaces planned work and modernization."], short: "Rebuilds, retesting, one-off fixes consume senior time.", state: 'off' },
+          { id: "security_compliance", label: "Security & Compliance", subtext: "Higher urgency, higher risk", markerYear: 2027.7, bullets: ["Security/compliance raises the urgency and risk of app change.", "Inconsistent versions and installs increase exposure and escalations.", "Patching timelines stretch when workflows are manual and fragmented."], short: "More urgency, less tolerance; complexity amplifies risk.", state: 'off' }
         ],
         tippingPointYear: 2027.8,
         tippingPoint: {
@@ -387,7 +387,6 @@
         if (STATE.activeTab === 'roi') { updateROIOutputs(); }
         if (STATE.activeTab === 'solution') { attachAccordionKeyboard(); }
         if (STATE.activeTab === 'problems') {
-          renderPressurePanel();
           renderCapacityGapChart();
           if (Math.abs(STATE.currentDemandExponent - STATE.targetDemandExponent) > 0.001 || Math.abs(STATE.currentCapacitySlope - STATE.targetCapacitySlope) > 0.001) {
             requestAnimationFrame(animateCurves);
@@ -429,41 +428,21 @@
               `).join('')}
             </div>
             <div class="section-card p-6">
-              <div class="grid grid-cols-12 gap-6">
-                <div id="pressure-panel" class="col-span-12 md:col-span-3 bg-slate-50 p-6 rounded-2xl shadow-md"></div>
-                <div class="col-span-12 md:col-span-9 relative">
+              <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-start">
+                <div class="relative">
                   <svg id="capacity-gap-chart" class="w-full h-96"></svg>
                 </div>
+                <div class="w-full lg:w-80 bg-white rounded-2xl shadow-md p-6">
+                  <h3 class="text-xl font-medium mb-6">Insights</h3>
+                  <div class="grid grid-cols-1 gap-6 items-stretch">
+                    ${calloutDropdown('change','alert-triangle','Why Change','bg-slate-50')}
+                    ${calloutDropdown('now','clock-4','Why Now','bg-slate-50')}
+                    ${calloutDropdown('recast','sparkles','Why Recast','bg-slate-50', true)}
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-              ${calloutDropdown('change','alert-triangle','Why Change','bg-slate-50')}
-              ${calloutDropdown('now','clock-4','Why Now','bg-slate-50')}
-              ${calloutDropdown('recast','sparkles','Why Recast','bg-slate-50', true)}
             </div>
           </section>
-        `;
-      }
-      function renderPressurePanel(){
-        const panel = document.getElementById('pressure-panel');
-        if (!panel) return;
-        panel.innerHTML = `
-          <h3 class="text-xl font-medium mb-6">Modern IT Challenges</h3>
-          <div class="space-y-6">
-            ${STATE.drivers.map(d => `
-              <div>
-                <label class="block text-sm font-medium mb-1">${d.label}</label>
-                <p class="text-xs text-gray-500 mb-2">${d.subtext}</p>
-                <div class="flex justify-between text-xs text-gray-600 mb-1">
-                  <span>Off</span>
-                  <span>Normal</span>
-                  <span>Accelerating</span>
-                </div>
-                <input type="range" min="0" max="2" value="${['off', 'normal', 'accelerating'].indexOf(d.state)}" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" data-action="set-slider" data-id="${d.id}">
-              </div>
-            `).join('')}
-          </div>
-          <button type="button" class="mt-6 text-sm text-blue-600 hover:underline" data-action="reset-sliders">Reset</button>
         `;
       }
       function renderCapacityGapChart(){
@@ -1823,3 +1802,4 @@
     </script>
   </body>
 </html>
+.```
