@@ -131,16 +131,23 @@
         years: [2025, 2026, 2027, 2028],
         drivers: [
           { id: "more_apps", label: "More Applications", subtext: "Portfolio growth across Windows, macOS, VDI, web", markerYear: 2025.6, bullets: ["Every new app adds ongoing work—packaging, testing, updates, support.", "App sprawl compounds across Windows, macOS, VDI, and web delivery paths.", "Portfolio growth increases version drift and troubleshooting load."], short: "More apps = more packaging, updates, testing, support.", state: 'off' },
-          { id: "constant_updates", label: "Constant Updates", subtext: "Security patches, compatibility, vendor releases", markerYear: 2026.2, bullets: ["Updates are continuous, not occasional—work never clears.", "Security patches and compatibility changes create perpetual churn.", "Release velocity outpaces admin capacity."], short: "Updates are continuous; stability requires constant change.", state: 'off' },
-          { id: "too_many_tools", label: "Hybrid Enviroments", subtext: "Fragmented delivery across platforms", markerYear: 2026.8, bullets: ["App delivery is fragmented across tools and environments (e.g., Intune/ConfigMgr/VDI).", "Teams rebuild packaging and deployment logic per platform.", "Tool fragmentation creates handoffs, duplication, and drift."], short: "Same app, different platforms, rebuilt logic everywhere.", state: 'off' },
-          { id: "manual_rework", label: "Manual Rework", subtext: "Rebuilds, exceptions, one-off fixes", markerYear: 2027.3, bullets: ["Manual rebuilds per version create packaging backlog and rework.", "Reactive fixes become permanent exceptions (technical debt).", "Firefighting displaces planned work and modernization."], short: "Rebuilds, retesting, one-off fixes consume senior time.", state: 'off' },
-          { id: "security_compliance", label: "Security & Compliance", subtext: "Higher urgency, higher risk", markerYear: 2027.7, bullets: ["Security/compliance raises the urgency and risk of app change.", "Inconsistent versions and installs increase exposure and escalations.", "Patching timelines stretch when workflows are manual and fragmented."], short: "More urgency, less tolerance; complexity amplifies risk.", state: 'off' }
+          { id: "constant_updates", label: "Constant Change", subtext: "Security patches, compatibility, vendor releases", markerYear: 2026.2, bullets: ["Updates are continuous, not occasional—work never clears.", "Security patches and compatibility changes create perpetual churn.", "Release velocity outpaces admin capacity."], short: "Updates are continuous; stability requires constant change.", state: 'off' },
+          { id: "too_many_tools", label: "Hybrid Environments", subtext: "Fragmented delivery across platforms", markerYear: 2026.8, bullets: ["App delivery is fragmented across tools and environments (e.g., Intune/ConfigMgr/VDI).", "Teams rebuild packaging and deployment logic per platform.", "Tool fragmentation creates handoffs, duplication, and drift."], short: "Same app, different platforms, rebuilt logic everywhere.", state: 'off' },
+          { id: "manual_rework", label: "Too Much Manual Work", subtext: "Rebuilds, exceptions, one-off fixes", markerYear: 2027.3, bullets: ["Manual rebuilds per version create packaging backlog and rework.", "Reactive fixes become permanent exceptions (technical debt).", "Firefighting displaces planned work and modernization."], short: "Rebuilds, retesting, one-off fixes consume senior time.", state: 'off' },
+          { id: "security_compliance", label: "Security and Compliance Pressure", subtext: "Higher urgency, higher risk", markerYear: 2027.7, bullets: ["Security/compliance raises the urgency and risk of app change.", "Inconsistent versions and installs increase exposure and escalations.", "Patching timelines stretch when workflows are manual and fragmented."], short: "More urgency, less tolerance; complexity amplifies risk.", state: 'off' }
         ],
-        tippingPointYear: 2027.8,
+        tippingPointYear: 2027.5,
         tippingPoint: {
           title: "Projected Tipping Point",
           bullets: ["Changes take longer", "Risk increases", "Teams burn out", "Strategic initiatives stall"],
           closing: "This isn’t failure — it’s the limit of a model that no longer scales."
+        },
+        chartConfig: {
+          yAxis: "Expectations and Requests",
+          xAxis: "Time",
+          center: "The widening gap",
+          footer: "Limited budget, flat headcount, and finite operational capacity",
+          tipping: "Operational breaking point"
         },
         currentDemandExponent: 1.6,
         targetDemandExponent: 1.6,
@@ -212,6 +219,24 @@
               analyst: "Recast turns app management from a drag on every project into a stable foundation. Readiness stops being the blocker and becomes the default."
             }
           }));
+        },
+        defaultsChartConfig() {
+          return JSON.parse(JSON.stringify({
+            yAxis: "Expectations and Requests",
+            xAxis: "Time",
+            center: "The widening gap",
+            footer: "Limited budget, flat headcount, and finite operational capacity",
+            tipping: "Operational breaking point"
+          }));
+        },
+        defaultsDrivers() {
+          return JSON.parse(JSON.stringify([
+            { id: "more_apps", label: "More Applications", subtext: "Portfolio growth across Windows, macOS, VDI, web", markerYear: 2025.6, bullets: ["Every new app adds ongoing work—packaging, testing, updates, support.", "App sprawl compounds across Windows, macOS, VDI, and web delivery paths.", "Portfolio growth increases version drift and troubleshooting load."], short: "More apps = more packaging, updates, testing, support.", state: 'off' },
+            { id: "constant_updates", label: "Constant Change", subtext: "Security patches, compatibility, vendor releases", markerYear: 2026.2, bullets: ["Updates are continuous, not occasional—work never clears.", "Security patches and compatibility changes create perpetual churn.", "Release velocity outpaces admin capacity."], short: "Updates are continuous; stability requires constant change.", state: 'off' },
+            { id: "too_many_tools", label: "Hybrid Environments", subtext: "Fragmented delivery across platforms", markerYear: 2026.8, bullets: ["App delivery is fragmented across tools and environments (e.g., Intune/ConfigMgr/VDI).", "Teams rebuild packaging and deployment logic per platform.", "Tool fragmentation creates handoffs, duplication, and drift."], short: "Same app, different platforms, rebuilt logic everywhere.", state: 'off' },
+            { id: "manual_rework", label: "Too Much Manual Work", subtext: "Rebuilds, exceptions, one-off fixes", markerYear: 2027.3, bullets: ["Manual rebuilds per version create packaging backlog and rework.", "Reactive fixes become permanent exceptions (technical debt).", "Firefighting displaces planned work and modernization."], short: "Rebuilds, retesting, one-off fixes consume senior time.", state: 'off' },
+            { id: "security_compliance", label: "Security and Compliance Pressure", subtext: "Higher urgency, higher risk", markerYear: 2027.7, bullets: ["Security/compliance raises the urgency and risk of app change.", "Inconsistent versions and installs increase exposure and escalations.", "Patching timelines stretch when workflows are manual and fragmented."], short: "More urgency, less tolerance; complexity amplifies risk.", state: 'off' }
+          ]));
         },
         progress: { apps: 0, time: 0, tickets: 0 },
         envProgress: { appsProcessed: 0 }
@@ -354,7 +379,7 @@
               <h1 class="text-[40px] md:text-[56px] font-semibold leading-tight"><span style="color:#0070F3">Re</span><span style="color:#0A1C60">cast</span> Software</h1>
               <p class="mt-2 max-w-2xl text-[16px] leading-[1.5] text-[#4A5568]">
                 ${STATE.activeTab==='problems'
-                  ? 'The Application Layer Is the #1 Bottleneck in Modern IT Challenges'
+                  ? 'The application layer is now the primary constraint in modern IT.'
                   : 'Application Workspace helps IT keep applications running smoothly as platforms change — without creating more work'}
               </p>
             </div>
@@ -436,7 +461,7 @@
                   <h3 class="text-xl font-medium mb-6">Modern IT Challenges</h3>
                   <div class="grid grid-cols-1 gap-6 items-stretch">
                     ${calloutDropdown('change','alert-triangle','Why Change','bg-slate-50')}
-                    ${calloutDropdown('now','clock-4','Why Now','bg-slate-50')}
+                    ${calloutDropdown('now','clock-4','Why Now','bg-slate-50', false, "Because application demand is outpacing operational capacity.")}
                     ${calloutDropdown('recast','sparkles','Why Recast','bg-slate-50', true)}
                   </div>
                 </div>
@@ -457,7 +482,7 @@
         const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         xAxis.innerHTML = `
           <line x1="${margin.left}" y1="${margin.top + height}" x2="${margin.left + width}" y2="${margin.top + height}" stroke="#d1d5db" stroke-width="1"/>
-          <text x="${margin.left + width / 2}" y="${margin.top + height + 40}" text-anchor="middle" font-size="14" fill="#111827">Time</text>
+          <text x="${margin.left + width / 2}" y="${margin.top + height + 40}" text-anchor="middle" font-size="14" fill="#111827">${STATE.chartConfig.xAxis}</text>
           ${STATE.years.map((year, i) => {
             const x = xScale(i / 3);
             return `
@@ -465,13 +490,13 @@
               <text x="${x}" y="${margin.top + height + 25}" text-anchor="middle" font-size="12" fill="#111827">${year}</text>
             `;
           }).join('')}
-          <text x="${margin.left + width / 2}" y="${margin.top + height + 60}" text-anchor="middle" font-size="12" fill="#6b7280"> Limited Budget, Flat Headcount, Net Negative Bandwidth</text>
+          <text x="${margin.left + width / 2}" y="${margin.top + height + 60}" text-anchor="middle" font-size="12" fill="#6b7280"> ${STATE.chartConfig.footer}</text>
         `;
         svg.appendChild(xAxis);
         const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         yAxis.innerHTML = `
           <line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + height}" stroke="#d1d5db" stroke-width="1"/>
-          <text x="${margin.left - 10}" y="${margin.top + height / 2}" text-anchor="middle" font-size="14" fill="#111827" transform="rotate(-90, ${margin.left - 10}, ${margin.top + height / 2})">Expectations & Requests</text>
+          <text x="${margin.left - 10}" y="${margin.top + height / 2}" text-anchor="middle" font-size="14" fill="#111827" transform="rotate(-90, ${margin.left - 10}, ${margin.top + height / 2})">${STATE.chartConfig.yAxis}</text>
         `;
         svg.appendChild(yAxis);
         // Curves
@@ -518,7 +543,7 @@
         gapLabel.setAttribute('text-anchor', 'middle');
         gapLabel.setAttribute('font-size', '16');
         gapLabel.setAttribute('fill', '#6b7280');
-        gapLabel.textContent = 'The Widening Gap';
+        gapLabel.textContent = STATE.chartConfig.center;
         svg.appendChild(gapLabel);
         // Markers
         STATE.drivers.forEach(d => {
@@ -575,6 +600,13 @@
           label.setAttribute('fill', '#111827');
           label.textContent = 'Projected Tipping Point';
           svg.appendChild(label);
+          const ann = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          ann.setAttribute('x', x + 10);
+          ann.setAttribute('y', yScale(0.8) + 5);
+          ann.setAttribute('font-size', '12');
+          ann.setAttribute('fill', '#ef4444');
+          ann.textContent = STATE.chartConfig.tipping;
+          svg.appendChild(ann);
           const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
           g.setAttribute('role', 'button');
           g.setAttribute('tabindex', '0');
@@ -729,7 +761,7 @@
           </div>
         `;
       }
-      function calloutDropdown(id, icon, label, headerTone, cta=false){
+      function calloutDropdown(id, icon, label, headerTone, cta=false, subtext=''){
         return `
           <div class="h-full flex flex-col">
             <button
@@ -747,6 +779,7 @@
                 <i data-lucide="chevron-right" class="w-5 h-5 text-[#4A5568] transition-transform duration-150" aria-hidden="true"></i>
               </div>
             </button>
+            ${subtext ? `<p class="px-5 py-2 text-sm text-gray-700">${subtext}</p>` : ''}
           </div>
         `;
       }
@@ -1329,6 +1362,21 @@
           }
         };
       }
+      function readChartFieldsRaw(){
+        return {
+          chartConfig: {
+            yAxis: $('#chart-yaxis')?.value ?? "",
+            xAxis: $('#chart-xaxis')?.value ?? "",
+            center: $('#chart-center')?.value ?? "",
+            footer: $('#chart-footer')?.value ?? "",
+            tipping: $('#chart-tipping')?.value ?? ""
+          },
+          drivers: STATE.drivers.map((_,i) => ({
+            label: $(`#driver${i}-label`)?.value ?? "",
+            bullets: $(`#driver${i}-bullets`)?.value ?? ""
+          }))
+        };
+      }
       function writeFields(data){
         if(!data) return;
         if(fields.changeIntro()) fields.changeIntro().value = data.change.intro ?? "";
@@ -1340,6 +1388,19 @@
         if(fields.recastIntro()) fields.recastIntro().value = data.recast.intro ?? "";
         if(fields.recastBullets()) fields.recastBullets().value = data.recast.bullets ?? "";
         if(fields.recastAnalyst()) fields.recastAnalyst().value = data.recast.analyst ?? "";
+      }
+      function writeChartFields(config, drivers){
+        if($('#chart-yaxis')) $('#chart-yaxis').value = config?.yAxis ?? "";
+        if($('#chart-xaxis')) $('#chart-xaxis').value = config?.xAxis ?? "";
+        if($('#chart-center')) $('#chart-center').value = config?.center ?? "";
+        if($('#chart-footer')) $('#chart-footer').value = config?.footer ?? "";
+        if($('#chart-tipping')) $('#chart-tipping').value = config?.tipping ?? "";
+        drivers?.forEach((dd, i) => {
+          const labelEl = $(`#driver${i}-label`);
+          const bulletsEl = $(`#driver${i}-bullets`);
+          if(labelEl) labelEl.value = dd.label ?? "";
+          if(bulletsEl) bulletsEl.value = dd.bullets ?? "";
+        });
       }
       function loadDraft(){
         try{
@@ -1357,14 +1418,22 @@
       function initCurrentStateModal(){
         captureDefaultsOnce();
         const draft = loadDraft();
-        if(draft) writeFields(draft);
+        if(draft) {
+          writeFields(draft);
+          writeChartFields(draft.chartConfig, draft.drivers);
+        } else {
+          writeChartFields(STATE.chartConfig, STATE.drivers.map(d => ({label: d.label, bullets: d.bullets.join('\n')})));
+        }
         const saveBtn = $('#btnSaveCurrentState');
         const resetBtn = $('#btnResetCurrentState');
         if (saveBtn && !saveBtn.dataset.wired){
           saveBtn.dataset.wired = "1";
           saveBtn.addEventListener('click', (e)=>{
             e.preventDefault();
-            saveDraft(readFields());
+            const formData = readFields();
+            const chartDataRaw = readChartFieldsRaw();
+            const payload = { ...formData, chartConfig: chartDataRaw.chartConfig, drivers: chartDataRaw.drivers };
+            saveDraft(payload);
           });
         }
         if (resetBtn && !resetBtn.dataset.wired){
@@ -1373,6 +1442,9 @@
             e.preventDefault();
             clearDraft();
             writeFields(DEFAULT_CURRENT_STATE);
+            STATE.chartConfig = STATE.defaultsChartConfig();
+            STATE.drivers = STATE.defaultsDrivers();
+            writeChartFields(STATE.chartConfig, STATE.drivers.map(d => ({label: d.label, bullets: d.bullets.join('\n')})));
             STATE.currentState = STATE.defaultsCurrentState();
             render();
           });
@@ -1394,10 +1466,11 @@
                 </button>
               </div>
               <p class="mt-1 text-sm text-[#4A5568]">Edit the introduction, bullets (one per line, max 4), and analyst trend for each section.</p>
-              <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="mt-4 grid grid-cols-1 md:grid-cols-4 gap-3">
                 ${editorSection('change','Why Change', ensure(buf.change.intro) || STATE.currentState.change.intro, ensure(buf.change.bullets) || toLines(STATE.currentState.change.bullets), ensure(buf.change.analyst) || STATE.currentState.change.analyst)}
                 ${editorSection('now','Why Now', ensure(buf.now.intro) || STATE.currentState.now.intro, ensure(buf.now.bullets) || toLines(STATE.currentState.now.bullets), ensure(buf.now.analyst) || STATE.currentState.now.analyst)}
                 ${editorSection('recast','Why Recast', ensure(buf.recast.intro) || STATE.currentState.recast.intro, ensure(buf.recast.bullets) || toLines(STATE.currentState.recast.bullets), ensure(buf.recast.analyst) || STATE.currentState.recast.analyst)}
+                ${editorSectionChart()}
               </div>
               <div class="mt-5 flex flex-wrap gap-2">
                 <button id="btnSaveCurrentState" type="button" data-action="save-currentstate" class="inline-flex items-center gap-2 bg-[#0070F3] text-white px-4 py-2 text-sm font-semibold focus-ring rounded hover:bg-[#005AD0]">
@@ -1407,6 +1480,47 @@
                   <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset to default
                 </button>
               </div>
+            </div>
+          </div>
+        `;
+      }
+      function editorSectionChart(){
+        return `
+          <div class="flex flex-col gap-4">
+            <span class="text-sm font-semibold">XY Chart</span>
+            <label class="flex flex-col gap-1">
+              <span class="text-xs text-[#4A5568]">Y-axis label</span>
+              <input id="chart-yaxis" value="${STATE.chartConfig.yAxis}" class="rounded border border-slate-200 bg-white p-3 text-sm focus-ring" />
+            </label>
+            <label class="flex flex-col gap-1">
+              <span class="text-xs text-[#4A5568]">X-axis label</span>
+              <input id="chart-xaxis" value="${STATE.chartConfig.xAxis}" class="rounded border border-slate-200 bg-white p-3 text-sm focus-ring" />
+            </label>
+            <label class="flex flex-col gap-1">
+              <span class="text-xs text-[#4A5568]">Center text</span>
+              <input id="chart-center" value="${STATE.chartConfig.center}" class="rounded border border-slate-200 bg-white p-3 text-sm focus-ring" />
+            </label>
+            <label class="flex flex-col gap-1">
+              <span class="text-xs text-[#4A5568]">Footer caption</span>
+              <input id="chart-footer" value="${STATE.chartConfig.footer}" class="rounded border border-slate-200 bg-white p-3 text-sm focus-ring" />
+            </label>
+            <label class="flex flex-col gap-1">
+              <span class="text-xs text-[#4A5568]">Operational breaking point annotation</span>
+              <input id="chart-tipping" value="${STATE.chartConfig.tipping}" class="rounded border border-slate-200 bg-white p-3 text-sm focus-ring" />
+            </label>
+            <div class="space-y-4">
+              ${STATE.drivers.map((d, i) => `
+                <div>
+                  <label class="flex flex-col gap-1">
+                    <span class="text-xs text-[#4A5568]">Point ${i+1} title</span>
+                    <input id="driver${i}-label" value="${d.label}" class="rounded border border-slate-200 bg-white p-3 text-sm focus-ring" />
+                  </label>
+                  <label class="flex flex-col gap-1 mt-2">
+                    <span class="text-xs text-[#4A5568]">Point ${i+1} bullets (one per line, exactly 3)</span>
+                    <textarea id="driver${i}-bullets" rows="4" class="min-h-[100px] rounded border border-slate-200 bg-white p-3 text-sm leading-5 focus-ring">${d.bullets.join('\n')}</textarea>
+                  </label>
+                </div>
+              `).join('')}
             </div>
           </div>
         `;
@@ -1737,12 +1851,15 @@
           }
         });
       }
+      function parseLines(s, max=4){
+        return (s || '').split('\n').map(l => l.trim()).filter(Boolean).slice(0, max);
+      }
       STATE.drivers.forEach(d => d.state = 'accelerating');
       STATE.showTippingPoint = true;
       updateCurves();
       STATE.currentDemandExponent = STATE.targetDemandExponent;
       STATE.currentCapacitySlope = STATE.targetCapacitySlope;
-      STATE.tippingPointYear = 2026.9;
+      STATE.tippingPointYear = 2027.5;
       document.addEventListener('DOMContentLoaded', render);
       document.addEventListener('click', (e)=>{
         const act = e.target.closest('[data-action]');
@@ -1757,7 +1874,6 @@
           act.addEventListener('input', (evt)=>{ STATE.editBuffers[key][subkey] = evt.target.value; });
         }
         if(action==='save-currentstate'){
-          const parseLines = (s)=> (s||'').split('\n').map(l=>l.trim()).filter(Boolean).slice(0,4);
           const fallback = STATE.defaultsCurrentState();
           const formData = readFields();
           STATE.currentState = {
@@ -1777,22 +1893,20 @@
               analyst: formData.recast.analyst.trim() || fallback.recast.analyst
             }
           };
-          saveDraft({
-            change: {
-              intro: $('#changeIntro')?.value || '',
-              bullets: $('#changeBullets')?.value || '',
-              analyst: $('#changeAnalyst')?.value || ''
-            },
-            now: {
-              intro: $('#nowIntro')?.value || '',
-              bullets: $('#nowBullets')?.value || '',
-              analyst: $('#nowAnalyst')?.value || ''
-            },
-            recast: {
-              intro: $('#recastIntro')?.value || '',
-              bullets: $('#recastBullets')?.value || '',
-              analyst: $('#recastAnalyst')?.value || ''
-            }
+          const chartDataRaw = readChartFieldsRaw();
+          const fallbackChart = STATE.defaultsChartConfig();
+          STATE.chartConfig = {
+            yAxis: chartDataRaw.chartConfig.yAxis.trim() || fallbackChart.yAxis,
+            xAxis: chartDataRaw.chartConfig.xAxis.trim() || fallbackChart.xAxis,
+            center: chartDataRaw.chartConfig.center.trim() || fallbackChart.center,
+            footer: chartDataRaw.chartConfig.footer.trim() || fallbackChart.footer,
+            tipping: chartDataRaw.chartConfig.tipping.trim() || fallbackChart.tipping
+          };
+          const fallbackDrivers = STATE.defaultsDrivers();
+          STATE.drivers.forEach((d, i) => {
+            d.label = chartDataRaw.drivers[i].label.trim() || fallbackDrivers[i].label;
+            const b = parseLines(chartDataRaw.drivers[i].bullets, 3);
+            d.bullets = b.length === 3 ? b : fallbackDrivers[i].bullets;
           });
           STATE.modalOpen=false;
           STATE.activeTab='problems';
@@ -1803,6 +1917,9 @@
           clearDraft();
           captureDefaultsOnce();
           writeFields(DEFAULT_CURRENT_STATE);
+          STATE.chartConfig = STATE.defaultsChartConfig();
+          STATE.drivers = STATE.defaultsDrivers();
+          writeChartFields(STATE.chartConfig, STATE.drivers.map(d => ({label: d.label, bullets: d.bullets.join('\n')})));
           STATE.currentState = STATE.defaultsCurrentState();
           render();
         }
@@ -1818,4 +1935,3 @@
     </script>
   </body>
 </html>
-.```
