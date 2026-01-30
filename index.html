@@ -157,67 +157,61 @@
         showTippingPoint: false,
         currentState: {
           change: {
-            intro: "The app layer has become the biggest slowdown in IT. Teams are drowning in apps, constant updates, and one-off fixes, and every project ends up paying the price.",
+            intro: "The application layer has become the biggest drag on IT execution.",
             bullets: [
-              'There are too many apps to manage by hand. Commercial, internal, and legacy software are spread across Intune, ConfigMgr, VDI, Windows, and macOS.',
-              'Headcount hasn’t grown, but the work has exploded. Most teams are already over capacity and spend most of their day reacting to app issues.',
-              'Big initiatives keep getting stuck. Cloud moves, Citrix or AVD projects, hardware refreshes, and AI efforts all run into the same wall — app readiness.',
-              'Technical debt keeps piling up. Different versions of the same app are everywhere, creating more risk, more tickets, and slower recovery when things break.'
+              'Too many apps, too many platforms. The same applications are rebuilt, patched, and supported separately across Intune, ConfigMgr, VDI, Windows, and macOS.',
+              'Work has outgrown capacity. Headcount stays flat while app updates, fixes, and exceptions keep increasing.',
+              'Major initiatives stall on app readiness. Cloud moves, AVD/Citrix projects, hardware refreshes, and AI efforts all slow down at the same point.',
             ],
-            analyst: "When the application layer is a mess, transformation projects stall or fail. It’s not because the strategy is wrong, but because there’s no capacity left to execute."
+            analyst: "Across industries, application delivery — not infrastructure — is now the primary bottleneck to modernization. Most transformation projects slow or fail because teams lack capacity to keep apps ready while platforms change.."
           },
           now: {
-            intro: "IT teams are being asked to manage more apps and more change with the same people and the same tools. The gap between what’s expected and what’s possible keeps getting wider.",
+            intro: "The gap between what IT is asked to deliver and what it can sustain is widening fast.",
             bullets: [
-              'App updates and complexity keep increasing, but team size stays the same. You can’t scale people the way you scale software.',
-              'Internal and custom apps don’t update themselves, so every change adds more manual work, more dependencies, and more risk.',
-              'Leadership wants progress on AI, modernization, and new platforms, but the teams who could drive that progress are stuck keeping apps running.',
-              'The longer this goes on, the worse it gets. Version sprawl grows, security and compliance get harder, and cleanup costs rise fast.'
+              'Change is accelerating, not slowing down. More app updates, more security pressure, more platforms — with the same teams.',
+              'Manual app work compounds over time. Every custom or internal app adds more versions, more dependencies, and more risk with each change',
+              'Teams that should be driving innovation are stuck keeping apps alive.',
             ],
-            analyst: "In the next few years, the organizations that succeed with AI and modernization will be the ones that fix app delivery first. Everyone else will hit a hard capacity wall."
+            analyst: "Organizations that succeed with AI, cloud, and new platforms over the next few years will be the ones that stabilize application delivery first. Everyone else hits a capacity wall where progress slows regardless of strategy"
           },
           recast: {
-            intro: "Recast’s Application Workspace solves the core problem. Deliver to the User, Not the Device.",
+            intro: "Application Workspace changes how apps are delivered — to the user, not the device.",
             bullets: [
-              'One workspace for every app, whether commercial, internal, or legacy. Installs, updates, and access all handled consistently across Intune, ConfigMgr, AVD, and other systems.',
-              'Automates what teams still do by hand — packaging, versioning, and pushing updates, especially for internal and custom apps.',
-              'Reduces technical debt and version sprawl, which means fewer variables when something breaks and far fewer app-related tickets.',
-              'Frees up IT capacity. What used to take hours now takes minutes, so migrations, pilots, patch cycles, and AI projects can finally move at business speed.'
+              'One workspace for every app. Commercial, internal, and legacy apps are delivered consistently across Intune, ConfigMgr, AVD, and other platforms.',
+              'Less version sprawl, fewer variables. Fewer app versions mean fewer tickets, faster fixes, and simpler support.',
+              'Capacity returns to the team. What used to take hours becomes minutes, freeing teams to move modernization forward.',
             ],
-            analyst: "Recast turns app management from a drag on every project into a stable foundation. Readiness stops being the blocker and becomes the default."
+            analyst: "Leading IT organizations are shifting from device-centric management to user-centric delivery models to reduce operational friction and keep pace with constant platform change"
           }
         },
         defaultsCurrentState() {
           return JSON.parse(JSON.stringify({
             change: {
-              intro: "The app layer has become the biggest slowdown in IT. Teams are drowning in apps, constant updates, and one-off fixes, and every project ends up paying the price.",
+              intro: "The application layer has become the biggest drag on IT execution.",
               bullets: [
-                'There are too many apps to manage by hand. Commercial, internal, and legacy software are spread across Intune, ConfigMgr, VDI, Windows, and macOS.',
-                'Headcount hasn’t grown, but the work has exploded. Most teams are already over capacity and spend most of their day reacting to app issues.',
-                'Big initiatives keep getting stuck. Cloud moves, Citrix or AVD projects, hardware refreshes, and AI efforts all run into the same wall — app readiness.',
-                'Technical debt keeps piling up. Different versions of the same app are everywhere, creating more risk, more tickets, and slower recovery when things break.'
-              ],
-              analyst: "When the application layer is a mess, transformation projects stall or fail. It’s not because the strategy is wrong, but because there’s no capacity left to execute."
+              'Too many apps, too many platforms. The same applications are rebuilt, patched, and supported separately across Intune, ConfigMgr, VDI, Windows, and macOS.',
+              'Work has outgrown capacity. Headcount stays flat while app updates, fixes, and exceptions keep increasing.',
+              'Major initiatives stall on app readiness. Cloud moves, AVD/Citrix projects, hardware refreshes, and AI efforts all slow down at the same point.',
+            ],
+            analyst: "Across industries, application delivery — not infrastructure — is now the primary bottleneck to modernization. Most transformation projects slow or fail because teams lack capacity to keep apps ready while platforms change.."
             },
             now: {
-              intro: "IT teams are being asked to manage more apps and more change with the same people and the same tools. The gap between what’s expected and what’s possible keeps getting wider.",
+              intro: "The gap between what IT is asked to deliver and what it can sustain is widening fast.",
               bullets: [
-                'App updates and complexity keep increasing, but team size stays the same. You can’t scale people the way you scale software.',
-                'Internal and custom apps don’t update themselves, so every change adds more manual work, more dependencies, and more risk.',
-                'Leadership wants progress on AI, modernization, and new platforms, but the teams who could drive that progress are stuck keeping apps running.',
-                'The longer this goes on, the worse it gets. Version sprawl grows, security and compliance get harder, and cleanup costs rise fast.'
-              ],
-              analyst: "In the next few years, the organizations that succeed with AI and modernization will be the ones that fix app delivery first. Everyone else will hit a hard capacity wall."
+              'Change is accelerating, not slowing down. More app updates, more security pressure, more platforms — with the same teams.',
+              'Manual app work compounds over time. Every custom or internal app adds more versions, more dependencies, and more risk with each change',
+              'Teams that should be driving innovation are stuck keeping apps alive.',
+            ],
+            analyst: "Organizations that succeed with AI, cloud, and new platforms over the next few years will be the ones that stabilize application delivery first. Everyone else hits a capacity wall where progress slows regardless of strategy"
             },
             recast: {
-              intro: "Recast’s Application Workspace solves the core problem. Deliver to the User, Not the Device",
+              intro: "Application Workspace changes how apps are delivered — to the user, not the device.",
               bullets: [
-                'One workspace for every app, whether commercial, internal, or legacy. Installs, updates, and access all handled consistently across Intune, ConfigMgr, AVD, and other systems.',
-                'Automates what teams still do by hand — packaging, versioning, and pushing updates, especially for internal and custom apps.',
-                'Reduces technical debt and version sprawl, which means fewer variables when something breaks and far fewer app-related tickets.',
-                'Frees up IT capacity. What used to take hours now takes minutes, so migrations, pilots, patch cycles, and AI projects can finally move at business speed.'
+                'One workspace for every app. Commercial, internal, and legacy apps are delivered consistently across Intune, ConfigMgr, AVD, and other platforms.',
+                'Less version sprawl, fewer variables. Fewer app versions mean fewer tickets, faster fixes, and simpler support..',
+                'Capacity returns to the team. What used to take hours becomes minutes, freeing teams to move modernization forward',
               ],
-              analyst: "Recast turns app management from a drag on every project into a stable foundation. Readiness stops being the blocker and becomes the default."
+              analyst: "Leading IT organizations are shifting from device-centric management to user-centric delivery models to reduce operational friction and keep pace with constant platform change."
             }
           }));
         },
