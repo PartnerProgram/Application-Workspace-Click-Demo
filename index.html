@@ -435,10 +435,10 @@
       }
       function renderProblems(){
         const items=[
-          {t:'The Same App Works Differently Everywhere',s:'The same application behaves one way on Windows, another on macOS or VDI — creating confusion, tickets, and finger-pointing.',i:'layers'},
-          {t:'Every Change Takes Too Much Effort',s:'Updates and fixes have to be rebuilt, retested, and redeployed for each platform — so even small changes take weeks.'},
-          {t:'Patching Is Slower Than the Threats',s:'Security updates take days or weeks to roll out, leaving gaps while teams juggle testing and compatibility issues.'},
-          {t:'Teams Avoid Change Because It’s Risky',s:'Upgrades get delayed because no one is sure which apps will break, where, or how hard they’ll be to fix.'}
+          {t:'Same App, Different Experience',s:'Apps behave differently across Windows, macOS, VDI, and web — creating confusion, inconsistency, and support issues',i:'layers'},
+          {t:'App Changes Take Too Long',s:'Each update requires rebuilds, retesting, and rework — slowing delivery and piling up backlog.',i:'boxes'},
+          {t:'Zero-day exposure',s:'Patching takes days, not minutes.',i:'shield'},
+          {t:'Change Feels Risky',s:'Teams delay upgrades because app readiness and compatibility are uncertain.',i:'layout-grid'}
         ];
         return `
           <section id="panel-problems" class="space-y-4">
