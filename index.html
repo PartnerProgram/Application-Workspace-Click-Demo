@@ -809,7 +809,15 @@
               <i data-lucide="lightbulb" class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"></i>
               <p class="text-base italic text-[#4A5568]">${data.analyst}</p>
             </div>
-                      <div class="mt-8 flex items-center justify-between w-full">
+            ${cta?`
+              <div class="mt-8 flex justify-center">
+                <button id="btnAdvanceToSolution" type="button" data-action="advance" data-next="solution" class="inline-flex bg-[#0070F3] text-white text-base font-semibold px-6 py-3 items-center gap-3 focus-ring shadow-md hover:shadow-lg hover:bg-[#005AD0] transition-shadow">
+                  <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                  How Recast solves it
+                </button>
+              </div>
+            `:''}
+            <div class="mt-8 flex justify-between">
               ${prev ? `<button type="button" class="re-secondary inline-flex items-center gap-2" data-action="why-nav" data-to="${prev}"><i data-lucide="arrow-left" class="w-4 h-4"></i> Back</button>` : '<div></div>'}
               ${next ? `<button type="button" class="re-primary inline-flex items-center gap-2" data-action="why-nav" data-to="${next}">Next <i data-lucide="arrow-right" class="w-4 h-4"></i></button>` : `<button type="button" class="re-primary inline-flex items-center gap-2" data-action="advance" data-next="solution">See Approach <i data-lucide="arrow-right" class="w-4 h-4"></i></button>`}
             </div>
@@ -1129,20 +1137,42 @@
           <section id="panel-roi" class="space-y-8">
             <div class="section-card p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
               <h3 class="text-2xl font-semibold mb-6 text-gray-900">Business Impact Calculator</h3>
+              <div class="mb-6">
+                <h3 class="text-xl font-medium mb-4 text-gray-900">Why Application Work Keeps Growing</h3>
+                <p class="text-base text-gray-700 leading-relaxed">In most IT environments, applications are delivered to devices and platforms. That means the same application change is rebuilt, tested, and supported once per platform. As platforms increase, application work increases automatically.</p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="p-4 rounded-lg bg-gray-50">
+                  <h4 class="text-lg font-medium mb-4 text-gray-900">Today: Delivering to Devices</h4>
+                  <ul class="space-y-2 list-disc pl-5 text-base text-gray-700">
+                    <li>Applications are packaged and updated separately per platform</li>
+                    <li>Each new environment adds more repeated work</li>
+                    <li>App work scales with platforms, not team size</li>
+                  </ul>
+                </div>
+                <div class="p-4 rounded-lg bg-gray-50">
+                  <h4 class="text-lg font-medium mb-4 text-gray-900">With Application Workspace: Delivering to Users</h4>
+                  <ul class="space-y-2 list-disc pl-5 text-base text-gray-700">
+                    <li>Each application is defined once</li>
+                    <li>Delivery stays consistent across platforms</li>
+                    <li>App work stays stable even as platforms change</li>
+                  </ul>
+                </div>
+              </div>
               <div class="grid grid-cols-1 gap-6">
                 <label class="flex flex-col gap-1">
                   <span class="text-base font-medium text-gray-900">How many applications does IT actively manage?</span>
-                  <span class="text-sm text-gray-600">Includes all applications IT packages, updates, patches, or supports.</span>
+                  <span class="text-sm text-gray-600">Applications IT actively packages, updates, patches, or supports.</span>
                   <input type="number" id="calc-apps" min="10" max="5000" placeholder="250" value="${STATE.calcInputs.apps}" class="rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus-ring">
                 </label>
                 <label class="flex flex-col gap-1">
                   <span class="text-base font-medium text-gray-900">Across how many environments do those apps need to run?</span>
-                  <span class="text-sm text-gray-600">Examples: Windows, macOS, VDI/AVD, Web.</span>
+                  <span class="text-sm text-gray-600">Each environment usually requires its own version today.</span>
                   <input type="number" id="calc-envs" min="1" max="5" placeholder="3" value="${STATE.calcInputs.envs}" class="rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus-ring">
                 </label>
                 <label class="flex flex-col gap-1">
                   <span class="text-base font-medium text-gray-900">How many application changes occur per month?</span>
-                  <span class="text-sm text-gray-600">Includes vendor updates, security patches, and internal changes.</span>
+                  <span class="text-sm text-gray-600">Vendor updates, security patches, and internal changes.</span>
                   <input type="number" id="calc-changes" min="1" max="200" placeholder="20" value="${STATE.calcInputs.changes}" class="rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus-ring">
                 </label>
               </div>
@@ -1162,22 +1192,17 @@
         `;
       }
       function renderCalcResult(){
-        if (!STATE.qualified) {
-          return `
-            <div class="p-4 rounded-lg bg-gray-50">
-              <h4 class="text-lg font-medium mb-2 text-gray-900">Your environment appears relatively simple today</h4>
-              <p class="text-base text-gray-700">Teams managing a small number of applications in a single environment
-often operate without significant delivery strain.
-As application count, delivery paths, or change frequency increases,
-application delivery becomes harder to scale predictably.</p>
-            </div>
-          `;
-        }
+        const changes = STATE.calcInputs.changes;
+        const envs = STATE.calcInputs.envs;
         return `
+          <div class="mb-4 text-base text-gray-700">
+            <p>Today: ${changes} changes × ${envs} environments = ${changes * envs} delivery efforts per month</p>
+            <p>With Application Workspace: ${changes} changes × 1 workspace = ${changes} delivery efforts per month</p>
+          </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div class="p-4 rounded-lg bg-gray-50">
               <h4 class="text-lg font-medium mb-4 text-gray-900">Current State</h4>
-              <ul class="space-y-2 text-base list-disc pl-5 text-gray-700">
+              <ul class="space-y-2 list-disc pl-5 text-base text-gray-700">
                 <li>Applications are packaged and delivered separately per environment.</li>
                 <li>Each change requires rebuilds, retesting, and coordination.</li>
                 <li>Operational work scales faster than available capacity.</li>
@@ -1185,7 +1210,7 @@ application delivery becomes harder to scale predictably.</p>
             </div>
             <div class="p-4 rounded-lg bg-gray-50">
               <h4 class="text-lg font-medium mb-4 text-gray-900">With Application Workspace</h4>
-              <ul class="space-y-2 text-base list-disc pl-5 text-gray-700">
+              <ul class="space-y-2 list-disc pl-5 text-base text-gray-700">
                 <li>Applications are packaged once and delivered everywhere.</li>
                 <li>Consistent behavior across platforms.</li>
                 <li>Operational effort scales predictably.</li>
@@ -1193,12 +1218,12 @@ application delivery becomes harder to scale predictably.</p>
             </div>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            ${kvCalc('Hours Returned per Month', num(Math.round(STATE.calcResult.hoursSavedMonthly)))}
-            ${kvCalc('Hours Returned per Year', num(Math.round(STATE.calcResult.hoursSavedYearly)))}
-            ${kvCalc('Delivery Efficiency Gain', '60%')}
-            ${kvCalc('Support Load Reduction', '40%')}
+            ${kvCalc('Duplicated Application Work Eliminated per Month', num(Math.round(STATE.calcResult.eliminatedMonthly)))}
+            ${kvCalc('Duplicated Application Work Eliminated per Year', num(Math.round(STATE.calcResult.eliminatedYearly)))}
+            ${kvCalc('Reduction in Repeated Application Work', '60%')}
+            ${kvCalc('Support Simplification from Consistent Delivery', `${STATE.calcResult.supportPct}%`)}
           </div>
-          <p class="mt-4 text-sm text-gray-600">Represents operational capacity returned to IT — not headcount reduction.</p>
+          <p class="mt-4 text-sm text-gray-600">These results reflect duplicated work removed by delivering applications once instead of separately per platform. This represents operational capacity returned to IT, not headcount reduction.</p>
         `;
       }
       function kvCalc(label, value){
@@ -1577,11 +1602,11 @@ application delivery becomes harder to scale predictably.</p>
             setSlider(id, value);
           }
           const calcApps = document.getElementById('calc-apps');
-          if (calcApps && e.target === calcApps) STATE.calcInputs.apps = cleanNum(e.target.value);
+          if (calcApps && e.target === calcApps) { STATE.calcInputs.apps = cleanNum(e.target.value); calculateImpact(); render(); }
           const calcEnvs = document.getElementById('calc-envs');
-          if (calcEnvs && e.target === calcEnvs) STATE.calcInputs.envs = cleanNum(e.target.value);
+          if (calcEnvs && e.target === calcEnvs) { STATE.calcInputs.envs = cleanNum(e.target.value); calculateImpact(); render(); }
           const calcChanges = document.getElementById('calc-changes');
-          if (calcChanges && e.target === calcChanges) STATE.calcInputs.changes = cleanNum(e.target.value);
+          if (calcChanges && e.target === calcChanges) { STATE.calcInputs.changes = cleanNum(e.target.value); calculateImpact(); render(); }
         });
         root.addEventListener('click', e => {
           const act = e.target.closest('[data-action]');
@@ -1865,21 +1890,15 @@ application delivery becomes harder to scale predictably.</p>
       }
       function calculateImpact(){
         const apps = STATE.calcInputs.apps;
-        const envs = STATE.calcInputs.envs;
+        const envs = Math.max(1, STATE.calcInputs.envs);
         const changes = STATE.calcInputs.changes;
-        STATE.qualified = apps >= 50 && envs >= 2 && changes >= 10;
-        if (STATE.qualified) {
-          const currentMonthlyHours = (apps * envs * changes * 0.75) + (changes * 0.25);
-          const workspaceMonthlyHours = currentMonthlyHours * 0.4;
-          const hoursSavedMonthly = currentMonthlyHours - workspaceMonthlyHours;
-          const hoursSavedYearly = hoursSavedMonthly * 12;
-          STATE.calcResult = {
-            hoursSavedMonthly,
-            hoursSavedYearly
-          };
-        } else {
-          STATE.calcResult = null;
-        }
+        const BASE = 2;
+        const current = changes * envs * BASE;
+        const workspace = changes * BASE;
+        const eliminatedMonthly = current - workspace;
+        const eliminatedYearly = eliminatedMonthly * 12;
+        const supportPct = apps < 100 ? 20 : apps <= 300 ? 35 : 45;
+        STATE.calcResult = { eliminatedMonthly, eliminatedYearly, supportPct };
       }
       function attachAccordionKeyboard(){
         document.addEventListener('keydown', (e) => {
