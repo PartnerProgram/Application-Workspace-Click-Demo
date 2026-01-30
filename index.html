@@ -235,7 +235,7 @@
         },
         progress: { apps: 0, time: 0, tickets: 0 },
         envProgress: { appsProcessed: 0 },
-        calcInputs: { apps: 120, envs: 3, changes: 10 },
+        calcInputs: { envs: 3, changes: 10, time: 4 },
         calcResult: null,
         qualified: false
       };
@@ -1124,47 +1124,46 @@
         logo('Zoom','Z','#0B5CFF')
       ];
       function renderROI(){
-        const r = calcROI();
         return `
           <section id="panel-roi" class="space-y-8">
             <div class="section-card p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
               <h3 class="text-2xl font-semibold mb-6 text-gray-900">Business Impact Calculator</h3>
               <div class="mb-6">
-                <p class="text-base text-gray-700 leading-relaxed">In most IT environments, applications are delivered to devices and platforms. That means the same application change is rebuilt, tested, and supported once per platform. As platforms increase, application work increases automatically.</p>
+                <p class="text-base text-gray-700 leading-relaxed">The most accurate way to estimate Application Workspace value is to measure duplicated app-change work across platforms. Ask three questions: how many environments you support, how many app changes you push per month, and how many hours each change takes per environment today. The calculator then estimates capacity returned by removing repeated work: C × (E−1) × T hours per month. This produces a defensible output because it reflects the team’s real workflow rather than inflated assumptions.</p>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div class="p-4 rounded-lg bg-gray-50">
-                  <h4 class="text-lg font-medium mb-4 text-gray-900">Today: Delivering to Devices</h4>
+                  <h4 class="text-lg font-medium mb-4 text-gray-900">Current Delivery Effort</h4>
                   <ul class="space-y-2 list-disc pl-5 text-base text-gray-700">
-                    <li>Applications are packaged and updated separately per platform</li>
-                    <li>Each new environment adds more repeated work</li>
-                    <li>App work scales with platforms, not team size</li>
+                    <li>Each change is repeated once per environment</li>
+                    <li>Duplication multiplier: environments (E)</li>
+                    <li>Repeated work: C × E × T hours/month</li>
                   </ul>
                 </div>
                 <div class="p-4 rounded-lg bg-gray-50">
-                  <h4 class="text-lg font-medium mb-4 text-gray-900">With Application Workspace: Delivering to Users</h4>
+                  <h4 class="text-lg font-medium mb-4 text-gray-900">With Application Workspace</h4>
                   <ul class="space-y-2 list-disc pl-5 text-base text-gray-700">
-                    <li>Each application is defined once</li>
-                    <li>Delivery stays consistent across platforms</li>
-                    <li>App work stays stable even as platforms change</li>
+                    <li>A change is defined once, then delivered consistently across environments</li>
+                    <li>Work: C × 1 × T hours/month</li>
+                    <li>Capacity returned: C × (E − 1) × T hours/month</li>
                   </ul>
                 </div>
               </div>
               <div class="grid grid-cols-1 gap-6">
                 <label class="flex flex-col gap-1">
-                  <span class="text-base font-medium text-gray-900">How many applications does IT actively manage?</span>
-                  <span class="text-sm text-gray-600">Applications IT actively packages, updates, patches, or supports.</span>
-                  <input type="number" id="calc-apps" min="10" max="5000" placeholder="250" value="${STATE.calcInputs.apps}" class="rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus-ring">
+                  <span class="text-base font-medium text-gray-900">How many distinct environments do apps need to run in? (E)</span>
+                  <span class="text-sm text-gray-600">Examples: Windows/ConfigMgr, Intune, macOS/Jamf, VDI/AVD/Citrix, Web.</span>
+                  <input type="number" id="calc-envs" min="1" max="10" placeholder="3" value="${STATE.calcInputs.envs}" class="rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus-ring">
                 </label>
                 <label class="flex flex-col gap-1">
-                  <span class="text-base font-medium text-gray-900">Across how many environments do those apps need to run?</span>
-                  <span class="text-sm text-gray-600">Each environment usually requires its own version today.</span>
-                  <input type="number" id="calc-envs" min="1" max="5" placeholder="3" value="${STATE.calcInputs.envs}" class="rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus-ring">
+                  <span class="text-base font-medium text-gray-900">How many app changes require packaging/testing/deployment coordination per month? (C)</span>
+                  <span class="text-sm text-gray-600">Includes: vendor updates, security patches that require validation, internal app releases, urgent fixes.</span>
+                  <input type="number" id="calc-changes" min="1" max="500" placeholder="10" value="${STATE.calcInputs.changes}" class="rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus-ring">
                 </label>
                 <label class="flex flex-col gap-1">
-                  <span class="text-base font-medium text-gray-900">How many application changes occur per month?</span>
-                  <span class="text-sm text-gray-600">Vendor updates, security patches, and internal changes.</span>
-                  <input type="number" id="calc-changes" min="1" max="200" placeholder="20" value="${STATE.calcInputs.changes}" class="rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus-ring">
+                  <span class="text-base font-medium text-gray-900">On average, how many hours of IT effort does one app change take per environment? (T)</span>
+                  <span class="text-sm text-gray-600">Include: packaging work, validation/testing, pilot ring, deployment coordination, and troubleshooting fallout.</span>
+                  <input type="number" id="calc-time" min="1" max="100" placeholder="4" value="${STATE.calcInputs.time}" class="rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus-ring">
                 </label>
               </div>
               <div class="mt-6">
@@ -1183,36 +1182,31 @@
         `;
       }
       function renderCalcResult(){
-        const changes = STATE.calcInputs.changes;
-        const envs = STATE.calcInputs.envs;
+        const r = STATE.calcResult;
+        const qualified = r.envs >= 2 && r.changes >= 10;
         return `
           <div class="mb-4 text-base text-gray-700">
-            <p>Today: ${changes} changes × ${envs} environments = ${changes * envs} delivery efforts per month</p>
-            <p>With Application Workspace: ${changes} changes × 1 workspace = ${changes} delivery efforts per month</p>
+            <p>Today: ${r.changes} changes × ${r.envs} environments × ${r.time} hours = ${r.h_current} hours/month</p>
+            <p>With Application Workspace: ${r.changes} changes × 1 × ${r.time} hours = ${r.h_aw} hours/month</p>
+            <p>Qualification: ${qualified ? 'Likely a real problem worth solving' : 'May still help, but smaller value'}</p>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div class="p-4 rounded-lg bg-gray-50">
-              <h4 class="text-lg font-medium mb-4 text-gray-900">Current State</h4>
+              <h4 class="text-lg font-medium mb-4 text-gray-900">Capacity Returned</h4>
               <ul class="space-y-2 list-disc pl-5 text-base text-gray-700">
-                <li>Applications are packaged and delivered separately per environment.</li>
-                <li>Each change requires rebuilds, retesting, and coordination.</li>
-                <li>Operational work scales faster than available capacity.</li>
+                <li>Hours/month: ${r.h_saved}</li>
+                <li>Hours/year: ${r.h_saved_year}</li>
+                <li>FTE-equivalent capacity/year: ${r.fte_eq} (capacity equivalent, not people eliminated)</li>
               </ul>
             </div>
             <div class="p-4 rounded-lg bg-gray-50">
-              <h4 class="text-lg font-medium mb-4 text-gray-900">With Application Workspace</h4>
+              <h4 class="text-lg font-medium mb-4 text-gray-900">Value for the Team</h4>
               <ul class="space-y-2 list-disc pl-5 text-base text-gray-700">
-                <li>Applications are packaged once and delivered everywhere.</li>
-                <li>Consistent behavior across platforms.</li>
-                <li>Operational effort scales predictably.</li>
+                <li>Reduce repeated app work across platforms</li>
+                <li>Make support more predictable</li>
+                <li>Increase change throughput without adding staff</li>
               </ul>
             </div>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            ${kvCalc('Duplicated Application Work Eliminated per Month', num(Math.round(STATE.calcResult.eliminatedMonthly)))}
-            ${kvCalc('Duplicated Application Work Eliminated per Year', num(Math.round(STATE.calcResult.eliminatedYearly)))}
-            ${kvCalc('Reduction in Repeated Application Work', '60%')}
-            ${kvCalc('Support Simplification from Consistent Delivery', `${STATE.calcResult.supportPct}%`)}
           </div>
         `;
       }
@@ -1591,12 +1585,12 @@
             const value = parseInt(act.value);
             setSlider(id, value);
           }
-          const calcApps = document.getElementById('calc-apps');
-          if (calcApps && e.target === calcApps) { STATE.calcInputs.apps = cleanNum(e.target.value); calculateImpact(); render(); }
           const calcEnvs = document.getElementById('calc-envs');
-          if (calcEnvs && e.target === calcEnvs) { STATE.calcInputs.envs = cleanNum(e.target.value); calculateImpact(); render(); }
+          if (calcEnvs && e.target === calcEnvs) { STATE.calcInputs.envs = cleanNum(e.target.value); render(); }
           const calcChanges = document.getElementById('calc-changes');
-          if (calcChanges && e.target === calcChanges) { STATE.calcInputs.changes = cleanNum(e.target.value); calculateImpact(); render(); }
+          if (calcChanges && e.target === calcChanges) { STATE.calcInputs.changes = cleanNum(e.target.value); render(); }
+          const calcTime = document.getElementById('calc-time');
+          if (calcTime && e.target === calcTime) { STATE.calcInputs.time = cleanNum(e.target.value); render(); }
         });
         root.addEventListener('click', e => {
           const act = e.target.closest('[data-action]');
@@ -1879,16 +1873,15 @@
         buildFlow();
       }
       function calculateImpact(){
-        const apps = STATE.calcInputs.apps;
         const envs = Math.max(1, STATE.calcInputs.envs);
-        const changes = STATE.calcInputs.changes;
-        const BASE = 2;
-        const current = changes * envs * BASE;
-        const workspace = changes * BASE;
-        const eliminatedMonthly = current - workspace;
-        const eliminatedYearly = eliminatedMonthly * 12;
-        const supportPct = apps < 100 ? 20 : apps <= 300 ? 35 : 45;
-        STATE.calcResult = { eliminatedMonthly, eliminatedYearly, supportPct };
+        const changes = Math.max(0, STATE.calcInputs.changes);
+        const time = Math.max(0, STATE.calcInputs.time);
+        const h_current = changes * envs * time;
+        const h_aw = changes * 1 * time;
+        const h_saved = changes * (envs - 1) * time;
+        const h_saved_year = h_saved * 12;
+        const fte_eq = round(h_saved_year / 1920);
+        STATE.calcResult = { envs, changes, time, h_current, h_aw, h_saved, h_saved_year, fte_eq };
       }
       function attachAccordionKeyboard(){
         document.addEventListener('keydown', (e) => {
