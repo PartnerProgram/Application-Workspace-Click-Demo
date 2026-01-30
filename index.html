@@ -146,7 +146,7 @@
           yAxis: "Expectations and Requests",
           xAxis: "Time",
           center: "The widening gap",
-          footer: "Limited budget, flat headcount, and finite operational capacity",
+          footer: "IT Appreciation & Resources / Time",
           tipping: "Operational breaking point"
         },
         currentDemandExponent: 1.6,
@@ -580,7 +580,7 @@
         text.setAttribute('y', endY);
         text.setAttribute('font-size', '12');
         text.setAttribute('fill', '#6b7280');
-        text.textContent = 'Limited Capacity';
+        text.textContent = 'IT Capacity';
         svg.appendChild(text);
         // Tipping point
         if (STATE.showTippingPoint) {
@@ -600,7 +600,7 @@
           label.setAttribute('y', yScale(1) - 10);
           label.setAttribute('font-size', '12');
           label.setAttribute('fill', '#111827');
-          label.textContent = 'Projected Tipping Point';
+          label.textContent = 'Inflection Point';
           svg.appendChild(label);
           const ann = document.createElementNS('http://www.w3.org/2000/svg', 'text');
           ann.setAttribute('x', x + 10);
