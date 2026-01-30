@@ -435,10 +435,10 @@
       }
       function renderProblems(){
         const items=[
-          {t:'Inconsistent Apps',s:'Apps behave differently across Windows, macOS, VDI, and web — creating confusion, inconsistency, and support issues',i:'layers'},
-          {t:'Slow Changes',s:'Each update requires rebuilds, retesting, and rework — slowing delivery and piling up backlog.',i:'boxes'},
+          {t:'Inconsistent Apps',s:'The same app works fine on one machine but breaks or behaves differently on another, which is why tickets keep bouncing around.',i:'layers'},
+          {t:'Slow Changes',s:'Even simple updates take way longer than they should because every platform needs its own build, testing, and rollout.',i:'boxes'},
           {t:'Delayed Patching',s:'Security patches sit in limbo while teams test compatibility and chase edge cases, leaving known gaps open longer than anyone’s comfortable with',i:'shield'},
-          {t:'Risky Upgrades',s:'Teams delay upgrades because app readiness and compatibility are uncertain.',i:'layout-grid'}
+          {t:'Risky Upgrades',s:'Teams delay upgrades because no one’s confident which apps will break, where they’ll break, or how painful the rollback will be.',i:'layout-grid'}
         ];
         return `
           <section id="panel-problems" class="space-y-4">
