@@ -394,9 +394,9 @@
           <main class="mx-auto max-w-6xl px-4 pb-16">
             ${STATE.activeTab==='roi' ? `
             <div class="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
-              ${chip('Reactive Work Reduced', String(STATE.impact.minutes)+' min/user/mo', 'emerald')}
-              ${chip('Hours Saved from Packaging', String(round(STATE.impact.pkgHours)), 'sky')}
-              ${chip('Hours Saved from Faster Patching', String(round(STATE.impact.riskHrs)), 'yellow')}
+              ${chip('Avg. Reactive Work Reduced', String(STATE.impact.minutes)+' min/user/mo', 'emerald')}
+              ${chip('Avg. Hours Saved from Packaging', String(round(STATE.impact.pkgHours)), 'sky')}
+              ${chip('Avg. Hours Saved from Faster Patching', String(round(STATE.impact.riskHrs)), 'yellow')}
             </div>` : ''}
             <section class="mt-5">${renderActivePanel()}</section>
           </main>
