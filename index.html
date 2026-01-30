@@ -1127,41 +1127,41 @@
         return `
           <section id="panel-roi" class="space-y-8">
             <div class="section-card p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
-              <h3 class="text-2xl font-semibold mb-6 text-gray-900">Business Impact Calculator</h3>
+              <h3 class="text-2xl font-semibold mb-6 text-gray-900">Application Workspace Impact Calculator</h3>
               <div class="mb-6">
-                <p class="text-base text-gray-700 leading-relaxed">The most accurate way to estimate Application Workspace value is to measure duplicated app-change work across platforms. Ask three questions: how many environments you support, how many app changes you push per month, and how many hours each change takes per environment today. The calculator then estimates capacity returned by removing repeated work: C × (E−1) × T hours per month. This produces a defensible output because it reflects the team’s real workflow rather than inflated assumptions.</p>
+                <p class="text-base text-gray-700 leading-relaxed">Most app work isn’t hard — it’s just repeated. The same update gets packaged, tested, and rolled out again for every environment you support. This calculator shows how much time that repetition creates — and how much of it disappears when changes are defined once instead of per platform.</p>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div class="p-4 rounded-lg bg-gray-50">
-                  <h4 class="text-lg font-medium mb-4 text-gray-900">Current Delivery Effort</h4>
+                  <h4 class="text-lg font-medium mb-4 text-gray-900">How App Work Happens Today</h4>
                   <ul class="space-y-2 list-disc pl-5 text-base text-gray-700">
-                    <li>Each change is repeated once per environment</li>
-                    <li>Duplication multiplier: environments (E)</li>
-                    <li>Repeated work: C × E × T hours/month</li>
+                    <li>The same change is handled separately for each environment</li>
+                    <li>More platforms = more rebuilds, retesting, and coordination</li>
+                    <li>Time adds up quietly every month</li>
                   </ul>
                 </div>
                 <div class="p-4 rounded-lg bg-gray-50">
                   <h4 class="text-lg font-medium mb-4 text-gray-900">With Application Workspace</h4>
                   <ul class="space-y-2 list-disc pl-5 text-base text-gray-700">
                     <li>A change is defined once, then delivered consistently across environments</li>
-                    <li>Work: C × 1 × T hours/month</li>
-                    <li>Capacity returned: C × (E − 1) × T hours/month</li>
+                    <li>It’s delivered consistently wherever users need it</li>
+                    <li>Repeated work drops away</li>
                   </ul>
                 </div>
               </div>
               <div class="grid grid-cols-1 gap-6">
                 <label class="flex flex-col gap-1">
-                  <span class="text-base font-medium text-gray-900">How many distinct environments do apps need to run in? (E)</span>
+                  <span class="text-base font-medium text-gray-900">How many environments do your apps have to work in?</span>
                   <span class="text-sm text-gray-600">Examples: Windows/ConfigMgr, Intune, macOS/Jamf, VDI/AVD/Citrix, Web.</span>
                   <input type="number" id="calc-envs" min="1" max="10" placeholder="3" value="${STATE.calcInputs.envs}" class="rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus-ring">
                 </label>
                 <label class="flex flex-col gap-1">
-                  <span class="text-base font-medium text-gray-900">How many app changes require packaging/testing/deployment coordination per month? (C)</span>
+                  <span class="text-base font-medium text-gray-900">About how many app changes do you push in a typical month?</span>
                   <span class="text-sm text-gray-600">Includes: vendor updates, security patches that require validation, internal app releases, urgent fixes.</span>
                   <input type="number" id="calc-changes" min="1" max="500" placeholder="10" value="${STATE.calcInputs.changes}" class="rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus-ring">
                 </label>
                 <label class="flex flex-col gap-1">
-                  <span class="text-base font-medium text-gray-900">On average, how many hours of IT effort does one app change take per environment? (T)</span>
+                  <span class="text-base font-medium text-gray-900">Roughly how long does one change take per environment?</span>
                   <span class="text-sm text-gray-600">Include: packaging work, validation/testing, pilot ring, deployment coordination, and troubleshooting fallout.</span>
                   <input type="number" id="calc-time" min="1" max="100" placeholder="4" value="${STATE.calcInputs.time}" class="rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus-ring">
                 </label>
