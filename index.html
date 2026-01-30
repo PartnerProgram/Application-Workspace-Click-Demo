@@ -146,7 +146,7 @@
           yAxis: "Expectations and Requests",
           xAxis: "Time",
           center: "The widening gap",
-          footer: "IT Appreciation & Resources / Time",
+          footer: "Limited budget, flat headcount, and finite operational capacity",
           tipping: "Operational breaking point"
         },
         currentDemandExponent: 1.6,
@@ -464,6 +464,7 @@
                   <h3 class="text-xl font-medium mb-6">Modern IT Challenges</h3>
                   <div class="grid grid-cols-1 gap-6 items-stretch">
                     ${calloutDropdown('change','alert-triangle','Why Change','bg-slate-50')}
+                    ${calloutDropdown('now','clock-4','Why Now','bg-slate-50', false, "Because application demand is outpacing operational capacity.")}
                     ${calloutDropdown('recast','sparkles','Why Recast','bg-slate-50', true)}
                   </div>
                 </div>
@@ -580,7 +581,7 @@
         text.setAttribute('y', endY);
         text.setAttribute('font-size', '12');
         text.setAttribute('fill', '#6b7280');
-        text.textContent = 'IT Capacity';
+        text.textContent = 'Limited Capacity';
         svg.appendChild(text);
         // Tipping point
         if (STATE.showTippingPoint) {
@@ -600,7 +601,7 @@
           label.setAttribute('y', yScale(1) - 10);
           label.setAttribute('font-size', '12');
           label.setAttribute('fill', '#111827');
-          label.textContent = 'Inflection Point';
+          label.textContent = 'Projected Tipping Point';
           svg.appendChild(label);
           const ann = document.createElementNS('http://www.w3.org/2000/svg', 'text');
           ann.setAttribute('x', x + 10);
