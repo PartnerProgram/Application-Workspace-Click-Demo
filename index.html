@@ -809,15 +809,7 @@
               <i data-lucide="lightbulb" class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"></i>
               <p class="text-base italic text-[#4A5568]">${data.analyst}</p>
             </div>
-            ${cta?`
-              <div class="mt-8 flex justify-center">
-                <button id="btnAdvanceToSolution" type="button" data-action="advance" data-next="solution" class="inline-flex bg-[#0070F3] text-white text-base font-semibold px-6 py-3 items-center gap-3 focus-ring shadow-md hover:shadow-lg hover:bg-[#005AD0] transition-shadow">
-                  <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                  How Recast solves it
-                </button>
-              </div>
-            `:''}
-            <div class="mt-8 flex justify-between">
+                      <div class="mt-8 flex items-center justify-between w-full">
               ${prev ? `<button type="button" class="re-secondary inline-flex items-center gap-2" data-action="why-nav" data-to="${prev}"><i data-lucide="arrow-left" class="w-4 h-4"></i> Back</button>` : '<div></div>'}
               ${next ? `<button type="button" class="re-primary inline-flex items-center gap-2" data-action="why-nav" data-to="${next}">Next <i data-lucide="arrow-right" class="w-4 h-4"></i></button>` : `<button type="button" class="re-primary inline-flex items-center gap-2" data-action="advance" data-next="solution">See Approach <i data-lucide="arrow-right" class="w-4 h-4"></i></button>`}
             </div>
