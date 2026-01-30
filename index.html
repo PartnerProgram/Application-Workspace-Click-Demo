@@ -138,7 +138,7 @@
         ],
         tippingPointYear: 2027.5,
         tippingPoint: {
-          title: "IT Capacity Break",
+          title: "Projected Tipping Point",
           bullets: ["Changes take longer", "Risk increases", "Teams burn out", "Strategic initiatives stall"],
           closing: "This isn’t failure — it’s the limit of a model that no longer scales."
         },
@@ -239,7 +239,10 @@
           ]));
         },
         progress: { apps: 0, time: 0, tickets: 0 },
-        envProgress: { appsProcessed: 0 }
+        envProgress: { appsProcessed: 0 },
+        calcInputs: { apps: 250, envs: 3, changes: 20 },
+        calcResult: null,
+        qualified: false
       };
       const TABS = [
         { id: 'problems', label: 'Current State', icon: 'alert-triangle' },
@@ -461,7 +464,7 @@
                   <h3 class="text-xl font-medium mb-6">Modern IT Challenges</h3>
                   <div class="grid grid-cols-1 gap-6 items-stretch">
                     ${calloutDropdown('change','alert-triangle','Why Change','bg-slate-50')}
-                    ${calloutDropdown('now','clock-4','Why Now','bg-slate-50', false, "Because the application layer is not scaling at the same rate as change.")}
+                    ${calloutDropdown('now','clock-4','Why Now','bg-slate-50', false, "Because application demand is outpacing operational capacity.")}
                     ${calloutDropdown('recast','sparkles','Why Recast','bg-slate-50', true)}
                   </div>
                 </div>
@@ -1199,7 +1202,81 @@
                 </div>
               </div>
             </div>
+            <div class="section-card p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
+              <h3 class="text-2xl font-semibold mb-6 text-gray-900">Business Impact Calculator</h3>
+              <div class="grid grid-cols-1 gap-6">
+                <label class="flex flex-col gap-1">
+                  <span class="text-base font-medium text-gray-900">How many applications does IT actively manage?</span>
+                  <span class="text-sm text-gray-600">Includes all applications IT packages, updates, patches, or supports.</span>
+                  <input type="number" id="calc-apps" min="10" max="5000" placeholder="250" value="${STATE.calcInputs.apps}" class="rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus-ring">
+                </label>
+                <label class="flex flex-col gap-1">
+                  <span class="text-base font-medium text-gray-900">Across how many environments do those apps need to run?</span>
+                  <span class="text-sm text-gray-600">Examples: Windows, macOS, VDI/AVD, Web.</span>
+                  <input type="number" id="calc-envs" min="1" max="5" placeholder="3" value="${STATE.calcInputs.envs}" class="rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus-ring">
+                </label>
+                <label class="flex flex-col gap-1">
+                  <span class="text-base font-medium text-gray-900">How many application changes occur per month?</span>
+                  <span class="text-sm text-gray-600">Includes vendor updates, security patches, and internal changes.</span>
+                  <input type="number" id="calc-changes" min="1" max="200" placeholder="20" value="${STATE.calcInputs.changes}" class="rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus-ring">
+                </label>
+              </div>
+              <div class="mt-6">
+                <button type="button" data-action="calculate-impact" class="bg-[#0070F3] text-white px-6 py-3 text-base font-semibold rounded-full hover:bg-[#005AD0] focus-ring">Calculate Impact</button>
+              </div>
+              <div id="calc-output" class="mt-8">
+                ${STATE.calcResult ? renderCalcResult() : ''}
+              </div>
+            </div>
           </section>
+        `;
+      }
+      function renderCalcResult(){
+        if (!STATE.qualified) {
+          return `
+            <div class="p-4 rounded-lg bg-gray-50">
+              <h4 class="text-lg font-medium mb-2 text-gray-900">Your environment appears relatively simple today</h4>
+              <p class="text-base text-gray-700">Teams managing a small number of applications in a single environment
+often operate without significant delivery strain.
+As application count, delivery paths, or change frequency increases,
+application delivery becomes harder to scale predictably.</p>
+            </div>
+          `;
+        }
+        return `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="p-4 rounded-lg bg-gray-50">
+              <h4 class="text-lg font-medium mb-4 text-gray-900">Current State</h4>
+              <ul class="space-y-2 text-base list-disc pl-5 text-gray-700">
+                <li>Applications are packaged and delivered separately per environment.</li>
+                <li>Each change requires rebuilds, retesting, and coordination.</li>
+                <li>Operational work scales faster than available capacity.</li>
+              </ul>
+            </div>
+            <div class="p-4 rounded-lg bg-gray-50">
+              <h4 class="text-lg font-medium mb-4 text-gray-900">With Application Workspace</h4>
+              <ul class="space-y-2 text-base list-disc pl-5 text-gray-700">
+                <li>Applications are packaged once and delivered everywhere.</li>
+                <li>Consistent behavior across platforms.</li>
+                <li>Operational effort scales predictably.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            ${kvCalc('Hours Returned per Month', num(Math.round(STATE.calcResult.hoursSavedMonthly)))}
+            ${kvCalc('Hours Returned per Year', num(Math.round(STATE.calcResult.hoursSavedYearly)))}
+            ${kvCalc('Delivery Efficiency Gain', '60%')}
+            ${kvCalc('Support Load Reduction', '40%')}
+          </div>
+          <p class="mt-4 text-sm text-gray-600">Represents operational capacity returned to IT — not headcount reduction.</p>
+        `;
+      }
+      function kvCalc(label, value){
+        return `
+          <div class="p-4 rounded-lg bg-gray-50 flex flex-col items-center justify-center">
+            <span class="text-2xl font-bold text-gray-900 tabular-nums">${value}</span>
+            <span class="text-base text-gray-700 text-center">${label}</span>
+          </div>
         `;
       }
       function calcROI(){
@@ -1556,6 +1633,12 @@
             const value = parseInt(act.value);
             setSlider(id, value);
           }
+          const calcApps = document.getElementById('calc-apps');
+          if (calcApps && e.target === calcApps) STATE.calcInputs.apps = cleanNum(e.target.value);
+          const calcEnvs = document.getElementById('calc-envs');
+          if (calcEnvs && e.target === calcEnvs) STATE.calcInputs.envs = cleanNum(e.target.value);
+          const calcChanges = document.getElementById('calc-changes');
+          if (calcChanges && e.target === calcChanges) STATE.calcInputs.changes = cleanNum(e.target.value);
         });
         root.addEventListener('click', e => {
           const act = e.target.closest('[data-action]');
@@ -1571,6 +1654,11 @@
             if (action === 'why-nav') {
               const to = act.getAttribute('data-to');
               STATE.openWhyModal = to;
+              render();
+              return;
+            }
+            if (action === 'calculate-impact') {
+              calculateImpact();
               render();
               return;
             }
@@ -1591,6 +1679,7 @@
           STATE.activeTab=e.currentTarget.getAttribute('data-tab');
           STATE.visitedCards = [];
           STATE.activePopover = null;
+          STATE.calcResult = null;
           render();
         }));
         root.querySelectorAll('[data-action="advance"]').forEach(b=>b.addEventListener('click',e=>{
@@ -1824,6 +1913,24 @@
         STATE.envProgress = { appsProcessed: 0 };
         STATE.showLabels = false;
         buildFlow();
+      }
+      function calculateImpact(){
+        const apps = STATE.calcInputs.apps;
+        const envs = STATE.calcInputs.envs;
+        const changes = STATE.calcInputs.changes;
+        STATE.qualified = apps >= 50 && envs >= 2 && changes >= 10;
+        if (STATE.qualified) {
+          const currentMonthlyHours = (apps * envs * changes * 0.75) + (changes * 0.25);
+          const workspaceMonthlyHours = currentMonthlyHours * 0.4;
+          const hoursSavedMonthly = currentMonthlyHours - workspaceMonthlyHours;
+          const hoursSavedYearly = hoursSavedMonthly * 12;
+          STATE.calcResult = {
+            hoursSavedMonthly,
+            hoursSavedYearly
+          };
+        } else {
+          STATE.calcResult = null;
+        }
       }
       function attachAccordionKeyboard(){
         document.addEventListener('keydown', (e) => {
