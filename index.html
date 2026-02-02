@@ -103,6 +103,29 @@
       @keyframes metricsAppear { to { opacity: 1; transform: translateY(0); } }
       .interactive-node { transition: opacity 0.3s, transform 0.3s; }
       .interactive-node:hover { opacity: 0.9; transform: scale(1.05); }
+
+      /* New Chart Styles */
+      .chart-container { width: 100%; height: auto; aspect-ratio: 800 / 400; }
+      #capacity-gap-chart { width: 100%; height: 100%; }
+      .chart-text { font-size: 16px; font-weight: 500; fill: #0f172a; letter-spacing: 0.02em; }
+      .chart-axis { stroke: #e5e7eb; stroke-width: 1.5; }
+      .chart-axis-label { font-size: 18px; font-weight: bold; fill: #0A1C60; }
+      .chart-year-label { font-size: 14px; fill: #111827; }
+      @media (max-width: 640px) { .chart-year-label { font-size: 12px; transform: rotate(-45deg) translate(-10px, 10px); } }
+      .chart-annotation { font-size: 20px; font-weight: 500; fill: #6b7280; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+      .demand-line { stroke-width: 3; filter: drop-shadow(0 0 4px rgba(239,68,68,0.3)); }
+      .capacity-line { stroke-width: 3; }
+      .gap-fill {  }
+      .marker-group:hover { transform: scale(1.1); transition: transform 0.2s ease; }
+      .marker-group:hover circle { animation: pulse 1.5s infinite; }
+      @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+      .chart-element { opacity: 0; animation: fadeIn 0.5s forwards; }
+      @keyframes fadeIn { to { opacity: 1; } }
+      .axis-element { animation-delay: 0s; }
+      .line-element { animation-delay: 0.3s; }
+      .gap-element { animation-delay: 0.6s; }
+      .marker-element { animation-delay: 0.9s; }
+      .label-element { animation-delay: 1.2s; }
     </style>
   </head>
   <body class="min-h-screen antialiased">
@@ -451,13 +474,13 @@
               `).join('')}
             </div>
             <div class="section-card p-6">
-              <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-start">
-                <div class="relative">
-                  <svg id="capacity-gap-chart" class="w-full h-96"></svg>
+              <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
+                <div class="chart-container relative">
+                  <svg id="capacity-gap-chart" viewBox="0 0 800 400"></svg>
                 </div>
-                <div class="w-full lg:w-80 bg-white rounded-2xl shadow-md p-6">
-                  <h3 class="text-xl font-medium mb-6">Modern IT Challenges</h3>
-                  <div class="grid grid-cols-1 gap-6 items-stretch">
+                <div class="w-full lg:w-64 bg-white rounded-2xl shadow-md p-5">
+                  <h3 class="text-lg font-medium mb-4">Modern IT Challenges</h3>
+                  <div class="grid grid-cols-1 gap-4 items-stretch">
                     ${calloutDropdown('change','alert-triangle','Why Change','bg-slate-50')}
                     ${calloutDropdown('now','clock-4','Why Now','bg-slate-50', false, "")}
                     ${calloutDropdown('recast','sparkles','Why Recast','bg-slate-50', true)}
@@ -476,25 +499,46 @@
         const width = 700, height = 300, margin = {left: 50, bottom: 50, top: 50, right: 50};
         const xScale = t => margin.left + t * width;
         const yScale = v => margin.top + height - v * height;
+
+        // Define gradients
+        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        defs.innerHTML = `
+          <linearGradient id="demandGradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#ef4444"/>
+            <stop offset="100%" stop-color="#dc2626"/>
+          </linearGradient>
+          <linearGradient id="capacityGradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#3b82f6"/>
+            <stop offset="100%" stop-color="#2563eb"/>
+          </linearGradient>
+          <linearGradient id="gapGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(239,68,68,0.1)"/>
+            <stop offset="100%" stop-color="rgba(59,130,246,0.1)"/>
+          </linearGradient>
+        `;
+        svg.appendChild(defs);
+
         // Axes
         const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        xAxis.classList.add('axis-element', 'chart-element');
         xAxis.innerHTML = `
-          <line x1="${margin.left}" y1="${margin.top + height}" x2="${margin.left + width}" y2="${margin.top + height}" stroke="#d1d5db" stroke-width="1"/>
-          <text x="${margin.left + width / 2}" y="${margin.top + height + 40}" text-anchor="middle" font-size="14" fill="#111827">${STATE.chartConfig.xAxis}</text>
+          <line x1="${margin.left}" y1="${margin.top + height}" x2="${margin.left + width}" y2="${margin.top + height}" class="chart-axis"/>
+          <text x="${margin.left + width / 2}" y="${margin.top + height + 40}" text-anchor="middle" class="chart-axis-label">${STATE.chartConfig.xAxis}</text>
           ${STATE.years.map((year, i) => {
             const x = xScale(i / 3);
             return `
-              <line x1="${x}" y1="${margin.top + height}" x2="${x}" y2="${margin.top + height + 10}" stroke="#d1d5db" stroke-width="1"/>
-              <text x="${x}" y="${margin.top + height + 25}" text-anchor="middle" font-size="12" fill="#111827">${year}</text>
+              <line x1="${x}" y1="${margin.top + height}" x2="${x}" y2="${margin.top + height + 10}" class="chart-axis"/>
+              <text x="${x}" y="${margin.top + height + 25}" text-anchor="middle" class="chart-year-label chart-text label-element chart-element">${year}</text>
             `;
           }).join('')}
-          <text x="${margin.left + width / 2}" y="${margin.top + height + 60}" text-anchor="middle" font-size="12" fill="#6b7280"> ${STATE.chartConfig.footer}</text>
+          <text x="${margin.left + width / 2}" y="${margin.top + height + 60}" text-anchor="middle" font-size="14" fill="#6b7280" font-family="Inter" class="label-element chart-element"> ${STATE.chartConfig.footer}</text>
         `;
         svg.appendChild(xAxis);
         const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        yAxis.classList.add('axis-element', 'chart-element');
         yAxis.innerHTML = `
-          <line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + height}" stroke="#d1d5db" stroke-width="1"/>
-          <text x="${margin.left - 10}" y="${margin.top + height / 2}" text-anchor="middle" font-size="14" fill="#111827" transform="rotate(-90, ${margin.left - 10}, ${margin.top + height / 2})">${STATE.chartConfig.yAxis}</text>
+          <line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + height}" class="chart-axis"/>
+          <text x="${margin.left - 10}" y="${margin.top + height / 2}" text-anchor="middle" class="chart-axis-label" transform="rotate(-90, ${margin.left - 10}, ${margin.top + height / 2})">${STATE.chartConfig.yAxis}</text>
         `;
         svg.appendChild(yAxis);
         // Curves
@@ -515,15 +559,15 @@
         }
         const demandLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         demandLine.setAttribute('d', demandPath);
-        demandLine.setAttribute('stroke', '#ef4444');
-        demandLine.setAttribute('stroke-width', '2');
+        demandLine.setAttribute('stroke', 'url(#demandGradient)');
         demandLine.setAttribute('fill', 'none');
+        demandLine.classList.add('demand-line', 'line-element', 'chart-element');
         svg.appendChild(demandLine);
         const capacityLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         capacityLine.setAttribute('d', capacityPath);
-        capacityLine.setAttribute('stroke', '#3b82f6');
-        capacityLine.setAttribute('stroke-width', '2');
+        capacityLine.setAttribute('stroke', 'url(#capacityGradient)');
         capacityLine.setAttribute('fill', 'none');
+        capacityLine.classList.add('capacity-line', 'line-element', 'chart-element');
         svg.appendChild(capacityLine);
         // Gap shading
         let numNormal = 0, numAccelerating = 0;
@@ -533,14 +577,14 @@
         const gapPath = demandPoints.map(p => `L ${p.x} ${p.y}`).join(' ') + capacityPoints.reverse().map(p => `L ${p.x} ${p.y}`).join(' ') + 'Z';
         const gap = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         gap.setAttribute('d', `M ${demandPoints[0].x} ${demandPoints[0].y} ` + gapPath);
-        gap.setAttribute('fill', `hsl(220, 10%, ${lightness}%)`);
+        gap.setAttribute('fill', 'url(#gapGradient)');
+        gap.classList.add('gap-fill', 'gap-element', 'chart-element');
         svg.appendChild(gap);
         const gapLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         gapLabel.setAttribute('x', xScale(0.5));
         gapLabel.setAttribute('y', yScale(0.5));
         gapLabel.setAttribute('text-anchor', 'middle');
-        gapLabel.setAttribute('font-size', '16');
-        gapLabel.setAttribute('fill', '#6b7280');
+        gapLabel.classList.add('chart-annotation', 'label-element', 'chart-element');
         gapLabel.textContent = STATE.chartConfig.center;
         svg.appendChild(gapLabel);
         // Markers
@@ -552,14 +596,15 @@
             const y = yScale(dem);
             const emphasis = d.state === 'accelerating' ? 8 : 6;
             const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            g.classList.add('marker-group', 'marker-element', 'chart-element');
             g.setAttribute('role', 'button');
             g.setAttribute('tabindex', '0');
             g.setAttribute('aria-label', `Learn more about ${d.label}`);
             g.innerHTML = `
               <title>${d.short}</title>
               <circle cx="${x}" cy="${y}" r="20" fill="transparent" stroke="none"/>
-              <circle cx="${x}" cy="${y}" r="${emphasis}" fill="#ef4444"/>
-              <text x="${x + 10}" y="${y + 4}" font-size="12" fill="#111827">${d.label}</text>
+              <circle cx="${x}" cy="${y}" r="${emphasis}" fill="#ef4444" stroke="white" stroke-width="2"/>
+              <text x="${x + 10}" y="${y + 4}" class="chart-text label-element chart-element">${d.label}</text>
             `;
             g.addEventListener('click', () => openInsight(d));
             g.addEventListener('keydown', e => { if (e.key === 'Enter') openInsight(d); });
@@ -574,8 +619,7 @@
         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         text.setAttribute('x', endX - 50);
         text.setAttribute('y', endY);
-        text.setAttribute('font-size', '12');
-        text.setAttribute('fill', '#6b7280');
+        text.classList.add('chart-text', 'label-element', 'chart-element');
         text.textContent = 'Limited Capacity';
         svg.appendChild(text);
         // Tipping point
@@ -590,19 +634,19 @@
           line.setAttribute('stroke', '#ef4444');
           line.setAttribute('stroke-width', '2');
           line.setAttribute('stroke-dasharray', '5 5');
+          line.classList.add('line-element', 'chart-element');
           svg.appendChild(line);
           const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
           label.setAttribute('x', x + 10);
           label.setAttribute('y', yScale(1) - 10);
-          label.setAttribute('font-size', '12');
-          label.setAttribute('fill', '#111827');
+          label.classList.add('chart-text', 'label-element', 'chart-element');
           label.textContent = 'IT Inflection Point';
           svg.appendChild(label);
           const ann = document.createElementNS('http://www.w3.org/2000/svg', 'text');
           ann.setAttribute('x', x + 10);
           ann.setAttribute('y', yScale(0.8) + 5);
-          ann.setAttribute('font-size', '12');
           ann.setAttribute('fill', '#ef4444');
+          ann.classList.add('chart-text', 'label-element', 'chart-element');
           ann.textContent = STATE.chartConfig.tipping;
           svg.appendChild(ann);
           const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
@@ -769,12 +813,12 @@
               data-why="${id}"
               style="border-radius:var(--radius)"
             >
-              <div class="${cx('flex items-center justify-between px-5 py-4', headerTone)}" style="border-bottom:1px solid var(--border-subtle)">
+              <div class="${cx('flex items-center justify-between px-4 py-3', headerTone)}" style="border-bottom:1px solid var(--border-subtle)">
                 <div class="flex items-center gap-2">
-                  <i data-lucide="${icon}" class="w-5 h-5 text-[#0A1C60]" aria-hidden="true"></i>
-                  <span class="text-[22px] font-semibold tracking-normal text-[#0A1C60]">${label}</span>
+                  <i data-lucide="${icon}" class="w-4 h-4 text-[#0A1C60]" aria-hidden="true"></i>
+                  <span class="text-[18px] font-semibold tracking-normal text-[#0A1C60]">${label}</span>
                 </div>
-                <i data-lucide="chevron-right" class="w-5 h-5 text-[#4A5568] transition-transform duration-150" aria-hidden="true"></i>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-[#4A5568] transition-transform duration-150" aria-hidden="true"></i>
               </div>
             </button>
             ${subtext ? `<p class="px-5 py-2 text-sm text-gray-700">${subtext}</p>` : ''}
