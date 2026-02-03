@@ -103,7 +103,6 @@
       @keyframes metricsAppear { to { opacity: 1; transform: translateY(0); } }
       .interactive-node { transition: opacity 0.3s, transform 0.3s; }
       .interactive-node:hover { opacity: 0.9; transform: scale(1.05); }
-
       /* New Chart Styles */
       .chart-container { width: 100%; height: auto; aspect-ratio: 800 / 400; }
       #capacity-gap-chart { width: 100%; height: 100%; }
@@ -115,7 +114,7 @@
       .chart-annotation { font-size: 20px; font-weight: 500; fill: #6b7280; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
       .demand-line { stroke-width: 3; filter: drop-shadow(0 0 4px rgba(239,68,68,0.3)); }
       .capacity-line { stroke-width: 3; }
-      .gap-fill {  }
+      .gap-fill { }
       .marker-group:hover { transform: scale(1.1); transition: transform 0.2s ease; }
       .marker-group:hover circle { animation: pulse 1.5s infinite; }
       @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
@@ -182,9 +181,12 @@
           change: {
             intro: "The application layer has become the biggest drag on IT execution.",
             bullets: [
-              'Too many apps, too many platforms. The same applications are rebuilt, patched, and supported separately across Intune, ConfigMgr, VDI, Windows, and macOS.',
-              'Work has outgrown capacity. Headcount stays flat while app updates, fixes, and exceptions keep increasing.',
-              'Major initiatives stall on app readiness. Cloud moves, AVD/Citrix projects, hardware refreshes, and AI efforts all slow down at the same point.',
+              "Applications Are Tied to the Device. Apps are packaged/deployed for specific device types (e.g., SCCM, Intune, VDI, macOS). Deployment is device-based, not user-based.",
+              "Duplicated Effort for Every Platform. Same app must be rebuilt, packaged, and supported separately. Each delivery tool needs its own version of the app.",
+              "Support is Complex and Fragmented. IT must locate where an app is installed before addressing issues. Increases troubleshooting time and causes fragmented support paths.",
+              "Modernization is Difficult and Risky. Adding platforms or making backend changes often requires rebuilding apps. High risk of introducing bugs and breaking existing functionality.",
+              "Inconsistent User Experience. App behavior and availability vary depending on device used. Users may encounter different interfaces and capabilities.",
+              "Logic is Scattered Across Multiple Tools. Environment depends on tribal knowledge and workarounds. Decentralized system creates inefficiencies and hidden complexity."
             ],
             analyst: "Across industries, application delivery — not infrastructure — is now the primary bottleneck to modernization. Most transformation projects slow or fail because teams lack capacity to keep apps ready while platforms change.."
           },
@@ -200,9 +202,12 @@
           recast: {
             intro: "Application Workspace changes how apps are delivered — to the user, not the device.",
             bullets: [
-              'One workspace for every app. Commercial, internal, and legacy apps are delivered consistently across Intune, ConfigMgr, AVD, and other platforms.',
-              'Less version sprawl, fewer variables. Fewer app versions mean fewer tickets, faster fixes, and simpler support.',
-              'Capacity returns to the team. What used to take hours becomes minutes, freeing teams to move modernization forward.',
+              "Applications Are Tied to the User. Apps follow the user across platforms. Assigned by user identity, not device or location. Seamless transition regardless of login method.",
+              "Define Once, Deliver Everywhere. Applications are defined a single time. Delivered consistently across platforms. No repackaging or extra configuration required.",
+              "Support is Simple and Predictable. IT uses a single support model across all delivery methods. Consistency allows predictable troubleshooting and maintenance.",
+              "Modernization is Seamless and Agile. New platforms can be integrated without rework. Backend updates don’t affect user-facing experience. Enhancements are non-disruptive to users.",
+              "Consistent User Experience. Users see the same apps and interfaces every time. Uniformity across devices ensures familiarity. Reduces user confusion and support demand.",
+              "Logic is Centralized and Consistent. Central management of application delivery. Ensures design consistency across environments. Reduces fragmentation and configuration drift."
             ],
             analyst: "Leading IT organizations are shifting from device-centric management to user-centric delivery models to reduce operational friction and keep pace with constant platform change"
           }
@@ -212,27 +217,33 @@
             change: {
               intro: "The application layer has become the biggest drag on IT execution.",
               bullets: [
-              'Too many apps, too many platforms. The same applications are rebuilt, patched, and supported separately across Intune, ConfigMgr, VDI, Windows, and macOS.',
-              'Work has outgrown capacity. Headcount stays flat while app updates, fixes, and exceptions keep increasing.',
-              'Major initiatives stall on app readiness. Cloud moves, AVD/Citrix projects, hardware refreshes, and AI efforts all slow down at the same point.',
-            ],
-            analyst: "Across industries, application delivery — not infrastructure — is now the primary bottleneck to modernization. Most transformation projects slow or fail because teams lack capacity to keep apps ready while platforms change.."
+                "Applications Are Tied to the Device. Apps are packaged/deployed for specific device types (e.g., SCCM, Intune, VDI, macOS). Deployment is device-based, not user-based.",
+                "Duplicated Effort for Every Platform. Same app must be rebuilt, packaged, and supported separately. Each delivery tool needs its own version of the app.",
+                "Support is Complex and Fragmented. IT must locate where an app is installed before addressing issues. Increases troubleshooting time and causes fragmented support paths.",
+                "Modernization is Difficult and Risky. Adding platforms or making backend changes often requires rebuilding apps. High risk of introducing bugs and breaking existing functionality.",
+                "Inconsistent User Experience. App behavior and availability vary depending on device used. Users may encounter different interfaces and capabilities.",
+                "Logic is Scattered Across Multiple Tools. Environment depends on tribal knowledge and workarounds. Decentralized system creates inefficiencies and hidden complexity."
+              ],
+              analyst: "Across industries, application delivery — not infrastructure — is now the primary bottleneck to modernization. Most transformation projects slow or fail because teams lack capacity to keep apps ready while platforms change.."
             },
             now: {
               intro: "The gap between what IT is ASKED to deliver and what it CAN sustain is widening fast.",
               bullets: [
-              'Change is accelerating, not slowing down. More app updates, more security pressure, more platforms — with the same teams.',
-              'Manual app work compounds over time. Every custom or internal app adds more versions, more dependencies, and more risk with each change',
-              'Teams that should be driving innovation are stuck keeping apps alive.',
-            ],
-            analyst: "Organizations that succeed with AI, cloud, and new platforms over the next few years will be the ones that stabilize application delivery first. Everyone else hits a capacity wall where progress slows regardless of strategy"
+                'Change is accelerating, not slowing down. More app updates, more security pressure, more platforms — with the same teams.',
+                'Manual app work compounds over time. Every custom or internal app adds more versions, more dependencies, and more risk with each change',
+                'Teams that should be driving innovation are stuck keeping apps alive.',
+              ],
+              analyst: "Organizations that succeed with AI, cloud, and new platforms over the next few years will be the ones that stabilize application delivery first. Everyone else hits a capacity wall where progress slows regardless of strategy"
             },
             recast: {
               intro: "Application Workspace changes how apps are delivered — to the user, not the device.",
               bullets: [
-                'One workspace for every app. Commercial, internal, and legacy apps are delivered consistently across Intune, ConfigMgr, AVD, and other platforms.',
-                'Less version sprawl, fewer variables. Fewer app versions mean fewer tickets, faster fixes, and simpler support..',
-                'Capacity returns to the team. What used to take hours becomes minutes, freeing teams to move modernization forward',
+                "Applications Are Tied to the User. Apps follow the user across platforms. Assigned by user identity, not device or location. Seamless transition regardless of login method.",
+                "Define Once, Deliver Everywhere. Applications are defined a single time. Delivered consistently across platforms. No repackaging or extra configuration required.",
+                "Support is Simple and Predictable. IT uses a single support model across all delivery methods. Consistency allows predictable troubleshooting and maintenance.",
+                "Modernization is Seamless and Agile. New platforms can be integrated without rework. Backend updates don’t affect user-facing experience. Enhancements are non-disruptive to users.",
+                "Consistent User Experience. Users see the same apps and interfaces every time. Uniformity across devices ensures familiarity. Reduces user confusion and support demand.",
+                "Logic is Centralized and Consistent. Central management of application delivery. Ensures design consistency across environments. Reduces fragmentation and configuration drift."
               ],
               analyst: "Leading IT organizations are shifting from device-centric management to user-centric delivery models to reduce operational friction and keep pace with constant platform change."
             }
@@ -499,7 +510,6 @@
         const width = 700, height = 300, margin = {left: 50, bottom: 50, top: 50, right: 50};
         const xScale = t => margin.left + t * width;
         const yScale = v => margin.top + height - v * height;
-
         // Define gradients
         const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
         defs.innerHTML = `
@@ -517,7 +527,6 @@
           </linearGradient>
         `;
         svg.appendChild(defs);
-
         // Axes
         const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         xAxis.classList.add('axis-element', 'chart-element');
