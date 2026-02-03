@@ -103,7 +103,6 @@
       @keyframes metricsAppear { to { opacity: 1; transform: translateY(0); } }
       .interactive-node { transition: opacity 0.3s, transform 0.3s; }
       .interactive-node:hover { opacity: 0.9; transform: scale(1.05); }
-
       /* New Chart Styles */
       .chart-container { width: 100%; height: auto; aspect-ratio: 800 / 400; }
       #capacity-gap-chart { width: 100%; height: 100%; }
@@ -115,7 +114,7 @@
       .chart-annotation { font-size: 20px; font-weight: 500; fill: #6b7280; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
       .demand-line { stroke-width: 3; filter: drop-shadow(0 0 4px rgba(239,68,68,0.3)); }
       .capacity-line { stroke-width: 3; }
-      .gap-fill {  }
+      .gap-fill { }
       .marker-group:hover { transform: scale(1.1); transition: transform 0.2s ease; }
       .marker-group:hover circle { animation: pulse 1.5s infinite; }
       @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
@@ -481,14 +480,55 @@
                 <div class="w-full lg:w-64 bg-white rounded-2xl shadow-md p-5">
                   <h3 class="text-lg font-medium mb-4">Modern IT Challenges</h3>
                   <div class="grid grid-cols-1 gap-4 items-stretch">
-                    ${calloutDropdown('change','alert-triangle','Why Change','bg-slate-50')}
-                    ${calloutDropdown('now','clock-4','Why Now','bg-slate-50', false, "")}
-                    ${calloutDropdown('recast','sparkles','Why Recast','bg-slate-50', true)}
+                    ${whyCard('change','alert-triangle','Why Change','bg-slate-50')}
+                    ${whyCard('now','clock-4','Why Now','bg-slate-50')}
+                    ${whyCard('recast','sparkles','Why Recast','bg-slate-50')}
                   </div>
                 </div>
               </div>
             </div>
           </section>
+        `;
+      }
+      function whyCard(id, icon, label, headerTone){
+        const expanded = STATE.openWhy === id;
+        const contentId = `why-content-${id}`;
+        const data = STATE.currentState[id];
+        return `
+          <div class="h-full flex flex-col">
+            <button
+              type="button"
+              class="accordion-header w-full overflow-hidden ring-1 ring-slate-200 focus-ring transition hover:ring-slate-300 shadow-sm"
+              data-action="toggle-why"
+              data-why="${id}"
+              aria-expanded="${expanded}"
+              aria-controls="${contentId}"
+              style="border-radius:var(--radius); min-height: 44px;"
+            >
+              <div class="${headerTone} flex items-center justify-between px-4 py-3" style="border-bottom:1px solid var(--border-subtle)">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="${icon}" class="w-4 h-4 text-[#0A1C60]" aria-hidden="true"></i>
+                  <span class="text-[18px] font-semibold tracking-normal text-[#0A1C60]">${label}</span>
+                </div>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-[#4A5568] transition-transform duration-150" aria-hidden="true"></i>
+              </div>
+            </button>
+            <div id="${contentId}" class="accordion-content overflow-hidden border-l-4 border-[#0070F3]" style="max-height:${expanded?'1200px':'0'}; padding:${expanded?'24px 20px':'0 20px'}; background:#f9fafb">
+              <p class="text-base leading-relaxed text-[#4A5568] mb-4">${data.intro}</p>
+              <div class="space-y-4">
+                ${data.bullets.map(b=>`
+                  <div class="bg-white p-4 rounded-lg shadow-sm flex items-start gap-3 hover:shadow-md transition-shadow">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-[#0070F3] flex-shrink-0 mt-0.5"></i>
+                    <p class="text-base leading-relaxed text-[#4A5568]">${b}</p>
+                  </div>
+                `).join('')}
+              </div>
+              <div class="mt-6 bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-start gap-3">
+                <i data-lucide="lightbulb" class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"></i>
+                <p class="text-base italic text-[#4A5568]">${data.analyst}</p>
+              </div>
+            </div>
+          </div>
         `;
       }
       function renderCapacityGapChart(){
@@ -499,7 +539,6 @@
         const width = 700, height = 300, margin = {left: 50, bottom: 50, top: 50, right: 50};
         const xScale = t => margin.left + t * width;
         const yScale = v => margin.top + height - v * height;
-
         // Define gradients
         const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
         defs.innerHTML = `
@@ -517,7 +556,6 @@
           </linearGradient>
         `;
         svg.appendChild(defs);
-
         // Axes
         const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         xAxis.classList.add('axis-element', 'chart-element');
@@ -1660,6 +1698,12 @@
             }
             if (action === 'calculate-impact') {
               calculateImpact();
+              render();
+              return;
+            }
+            if (action === 'toggle-why') {
+              const id = act.getAttribute('data-why');
+              STATE.openWhy = STATE.openWhy === id ? null : id;
               render();
               return;
             }
