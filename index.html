@@ -1192,12 +1192,12 @@
       .demo-loop-btn.is-playing .demo-loop-pulse { width: 7px; height: 7px; border-radius: 50%; background: #CC2222; box-shadow: 0 0 0 0 rgba(204,34,34,0.7); animation: demoLoopPulse 1.4s infinite; display: inline-block; }
       @keyframes demoLoopPulse { 0% { box-shadow: 0 0 0 0 rgba(204,34,34,0.7); } 70% { box-shadow: 0 0 0 6px rgba(204,34,34,0); } 100% { box-shadow: 0 0 0 0 rgba(204,34,34,0); } }
       /* ── Booth demo-loop mode: subtle polish for big-screen display ── */
-      body.demo-loop-active #panel-solution .arch-fit-card { box-shadow: 0 0 0 2px rgba(0,191,255,0.5), 0 12px 40px -8px rgba(0,0,204,0.18); border-radius: 14px; transition: box-shadow 320ms cubic-bezier(0.2,0.8,0.2,1); }
+      body.demo-loop-active #panel-solution .arch-fit-card { box-shadow: 0 0 0 2px rgba(0,191,255,0.5), 0 12px 40px -8px rgba(0,0,204,0.18); border-radius: 14px; }
       body.demo-loop-active .lifecycle-dot-playing { box-shadow: 0 0 0 0 rgba(0,191,255,0.7); animation: demoStagePulse 1.6s infinite; }
       @keyframes demoStagePulse { 0% { box-shadow: 0 0 0 0 rgba(0,191,255,0.6); } 70% { box-shadow: 0 0 0 8px rgba(0,191,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,191,255,0); } }
-      /* GPU-accelerate the dynamic stage to keep its sub-animations smooth */
-      body.demo-loop-active #demo-stage { will-change: contents; }
-      body.demo-loop-active #demo-stage > * { transform: translateZ(0); backface-visibility: hidden; }
+      /* Scope layout/paint to the demo stage so sub-animations don't trigger global reflow */
+      body.demo-loop-active #demo-stage { contain: layout style paint; }
+      body.demo-loop-active #demo-stage > * { contain: layout style; }
       .arch-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 5px; }
       .arch-row-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #64748B; text-align: center; margin-bottom: 4px; }
       .arch-row-label-end { color: #0A1C60; }
@@ -7507,10 +7507,12 @@
         STATE.ssQueueIdx = 0;
         scrollPreserveRender();
         runSsQueue();
-        setTimeout(() => {
-          const el = document.getElementById('ss-panel');
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 50);
+        if (!STATE.demoLoopPlaying) {
+          setTimeout(() => {
+            const el = document.getElementById('ss-panel');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 50);
+        }
       }
 
       function stepSs(){
@@ -8619,7 +8621,8 @@
                 const rect = card.getBoundingClientRect();
                 const top  = rect.top + window.pageYOffset - 12;
                 if (Math.abs(window.pageYOffset - top) < 8) return;
-                window.scrollTo({ top, behavior: 'smooth' });
+                // Instant scroll: smooth-scroll fights with continuous re-renders during sub-animations
+                window.scrollTo({ top, behavior: 'auto' });
               });
             };
             // Start the first cycle by triggering the existing play-lifecycle handler
@@ -8646,12 +8649,12 @@
               STATE.lifecyclePlaying = true; STATE.lcStep = -1;
 
               const lcSteps = [
-                { key: 'solutionViewSetupStore', start: () => startSs(),   dwell: 15500 },
-                { key: 'solutionViewAdmin',       start: () => startFlow(), dwell: 12000 },
-                { key: 'solutionViewOnboarding',  start: () => startOb(),   dwell: 17500 },
-                { key: 'solutionViewUser',        start: () => startFlow(), dwell: 12000 },
-                { key: 'solutionViewDashboard',   start: () => startDr(),   dwell: 10900 },
-                { key: 'solutionViewMultiTenant', start: () => startMt(),   dwell: 10900 },
+                { key: 'solutionViewSetupStore', start: () => startSs(),   dwell: 16500 },
+                { key: 'solutionViewAdmin',       start: () => startFlow(), dwell: 13000 },
+                { key: 'solutionViewOnboarding',  start: () => startOb(),   dwell: 18500 },
+                { key: 'solutionViewUser',        start: () => startFlow(), dwell: 13000 },
+                { key: 'solutionViewDashboard',   start: () => startDr(),   dwell: 11500 },
+                { key: 'solutionViewMultiTenant', start: () => startMt(),   dwell: 11500 },
               ];
               let elapsed = 0;
               lcSteps.forEach((step, i) => {
@@ -8669,7 +8672,8 @@
                   scrollPreserveRender();
                   scrollToDemoTop(true);
                   if (step.start) {
-                    const ts = setTimeout(() => { if (STATE.lifecyclePlaying && STATE.lcStep === i) step.start(); }, 250);
+                    // Wait long enough for fade-in (480ms) plus paint settling before triggering animation
+                    const ts = setTimeout(() => { if (STATE.lifecyclePlaying && STATE.lcStep === i) step.start(); }, 550);
                     STATE.lcTimers.push(ts);
                   }
                 }, elapsed);
