@@ -7610,11 +7610,12 @@
                     const dotClass  = isDone ? 'lifecycle-dot-done' : (isCurrent ? 'lifecycle-dot-active lifecycle-dot-playing' : (item.active ? 'lifecycle-dot-active' : ''));
                     const lblClass  = isDone ? 'lc-done' : (isCurrent ? 'lc-active' : '');
                     const connClass = isDone ? 'lc-done' : '';
+                    const chipActive = item.active || isCurrent;
                     return `
                     <div class="lifecycle-item">
                       <span class="lifecycle-label ${lblClass}">${item.stage}</span>
                       <div class="lifecycle-dot ${dotClass}"></div>
-                      <button type="button" data-action="toggle-solution-view" data-view="${item.view}" class="view-toggle ${item.active ? 'active' : ''}"><i data-lucide="${item.icon}" class="w-3.5 h-3.5"></i> ${item.name}</button>
+                      <button type="button" data-action="toggle-solution-view" data-view="${item.view}" class="view-toggle ${chipActive ? 'active' : ''}"><i data-lucide="${item.icon}" class="w-3.5 h-3.5"></i> ${item.name}</button>
                     </div>
                     ${idx < arr.length - 1 ? '<div class="lifecycle-connector ' + connClass + '"></div>' : ''}
                   `;}).join('')}
@@ -7667,12 +7668,12 @@
 
             <!-- ZONE B: Main content (dynamic columns) -->
             <div class="grid grid-cols-1 ${multiCol ? 'lg:grid-cols-2' : ''} gap-3">
-              ${STATE.solutionViewSetupStore ? renderSetupStoreView() : ''}
-              ${STATE.solutionViewAdmin ? renderAdminConsole() : ''}
-              ${STATE.solutionViewOnboarding ? renderOnboardingView() : ''}
-              ${STATE.solutionViewUser ? renderUserView() : ''}
-              ${STATE.solutionViewDashboard ? renderDashboardView() : ''}
-              ${STATE.solutionViewMultiTenant ? renderMultiTenantView() : ''}
+              ${STATE.solutionViewSetupStore ? `<div data-stage-view="setup-store">${renderSetupStoreView()}</div>` : ''}
+              ${STATE.solutionViewAdmin ? `<div data-stage-view="admin">${renderAdminConsole()}</div>` : ''}
+              ${STATE.solutionViewOnboarding ? `<div data-stage-view="onboarding">${renderOnboardingView()}</div>` : ''}
+              ${STATE.solutionViewUser ? `<div data-stage-view="user">${renderUserView()}</div>` : ''}
+              ${STATE.solutionViewDashboard ? `<div data-stage-view="dashboard">${renderDashboardView()}</div>` : ''}
+              ${STATE.solutionViewMultiTenant ? `<div data-stage-view="multitenant">${renderMultiTenantView()}</div>` : ''}
             </div>
             ` : ''}
             ${STATE.activeCard === 'trust' ? renderTrustPanel() : ''}
@@ -8639,7 +8640,7 @@
             const lcSteps = [
               { key: 'solutionViewSetupStore', start: () => startSs(),   dwell: 15500 },
               { key: 'solutionViewAdmin',       start: () => { STATE.flowDevice = STATE.flowDevice || 'multi'; startFlow(); }, dwell: 16000 },
-              { key: 'solutionViewOnboarding',  start: () => startOb(),   dwell: 17500 },
+              { key: 'solutionViewOnboarding',  start: () => startOb(),   dwell: 13500 },
               { key: 'solutionViewUser',        start: () => { STATE.flowDevice = STATE.flowDevice || 'multi'; startFlow(); }, dwell: 16000 },
               { key: 'solutionViewDashboard',   start: () => startDr(),   dwell: 10900 },
               { key: 'solutionViewMultiTenant', start: () => startMt(),   dwell: 10900 },
@@ -8670,6 +8671,32 @@
                   STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
                   STATE[step.key] = true; STATE.lcStep = i;
                   scrollPreserveRender();
+                  // Bring the newly-opened stage view into the viewport so the user
+                  // doesn't have to chase it. Use rAF to wait for layout.
+                  requestAnimationFrame(() => {
+                    if (!STATE.lifecyclePlaying || STATE.lcStep !== i) return;
+                    const viewMap = {
+                      solutionViewSetupStore: '[data-stage-view="setup-store"]',
+                      solutionViewAdmin: '[data-stage-view="admin"]',
+                      solutionViewOnboarding: '[data-stage-view="onboarding"]',
+                      solutionViewUser: '[data-stage-view="user"]',
+                      solutionViewDashboard: '[data-stage-view="dashboard"]',
+                      solutionViewMultiTenant: '[data-stage-view="multitenant"]',
+                    };
+                    const sel = viewMap[step.key];
+                    const target = sel ? document.querySelector(sel) : null;
+                    const main = document.querySelector('body > #app > main');
+                    if (target && main) {
+                      const tRect = target.getBoundingClientRect();
+                      const mRect = main.getBoundingClientRect();
+                      // Only scroll if the target's top is below the rail (out of view)
+                      // or above the visible window
+                      if (tRect.top < mRect.top + 80 || tRect.top > mRect.bottom - 100) {
+                        const offset = (tRect.top - mRect.top) + main.scrollTop - 80;
+                        main.scrollTo({ top: Math.max(0, offset), behavior: 'smooth' });
+                      }
+                    }
+                  });
                   // Trigger animation after the render has settled
                   if (step.start) {
                     const ts = setTimeout(() => { if (STATE.lifecyclePlaying && STATE.lcStep === i) step.start(); }, 250);
