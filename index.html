@@ -1182,28 +1182,37 @@
       .cardtab-active .cardtab-title { color: var(--r-blue); }
       .cardtab-sub { color: #94A3B8; }
       .cardtab-active .cardtab-sub { color: #475569; }
-      .arch-lifecycle-strip { margin-top: 4px; padding: 8px 4px 2px; border-top: 1px dashed #E2E8F0; }
+      .arch-lifecycle-strip { margin-top: 4px; padding: 8px 4px 2px; border-top: 1px dashed #E2E8F0; position: relative; }
       .arch-lifecycle-eyebrow { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #64748B; text-align: center; margin-bottom: 8px; }
+      .demo-loop-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px 8px 14px; border-radius: 999px; background: #0000CC; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border: none; cursor: pointer; transition: all 160ms cubic-bezier(0.2,0.8,0.2,1); box-shadow: 0 2px 8px -2px rgba(0,0,204,0.4); }
+      .demo-loop-btn:hover { background: #00BFFF; color: #0A1C60; transform: translateY(-1px); box-shadow: 0 4px 12px -2px rgba(0,191,255,0.5); }
+      .demo-loop-btn:active { transform: translateY(0); }
+      .demo-loop-btn i { width: 12px; height: 12px; }
+      .demo-loop-btn.is-playing { background: #00BFFF; color: #0A1C60; }
+      .demo-loop-btn.is-playing .demo-loop-pulse { width: 7px; height: 7px; border-radius: 50%; background: #CC2222; box-shadow: 0 0 0 0 rgba(204,34,34,0.7); animation: demoLoopPulse 1.4s infinite; display: inline-block; }
+      @keyframes demoLoopPulse { 0% { box-shadow: 0 0 0 0 rgba(204,34,34,0.7); } 70% { box-shadow: 0 0 0 6px rgba(204,34,34,0); } 100% { box-shadow: 0 0 0 0 rgba(204,34,34,0); } }
       .arch-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 5px; }
       .arch-row-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #64748B; text-align: center; margin-bottom: 4px; }
       .arch-row-label-end { color: #0A1C60; }
-      .arch-tool-pill { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600; color: #FFFFFF; line-height: 1.2; }
+      .arch-tool-pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px 5px 9px; border-radius: 9999px; font-size: 13px; font-weight: 600; color: #0A1C60; line-height: 1.2; background: #FFFFFF; border: 1px solid #E2E8F0; box-shadow: 0 1px 2px rgba(10,28,96,0.05); }
+      .arch-tool-pill svg { width: 16px; height: 16px; flex-shrink: 0; display: block; }
       .arch-device-pill { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 8px; border: 1px solid #E2E8F0; background: #FFFFFF; font-size: 11px; font-weight: 500; color: #475569; line-height: 1.2; }
       .arch-bracket-up { width: 60%; max-width: 520px; height: 10px; margin: 3px auto 0; border: 2px dashed #CBD5E1; border-top: none; border-radius: 0 0 10px 10px; }
       .arch-bracket-down { width: 60%; max-width: 520px; height: 10px; margin: 0 auto 3px; border: 1.5px solid #93C5FD; border-top: none; border-radius: 0 0 10px 10px; }
-      .arch-aw { position: relative; margin: 4px 14px; padding: 9px 14px 10px; border-radius: 10px; background: linear-gradient(180deg, #0A1C60 0%, #0E2585 60%, #1232A0 100%); color: #FFFFFF; overflow: hidden; box-shadow: 0 6px 20px -8px rgba(10,28,96,0.45); }
+      .arch-aw { position: relative; margin: 4px 14px; padding: 14px 16px 14px; border-radius: 10px; background: #0000CC; color: #FFFFFF; overflow: hidden; box-shadow: 0 6px 20px -8px rgba(10,28,96,0.45); }
       .arch-aw::before { content: ''; position: absolute; top: -40%; right: -8%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%); pointer-events: none; }
       .arch-aw-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
       .arch-aw-brand { display: flex; flex-direction: column; gap: 1px; }
       .arch-aw-title { font-size: 15px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.005em; line-height: 1.15; }
       .arch-aw-tagline { font-size: 10px; font-weight: 500; color: #BFDBFE; letter-spacing: 0.04em; }
       .arch-aw-brand-mark { display: inline-flex; align-items: center; gap: 6px; font-size: 9.5px; font-weight: 600; color: rgba(255,255,255,0.7); letter-spacing: 0.02em; white-space: nowrap; }
-      .arch-aw-caps { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; padding-top: 7px; border-top: 1px solid rgba(255,255,255,0.14); }
-      .arch-aw-cap { display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 6px; font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.78); background: transparent; border: 1px solid rgba(255,255,255,0.18); }
+      .arch-aw-caps { display: flex; flex-wrap: nowrap; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.14); align-items: stretch; }
+      .arch-aw-cap { flex: 1 1 auto; min-width: 0; justify-content: center; display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.78); background: transparent; border: 1px solid rgba(255,255,255,0.18); }
       .arch-aw-cap i { width: 10px; height: 10px; opacity: 0.7; flex-shrink: 0; }
       .arch-aw-cap--lead { color: #0A1C60; background: #FFFFFF; border-color: #FFFFFF; font-weight: 700; box-shadow: 0 2px 8px -2px rgba(0,0,0,0.25); }
       .arch-aw-cap--lead i { opacity: 1; color: #0070F3; }
       .arch-aw-cap { white-space: nowrap; line-height: 1.15; }
+      .arch-aw-cap--lead { flex: 0 0 auto; padding-left: 12px; padding-right: 12px; }
       @media (max-width: 720px) {
         .arch-aw-head { flex-direction: column; align-items: flex-start; }
         .arch-bracket-up, .arch-bracket-down { width: 80%; }
@@ -3913,12 +3922,6 @@
         from { opacity: 0; transform: translateY(4px); }
         to { opacity: 1; transform: translateY(0); }
       }
-
-      /* Scroll-free: hide all scrollbars while keeping scroll functional */
-      html, body { scrollbar-width: none; -ms-overflow-style: none; }
-      html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; display: none; }
-      *::-webkit-scrollbar { width: 0; height: 0; display: none; }
-      * { scrollbar-width: none; -ms-overflow-style: none; }
     </style>
   </head>
 
@@ -3945,6 +3948,7 @@
         lifecyclePlaying: false,
         lcStep: -1,
         lcTimers: [],
+        demoLoopPlaying: false,
         mtPhase: 'idle',
         mtRunning: false,
         mtPaused: false,
@@ -4160,7 +4164,7 @@
         },
         {
           id: 'onboarding', icon: 'clock', title: 'Onboard & Up to Speed Fast.',
-          bullets: ['Standard POC rollout in 4-6 weeks (Kickoff -  Implementation -  UAT -  Launch -  Enablement).','No new infrastructure -  integrates with your existing management tools.','Guided setup with dedicated Customer Success Manager.','Typical resource: 1-2 IT engineers part-time.','Enablement includes training, certification, and success planning.'],
+          bullets: ['Standard POC rollout in 4-6 weeks (Kickoff -  Implementation -  UAT -  Launch -  Enablement).','No new infrastructure -  integrates with your existing environments.','Guided setup with dedicated Customer Success Manager.','Typical resource: 1-2 IT engineers part-time.','Enablement includes training, certification, and success planning.'],
           closer: 'From first call to production in weeks, not months.', timeline: true, bgHeader: 'bg-[#f9fafb]', bgContent: 'bg-[#f9fafb]'
         }
       ];
@@ -4544,7 +4548,7 @@
                     <div class="platform-group-label">Update</div>
                     <div class="platform-group-pills">
                       <div class="platform-cap"><i data-lucide="bot" class="w-3 h-3"></i> Automated Patching</div>
-                      <div class="platform-cap"><i data-lucide="shield" class="w-3 h-3"></i> CVE Auto-Patching</div>
+                      <div class="platform-cap"><i data-lucide="shield" class="w-3 h-3"></i> Auto-Patching</div>
                     </div>
                   </div>
                   <div class="platform-group">
@@ -4746,15 +4750,12 @@
       function runFlowQueue(){
         if (STATE.flowPaused || STATE.flowQueueIdx >= STATE.flowQueue.length) return;
         const step = STATE.flowQueue[STATE.flowQueueIdx];
-        // Loop pacing: 1.0 = original speed. Bumped to 1.15 to slow the loop
-        // a touch without breaking any relative step timing.
-        const FLOW_SPEED = 1.15;
         const tid = setTimeout(() => {
           if (STATE.flowPaused) return;
           step.fn();
           STATE.flowQueueIdx++;
           runFlowQueue();
-        }, step.delay * FLOW_SPEED);
+        }, step.delay);
         STATE.flowTimers.timeouts.push(tid);
       }
 
@@ -5490,7 +5491,7 @@
                     <div class="text-center mt-2">
                       <div class="text-[9px] font-semibold uppercase tracking-widest text-[#0070F3] mb-1.5">End Users & Devices</div>
                       <div class="flex flex-wrap justify-center gap-1.5">
-                        ${['Windows','Windows on ARM','macOS','Virtual Desktop','Cloud PC / W365','BYOD / Remote'].map(d => `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-slate-200 bg-white text-[11px] text-[#475569]">${d}</span>`).join('')}
+                        ${['Windows','Windows on ARM','macOS','Virtual Desktop','Cloud PC / W365','BYOD / Remote','Browser-Based'].map(d => `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-slate-200 bg-white text-[11px] text-[#475569]">${d}</span>`).join('')}
                       </div>
                     </div>
                   </div>
@@ -7564,11 +7565,12 @@
               <div class="arch-fit">
                 <div class="arch-row-label">Your Existing Management Tools</div>
                 <div class="arch-row">
-                  <span class="arch-tool-pill" style="background:#5B53D6">Intune</span>
-                  <span class="arch-tool-pill" style="background:#E84D1A">ConfigMgr</span>
-                  <span class="arch-tool-pill" style="background:#374151">Citrix</span>
-                  <span class="arch-tool-pill" style="background:#4B5563">AVD / W365</span>
-                  <span class="arch-tool-pill" style="background:#4B5563">macOS</span>
+                  <span class="arch-tool-pill" title="Microsoft Intune"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="intGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#32BEDD"/><stop offset="1" stop-color="#0078D4"/></linearGradient></defs><path fill="url(#intGrad)" d="M22.5 12.5a6.5 6.5 0 0 0-12.7-1.7A5 5 0 0 0 10 21h12a4.5 4.5 0 0 0 .5-8.5z"/><circle cx="14.5" cy="16.5" r="1.6" fill="#fff"/><circle cx="19.5" cy="14.5" r="1.6" fill="#fff"/><circle cx="17" cy="18" r="1.2" fill="#fff"/></svg>Intune</span>
+                  <span class="arch-tool-pill" title="Microsoft Configuration Manager"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="4" y="4" width="11.5" height="11.5" fill="#F25022"/><rect x="16.5" y="4" width="11.5" height="11.5" fill="#7FBA00"/><rect x="4" y="16.5" width="11.5" height="11.5" fill="#00A4EF"/><rect x="16.5" y="16.5" width="11.5" height="11.5" fill="#FFB900"/></svg>ConfigMgr</span>
+                  <span class="arch-tool-pill" title="Citrix"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#000"/><path d="M22 11.2a8.5 8.5 0 1 0 0 9.6l-2.6-1.5a5.5 5.5 0 1 1 0-6.6z" fill="#fff"/></svg>Citrix</span>
+                  <span class="arch-tool-pill" title="Azure Virtual Desktop / Windows 365"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="4" width="12" height="12" fill="#F25022"/><rect x="17" y="4" width="12" height="12" fill="#7FBA00"/><rect x="3" y="18" width="12" height="12" fill="#00A4EF"/><rect x="17" y="18" width="12" height="12" fill="#FFB900"/></svg>AVD / W365</span>
+                  <span class="arch-tool-pill" title="macOS"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#1A1A2E" d="M22.3 17c0-2.7 2.2-4 2.3-4.1-1.3-1.8-3.2-2.1-3.9-2.1-1.7-.2-3.2 1-4 1-.8 0-2.1-1-3.5-1-1.8 0-3.5 1-4.4 2.7-1.9 3.3-.5 8.1 1.4 10.7.9 1.3 2 2.7 3.4 2.7 1.4-.1 1.9-.9 3.5-.9 1.7 0 2.1.9 3.5.9 1.5 0 2.4-1.3 3.3-2.6 1-1.5 1.4-3 1.5-3.1-.1-.1-2.9-1.1-3-4.2zM19.7 9.1c.7-.9 1.2-2.1 1.1-3.3-1 0-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.2 1.2.1 2.3-.6 3-1.5z"/></svg>macOS</span>
+                  <span class="arch-tool-pill" title="Jamf"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#1168ED" d="M22.5 4.5c.6 0 1 .5 1 1.1V18c0 5-4 9-9 9-2.4 0-4.5-.9-6.1-2.4-.4-.4-.4-1 0-1.4l2.1-2.1c.4-.4 1-.4 1.4-.1.7.6 1.6 1 2.6 1 2.2 0 4-1.8 4-4V5.6c0-.6.5-1.1 1.1-1.1h2.9zM10.5 16.5a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>Jamf</span>
                 </div>
                 <div class="arch-bracket-up"></div>
 
@@ -7579,10 +7581,10 @@
                     </div>
                   </div>
                   <div class="arch-aw-caps">
-                    <span class="arch-aw-cap arch-aw-cap--lead"><i data-lucide="package"></i> 8,000+ Pre-tested Apps</span>
+                    <span class="arch-aw-cap arch-aw-cap--lead"><i data-lucide="package"></i> 8,000+ Managed & Tested Apps</span>
                     <span class="arch-aw-cap"><i data-lucide="wrench"></i> Custom App Packaging</span>
                     <span class="arch-aw-cap"><i data-lucide="user-check"></i> Identity-Based Access</span>
-                    <span class="arch-aw-cap"><i data-lucide="shield"></i> CVE / Auto-Patching</span>
+                    <span class="arch-aw-cap"><i data-lucide="shield"></i> Auto-Patching</span>
                     <span class="arch-aw-cap"><i data-lucide="shopping-bag"></i> Self-Service Catalog</span>
                   </div>
                 </div>
@@ -7597,6 +7599,7 @@
                     {label:'Virtual Desktop', icon:'monitor-smartphone'},
                     {label:'Cloud PC / W365', icon:'cloud'},
                     {label:'BYOD / Remote', icon:'laptop'},
+                    {label:'Browser-Based', icon:'globe'},
                   ].map(d => `<span class="arch-device-pill"><i data-lucide="${d.icon}" class="w-3 h-3"></i>${d.label}</span>`).join('')}
                 </div>
               </div>
@@ -7619,76 +7622,53 @@
                     const dotClass  = isDone ? 'lifecycle-dot-done' : (isCurrent ? 'lifecycle-dot-active lifecycle-dot-playing' : (item.active ? 'lifecycle-dot-active' : ''));
                     const lblClass  = isDone ? 'lc-done' : (isCurrent ? 'lc-active' : '');
                     const connClass = isDone ? 'lc-done' : '';
-                    const chipActive = item.active || isCurrent;
                     return `
                     <div class="lifecycle-item">
                       <span class="lifecycle-label ${lblClass}">${item.stage}</span>
                       <div class="lifecycle-dot ${dotClass}"></div>
-                      <button type="button" data-action="toggle-solution-view" data-view="${item.view}" class="view-toggle ${chipActive ? 'active' : ''}"><i data-lucide="${item.icon}" class="w-3.5 h-3.5"></i> ${item.name}</button>
+                      <button type="button" data-action="toggle-solution-view" data-view="${item.view}" class="view-toggle ${item.active ? 'active' : ''}"><i data-lucide="${item.icon}" class="w-3.5 h-3.5"></i> ${item.name}</button>
                     </div>
                     ${idx < arr.length - 1 ? '<div class="lifecycle-connector ' + connClass + '"></div>' : ''}
                   `;}).join('')}
                   <!-- Flow controls (icon-only) -->
-                  ${(() => {
-                    const anyViewOpen = STATE.solutionViewUser || STATE.solutionViewAdmin || STATE.solutionViewSetupStore || STATE.solutionViewMultiTenant || STATE.solutionViewDashboard || STATE.solutionViewOnboarding;
+                  ${(STATE.solutionViewUser || STATE.solutionViewAdmin || STATE.solutionViewSetupStore || STATE.solutionViewMultiTenant || STATE.solutionViewDashboard || STATE.solutionViewOnboarding) ? (() => {
                     const _running =
                       (STATE.solutionViewSetupStore && STATE.ssRunning && !STATE.ssPaused) ||
                       (STATE.solutionViewMultiTenant && STATE.mtRunning && !STATE.mtPaused) ||
                       (STATE.solutionViewDashboard && STATE.drRunning && !STATE.drPaused) ||
                       (STATE.solutionViewOnboarding && STATE.obRunning && !STATE.obPaused) ||
                       ((STATE.solutionViewUser || STATE.solutionViewAdmin) && STATE.flowRunning && !STATE.flowPaused);
-                    const lcPlaying = STATE.lifecyclePlaying;
-                    // When no view is open AND lifecycle isn't playing, show a "Play All" button
-                    // that loops the entire lifecycle. Otherwise show normal controls.
-                    if (!anyViewOpen && !lcPlaying) {
-                      return `
-                  <div class="flex items-center gap-1.5 ml-auto pl-2">
-                    <button type="button" data-action="play-lifecycle" title="Play all stages" aria-label="Play all stages" class="bg-[#0070F3] text-white w-8 h-8 rounded-full hover:bg-[#005AD0] inline-flex items-center justify-center transition shadow-sm"><i data-lucide="play" class="w-3.5 h-3.5"></i></button>
-                  </div>
-                      `;
-                    }
-                    // Lifecycle loop running — show stop button
-                    if (lcPlaying) {
-                      const _innerRunning = _running;
-                      const _innerLabel = _innerRunning ? 'Pause current stage' : 'Resume current stage';
-                      const _innerIcon  = _innerRunning ? 'pause' : 'play';
-                      return `
-                  <div class="flex items-center gap-1.5 ml-auto pl-2">
-                    <button type="button" data-action="play-lifecycle" title="Stop loop" aria-label="Stop loop" class="bg-[#dc2626] text-white w-8 h-8 rounded-full hover:bg-[#b91c1c] inline-flex items-center justify-center transition shadow-sm"><i data-lucide="square" class="w-3 h-3" style="fill:currentColor"></i></button>
-                    <button type="button" data-action="toggle-flow" title="${_innerLabel}" aria-label="${_innerLabel}" class="bg-white text-[#0070F3] border border-[#0070F3] w-8 h-8 rounded-full hover:bg-[#eff6ff] inline-flex items-center justify-center transition"><i data-lucide="${_innerIcon}" class="w-3.5 h-3.5"></i></button>
-                  </div>
-                      `;
-                    }
-                    // A view is open but lifecycle isn't looping — original controls
                     const _label = _running ? 'Pause' : 'Play';
                     const _icon  = _running ? 'pause' : 'play';
                     return `
                   <div class="flex items-center gap-1.5 ml-auto pl-2">
-                    <button type="button" data-action="play-lifecycle" title="Play all stages" aria-label="Play all stages" class="bg-white text-[#0070F3] border border-[#0070F3] w-8 h-8 rounded-full hover:bg-[#eff6ff] inline-flex items-center justify-center transition" style="position:relative"><i data-lucide="play-circle" class="w-3.5 h-3.5"></i></button>
                     <button type="button" data-action="toggle-flow" title="${_label}" aria-label="${_label}" class="bg-[#0070F3] text-white w-8 h-8 rounded-full hover:bg-[#005AD0] inline-flex items-center justify-center transition shadow-sm"><i data-lucide="${_icon}" class="w-3.5 h-3.5"></i></button>
                     <button type="button" data-action="step-flow" title="Step" aria-label="Step" class="bg-white text-[#0070F3] border border-[#0070F3] w-8 h-8 rounded-full hover:bg-[#eff6ff] inline-flex items-center justify-center transition"><i data-lucide="step-forward" class="w-3.5 h-3.5"></i></button>
                     <button type="button" data-action="reset-flow" title="Reset" aria-label="Reset" class="bg-white text-[#0A1C60] border border-[#0A1C60]/30 w-8 h-8 rounded-full hover:bg-slate-50 hover:border-[#0A1C60] inline-flex items-center justify-center transition"><i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i></button>
                   </div>
                     `;
-                  })()}
+                  })() : ''}
                 </div>
               </div>
             </div>
 
             <!-- ZONE B: Main content (dynamic columns) -->
             <div class="grid grid-cols-1 ${multiCol ? 'lg:grid-cols-2' : ''} gap-3">
-              ${STATE.solutionViewSetupStore ? `<div data-stage-view="setup-store">${renderSetupStoreView()}</div>` : ''}
-              ${STATE.solutionViewAdmin ? `<div data-stage-view="admin">${renderAdminConsole()}</div>` : ''}
-              ${STATE.solutionViewOnboarding ? `<div data-stage-view="onboarding">${renderOnboardingView()}</div>` : ''}
-              ${STATE.solutionViewUser ? `<div data-stage-view="user">${renderUserView()}</div>` : ''}
-              ${STATE.solutionViewDashboard ? `<div data-stage-view="dashboard">${renderDashboardView()}</div>` : ''}
-              ${STATE.solutionViewMultiTenant ? `<div data-stage-view="multitenant">${renderMultiTenantView()}</div>` : ''}
+              ${STATE.solutionViewSetupStore ? renderSetupStoreView() : ''}
+              ${STATE.solutionViewAdmin ? renderAdminConsole() : ''}
+              ${STATE.solutionViewOnboarding ? renderOnboardingView() : ''}
+              ${STATE.solutionViewUser ? renderUserView() : ''}
+              ${STATE.solutionViewDashboard ? renderDashboardView() : ''}
+              ${STATE.solutionViewMultiTenant ? renderMultiTenantView() : ''}
             </div>
             ` : ''}
             ${STATE.activeCard === 'trust' ? renderTrustPanel() : ''}
             ${STATE.activeCard === 'onboarding' ? renderOnboardingPanel() : ''}
 
-            <div class="flex flex-col items-end gap-2 mt-2">
+            <div class="flex items-center justify-between gap-2 mt-2">
+              <button type="button" data-action="play-demo-loop" class="demo-loop-btn ${STATE.demoLoopPlaying ? 'is-playing' : ''}" title="${STATE.demoLoopPlaying ? 'Stop demo loop' : 'Play continuous demo for booth display'}" aria-label="${STATE.demoLoopPlaying ? 'Stop demo loop' : 'Play continuous demo for booth display'}">
+                ${STATE.demoLoopPlaying ? '<span class="demo-loop-pulse"></span> Stop Demo Loop' : '<i data-lucide="play"></i> Play Demo Loop'}
+              </button>
               <button type="button" class="bg-[#0070F3] text-white px-5 py-2.5 text-sm font-semibold rounded-full hover:bg-[#005AD0]" data-action="advance" data-next="roi">See Business Impact</button>
             </div>
           </section>
@@ -8612,6 +8592,90 @@
             if (view === 'onboarding') STATE.solutionViewOnboarding = !STATE.solutionViewOnboarding;
             scrollPreserveRender(); return;
           }
+          if (action === 'play-demo-loop') {
+            // Toggle the booth demo loop. When playing, automatically re-runs play-lifecycle on each cycle.
+            if (STATE.demoLoopPlaying) {
+              STATE.demoLoopPlaying = false;
+              STATE.lcTimers.forEach(id => clearTimeout(id)); STATE.lcTimers = [];
+              STATE.lifecyclePlaying = false; STATE.lcStep = -1;
+              // Reset all views so booth display returns to a clean overview
+              STATE.solutionViewSetupStore = false; STATE.solutionViewAdmin = false; STATE.solutionViewOnboarding = false;
+              STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
+              scrollPreserveRender(); return;
+            }
+            STATE.demoLoopPlaying = true;
+            // Start the first cycle by triggering the existing play-lifecycle handler
+            const startCycle = () => {
+              if (!STATE.demoLoopPlaying) return;
+              // Reuse play-lifecycle logic by simulating the same action
+              const fakeBtn = document.createElement('button');
+              fakeBtn.setAttribute('data-action', 'play-lifecycle');
+              // Directly invoke the same code path
+              STATE.lcTimers.forEach(id => clearTimeout(id)); STATE.lcTimers = [];
+              STATE.ssTimers.forEach(id => clearTimeout(id)); STATE.ssTimers = [];
+              clearFlowTimers();
+              STATE.ssRunning = false; STATE.ssPaused = false; STATE.ssPhase = 'idle'; STATE.ssQueue = []; STATE.ssQueueIdx = 0;
+              STATE.ssAct = 'idle'; STATE.ssCounter = 0; STATE.ssCaption = ''; STATE.ssCaptionFinal = false;
+              STATE.ssFieldStep = 0; STATE.ssInheritStep = 0; STATE.ssBadgesAdobe = false; STATE.ssBadgesYour = false;
+              STATE.ssYourCardIn = false; STATE.ssAdobeShifted = false; STATE.ssTickerHistory = [];
+              if (STATE.ssCounterRaf) { cancelAnimationFrame(STATE.ssCounterRaf); STATE.ssCounterRaf = null; }
+              if (typeof ssTickerStop === 'function') ssTickerStop();
+              STATE.obRunning = false; STATE.obPaused = false; STATE.obPhase = 'idle'; STATE.obQueue = []; STATE.obQueueIdx = 0;
+              STATE.drRunning = false; STATE.drPaused = false; STATE.drPhase = 'idle'; STATE.drQueue = []; STATE.drQueueIdx = 0;
+              STATE.mtRunning = false; STATE.mtPaused = false; STATE.mtPhase = 'idle'; STATE.mtQueue = []; STATE.mtQueueIdx = 0;
+              STATE.solutionViewSetupStore = false; STATE.solutionViewAdmin = false; STATE.solutionViewOnboarding = false;
+              STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
+              STATE.lifecyclePlaying = true; STATE.lcStep = -1;
+
+              const lcSteps = [
+                { key: 'solutionViewSetupStore', start: () => startSs(),   dwell: 15500 },
+                { key: 'solutionViewAdmin',       start: () => startFlow(), dwell: 12000 },
+                { key: 'solutionViewOnboarding',  start: () => startOb(),   dwell: 17500 },
+                { key: 'solutionViewUser',        start: () => startFlow(), dwell: 12000 },
+                { key: 'solutionViewDashboard',   start: () => startDr(),   dwell: 10900 },
+                { key: 'solutionViewMultiTenant', start: () => startMt(),   dwell: 10900 },
+              ];
+              let elapsed = 0;
+              lcSteps.forEach((step, i) => {
+                const t = setTimeout(() => {
+                  if (!STATE.lifecyclePlaying || !STATE.demoLoopPlaying) return;
+                  STATE.ssTimers.forEach(id => clearTimeout(id)); STATE.ssTimers = [];
+                  clearFlowTimers();
+                  STATE.ssRunning = false; STATE.ssPaused = false;
+                  STATE.obRunning = false; STATE.obPaused = false;
+                  STATE.drRunning = false; STATE.drPaused = false;
+                  STATE.mtRunning = false; STATE.mtPaused = false;
+                  STATE.solutionViewSetupStore = false; STATE.solutionViewAdmin = false; STATE.solutionViewOnboarding = false;
+                  STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
+                  STATE[step.key] = true; STATE.lcStep = i;
+                  scrollPreserveRender();
+                  if (step.start) {
+                    const ts = setTimeout(() => { if (STATE.lifecyclePlaying && STATE.lcStep === i) step.start(); }, 250);
+                    STATE.lcTimers.push(ts);
+                  }
+                }, elapsed);
+                STATE.lcTimers.push(t);
+                elapsed += step.dwell;
+              });
+              // At end of cycle, restart if loop is still active
+              const tEnd = setTimeout(() => {
+                if (!STATE.demoLoopPlaying) {
+                  STATE.lifecyclePlaying = false; STATE.lcStep = -1;
+                  scrollPreserveRender();
+                  return;
+                }
+                // Brief pause between cycles, then loop
+                const tPause = setTimeout(() => {
+                  if (STATE.demoLoopPlaying) startCycle();
+                }, 1500);
+                STATE.lcTimers.push(tPause);
+              }, elapsed);
+              STATE.lcTimers.push(tEnd);
+              scrollPreserveRender();
+            };
+            startCycle();
+            return;
+          }
           if (action === 'play-lifecycle') {
             // Clear any in-flight lifecycle timers
             STATE.lcTimers.forEach(id => clearTimeout(id)); STATE.lcTimers = [];
@@ -8643,88 +8707,48 @@
             // OB delays: [1000,2000,2000,2500,3500,2500,2500] = 16000 + 1500 breathing
             // DR delays: [800,1200,1000,1500,1400,1500,2000]  =  9400 + 1500 breathing
             // MT delays: [800,1200,1200,1500,1200,1500,2000]  =  9400 + 1500 breathing
-            // Flow queue total = 600+1200+1500+1200+2000+1500+1500+2000+3000 = 14,500ms
-            // Admin Console + User Experience both run the per-click flow animation,
-            // so we kick startFlow() and dwell long enough for the full cycle + breathing.
             const lcSteps = [
               { key: 'solutionViewSetupStore', start: () => startSs(),   dwell: 15500 },
-              { key: 'solutionViewAdmin',       start: () => { STATE.flowDevice = STATE.flowDevice || 'multi'; startFlow(); }, dwell: 16000 },
-              { key: 'solutionViewOnboarding',  start: () => startOb(),   dwell: 13500 },
-              { key: 'solutionViewUser',        start: () => { STATE.flowDevice = STATE.flowDevice || 'multi'; startFlow(); }, dwell: 16000 },
+              { key: 'solutionViewAdmin',       start: () => startFlow(), dwell: 12000 },
+              { key: 'solutionViewOnboarding',  start: () => startOb(),   dwell: 17500 },
+              { key: 'solutionViewUser',        start: () => startFlow(), dwell: 12000 },
               { key: 'solutionViewDashboard',   start: () => startDr(),   dwell: 10900 },
               { key: 'solutionViewMultiTenant', start: () => startMt(),   dwell: 10900 },
             ];
 
-            // Schedule one full pass through lcSteps starting at `baseElapsed` ms from now.
-            // After the last step's dwell, schedule the next pass — looping forever
-            // until the user clicks Stop (which sets lifecyclePlaying = false and
-            // clears STATE.lcTimers).
-            const scheduleLoop = (baseElapsed) => {
-              if (!STATE.lifecyclePlaying) return;
-              let elapsed = baseElapsed;
-              lcSteps.forEach((step, i) => {
-                const t = setTimeout(() => {
-                  if (!STATE.lifecyclePlaying) return;
-                  // Clear previous view's animation before opening the next
-                  STATE.ssTimers.forEach(id => clearTimeout(id)); STATE.ssTimers = [];
-                  clearFlowTimers();
-                  STATE.ssRunning = false; STATE.ssPaused = false;
-                  STATE.obRunning = false; STATE.obPaused = false;
-                  STATE.drRunning = false; STATE.drPaused = false;
-                  STATE.mtRunning = false; STATE.mtPaused = false;
-                  STATE.flowRunning = false; STATE.flowPaused = false;
-                  STATE.flowPhase = 'idle'; STATE.flowQueue = []; STATE.flowQueueIdx = 0;
-                  STATE.flowAppOpened = false; STATE._firstOpenDone = false; STATE._acSeen = {};
-                  // Open this step's view
-                  STATE.solutionViewSetupStore = false; STATE.solutionViewAdmin = false; STATE.solutionViewOnboarding = false;
-                  STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
-                  STATE[step.key] = true; STATE.lcStep = i;
-                  scrollPreserveRender();
-                  // Bring the newly-opened stage view into the viewport so the user
-                  // doesn't have to chase it. Use rAF to wait for layout.
-                  requestAnimationFrame(() => {
-                    if (!STATE.lifecyclePlaying || STATE.lcStep !== i) return;
-                    const viewMap = {
-                      solutionViewSetupStore: '[data-stage-view="setup-store"]',
-                      solutionViewAdmin: '[data-stage-view="admin"]',
-                      solutionViewOnboarding: '[data-stage-view="onboarding"]',
-                      solutionViewUser: '[data-stage-view="user"]',
-                      solutionViewDashboard: '[data-stage-view="dashboard"]',
-                      solutionViewMultiTenant: '[data-stage-view="multitenant"]',
-                    };
-                    const sel = viewMap[step.key];
-                    const target = sel ? document.querySelector(sel) : null;
-                    const main = document.querySelector('body > #app > main');
-                    if (target && main) {
-                      const tRect = target.getBoundingClientRect();
-                      const mRect = main.getBoundingClientRect();
-                      // Only scroll if the target's top is below the rail (out of view)
-                      // or above the visible window
-                      if (tRect.top < mRect.top + 80 || tRect.top > mRect.bottom - 100) {
-                        const offset = (tRect.top - mRect.top) + main.scrollTop - 80;
-                        main.scrollTo({ top: Math.max(0, offset), behavior: 'smooth' });
-                      }
-                    }
-                  });
-                  // Trigger animation after the render has settled
-                  if (step.start) {
-                    const ts = setTimeout(() => { if (STATE.lifecyclePlaying && STATE.lcStep === i) step.start(); }, 250);
-                    STATE.lcTimers.push(ts);
-                  }
-                }, elapsed);
-                STATE.lcTimers.push(t);
-                elapsed += step.dwell;
-              });
-
-              // Pass complete: queue the next loop iteration (small gap between loops).
-              const tLoop = setTimeout(() => {
+            let elapsed = 0;
+            lcSteps.forEach((step, i) => {
+              const t = setTimeout(() => {
                 if (!STATE.lifecyclePlaying) return;
-                scheduleLoop(0);
-              }, elapsed + 800);
-              STATE.lcTimers.push(tLoop);
-            };
+                // Clear previous view's animation before opening the next
+                STATE.ssTimers.forEach(id => clearTimeout(id)); STATE.ssTimers = [];
+                clearFlowTimers();
+                STATE.ssRunning = false; STATE.ssPaused = false;
+                STATE.obRunning = false; STATE.obPaused = false;
+                STATE.drRunning = false; STATE.drPaused = false;
+                STATE.mtRunning = false; STATE.mtPaused = false;
+                // Open this step's view
+                STATE.solutionViewSetupStore = false; STATE.solutionViewAdmin = false; STATE.solutionViewOnboarding = false;
+                STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
+                STATE[step.key] = true; STATE.lcStep = i;
+                scrollPreserveRender();
+                // Trigger animation after the render has settled
+                if (step.start) {
+                  const ts = setTimeout(() => { if (STATE.lifecyclePlaying && STATE.lcStep === i) step.start(); }, 250);
+                  STATE.lcTimers.push(ts);
+                }
+              }, elapsed);
+              STATE.lcTimers.push(t);
+              elapsed += step.dwell;
+            });
 
-            scheduleLoop(0);
+            // Tour complete: leave the last view open, reset playing state
+            const tEnd = setTimeout(() => {
+              if (!STATE.lifecyclePlaying) return;
+              STATE.lifecyclePlaying = false; STATE.lcStep = -1;
+              scrollPreserveRender();
+            }, elapsed);
+            STATE.lcTimers.push(tEnd);
 
             scrollPreserveRender(); return;
           }
@@ -8980,452 +9004,6 @@
       calculateImpact();
       document.addEventListener('DOMContentLoaded', render);
       document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && (STATE.modalOpen || STATE.openWhyModal || STATE.insightContent || STATE.showAnalystModal || STATE.showAIAgent)){ if (STATE.openWhyModal && STATE._savedDriverStates) { STATE.drivers.forEach((d, i) => { d.state = STATE._savedDriverStates[i]; }); STATE.showTippingPoint = STATE._savedTippingPoint; STATE.recastMode = STATE._savedRecastMode; STATE.targetDemandExponent = STATE._savedDemandExp; STATE.targetCapacitySlope = STATE._savedCapSlope; STATE._savedDriverStates = null; updateCurves(); requestAnimationFrame(animateCurves); } STATE.modalOpen=false; STATE.openWhyModal=null; STATE.insightContent=null; STATE.highlightDriverId=null; STATE.showAnalystModal=false; STATE.showAIAgent=false; render(); } });
-    </script>
-
-    <!-- ═════════════════════════════════════════════════════════════
-         STAR WARS × RECAST — refined motion layer
-         Keeps Recast's clean, light brand intact. Adds:
-           • Tasteful starfield (visible only in negative space)
-           • Hyperspace cyan accent streaks (subtle, periodic)
-           • Lightsaber ignite on the "Recast Approach" tab,
-             using Recast Cyan (#00BFFF) as the blade color.
-         pointer-events: none everywhere; underlying UI untouched.
-         ═════════════════════════════════════════════════════════════ -->
-    <style>
-      :root {
-        --sw-blue: #0000CC;       /* Recast Primary Blue */
-        --sw-cyan: #00BFFF;       /* Recast Accent Cyan  */
-        --sw-cyan-soft: #33CCFF;
-      }
-
-      /* Background layer sits BEHIND everything (negative z).
-         Body bg stays Recast light gray — we only paint a thin
-         brand-tinted vignette + faint stars in the corners. */
-      .sw-bg {
-        position: fixed; inset: 0;
-        pointer-events: none;
-        z-index: 0;
-        overflow: hidden;
-      }
-      /* Brand-aligned ambient vignette — barely there */
-      .sw-bg::before {
-        content: '';
-        position: absolute; inset: 0;
-        background:
-          radial-gradient(ellipse 60% 40% at 8% 0%,  rgba(0, 0, 204, 0.05), transparent 70%),
-          radial-gradient(ellipse 55% 45% at 100% 100%, rgba(0, 191, 255, 0.05), transparent 70%);
-      }
-
-      /* Stars — small, low opacity, pure white. Read as "polish",
-         not "space takeover". Tiles a 600x600 dot pattern.       */
-      .sw-stars {
-        position: absolute; inset: -20%;
-        background-image:
-          radial-gradient(1px 1px at 23% 17%, rgba(0, 0, 80, 0.18) 50%, transparent 51%),
-          radial-gradient(1px 1px at 78% 41%, rgba(0, 0, 80, 0.14) 50%, transparent 51%),
-          radial-gradient(1px 1px at 12% 67%, rgba(0, 0, 80, 0.16) 50%, transparent 51%),
-          radial-gradient(1px 1px at 56% 88%, rgba(0, 0, 80, 0.12) 50%, transparent 51%),
-          radial-gradient(1.5px 1.5px at 88% 12%, rgba(0, 191, 255, 0.22) 50%, transparent 51%),
-          radial-gradient(1px 1px at 41% 33%, rgba(0, 0, 80, 0.14) 50%, transparent 51%),
-          radial-gradient(1px 1px at 67% 71%, rgba(0, 0, 80, 0.12) 50%, transparent 51%);
-        background-size: 520px 520px, 480px 480px, 600px 600px, 540px 540px, 700px 700px, 460px 460px, 580px 580px;
-        opacity: 0.55;
-        animation: sw-twinkle 7s ease-in-out infinite alternate;
-      }
-      @keyframes sw-twinkle {
-        0%   { opacity: 0.40; }
-        100% { opacity: 0.65; }
-      }
-
-      /* Hyperspace streaks — Recast cyan, subtle, only a few visible at once. */
-      .sw-streaks { position: absolute; inset: 0; }
-      .sw-streak {
-        position: absolute;
-        height: 1px;
-        background: linear-gradient(90deg,
-          rgba(0, 191, 255, 0) 0%,
-          rgba(0, 191, 255, 0.55) 45%,
-          rgba(0, 191, 255, 0.85) 55%,
-          rgba(0, 191, 255, 0) 100%);
-        opacity: 0;
-        will-change: transform, opacity;
-        animation: sw-streak-fly linear infinite;
-        filter: drop-shadow(0 0 3px rgba(0, 191, 255, 0.45));
-      }
-      @keyframes sw-streak-fly {
-        0%   { transform: translateX(-260px) scaleX(0.3); opacity: 0; }
-        12%  { opacity: 0.85; }
-        85%  { opacity: 0.85; }
-        100% { transform: translateX(108vw) scaleX(1.1); opacity: 0; }
-      }
-      .sw-streak.s-rev {
-        background: linear-gradient(270deg,
-          rgba(0, 191, 255, 0) 0%,
-          rgba(0, 191, 255, 0.55) 45%,
-          rgba(0, 191, 255, 0.85) 55%,
-          rgba(0, 191, 255, 0) 100%);
-        animation-name: sw-streak-fly-rev;
-      }
-      @keyframes sw-streak-fly-rev {
-        0%   { transform: translateX(108vw) scaleX(0.3); opacity: 0; }
-        12%  { opacity: 0.85; }
-        85%  { opacity: 0.85; }
-        100% { transform: translateX(-260px) scaleX(1.1); opacity: 0; }
-      }
-
-      /* ───────────────────────────────────────────────────────────
-         LIGHTSABER — vertical, docked to the LEFT edge so it never
-         covers the central UI or the dogfight overhead.
-         Only ignites on the "Recast Approach" tab.
-         ─────────────────────────────────────────────────────────── */
-      .sw-saber {
-        position: fixed;
-        left: 8px;
-        bottom: 24px;
-        width: 14px;
-        height: min(60vh, 480px);
-        pointer-events: none;
-        z-index: 45;
-        opacity: 0;
-        transition: opacity 240ms ease;
-      }
-      body.sw-saber-active .sw-saber { opacity: 1; }
-
-      /* Engineered hilt — brushed metal w/ Recast cyan emitter ring (bottom) */
-      .sw-saber-hilt {
-        position: absolute;
-        left: 50%; bottom: 0;
-        transform: translateX(-50%);
-        width: 12px; height: 56px;
-        background:
-          linear-gradient(90deg, #6b7280 0%, #1f2937 20%, #374151 50%, #1f2937 80%, #6b7280 100%);
-        border-radius: 2px;
-        box-shadow:
-          inset 1px 0 0 rgba(255,255,255,0.25),
-          inset -1px 0 0 rgba(0,0,0,0.5),
-          0 0 0 0.5px rgba(15, 23, 42, 0.6),
-          1px 0 3px rgba(15, 23, 42, 0.25);
-      }
-      .sw-saber-hilt::before {
-        content: '';
-        position: absolute;
-        top: 8px; bottom: 16px; left: 1.5px; right: 1.5px;
-        background: repeating-linear-gradient(0deg,
-          rgba(15,23,42,0.55) 0 2px,
-          rgba(255,255,255,0.05) 2px 4px);
-        border-radius: 1px;
-      }
-      .sw-saber-hilt::after {
-        /* emitter ring (top of hilt) */
-        content: '';
-        position: absolute;
-        top: -3px; left: 50%; transform: translateX(-50%);
-        width: 16px; height: 5px;
-        background: linear-gradient(90deg, #d1d5db 0%, #4b5563 50%, #d1d5db 100%);
-        border-radius: 1px;
-        box-shadow:
-          0 0 0 0.5px rgba(15, 23, 42, 0.7),
-          inset 0 0 0 0.5px rgba(255,255,255,0.2);
-      }
-
-      .sw-saber-blade {
-        position: absolute;
-        left: 50%;
-        bottom: 56px;
-        transform: translateX(-50%) scaleY(0);
-        transform-origin: bottom center;
-        width: 4px;
-        top: 0;
-        border-radius: 2px;
-        background: linear-gradient(90deg,
-          #ffffff 0%,
-          #ffffff 35%,
-          #cfeefd 65%,
-          #ffffff 100%);
-        box-shadow:
-          0 0 4px 1px rgba(255, 255, 255, 0.95),
-          0 0 10px 3px rgba(0, 191, 255, 0.85),
-          0 0 22px 7px rgba(0, 191, 255, 0.5),
-          0 0 44px 14px rgba(0, 120, 220, 0.28);
-      }
-      body.sw-saber-active .sw-saber-blade {
-        animation:
-          sw-saber-ignite 620ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards,
-          sw-saber-hum 2.2s ease-in-out 620ms infinite alternate;
-      }
-      @keyframes sw-saber-ignite {
-        0%   { transform: translateX(-50%) scaleY(0); }
-        72%  { transform: translateX(-50%) scaleY(1.015); }
-        100% { transform: translateX(-50%) scaleY(1); }
-      }
-      @keyframes sw-saber-hum {
-        0%   { filter: brightness(0.98); }
-        50%  { filter: brightness(1.08); }
-        100% { filter: brightness(0.96); }
-      }
-
-      .sw-saber-tip {
-        position: absolute;
-        left: 50%; top: -4px;
-        width: 8px; height: 8px;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        background: radial-gradient(circle, #ffffff 0%, #cfeefd 35%, rgba(0,191,255,0) 70%);
-        opacity: 0;
-        transition: opacity 200ms;
-      }
-      body.sw-saber-active .sw-saber-tip { opacity: 1; transition-delay: 540ms; }
-
-      /* Soft cyan glow column hugging the left edge */
-      body.sw-saber-active::after {
-        content: '';
-        position: fixed;
-        left: 0; bottom: 24px;
-        width: 60px; height: min(60vh, 480px);
-        z-index: 44;
-        pointer-events: none;
-        background: radial-gradient(ellipse 100% 50% at 0% 50%, rgba(0, 191, 255, 0.10), transparent 70%);
-      }
-
-      @media (max-width: 768px) {
-        .sw-saber { height: 40vh; bottom: 16px; left: 4px; }
-        body.sw-saber-active::after { bottom: 16px; height: 40vh; }
-      }
-
-      /* ───────────────────────────────────────────────────────────
-         STARFIGHTERS — small, discreet silhouettes engaged in
-         battle. Tiny SVGs (~22-28px wide), low opacity, varied
-         altitudes and speeds. Lasers occasionally flash between.
-         ─────────────────────────────────────────────────────────── */
-      .sw-fighters {
-        position: absolute; inset: 0;
-        pointer-events: none;
-      }
-      .sw-fighter {
-        position: absolute;
-        opacity: 0;
-        will-change: transform, opacity;
-        filter: drop-shadow(0 0 2px rgba(15,23,42,0.25));
-      }
-
-      /* Each fighter gets its own track via a CSS variable */
-      .sw-fighter.f1  { top: 14%; animation: sw-fly-rtl 17s linear infinite; animation-delay:  0s; }
-      .sw-fighter.f2  { top: 22%; animation: sw-fly-ltr 21s linear infinite; animation-delay:  4s; }
-      .sw-fighter.f3  { top: 38%; animation: sw-fly-rtl 24s linear infinite; animation-delay: 11s; }
-      .sw-fighter.f4  { top: 47%; animation: sw-fly-ltr 19s linear infinite; animation-delay:  7s; }
-      .sw-fighter.f5  { top: 63%; animation: sw-fly-rtl 22s linear infinite; animation-delay: 14s; }
-      .sw-fighter.f6  { top: 71%; animation: sw-fly-ltr 26s linear infinite; animation-delay:  2s; }
-      .sw-fighter.f7  { top: 84%; animation: sw-fly-rtl 18s linear infinite; animation-delay: 19s; }
-
-      @keyframes sw-fly-ltr {
-        0%   { transform: translate3d(-80px, 0, 0) rotate(-1deg); opacity: 0; }
-        6%   { opacity: 0.55; }
-        45%  { transform: translate3d(45vw, -8px, 0) rotate(1deg); opacity: 0.7; }
-        92%  { opacity: 0.55; }
-        100% { transform: translate3d(110vw, 6px, 0) rotate(-1deg); opacity: 0; }
-      }
-      @keyframes sw-fly-rtl {
-        0%   { transform: translate3d(110vw, 0, 0) rotate(179deg); opacity: 0; }
-        6%   { opacity: 0.55; }
-        45%  { transform: translate3d(45vw, 6px, 0) rotate(181deg); opacity: 0.7; }
-        92%  { opacity: 0.55; }
-        100% { transform: translate3d(-80px, -8px, 0) rotate(179deg); opacity: 0; }
-      }
-
-      /* Laser bolts — short cyan/red dashes that flash periodically */
-      .sw-laser {
-        position: absolute;
-        width: 14px; height: 1.5px;
-        border-radius: 1px;
-        opacity: 0;
-        will-change: transform, opacity;
-        animation: sw-laser-fly linear infinite;
-      }
-      .sw-laser.cyan {
-        background: linear-gradient(90deg, rgba(0,191,255,0) 0%, #00BFFF 50%, rgba(0,191,255,0) 100%);
-        box-shadow: 0 0 4px rgba(0,191,255,0.85);
-      }
-      .sw-laser.red {
-        background: linear-gradient(90deg, rgba(204,34,34,0) 0%, #CC2222 50%, rgba(204,34,34,0) 100%);
-        box-shadow: 0 0 4px rgba(204,34,34,0.85);
-      }
-      .sw-laser.l1 { top: 18%; animation-duration: 2.4s; animation-delay: 1.3s; }
-      .sw-laser.l2 { top: 34%; animation-duration: 2.0s; animation-delay: 5.7s; }
-      .sw-laser.l3 { top: 51%; animation-duration: 2.6s; animation-delay: 9.2s; }
-      .sw-laser.l4 { top: 67%; animation-duration: 2.2s; animation-delay: 3.4s; }
-      .sw-laser.l5 { top: 79%; animation-duration: 2.5s; animation-delay: 12.1s; }
-      .sw-laser.dir-rtl { animation-name: sw-laser-fly-rtl; }
-      .sw-laser:not(.dir-rtl) { animation-name: sw-laser-fly-ltr; }
-      @keyframes sw-laser-fly-ltr {
-        0%   { transform: translateX(-30px); opacity: 0; }
-        4%   { opacity: 1; }
-        94%  { opacity: 1; }
-        100% { transform: translateX(110vw); opacity: 0; }
-      }
-      @keyframes sw-laser-fly-rtl {
-        0%   { transform: translateX(110vw); opacity: 0; }
-        4%   { opacity: 1; }
-        94%  { opacity: 1; }
-        100% { transform: translateX(-30px); opacity: 0; }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .sw-stars, .sw-streak, .sw-saber-blade, .sw-fighter, .sw-laser { animation: none !important; }
-        .sw-streak, .sw-laser { display: none; }
-      }
-    </style>
-
-    <!-- SVG sprite sheet — defined once, instanced via <use> -->
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-      <defs>
-        <!-- TIE Fighter — front silhouette w/ hex panel wings + ball cockpit -->
-        <symbol id="sw-svg-tie" viewBox="0 0 28 18">
-          <line x1="6"  y1="2" x2="6"  y2="16" stroke="#475569" stroke-width="1.4"/>
-          <line x1="22" y1="2" x2="22" y2="16" stroke="#475569" stroke-width="1.4"/>
-          <polygon points="1,2 10,2 10,16 1,16 4,9"  fill="#1f2937" stroke="#475569" stroke-width="0.6"/>
-          <polygon points="27,2 18,2 18,16 27,16 24,9" fill="#1f2937" stroke="#475569" stroke-width="0.6"/>
-          <line x1="10" y1="9" x2="18" y2="9" stroke="#64748B" stroke-width="1"/>
-          <circle cx="14" cy="9" r="3" fill="#0f172a" stroke="#64748B" stroke-width="0.5"/>
-          <circle cx="14" cy="9" r="1.2" fill="#1f2937"/>
-        </symbol>
-
-        <!-- X-Wing — top-down with split S-foils + R2 dome + nose laser -->
-        <symbol id="sw-svg-xwing" viewBox="0 0 34 16">
-          <!-- S-foils, split open in attack position -->
-          <line x1="9"  y1="3"  x2="23" y2="6"  stroke="#94A3B8" stroke-width="1.1"/>
-          <line x1="9"  y1="13" x2="23" y2="10" stroke="#94A3B8" stroke-width="1.1"/>
-          <line x1="9"  y1="1"  x2="23" y2="5"  stroke="#94A3B8" stroke-width="1.1"/>
-          <line x1="9"  y1="15" x2="23" y2="11" stroke="#94A3B8" stroke-width="1.1"/>
-          <!-- wingtip cannons -->
-          <rect x="7.5" y="0"  width="2" height="3" fill="#cbd5e1"/>
-          <rect x="7.5" y="13" width="2" height="3" fill="#cbd5e1"/>
-          <!-- fuselage + nose taper -->
-          <polygon points="1,7.5 23,6 32,8 23,10 1,8.5" fill="#e2e8f0" stroke="#64748B" stroke-width="0.4"/>
-          <polygon points="23,6 32,8 23,10" fill="#94A3B8"/>
-          <!-- R2 astromech dome -->
-          <circle cx="13" cy="8" r="1.4" fill="#cbd5e1" stroke="#64748B" stroke-width="0.3"/>
-          <circle cx="13" cy="8" r="0.5" fill="#0070f3"/>
-          <!-- engine glows -->
-          <circle cx="2" cy="7.5" r="0.8" fill="#E07050"/>
-          <circle cx="2" cy="8.5" r="0.8" fill="#E07050"/>
-        </symbol>
-
-        <!-- ARC-170 — heavy three-seat Republic fighter, twin tail fins,
-             reverse-tapered wings with split flaps. -->
-        <symbol id="sw-svg-arc170" viewBox="0 0 36 18">
-          <!-- aft tail fins -->
-          <polygon points="3,3 8,5 8,7 3,5"   fill="#cbd5e1" stroke="#64748B" stroke-width="0.4"/>
-          <polygon points="3,15 8,13 8,11 3,13" fill="#cbd5e1" stroke="#64748B" stroke-width="0.4"/>
-          <!-- main wings (reverse taper, split flap notch) -->
-          <polygon points="6,5 24,7 24,11 6,13 4,11 4,7" fill="#e2e8f0" stroke="#64748B" stroke-width="0.4"/>
-          <polygon points="11,7 22,7.5 22,10.5 11,11" fill="#cbd5e1"/>
-          <!-- fuselage / cockpit "spine" -->
-          <polygon points="2,8 24,7.5 34,9 24,10.5 2,10" fill="#dde3ec" stroke="#475569" stroke-width="0.4"/>
-          <!-- forward cockpit canopy -->
-          <polygon points="22,8 30,8.5 30,9.5 22,10" fill="#0f172a" stroke="#475569" stroke-width="0.3"/>
-          <!-- nose -->
-          <polygon points="30,8.5 34,9 30,9.5" fill="#94A3B8"/>
-          <!-- wingtip lasers -->
-          <rect x="22.5" y="6.4" width="2.5" height="0.8" fill="#475569"/>
-          <rect x="22.5" y="10.8" width="2.5" height="0.8" fill="#475569"/>
-          <!-- engine wash -->
-          <circle cx="3" cy="8.4" r="0.7" fill="#E07050"/>
-          <circle cx="3" cy="9.6" r="0.7" fill="#E07050"/>
-        </symbol>
-
-        <!-- Naboo N-1 starfighter — sleek silver fuselage, swept Y-tail,
-             chrome accent stripe down the spine. -->
-        <symbol id="sw-svg-n1" viewBox="0 0 36 14">
-          <!-- twin engine pods (rear) -->
-          <ellipse cx="5" cy="4.5" rx="3" ry="1.4" fill="#e2e8f0" stroke="#64748B" stroke-width="0.4"/>
-          <ellipse cx="5" cy="9.5" rx="3" ry="1.4" fill="#e2e8f0" stroke="#64748B" stroke-width="0.4"/>
-          <circle cx="2.4" cy="4.5" r="0.7" fill="#0070f3"/>
-          <circle cx="2.4" cy="9.5" r="0.7" fill="#0070f3"/>
-          <!-- inboard pylons connecting engines to body -->
-          <polygon points="7,4.5 14,6.5 14,7.5 7,9.5" fill="#cbd5e1" stroke="#64748B" stroke-width="0.3"/>
-          <!-- main fuselage — long teardrop -->
-          <polygon points="8,7 30,5.5 35,7 30,8.5 8,7" fill="#f1f5f9" stroke="#475569" stroke-width="0.4"/>
-          <!-- chrome dorsal stripe -->
-          <polygon points="14,6.6 30,5.9 33,7 30,8.1 14,7.4" fill="#FFD27A"/>
-          <!-- cockpit canopy -->
-          <polygon points="22,6.4 28,6.4 28,7.6 22,7.6" fill="#0f172a" stroke="#475569" stroke-width="0.3"/>
-          <!-- pointed nose -->
-          <polygon points="30,5.5 35,7 30,8.5" fill="#cbd5e1" stroke="#475569" stroke-width="0.3"/>
-        </symbol>
-      </defs>
-    </svg>
-
-    <div class="sw-bg" aria-hidden="true">
-      <div class="sw-stars"></div>
-      <div class="sw-streaks" id="sw-streaks"></div>
-      <div class="sw-fighters">
-        <svg class="sw-fighter f1" width="24" height="13"><use href="#sw-svg-xwing"/></svg>
-        <svg class="sw-fighter f2" width="20" height="13"><use href="#sw-svg-tie"/></svg>
-        <svg class="sw-fighter f3" width="28" height="14"><use href="#sw-svg-arc170"/></svg>
-        <svg class="sw-fighter f4" width="26" height="11"><use href="#sw-svg-n1"/></svg>
-        <svg class="sw-fighter f5" width="24" height="13"><use href="#sw-svg-xwing"/></svg>
-        <svg class="sw-fighter f6" width="20" height="13"><use href="#sw-svg-tie"/></svg>
-        <svg class="sw-fighter f7" width="26" height="11"><use href="#sw-svg-n1"/></svg>
-
-        <span class="sw-laser cyan l1"></span>
-        <span class="sw-laser red  l2 dir-rtl"></span>
-        <span class="sw-laser cyan l3"></span>
-        <span class="sw-laser red  l4 dir-rtl"></span>
-        <span class="sw-laser cyan l5"></span>
-      </div>
-    </div>
-
-    <!-- Lightsaber for Recast Approach tab -->
-    <div class="sw-saber" aria-hidden="true">
-      <div class="sw-saber-hilt"></div>
-      <div class="sw-saber-blade"></div>
-      <span class="sw-saber-tip"></span>
-    </div>
-
-    <script>
-      (function () {
-        // Build a small, tasteful set of hyperspace streaks.
-        const host = document.getElementById('sw-streaks');
-        if (host) {
-          const N = 9; // restrained
-          for (let i = 0; i < N; i++) {
-            const s = document.createElement('span');
-            s.className = 'sw-streak' + (Math.random() < 0.45 ? ' s-rev' : '');
-            const len = 90 + Math.random() * 200;
-            s.style.width = len + 'px';
-            s.style.top = (4 + Math.random() * 92) + '%';
-            s.style.animationDuration = (3.6 + Math.random() * 4.4) + 's';
-            s.style.animationDelay = (Math.random() * 8) + 's';
-            host.appendChild(s);
-          }
-        }
-
-        // Saber activates only on the "Recast Approach" tab (data-tab="solution").
-        function syncSaber() {
-          const sel = document.querySelector('[data-action="switch-tab"][data-tab="solution"][aria-selected="true"]');
-          let isSolution = !!sel;
-          if (!isSolution) {
-            document.querySelectorAll('[data-action="switch-tab"]').forEach(b => {
-              if (b.getAttribute('aria-selected') === 'true' && /Recast Approach/i.test(b.textContent || '')) {
-                isSolution = true;
-              }
-            });
-          }
-          document.body.classList.toggle('sw-saber-active', isSolution);
-        }
-
-        syncSaber();
-        const mo = new MutationObserver(() => {
-          if (mo._t) return;
-          mo._t = setTimeout(() => { mo._t = null; syncSaber(); }, 80);
-        });
-        mo.observe(document.body, { subtree: true, attributes: true, childList: true, attributeFilter: ['aria-selected'] });
-        document.addEventListener('click', (e) => {
-          if (e.target.closest('[data-action="switch-tab"], [data-action="advance"]')) {
-            setTimeout(syncSaber, 60);
-          }
-        }, true);
-      })();
     </script>
   </body>
 </html>
