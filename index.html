@@ -3913,6 +3913,12 @@
         from { opacity: 0; transform: translateY(4px); }
         to { opacity: 1; transform: translateY(0); }
       }
+
+      /* Scroll-free: hide all scrollbars while keeping scroll functional */
+      html, body { scrollbar-width: none; -ms-overflow-style: none; }
+      html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; display: none; }
+      *::-webkit-scrollbar { width: 0; height: 0; display: none; }
+      * { scrollbar-width: none; -ms-overflow-style: none; }
     </style>
   </head>
 
@@ -4740,12 +4746,15 @@
       function runFlowQueue(){
         if (STATE.flowPaused || STATE.flowQueueIdx >= STATE.flowQueue.length) return;
         const step = STATE.flowQueue[STATE.flowQueueIdx];
+        // Loop pacing: 1.0 = original speed. Bumped to 1.15 to slow the loop
+        // a touch without breaking any relative step timing.
+        const FLOW_SPEED = 1.15;
         const tid = setTimeout(() => {
           if (STATE.flowPaused) return;
           step.fn();
           STATE.flowQueueIdx++;
           runFlowQueue();
-        }, step.delay);
+        }, step.delay * FLOW_SPEED);
         STATE.flowTimers.timeouts.push(tid);
       }
 
