@@ -8604,6 +8604,14 @@
               scrollPreserveRender(); return;
             }
             STATE.demoLoopPlaying = true;
+            // Helper: scroll the architecture diagram + dynamic view area into view at the top
+            const scrollToDemoTop = () => {
+              const card = document.querySelector('#panel-solution .arch-fit-card');
+              if (card) {
+                const top = card.getBoundingClientRect().top + window.pageYOffset - 12;
+                window.scrollTo({ top, behavior: 'smooth' });
+              }
+            };
             // Start the first cycle by triggering the existing play-lifecycle handler
             const startCycle = () => {
               if (!STATE.demoLoopPlaying) return;
@@ -8649,6 +8657,7 @@
                   STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
                   STATE[step.key] = true; STATE.lcStep = i;
                   scrollPreserveRender();
+                  scrollToDemoTop();
                   if (step.start) {
                     const ts = setTimeout(() => { if (STATE.lifecyclePlaying && STATE.lcStep === i) step.start(); }, 250);
                     STATE.lcTimers.push(ts);
@@ -8672,6 +8681,7 @@
               }, elapsed);
               STATE.lcTimers.push(tEnd);
               scrollPreserveRender();
+              scrollToDemoTop();
             };
             startCycle();
             return;
