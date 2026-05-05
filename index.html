@@ -8981,5 +8981,451 @@
       document.addEventListener('DOMContentLoaded', render);
       document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && (STATE.modalOpen || STATE.openWhyModal || STATE.insightContent || STATE.showAnalystModal || STATE.showAIAgent)){ if (STATE.openWhyModal && STATE._savedDriverStates) { STATE.drivers.forEach((d, i) => { d.state = STATE._savedDriverStates[i]; }); STATE.showTippingPoint = STATE._savedTippingPoint; STATE.recastMode = STATE._savedRecastMode; STATE.targetDemandExponent = STATE._savedDemandExp; STATE.targetCapacitySlope = STATE._savedCapSlope; STATE._savedDriverStates = null; updateCurves(); requestAnimationFrame(animateCurves); } STATE.modalOpen=false; STATE.openWhyModal=null; STATE.insightContent=null; STATE.highlightDriverId=null; STATE.showAnalystModal=false; STATE.showAIAgent=false; render(); } });
     </script>
+
+    <!-- ═════════════════════════════════════════════════════════════
+         STAR WARS × RECAST — refined motion layer
+         Keeps Recast's clean, light brand intact. Adds:
+           • Tasteful starfield (visible only in negative space)
+           • Hyperspace cyan accent streaks (subtle, periodic)
+           • Lightsaber ignite on the "Recast Approach" tab,
+             using Recast Cyan (#00BFFF) as the blade color.
+         pointer-events: none everywhere; underlying UI untouched.
+         ═════════════════════════════════════════════════════════════ -->
+    <style>
+      :root {
+        --sw-blue: #0000CC;       /* Recast Primary Blue */
+        --sw-cyan: #00BFFF;       /* Recast Accent Cyan  */
+        --sw-cyan-soft: #33CCFF;
+      }
+
+      /* Background layer sits BEHIND everything (negative z).
+         Body bg stays Recast light gray — we only paint a thin
+         brand-tinted vignette + faint stars in the corners. */
+      .sw-bg {
+        position: fixed; inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+      /* Brand-aligned ambient vignette — barely there */
+      .sw-bg::before {
+        content: '';
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(ellipse 60% 40% at 8% 0%,  rgba(0, 0, 204, 0.05), transparent 70%),
+          radial-gradient(ellipse 55% 45% at 100% 100%, rgba(0, 191, 255, 0.05), transparent 70%);
+      }
+
+      /* Stars — small, low opacity, pure white. Read as "polish",
+         not "space takeover". Tiles a 600x600 dot pattern.       */
+      .sw-stars {
+        position: absolute; inset: -20%;
+        background-image:
+          radial-gradient(1px 1px at 23% 17%, rgba(0, 0, 80, 0.18) 50%, transparent 51%),
+          radial-gradient(1px 1px at 78% 41%, rgba(0, 0, 80, 0.14) 50%, transparent 51%),
+          radial-gradient(1px 1px at 12% 67%, rgba(0, 0, 80, 0.16) 50%, transparent 51%),
+          radial-gradient(1px 1px at 56% 88%, rgba(0, 0, 80, 0.12) 50%, transparent 51%),
+          radial-gradient(1.5px 1.5px at 88% 12%, rgba(0, 191, 255, 0.22) 50%, transparent 51%),
+          radial-gradient(1px 1px at 41% 33%, rgba(0, 0, 80, 0.14) 50%, transparent 51%),
+          radial-gradient(1px 1px at 67% 71%, rgba(0, 0, 80, 0.12) 50%, transparent 51%);
+        background-size: 520px 520px, 480px 480px, 600px 600px, 540px 540px, 700px 700px, 460px 460px, 580px 580px;
+        opacity: 0.55;
+        animation: sw-twinkle 7s ease-in-out infinite alternate;
+      }
+      @keyframes sw-twinkle {
+        0%   { opacity: 0.40; }
+        100% { opacity: 0.65; }
+      }
+
+      /* Hyperspace streaks — Recast cyan, subtle, only a few visible at once. */
+      .sw-streaks { position: absolute; inset: 0; }
+      .sw-streak {
+        position: absolute;
+        height: 1px;
+        background: linear-gradient(90deg,
+          rgba(0, 191, 255, 0) 0%,
+          rgba(0, 191, 255, 0.55) 45%,
+          rgba(0, 191, 255, 0.85) 55%,
+          rgba(0, 191, 255, 0) 100%);
+        opacity: 0;
+        will-change: transform, opacity;
+        animation: sw-streak-fly linear infinite;
+        filter: drop-shadow(0 0 3px rgba(0, 191, 255, 0.45));
+      }
+      @keyframes sw-streak-fly {
+        0%   { transform: translateX(-260px) scaleX(0.3); opacity: 0; }
+        12%  { opacity: 0.85; }
+        85%  { opacity: 0.85; }
+        100% { transform: translateX(108vw) scaleX(1.1); opacity: 0; }
+      }
+      .sw-streak.s-rev {
+        background: linear-gradient(270deg,
+          rgba(0, 191, 255, 0) 0%,
+          rgba(0, 191, 255, 0.55) 45%,
+          rgba(0, 191, 255, 0.85) 55%,
+          rgba(0, 191, 255, 0) 100%);
+        animation-name: sw-streak-fly-rev;
+      }
+      @keyframes sw-streak-fly-rev {
+        0%   { transform: translateX(108vw) scaleX(0.3); opacity: 0; }
+        12%  { opacity: 0.85; }
+        85%  { opacity: 0.85; }
+        100% { transform: translateX(-260px) scaleX(1.1); opacity: 0; }
+      }
+
+      /* ───────────────────────────────────────────────────────────
+         LIGHTSABER — vertical, docked to the LEFT edge so it never
+         covers the central UI or the dogfight overhead.
+         Only ignites on the "Recast Approach" tab.
+         ─────────────────────────────────────────────────────────── */
+      .sw-saber {
+        position: fixed;
+        left: 8px;
+        bottom: 24px;
+        width: 14px;
+        height: min(60vh, 480px);
+        pointer-events: none;
+        z-index: 45;
+        opacity: 0;
+        transition: opacity 240ms ease;
+      }
+      body.sw-saber-active .sw-saber { opacity: 1; }
+
+      /* Engineered hilt — brushed metal w/ Recast cyan emitter ring (bottom) */
+      .sw-saber-hilt {
+        position: absolute;
+        left: 50%; bottom: 0;
+        transform: translateX(-50%);
+        width: 12px; height: 56px;
+        background:
+          linear-gradient(90deg, #6b7280 0%, #1f2937 20%, #374151 50%, #1f2937 80%, #6b7280 100%);
+        border-radius: 2px;
+        box-shadow:
+          inset 1px 0 0 rgba(255,255,255,0.25),
+          inset -1px 0 0 rgba(0,0,0,0.5),
+          0 0 0 0.5px rgba(15, 23, 42, 0.6),
+          1px 0 3px rgba(15, 23, 42, 0.25);
+      }
+      .sw-saber-hilt::before {
+        content: '';
+        position: absolute;
+        top: 8px; bottom: 16px; left: 1.5px; right: 1.5px;
+        background: repeating-linear-gradient(0deg,
+          rgba(15,23,42,0.55) 0 2px,
+          rgba(255,255,255,0.05) 2px 4px);
+        border-radius: 1px;
+      }
+      .sw-saber-hilt::after {
+        /* emitter ring (top of hilt) */
+        content: '';
+        position: absolute;
+        top: -3px; left: 50%; transform: translateX(-50%);
+        width: 16px; height: 5px;
+        background: linear-gradient(90deg, #d1d5db 0%, #4b5563 50%, #d1d5db 100%);
+        border-radius: 1px;
+        box-shadow:
+          0 0 0 0.5px rgba(15, 23, 42, 0.7),
+          inset 0 0 0 0.5px rgba(255,255,255,0.2);
+      }
+
+      .sw-saber-blade {
+        position: absolute;
+        left: 50%;
+        bottom: 56px;
+        transform: translateX(-50%) scaleY(0);
+        transform-origin: bottom center;
+        width: 4px;
+        top: 0;
+        border-radius: 2px;
+        background: linear-gradient(90deg,
+          #ffffff 0%,
+          #ffffff 35%,
+          #cfeefd 65%,
+          #ffffff 100%);
+        box-shadow:
+          0 0 4px 1px rgba(255, 255, 255, 0.95),
+          0 0 10px 3px rgba(0, 191, 255, 0.85),
+          0 0 22px 7px rgba(0, 191, 255, 0.5),
+          0 0 44px 14px rgba(0, 120, 220, 0.28);
+      }
+      body.sw-saber-active .sw-saber-blade {
+        animation:
+          sw-saber-ignite 620ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards,
+          sw-saber-hum 2.2s ease-in-out 620ms infinite alternate;
+      }
+      @keyframes sw-saber-ignite {
+        0%   { transform: translateX(-50%) scaleY(0); }
+        72%  { transform: translateX(-50%) scaleY(1.015); }
+        100% { transform: translateX(-50%) scaleY(1); }
+      }
+      @keyframes sw-saber-hum {
+        0%   { filter: brightness(0.98); }
+        50%  { filter: brightness(1.08); }
+        100% { filter: brightness(0.96); }
+      }
+
+      .sw-saber-tip {
+        position: absolute;
+        left: 50%; top: -4px;
+        width: 8px; height: 8px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, #ffffff 0%, #cfeefd 35%, rgba(0,191,255,0) 70%);
+        opacity: 0;
+        transition: opacity 200ms;
+      }
+      body.sw-saber-active .sw-saber-tip { opacity: 1; transition-delay: 540ms; }
+
+      /* Soft cyan glow column hugging the left edge */
+      body.sw-saber-active::after {
+        content: '';
+        position: fixed;
+        left: 0; bottom: 24px;
+        width: 60px; height: min(60vh, 480px);
+        z-index: 44;
+        pointer-events: none;
+        background: radial-gradient(ellipse 100% 50% at 0% 50%, rgba(0, 191, 255, 0.10), transparent 70%);
+      }
+
+      @media (max-width: 768px) {
+        .sw-saber { height: 40vh; bottom: 16px; left: 4px; }
+        body.sw-saber-active::after { bottom: 16px; height: 40vh; }
+      }
+
+      /* ───────────────────────────────────────────────────────────
+         STARFIGHTERS — small, discreet silhouettes engaged in
+         battle. Tiny SVGs (~22-28px wide), low opacity, varied
+         altitudes and speeds. Lasers occasionally flash between.
+         ─────────────────────────────────────────────────────────── */
+      .sw-fighters {
+        position: absolute; inset: 0;
+        pointer-events: none;
+      }
+      .sw-fighter {
+        position: absolute;
+        opacity: 0;
+        will-change: transform, opacity;
+        filter: drop-shadow(0 0 2px rgba(15,23,42,0.25));
+      }
+
+      /* Each fighter gets its own track via a CSS variable */
+      .sw-fighter.f1  { top: 14%; animation: sw-fly-rtl 17s linear infinite; animation-delay:  0s; }
+      .sw-fighter.f2  { top: 22%; animation: sw-fly-ltr 21s linear infinite; animation-delay:  4s; }
+      .sw-fighter.f3  { top: 38%; animation: sw-fly-rtl 24s linear infinite; animation-delay: 11s; }
+      .sw-fighter.f4  { top: 47%; animation: sw-fly-ltr 19s linear infinite; animation-delay:  7s; }
+      .sw-fighter.f5  { top: 63%; animation: sw-fly-rtl 22s linear infinite; animation-delay: 14s; }
+      .sw-fighter.f6  { top: 71%; animation: sw-fly-ltr 26s linear infinite; animation-delay:  2s; }
+      .sw-fighter.f7  { top: 84%; animation: sw-fly-rtl 18s linear infinite; animation-delay: 19s; }
+
+      @keyframes sw-fly-ltr {
+        0%   { transform: translate3d(-80px, 0, 0) rotate(-1deg); opacity: 0; }
+        6%   { opacity: 0.55; }
+        45%  { transform: translate3d(45vw, -8px, 0) rotate(1deg); opacity: 0.7; }
+        92%  { opacity: 0.55; }
+        100% { transform: translate3d(110vw, 6px, 0) rotate(-1deg); opacity: 0; }
+      }
+      @keyframes sw-fly-rtl {
+        0%   { transform: translate3d(110vw, 0, 0) rotate(179deg); opacity: 0; }
+        6%   { opacity: 0.55; }
+        45%  { transform: translate3d(45vw, 6px, 0) rotate(181deg); opacity: 0.7; }
+        92%  { opacity: 0.55; }
+        100% { transform: translate3d(-80px, -8px, 0) rotate(179deg); opacity: 0; }
+      }
+
+      /* Laser bolts — short cyan/red dashes that flash periodically */
+      .sw-laser {
+        position: absolute;
+        width: 14px; height: 1.5px;
+        border-radius: 1px;
+        opacity: 0;
+        will-change: transform, opacity;
+        animation: sw-laser-fly linear infinite;
+      }
+      .sw-laser.cyan {
+        background: linear-gradient(90deg, rgba(0,191,255,0) 0%, #00BFFF 50%, rgba(0,191,255,0) 100%);
+        box-shadow: 0 0 4px rgba(0,191,255,0.85);
+      }
+      .sw-laser.red {
+        background: linear-gradient(90deg, rgba(204,34,34,0) 0%, #CC2222 50%, rgba(204,34,34,0) 100%);
+        box-shadow: 0 0 4px rgba(204,34,34,0.85);
+      }
+      .sw-laser.l1 { top: 18%; animation-duration: 2.4s; animation-delay: 1.3s; }
+      .sw-laser.l2 { top: 34%; animation-duration: 2.0s; animation-delay: 5.7s; }
+      .sw-laser.l3 { top: 51%; animation-duration: 2.6s; animation-delay: 9.2s; }
+      .sw-laser.l4 { top: 67%; animation-duration: 2.2s; animation-delay: 3.4s; }
+      .sw-laser.l5 { top: 79%; animation-duration: 2.5s; animation-delay: 12.1s; }
+      .sw-laser.dir-rtl { animation-name: sw-laser-fly-rtl; }
+      .sw-laser:not(.dir-rtl) { animation-name: sw-laser-fly-ltr; }
+      @keyframes sw-laser-fly-ltr {
+        0%   { transform: translateX(-30px); opacity: 0; }
+        4%   { opacity: 1; }
+        94%  { opacity: 1; }
+        100% { transform: translateX(110vw); opacity: 0; }
+      }
+      @keyframes sw-laser-fly-rtl {
+        0%   { transform: translateX(110vw); opacity: 0; }
+        4%   { opacity: 1; }
+        94%  { opacity: 1; }
+        100% { transform: translateX(-30px); opacity: 0; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .sw-stars, .sw-streak, .sw-saber-blade, .sw-fighter, .sw-laser { animation: none !important; }
+        .sw-streak, .sw-laser { display: none; }
+      }
+    </style>
+
+    <!-- SVG sprite sheet — defined once, instanced via <use> -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <!-- TIE Fighter — front silhouette w/ hex panel wings + ball cockpit -->
+        <symbol id="sw-svg-tie" viewBox="0 0 28 18">
+          <line x1="6"  y1="2" x2="6"  y2="16" stroke="#475569" stroke-width="1.4"/>
+          <line x1="22" y1="2" x2="22" y2="16" stroke="#475569" stroke-width="1.4"/>
+          <polygon points="1,2 10,2 10,16 1,16 4,9"  fill="#1f2937" stroke="#475569" stroke-width="0.6"/>
+          <polygon points="27,2 18,2 18,16 27,16 24,9" fill="#1f2937" stroke="#475569" stroke-width="0.6"/>
+          <line x1="10" y1="9" x2="18" y2="9" stroke="#64748B" stroke-width="1"/>
+          <circle cx="14" cy="9" r="3" fill="#0f172a" stroke="#64748B" stroke-width="0.5"/>
+          <circle cx="14" cy="9" r="1.2" fill="#1f2937"/>
+        </symbol>
+
+        <!-- X-Wing — top-down with split S-foils + R2 dome + nose laser -->
+        <symbol id="sw-svg-xwing" viewBox="0 0 34 16">
+          <!-- S-foils, split open in attack position -->
+          <line x1="9"  y1="3"  x2="23" y2="6"  stroke="#94A3B8" stroke-width="1.1"/>
+          <line x1="9"  y1="13" x2="23" y2="10" stroke="#94A3B8" stroke-width="1.1"/>
+          <line x1="9"  y1="1"  x2="23" y2="5"  stroke="#94A3B8" stroke-width="1.1"/>
+          <line x1="9"  y1="15" x2="23" y2="11" stroke="#94A3B8" stroke-width="1.1"/>
+          <!-- wingtip cannons -->
+          <rect x="7.5" y="0"  width="2" height="3" fill="#cbd5e1"/>
+          <rect x="7.5" y="13" width="2" height="3" fill="#cbd5e1"/>
+          <!-- fuselage + nose taper -->
+          <polygon points="1,7.5 23,6 32,8 23,10 1,8.5" fill="#e2e8f0" stroke="#64748B" stroke-width="0.4"/>
+          <polygon points="23,6 32,8 23,10" fill="#94A3B8"/>
+          <!-- R2 astromech dome -->
+          <circle cx="13" cy="8" r="1.4" fill="#cbd5e1" stroke="#64748B" stroke-width="0.3"/>
+          <circle cx="13" cy="8" r="0.5" fill="#0070f3"/>
+          <!-- engine glows -->
+          <circle cx="2" cy="7.5" r="0.8" fill="#E07050"/>
+          <circle cx="2" cy="8.5" r="0.8" fill="#E07050"/>
+        </symbol>
+
+        <!-- ARC-170 — heavy three-seat Republic fighter, twin tail fins,
+             reverse-tapered wings with split flaps. -->
+        <symbol id="sw-svg-arc170" viewBox="0 0 36 18">
+          <!-- aft tail fins -->
+          <polygon points="3,3 8,5 8,7 3,5"   fill="#cbd5e1" stroke="#64748B" stroke-width="0.4"/>
+          <polygon points="3,15 8,13 8,11 3,13" fill="#cbd5e1" stroke="#64748B" stroke-width="0.4"/>
+          <!-- main wings (reverse taper, split flap notch) -->
+          <polygon points="6,5 24,7 24,11 6,13 4,11 4,7" fill="#e2e8f0" stroke="#64748B" stroke-width="0.4"/>
+          <polygon points="11,7 22,7.5 22,10.5 11,11" fill="#cbd5e1"/>
+          <!-- fuselage / cockpit "spine" -->
+          <polygon points="2,8 24,7.5 34,9 24,10.5 2,10" fill="#dde3ec" stroke="#475569" stroke-width="0.4"/>
+          <!-- forward cockpit canopy -->
+          <polygon points="22,8 30,8.5 30,9.5 22,10" fill="#0f172a" stroke="#475569" stroke-width="0.3"/>
+          <!-- nose -->
+          <polygon points="30,8.5 34,9 30,9.5" fill="#94A3B8"/>
+          <!-- wingtip lasers -->
+          <rect x="22.5" y="6.4" width="2.5" height="0.8" fill="#475569"/>
+          <rect x="22.5" y="10.8" width="2.5" height="0.8" fill="#475569"/>
+          <!-- engine wash -->
+          <circle cx="3" cy="8.4" r="0.7" fill="#E07050"/>
+          <circle cx="3" cy="9.6" r="0.7" fill="#E07050"/>
+        </symbol>
+
+        <!-- Naboo N-1 starfighter — sleek silver fuselage, swept Y-tail,
+             chrome accent stripe down the spine. -->
+        <symbol id="sw-svg-n1" viewBox="0 0 36 14">
+          <!-- twin engine pods (rear) -->
+          <ellipse cx="5" cy="4.5" rx="3" ry="1.4" fill="#e2e8f0" stroke="#64748B" stroke-width="0.4"/>
+          <ellipse cx="5" cy="9.5" rx="3" ry="1.4" fill="#e2e8f0" stroke="#64748B" stroke-width="0.4"/>
+          <circle cx="2.4" cy="4.5" r="0.7" fill="#0070f3"/>
+          <circle cx="2.4" cy="9.5" r="0.7" fill="#0070f3"/>
+          <!-- inboard pylons connecting engines to body -->
+          <polygon points="7,4.5 14,6.5 14,7.5 7,9.5" fill="#cbd5e1" stroke="#64748B" stroke-width="0.3"/>
+          <!-- main fuselage — long teardrop -->
+          <polygon points="8,7 30,5.5 35,7 30,8.5 8,7" fill="#f1f5f9" stroke="#475569" stroke-width="0.4"/>
+          <!-- chrome dorsal stripe -->
+          <polygon points="14,6.6 30,5.9 33,7 30,8.1 14,7.4" fill="#FFD27A"/>
+          <!-- cockpit canopy -->
+          <polygon points="22,6.4 28,6.4 28,7.6 22,7.6" fill="#0f172a" stroke="#475569" stroke-width="0.3"/>
+          <!-- pointed nose -->
+          <polygon points="30,5.5 35,7 30,8.5" fill="#cbd5e1" stroke="#475569" stroke-width="0.3"/>
+        </symbol>
+      </defs>
+    </svg>
+
+    <div class="sw-bg" aria-hidden="true">
+      <div class="sw-stars"></div>
+      <div class="sw-streaks" id="sw-streaks"></div>
+      <div class="sw-fighters">
+        <svg class="sw-fighter f1" width="24" height="13"><use href="#sw-svg-xwing"/></svg>
+        <svg class="sw-fighter f2" width="20" height="13"><use href="#sw-svg-tie"/></svg>
+        <svg class="sw-fighter f3" width="28" height="14"><use href="#sw-svg-arc170"/></svg>
+        <svg class="sw-fighter f4" width="26" height="11"><use href="#sw-svg-n1"/></svg>
+        <svg class="sw-fighter f5" width="24" height="13"><use href="#sw-svg-xwing"/></svg>
+        <svg class="sw-fighter f6" width="20" height="13"><use href="#sw-svg-tie"/></svg>
+        <svg class="sw-fighter f7" width="26" height="11"><use href="#sw-svg-n1"/></svg>
+
+        <span class="sw-laser cyan l1"></span>
+        <span class="sw-laser red  l2 dir-rtl"></span>
+        <span class="sw-laser cyan l3"></span>
+        <span class="sw-laser red  l4 dir-rtl"></span>
+        <span class="sw-laser cyan l5"></span>
+      </div>
+    </div>
+
+    <!-- Lightsaber for Recast Approach tab -->
+    <div class="sw-saber" aria-hidden="true">
+      <div class="sw-saber-hilt"></div>
+      <div class="sw-saber-blade"></div>
+      <span class="sw-saber-tip"></span>
+    </div>
+
+    <script>
+      (function () {
+        // Build a small, tasteful set of hyperspace streaks.
+        const host = document.getElementById('sw-streaks');
+        if (host) {
+          const N = 9; // restrained
+          for (let i = 0; i < N; i++) {
+            const s = document.createElement('span');
+            s.className = 'sw-streak' + (Math.random() < 0.45 ? ' s-rev' : '');
+            const len = 90 + Math.random() * 200;
+            s.style.width = len + 'px';
+            s.style.top = (4 + Math.random() * 92) + '%';
+            s.style.animationDuration = (3.6 + Math.random() * 4.4) + 's';
+            s.style.animationDelay = (Math.random() * 8) + 's';
+            host.appendChild(s);
+          }
+        }
+
+        // Saber activates only on the "Recast Approach" tab (data-tab="solution").
+        function syncSaber() {
+          const sel = document.querySelector('[data-action="switch-tab"][data-tab="solution"][aria-selected="true"]');
+          let isSolution = !!sel;
+          if (!isSolution) {
+            document.querySelectorAll('[data-action="switch-tab"]').forEach(b => {
+              if (b.getAttribute('aria-selected') === 'true' && /Recast Approach/i.test(b.textContent || '')) {
+                isSolution = true;
+              }
+            });
+          }
+          document.body.classList.toggle('sw-saber-active', isSolution);
+        }
+
+        syncSaber();
+        const mo = new MutationObserver(() => {
+          if (mo._t) return;
+          mo._t = setTimeout(() => { mo._t = null; syncSaber(); }, 80);
+        });
+        mo.observe(document.body, { subtree: true, attributes: true, childList: true, attributeFilter: ['aria-selected'] });
+        document.addEventListener('click', (e) => {
+          if (e.target.closest('[data-action="switch-tab"], [data-action="advance"]')) {
+            setTimeout(syncSaber, 60);
+          }
+        }, true);
+      })();
+    </script>
   </body>
 </html>
