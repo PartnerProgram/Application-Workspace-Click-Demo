@@ -1191,6 +1191,13 @@
       .demo-loop-btn.is-playing { background: #00BFFF; color: #0A1C60; }
       .demo-loop-btn.is-playing .demo-loop-pulse { width: 7px; height: 7px; border-radius: 50%; background: #CC2222; box-shadow: 0 0 0 0 rgba(204,34,34,0.7); animation: demoLoopPulse 1.4s infinite; display: inline-block; }
       @keyframes demoLoopPulse { 0% { box-shadow: 0 0 0 0 rgba(204,34,34,0.7); } 70% { box-shadow: 0 0 0 6px rgba(204,34,34,0); } 100% { box-shadow: 0 0 0 0 rgba(204,34,34,0); } }
+      /* ── Booth demo-loop mode: subtle polish for big-screen display ── */
+      body.demo-loop-active #panel-solution .arch-fit-card { box-shadow: 0 0 0 2px rgba(0,191,255,0.5), 0 12px 40px -8px rgba(0,0,204,0.18); border-radius: 14px; transition: box-shadow 320ms cubic-bezier(0.2,0.8,0.2,1); }
+      body.demo-loop-active .lifecycle-dot-playing { box-shadow: 0 0 0 0 rgba(0,191,255,0.7); animation: demoStagePulse 1.6s infinite; }
+      @keyframes demoStagePulse { 0% { box-shadow: 0 0 0 0 rgba(0,191,255,0.6); } 70% { box-shadow: 0 0 0 8px rgba(0,191,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,191,255,0); } }
+      /* GPU-accelerate the dynamic stage to keep its sub-animations smooth */
+      body.demo-loop-active #demo-stage { will-change: contents; }
+      body.demo-loop-active #demo-stage > * { transform: translateZ(0); backface-visibility: hidden; }
       .arch-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 5px; }
       .arch-row-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #64748B; text-align: center; margin-bottom: 4px; }
       .arch-row-label-end { color: #0A1C60; }
@@ -7653,7 +7660,7 @@
             </div>
 
             <!-- ZONE B: Main content (dynamic columns) -->
-            <div class="grid grid-cols-1 ${multiCol ? 'lg:grid-cols-2' : ''} gap-3">
+            <div id="demo-stage" class="grid grid-cols-1 ${multiCol ? 'lg:grid-cols-2' : ''} gap-3">
               ${STATE.solutionViewSetupStore ? renderSetupStoreView() : ''}
               ${STATE.solutionViewAdmin ? renderAdminConsole() : ''}
               ${STATE.solutionViewOnboarding ? renderOnboardingView() : ''}
@@ -8596,6 +8603,7 @@
             // Toggle the booth demo loop. When playing, automatically re-runs play-lifecycle on each cycle.
             if (STATE.demoLoopPlaying) {
               STATE.demoLoopPlaying = false;
+              document.body.classList.remove('demo-loop-active');
               STATE.lcTimers.forEach(id => clearTimeout(id)); STATE.lcTimers = [];
               STATE.lifecyclePlaying = false; STATE.lcStep = -1;
               // Reset all views so booth display returns to a clean overview
@@ -8604,13 +8612,22 @@
               scrollPreserveRender(); return;
             }
             STATE.demoLoopPlaying = true;
-            // Helper: scroll the architecture diagram + dynamic view area into view at the top
-            const scrollToDemoTop = () => {
-              const card = document.querySelector('#panel-solution .arch-fit-card');
-              if (card) {
-                const top = card.getBoundingClientRect().top + window.pageYOffset - 12;
+            document.body.classList.add('demo-loop-active');
+            // Helper: scroll dynamically so the active demo content is centered in the viewport.
+            // Throttled so back-to-back renders don't queue conflicting smooth-scrolls.
+            let _lastScrollAt = 0;
+            const scrollToDemoTop = (focusContent = false) => {
+              const now = Date.now();
+              if (now - _lastScrollAt < 300) return;
+              _lastScrollAt = now;
+              requestAnimationFrame(() => {
+                const card  = document.querySelector('#panel-solution .arch-fit-card');
+                if (!card) return;
+                const rect = card.getBoundingClientRect();
+                const top  = rect.top + window.pageYOffset - 12;
+                if (Math.abs(window.pageYOffset - top) < 8) return;
                 window.scrollTo({ top, behavior: 'smooth' });
-              }
+              });
             };
             // Start the first cycle by triggering the existing play-lifecycle handler
             const startCycle = () => {
@@ -8657,7 +8674,7 @@
                   STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
                   STATE[step.key] = true; STATE.lcStep = i;
                   scrollPreserveRender();
-                  scrollToDemoTop();
+                  scrollToDemoTop(true);
                   if (step.start) {
                     const ts = setTimeout(() => { if (STATE.lifecyclePlaying && STATE.lcStep === i) step.start(); }, 250);
                     STATE.lcTimers.push(ts);
