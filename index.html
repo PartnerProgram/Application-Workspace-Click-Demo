@@ -7683,12 +7683,6 @@
         STATE.ssQueueIdx = 0;
         scrollPreserveRender();
         runSsQueue();
-        if (!STATE.demoLoopPlaying) {
-          setTimeout(() => {
-            const el = document.getElementById('ss-panel');
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 50);
-        }
       }
 
       function stepSs(){
@@ -8761,13 +8755,86 @@
           if (action === 'toggle-proof-details') { STATE.proofDetailsOpen = !STATE.proofDetailsOpen; render(); return; }
           if (action === 'toggle-solution-view') {
             const view = act.getAttribute('data-view');
-            if (view === 'user') STATE.solutionViewUser = !STATE.solutionViewUser;
-            if (view === 'admin') STATE.solutionViewAdmin = !STATE.solutionViewAdmin;
-            if (view === 'setupstore') STATE.solutionViewSetupStore = !STATE.solutionViewSetupStore;
-            if (view === 'multitenant') STATE.solutionViewMultiTenant = !STATE.solutionViewMultiTenant;
-            if (view === 'dashboard') STATE.solutionViewDashboard = !STATE.solutionViewDashboard;
-            if (view === 'onboarding') STATE.solutionViewOnboarding = !STATE.solutionViewOnboarding;
-            scrollPreserveRender(); return;
+            // ── 1. Hard-reset every demo so the chosen one plays cleanly from t=0.
+            //    Without this, switching views mid-animation leaves the previous
+            //    demo's timers running, causing flicker as two state machines
+            //    fight over the DOM. With this reset, only the active demo runs.
+            STATE.lifecyclePlaying = false; STATE.lcStep = -1;
+            STATE.lcTimers.forEach(id => clearTimeout(id)); STATE.lcTimers = [];
+            STATE.ssTimers.forEach(id => clearTimeout(id)); STATE.ssTimers = [];
+            clearFlowTimers();
+            STATE.ssRunning = false; STATE.ssPaused = false; STATE.ssPhase = 'idle'; STATE.ssQueue = []; STATE.ssQueueIdx = 0;
+            STATE.ssAct = 'idle'; STATE.ssCounter = 0; STATE.ssCaption = ''; STATE.ssCaptionFinal = false;
+            STATE.ssFieldStep = 0; STATE.ssInheritStep = 0; STATE.ssBadgesAdobe = false; STATE.ssBadgesYour = false;
+            STATE.ssYourCardIn = false; STATE.ssAdobeShifted = false; STATE.ssTickerHistory = [];
+            if (STATE.ssCounterRaf) { cancelAnimationFrame(STATE.ssCounterRaf); STATE.ssCounterRaf = null; }
+            if (typeof ssTickerStop === 'function') ssTickerStop();
+            STATE.obRunning = false; STATE.obPaused = false; STATE.obPhase = 'idle'; STATE.obQueue = []; STATE.obQueueIdx = 0;
+            STATE.drRunning = false; STATE.drPaused = false; STATE.drPhase = 'idle'; STATE.drQueue = []; STATE.drQueueIdx = 0;
+            STATE.mtRunning = false; STATE.mtPaused = false; STATE.mtPhase = 'idle'; STATE.mtQueue = []; STATE.mtQueueIdx = 0;
+            STATE.flowAppOpened = false; STATE._firstOpenDone = false; STATE._firstDeliveryBadgeDone = false; STATE._acSeen = {};
+
+            // ── 2. Solo the chosen view (radio behavior — only one open at a time)
+            //    so the lifecycle stays a guided story instead of a busy dashboard.
+            const wasActive = (
+              (view === 'user' && STATE.solutionViewUser) ||
+              (view === 'admin' && STATE.solutionViewAdmin) ||
+              (view === 'setupstore' && STATE.solutionViewSetupStore) ||
+              (view === 'multitenant' && STATE.solutionViewMultiTenant) ||
+              (view === 'dashboard' && STATE.solutionViewDashboard) ||
+              (view === 'onboarding' && STATE.solutionViewOnboarding)
+            );
+            STATE.solutionViewSetupStore = false; STATE.solutionViewAdmin = false; STATE.solutionViewOnboarding = false;
+            STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
+            if (wasActive) { scrollPreserveRender(); return; }   // toggle off → close
+            if (view === 'user') STATE.solutionViewUser = true;
+            if (view === 'admin') STATE.solutionViewAdmin = true;
+            if (view === 'setupstore') STATE.solutionViewSetupStore = true;
+            if (view === 'multitenant') STATE.solutionViewMultiTenant = true;
+            if (view === 'dashboard') STATE.solutionViewDashboard = true;
+            if (view === 'onboarding') STATE.solutionViewOnboarding = true;
+
+            // ── 3. Scroll the demo stage into view BEFORE rendering, so the
+            //    initial scrollPreserveRender snapshot already reflects the
+            //    desired scroll position. A smooth-scroll animation would
+            //    fight with the per-phase scrollPreserveRender (each phase
+            //    snapshots scrollTop pre-render and restores it post-render),
+            //    so we scroll instantly here and let the demo's own motion
+            //    carry the eye from there.
+            //
+            //    The scroll container is <main> — window/html have overflow:hidden.
+            const mainEl = document.querySelector('body > #app > main');
+            if (mainEl) {
+              // Render once so the demo stage exists in the DOM, then measure.
+              scrollPreserveRender();
+              const stage = document.getElementById('demo-stage');
+              const card  = stage ? stage.closest('.arch-fit-card') || stage.parentElement : null;
+              const target = card || stage;
+              if (target) {
+                const targetRect = target.getBoundingClientRect();
+                const mainRect   = mainEl.getBoundingClientRect();
+                const visibleTop = targetRect.top - mainRect.top;
+                const needsScroll = visibleTop < 24 || visibleTop > mainEl.clientHeight * 0.4;
+                if (needsScroll) {
+                  const desired = Math.max(0, visibleTop + mainEl.scrollTop - 24);
+                  mainEl.scrollTop = desired;   // instant — survives subsequent scrollPreserveRender
+                }
+              }
+            } else {
+              scrollPreserveRender();
+            }
+            // ── 4. Auto-start the chosen demo on the next frame so layout has
+            //    settled before the timeline begins. The demo's own internal
+            //    timeline is fragile if the DOM is still mid-paint.
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+              if (view === 'setupstore' && !STATE.ssRunning) startSs();
+              else if (view === 'admin' && !STATE.flowRunning) startFlow();
+              else if (view === 'onboarding' && !STATE.obRunning) startOb();
+              else if (view === 'user' && !STATE.flowRunning) startFlow();
+              else if (view === 'dashboard' && !STATE.drRunning) startDr();
+              else if (view === 'multitenant' && !STATE.mtRunning) startMt();
+            }));
+            return;
           }
           if (action === 'play-lifecycle') {
             // Clear any in-flight lifecycle timers
