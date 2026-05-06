@@ -212,17 +212,12 @@
       }
       @media (max-width: 860px) { .ux-tri { grid-template-columns: 1fr; gap: 16px; } }
 
-      /* Each device card: tag → chrome → stage → chrome */
+      /* Each device card: tag → chrome → stage → chrome.
+         No entry animation — the panel re-renders on every phase tick,
+         which would re-trigger any keyframe animation on this element
+         and produce a flicker. The phase content does its own transitions. */
       .ux-device {
         display: flex; flex-direction: column; gap: 6px;
-        animation: uxDeviceIn 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
-      }
-      .ux-device:nth-child(1) { animation-delay: 60ms; }
-      .ux-device:nth-child(2) { animation-delay: 60ms; }   /* sync — same delay */
-      .ux-device:nth-child(3) { animation-delay: 60ms; }   /* sync — same delay */
-      @keyframes uxDeviceIn {
-        from { opacity: 0; transform: translateY(18px); }
-        to   { opacity: 1; transform: translateY(0); }
       }
 
       .ux-device-tag {
@@ -241,15 +236,38 @@
         box-shadow: 0 10px 28px rgba(15, 23, 42, 0.18),
                     0 1px 0 rgba(255,255,255,0.06) inset;
         display: flex; flex-direction: column;
-        min-height: 260px;
+        min-height: 220px;
       }
 
       /* Stage — the actual app content area, identical layout in every frame */
       .ux-stage {
-        flex: 1; min-height: 180px;
+        flex: 1; min-height: 156px;
         display: flex; flex-direction: column; justify-content: center;
         position: relative; overflow: hidden;
       }
+
+      /* Per-frame delivery-method badge — surfaces the divergent backend
+         path each frame is taking (Local install vs VDI stream vs SaaS
+         route vs Auto-update). Only visible during routing/config; fades
+         out when all three converge to the identical Teams chat. */
+      .ux-delivery-badge {
+        position: absolute; top: 8px; left: 8px; right: 8px;
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 5px 9px; border-radius: 6px;
+        background: rgba(15, 23, 42, 0.78);
+        backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+        border: 1px solid rgba(0, 191, 255, 0.45);
+        font-size: 10px; font-weight: 700; letter-spacing: 0.02em;
+        color: #ffffff;
+        opacity: 0; transform: translateY(-4px);
+        transition: opacity 320ms ease, transform 320ms ease;
+        pointer-events: none; z-index: 5;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+      }
+      .ux-delivery-badge.show { opacity: 1; transform: translateY(0); }
+      .ux-delivery-badge i { width: 11px; height: 11px; color: #00BFFF; }
+      .ux-delivery-badge .ux-delivery-label { color: rgba(255,255,255,0.7); font-weight: 600; font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; }
+      .ux-delivery-badge .ux-delivery-method { color: #ffffff; }
 
       /* Frame body states */
       .ux-frame-empty {
@@ -261,9 +279,7 @@
       .ux-frame-launch {
         flex: 1; display: flex; flex-direction: column;
         align-items: center; justify-content: center; gap: 8px;
-        animation: uxLaunchIn 600ms ease-out;
       }
-      @keyframes uxLaunchIn { from { opacity: 0; } to { opacity: 1; } }
       .ux-frame-aw-mark {
         width: 38px; height: 38px; border-radius: 9px;
         background: linear-gradient(135deg, var(--r-blue, #0000CC), var(--r-cyan, #00BFFF));
@@ -288,9 +304,7 @@
         flex: 1; padding: 10px 10px;
         background: rgba(255,255,255,0.96);
         display: flex; flex-direction: column;
-        animation: uxCatalogIn 400ms ease-out;
       }
-      @keyframes uxCatalogIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
       .ux-catalog-grid {
         display: grid; grid-template-columns: repeat(4, 1fr);
         gap: 8px 6px;
@@ -322,17 +336,26 @@
         0%, 100% { box-shadow: 0 0 0 2px rgba(0,191,255,0.55), 0 0 12px 2px rgba(0,191,255,0.4), 0 2px 6px rgba(0,0,0,0.12); }
         50%      { box-shadow: 0 0 0 3px rgba(0,191,255,0.85), 0 0 20px 4px rgba(0,191,255,0.6), 0 2px 6px rgba(0,0,0,0.12); }
       }
-      .ux-cat-app.clicked .ux-cat-icon { transform: scale(1.06); }
-      /* Click pulse — cyan ring expanding from Teams icon. Identical timing in every frame. */
+      .ux-cat-app.clicked .ux-cat-icon {
+        animation: uxIconBump 320ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      @keyframes uxIconBump {
+        0%   { transform: scale(1); }
+        45%  { transform: scale(1.08); }
+        100% { transform: scale(1); }
+      }
+      /* Click pulse — louder, slower cyan ring expanding from Teams icon.
+         The silence after this beat is what lets the next moment land. */
       .ux-click-pulse {
         position: absolute; inset: -2px; border-radius: 8px;
         border: 2px solid var(--r-cyan, #00BFFF);
-        animation: uxClickPulse 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        animation: uxClickPulse 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
         pointer-events: none;
       }
       @keyframes uxClickPulse {
-        0%   { transform: scale(0.85); opacity: 1; }
-        100% { transform: scale(2.1); opacity: 0; }
+        0%   { transform: scale(0.85); opacity: 1; border-width: 2.5px; }
+        60%  { opacity: 0.55; }
+        100% { transform: scale(2.4); opacity: 0; border-width: 1px; }
       }
 
       /* Teams app inside frame */
@@ -525,23 +548,66 @@
         100% { opacity: 1; transform: translate(-50%, -50%) scale(1);   }
       }
 
-      /* ─── Closing label ─── */
+      /* ─── Closing label — Challenger structure: tension then resolution ─── */
       .ux-closer {
         margin-top: 18px; text-align: center;
         opacity: 0; transform: translateY(6px);
         transition: opacity 480ms ease 850ms, transform 480ms ease 850ms;
       }
       .ux-closer.show { opacity: 1; transform: translateY(0); }
-      .ux-closer-line {
-        display: inline-block;
-        font-size: 14px; font-weight: 700; letter-spacing: -0.005em;
-        color: #0F172A;
+      .ux-closer-tension {
+        display: block;
+        font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+        color: #64748B;
+        margin-bottom: 6px;
       }
-      .ux-closer-line strong { color: var(--r-blue, #0000CC); }
+      .ux-closer-payoff {
+        display: block;
+        font-size: 22px; font-weight: 800; letter-spacing: -0.02em;
+        line-height: 1.1;
+        color: var(--r-blue, #0000CC);
+      }
+      .ux-closer-payoff strong { color: var(--r-blue, #0000CC); }
+
+      /* ─── Workspace label above each frame's catalog ─── */
+      .ux-workspace-label {
+        font-size: 9.5px; font-weight: 600; color: #475569;
+        letter-spacing: 0.01em;
+        padding: 0 2px 6px;
+        display: inline-flex; align-items: center; gap: 5px;
+        border-bottom: 1px solid #e2e8f0;
+        margin-bottom: 8px;
+      }
+      .ux-workspace-label i { width: 10px; height: 10px; color: #0070F3; }
+      .ux-workspace-label .ux-workspace-meta { color: #94a3b8; font-weight: 500; }
+
+      /* ─── UX scenario selector pill row (lets the demo lead with any scenario) ─── */
+      .ux-scenario-row {
+        display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+      .ux-scenario-row-label {
+        font-size: 10px; font-weight: 700; color: #475569;
+        text-transform: uppercase; letter-spacing: 0.08em;
+        margin-right: 4px;
+      }
+      .ux-scenario-pill {
+        display: inline-flex; align-items: center; gap: 5px;
+        padding: 4px 10px; border-radius: 9999px;
+        font-size: 11px; font-weight: 600;
+        border: 1px solid #e2e8f0; background: white; color: #475569;
+        cursor: pointer; transition: all 0.18s ease;
+      }
+      .ux-scenario-pill:hover { border-color: #94a3b8; background: #f8fafc; }
+      .ux-scenario-pill.is-active {
+        border-color: #0070F3; background: #eff6ff; color: #0070F3;
+        box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.08);
+      }
+      .ux-scenario-pill i { width: 11px; height: 11px; }
 
       /* Compact tweaks for the small UX frames on mobile */
       @media (max-width: 860px) {
-        .ux-frame { min-height: 280px; }
+        .ux-frame { min-height: 240px; }
         .ux-thread { display: none; }
       }
       .user-status { padding: 10px 16px; border-top: 1px solid #e2e8f0; display: flex; align-items: center; gap: 8px; min-height: 40px; transition: all 0.4s ease; font-size: 12px; color: #64748b; }
@@ -4129,6 +4195,7 @@
         flowRunning: false,
         flowScenario: 'first',
         flowScenarioIdx: -1,
+        uxScenarioIdx: 1,
         flowPhase: 'idle',
         flowPaused: false,
         flowQueue: [],
@@ -4731,8 +4798,11 @@
 
       function buildFlowQueue(){
         const queue = [];
-        const idx = 0;
-        const isCatalog = SCENARIOS[0].id === 'catalog';
+        // Honor the UX scenario picker — the user can lead the demo with
+        // whichever scenario fits the buyer in the room. Falls back to 0.
+        const idx = (typeof STATE.uxScenarioIdx === 'number' && STATE.uxScenarioIdx >= 0 && STATE.uxScenarioIdx < SCENARIOS.length)
+          ? STATE.uxScenarioIdx : 0;
+        const isCatalog = SCENARIOS[idx] && SCENARIOS[idx].id === 'catalog';
         // Launch phase: user opens Application Workspace on their device
         queue.push({ delay: 600, fn(){ STATE.flowScenarioIdx = idx; STATE.flowPhase = 'launch'; STATE.flowAppOpened = false; updateFlowDOM(); } });
         // Catalog phase: workspace opens, user sees all their apps
@@ -5522,29 +5592,41 @@
       function renderUserView(){
         const sc = STATE.flowScenarioIdx;
         const phase = STATE.flowPhase;
-        const scenario = sc >= 0 && sc < SCENARIOS.length ? SCENARIOS[sc] : null;
-        const appOpen = scenario && !['idle','launch','catalog','clicking'].includes(phase);
-        const showCatalog = scenario && (phase === 'catalog' || phase === 'clicking');
-        const showLaunch = scenario && phase === 'launch';
-        const idle = !scenario || phase === 'idle';
+        // Active UX scenario index: when the flow is running we follow it;
+        // otherwise we honor the user's selector pick. Default to "First access".
+        const selectedIdx = (typeof STATE.uxScenarioIdx === 'number') ? STATE.uxScenarioIdx : 1;
+        const scenario = sc >= 0 && sc < SCENARIOS.length
+          ? SCENARIOS[sc]
+          : (selectedIdx >= 0 && selectedIdx < SCENARIOS.length ? SCENARIOS[selectedIdx] : null);
+        const live = STATE.flowRunning && sc >= 0;
+        const effectivePhase = live ? phase : 'idle';
+        const appOpen = live && scenario && !['idle','launch','catalog','clicking'].includes(effectivePhase);
+        const showCatalog = live && scenario && (effectivePhase === 'catalog' || effectivePhase === 'clicking');
+        const showLaunch = live && scenario && effectivePhase === 'launch';
+        const idle = !live || effectivePhase === 'idle';
         const firstOpen = appOpen && !STATE._firstOpenDone;
         if (firstOpen) STATE._firstOpenDone = true;
         const appWindowClass = appOpen ? (firstOpen ? 'open' : 'open-instant') : '';
         const msgClass = appOpen ? (firstOpen ? 'show' : 'show-instant') : '';
-        const showThread = phase === 'final';
+        const showThread = live && effectivePhase === 'final';
+        // Per-frame divergent backend path is visible during the routing/config beats.
+        // It snaps off as the frames converge on the identical Teams chat.
+        const showDeliveryBadge = live && ['routing','config'].includes(effectivePhase);
 
-        // Compact Application Workspace catalog rendered inside each frame.
-        // 12 icons keeps the grid readable inside small frames.
-        const triCatalog = CATALOG_APPS.slice(0, 12);
-        const catalogGrid = (frameId) => `
-          <div class="ux-catalog-grid">
+        // Tighter catalog: 6 apps, 2 rows of 3. The viewer's eye lands on Teams.
+        const TEAMS_APP = (CATALOG_APPS.find(a => a.id === 'teams')) || { id:'teams', letter:'T', name:'Teams', color:'#5B53D6' };
+        const otherApps = CATALOG_APPS.filter(a => a.id !== 'teams').slice(0, 5);
+        const triCatalog = [otherApps[0], otherApps[1], TEAMS_APP, otherApps[2], otherApps[3], otherApps[4]].filter(Boolean);
+        const catalogGrid = () => `
+          <div class="ux-catalog-grid" style="grid-template-columns:repeat(3,1fr);">
             ${triCatalog.map(app => {
               const isTeams = app.id === 'teams';
-              const teamsCls = isTeams && (phase === 'clicking' || phase === 'catalog') ? 'ux-cat-teams-glow' : '';
+              // Glow holds during catalog only; on clicking we freeze the glow and let the louder pulse + icon bump carry the moment.
+              const teamsCls = isTeams && effectivePhase === 'catalog' ? 'ux-cat-teams-glow' : '';
               return `
-                <div class="ux-cat-app ${isTeams && phase === 'clicking' ? 'clicked' : ''}">
+                <div class="ux-cat-app ${isTeams && effectivePhase === 'clicking' ? 'clicked' : ''}">
                   <div class="ux-cat-icon ${teamsCls}" style="background:${app.color}">${app.letter}
-                    ${isTeams && phase === 'clicking' ? '<span class="ux-click-pulse"></span>' : ''}
+                    ${isTeams && effectivePhase === 'clicking' ? '<span class="ux-click-pulse"></span>' : ''}
                   </div>
                   <span class="ux-cat-name">${app.name}</span>
                 </div>
@@ -5553,8 +5635,10 @@
           </div>
         `;
 
-        // Teams chat that fills each frame's content area.
-        // Avatars are slightly smaller and message text is identical across all frames.
+        // Teams chat that fills each frame's content area. Messages are tied
+        // to the three device personas so the chat content reinforces the
+        // visual claim ("opened on Windows / Cloud PC / Mac — works") instead
+        // of being decorative.
         const teamsContent = () => `
           <div class="ux-teams">
             <div class="ux-teams-side">
@@ -5564,23 +5648,33 @@
               <div class="ux-teams-side-dot"><i data-lucide="phone" class="w-3 h-3"></i></div>
             </div>
             <div class="ux-teams-main">
-              <div class="ux-teams-header"><i data-lucide="hash" class="w-3 h-3 text-slate-400"></i> General</div>
+              <div class="ux-teams-header"><i data-lucide="hash" class="w-3 h-3 text-slate-400"></i> Project Atlas</div>
               <div class="ux-teams-body">
                 <div class="ux-teams-msg ${msgClass}" style="transition-delay:${firstOpen ? '0.3s' : '0s'}">
-                  <div class="ux-teams-avatar" style="background:#3b82f6">AK</div>
-                  <div class="ux-teams-bubble">Q3 deck is ready for review</div>
+                  <div class="ux-teams-avatar" style="background:#3b82f6">SM</div>
+                  <div class="ux-teams-bubble">Just opened Teams on my laptop &mdash; works.</div>
                 </div>
-                <div class="ux-teams-msg ${msgClass}" style="transition-delay:${firstOpen ? '0.6s' : '0s'}">
+                <div class="ux-teams-msg ${msgClass}" style="transition-delay:${firstOpen ? '0.65s' : '0s'}">
                   <div class="ux-teams-avatar" style="background:#10b981">JR</div>
-                  <div class="ux-teams-bubble">Pulling it up now</div>
+                  <div class="ux-teams-bubble">Same here from my Cloud PC.</div>
                 </div>
-                <div class="ux-teams-msg ${msgClass}" style="transition-delay:${firstOpen ? '0.9s' : '0s'}">
-                  <div class="ux-teams-bubble self">On it. Give me 5 min.</div>
+                <div class="ux-teams-msg ${msgClass}" style="transition-delay:${firstOpen ? '1.0s' : '0s'}">
+                  <div class="ux-teams-bubble self">On the Mac too. 👍</div>
                 </div>
               </div>
             </div>
           </div>
         `;
+
+        // Cross-device persona for the catalog header — same user, same workspace,
+        // appearing identically on each device. The "47 apps available" line gives
+        // the catalog a narrative reason to look identical in all three frames.
+        const workspaceLabel = `
+          <div class="ux-workspace-label">
+            <i data-lucide="layout-grid"></i>
+            <span>Sarah's workspace</span>
+            <span class="ux-workspace-meta">&middot; 47 apps</span>
+          </div>`;
 
         // The body of one frame switches with the global phase.
         const frameBody = () => {
@@ -5595,21 +5689,30 @@
             </div>`;
           }
           if (showCatalog) {
-            return `<div class="ux-frame-catalog">${catalogGrid()}</div>`;
+            return `<div class="ux-frame-catalog">${workspaceLabel}${catalogGrid()}</div>`;
           }
           // checking / routing / config / done / final → Teams open
           return `<div class="ux-frame-app ${appWindowClass}">${teamsContent()}</div>`;
         };
 
-        // Build one device frame (variant determines OS-specific chrome).
+        // Build one device frame. Each frame surfaces a divergent delivery
+        // path during routing/config — the actual product truth (same click,
+        // three different backend paths, identical outcome). The badge fades
+        // out as the three frames converge on identical Teams chat.
         const deviceFrame = (variant) => {
-          // variant: { id, label, sub, chromeTop, chromeBottom, accentBg }
+          const badge = variant.deliveryMethod ? `
+            <div class="ux-delivery-badge ${showDeliveryBadge ? 'show' : ''}">
+              <i data-lucide="${variant.deliveryIcon}"></i>
+              <span class="ux-delivery-label">Delivered via</span>
+              <span class="ux-delivery-method">${variant.deliveryMethod}</span>
+            </div>` : '';
           return `
             <div class="ux-device ux-device-${variant.id}" data-variant="${variant.id}">
               <div class="ux-device-tag"><i data-lucide="${variant.icon}" class="w-3 h-3"></i> ${variant.label}</div>
               <div class="ux-frame">
                 ${variant.chromeTop || ''}
                 <div class="ux-stage" style="${variant.stageBg ? 'background:' + variant.stageBg : ''}">
+                  ${badge}
                   ${frameBody()}
                 </div>
                 ${variant.chromeBottom || ''}
@@ -5665,22 +5768,64 @@
             <span>Connected \u2014 Windows 365 Cloud PC \u00b7 ${appOpen ? 'Teams running' : 'Workspace ready'}</span>
           </div>`;
 
+        // Per-device divergent delivery method. This is the product truth:
+        // the same user click resolves to three different backend paths,
+        // chosen by Application Workspace based on each device's context.
+        // Scenarios bend these slightly — e.g. on the SaaS-migration scenario,
+        // the corporate Windows laptop also routes via SaaS.
+        const scenarioId = scenario && scenario.id;
+        let winDelivery, macDelivery, cloudDelivery;
+        if (scenarioId === 'backend') {
+          winDelivery   = { method:'SaaS route',       icon:'globe' };
+          macDelivery   = { method:'SaaS route',       icon:'globe' };
+          cloudDelivery = { method:'SaaS route',       icon:'globe' };
+        } else if (scenarioId === 'update') {
+          winDelivery   = { method:'Auto-update v2.2', icon:'refresh-cw' };
+          macDelivery   = { method:'Auto-update v2.2', icon:'refresh-cw' };
+          cloudDelivery = { method:'Auto-update v2.2', icon:'refresh-cw' };
+        } else {
+          // catalog & access: divergent paths per device context
+          winDelivery   = { method:'Local install',    icon:'hard-drive' };
+          macDelivery   = { method:'Local install',    icon:'hard-drive' };
+          cloudDelivery = { method:'VDI stream',       icon:'monitor' };
+        }
+
         const variants = [
-          { id:'win',   label:'Windows',  icon:'monitor',          chromeTop:winChromeTop,   chromeBottom:winChromeBottom,   stageBg:'linear-gradient(135deg,#1e3a8a 0%,#0f172a 100%)' },
-          { id:'mac',   label:'macOS',    icon:'laptop',           chromeTop:macChromeTop,   chromeBottom:macChromeBottom,   stageBg:'linear-gradient(135deg,#fde68a 0%,#fca5a5 50%,#a78bfa 100%)' },
-          { id:'cloud', label:'Cloud PC', icon:'cloud',            chromeTop:cloudChromeTop, chromeBottom:cloudChromeBottom, stageBg:'linear-gradient(135deg,#0ea5e9 0%,#1e40af 100%)' },
+          { id:'win',   label:'Windows',  icon:'monitor', deliveryMethod:winDelivery.method,   deliveryIcon:winDelivery.icon,
+            chromeTop:winChromeTop,   chromeBottom:winChromeBottom,   stageBg:'linear-gradient(135deg,#1e3a8a 0%,#0f172a 100%)' },
+          { id:'mac',   label:'macOS',    icon:'laptop',  deliveryMethod:macDelivery.method,   deliveryIcon:macDelivery.icon,
+            chromeTop:macChromeTop,   chromeBottom:macChromeBottom,   stageBg:'linear-gradient(135deg,#fde68a 0%,#fca5a5 50%,#a78bfa 100%)' },
+          { id:'cloud', label:'Cloud PC', icon:'cloud',   deliveryMethod:cloudDelivery.method, deliveryIcon:cloudDelivery.icon,
+            chromeTop:cloudChromeTop, chromeBottom:cloudChromeBottom, stageBg:'linear-gradient(135deg,#0ea5e9 0%,#1e40af 100%)' },
         ];
+
+        // Scenario selector: lets the demo lead with whichever story fits the
+        // buyer in the room (auto-patch for security, migration for Citrix-renewal,
+        // first-access for net-new, self-service for ticket reduction).
+        const scenarioRow = `
+          <div class="ux-scenario-row">
+            <span class="ux-scenario-row-label">Scenario</span>
+            ${SCENARIOS.map((s, i) => {
+              const isActive = (live ? sc : selectedIdx) === i;
+              return `<button type="button" class="ux-scenario-pill ${isActive ? 'is-active' : ''}" data-action="pick-ux-scenario" data-idx="${i}">
+                <span>${s.label}</span>
+              </button>`;
+            }).join('')}
+          </div>
+        `;
 
         return `
           <div class="section-card p-4 ux-tri-card">
             <div class="flex items-center justify-between mb-3 gap-2 flex-wrap">
               <div class="flex items-center gap-2">
-                ${['done','final'].includes(phase)
+                ${live && ['done','final'].includes(phase)
                   ? '<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i><span class="text-xs font-semibold text-emerald-700">Same experience. Every device. Every time.</span></div>'
                   : '<div class="bts-label bts-label-user"><i data-lucide="user" class="w-3 h-3"></i> What the user sees</div>'}
               </div>
               <div class="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-400">Three OS contexts \u00b7 one synchronized experience</div>
             </div>
+
+            ${scenarioRow}
 
             <div class="ux-tri ${idle ? '' : 'is-running'} ${appOpen ? 'is-app-open' : ''} ${showThread ? 'is-final' : ''}">
               ${variants.map(deviceFrame).join('')}
@@ -5693,16 +5838,17 @@
               </div>
             </div>
 
-            <!-- Closing label appears with the thread -->
+            <!-- Closer: Challenger structure — tension first, then resolution. -->
             <div class="ux-closer ${showThread ? 'show' : ''}">
-              <div class="ux-closer-line"><strong>One platform.</strong> One experience. Three devices.</div>
+              <span class="ux-closer-tension">Different OS. Different network. Different delivery method.</span>
+              <span class="ux-closer-payoff">One click. Same result.</span>
             </div>
 
-            ${scenario && !['idle','launch','catalog','clicking'].includes(phase) ? `
+            ${scenario && live && !['idle','launch','catalog','clicking'].includes(phase) ? `
               <div class="text-[10px] text-center mt-2 text-slate-400">${scenario.bannerMsg}</div>
             ` : ''}
 
-            ${phase === 'final' ? `
+            ${live && phase === 'final' ? `
               <div class="sub-card p-3 mt-2 text-center" style="background:linear-gradient(135deg,#f0fdf4,#eff6ff);border-color:#10b981">
                 <div class="text-sm font-bold text-[#0A1C60] mb-0.5">Click → It just works</div>
                 <div class="text-[10px] text-[#4A5568]">Three different scenarios. The user experience was identical every time.</div>
@@ -8849,6 +8995,15 @@
             calculateImpact(); STATE.showAssumptions = false; render(); return;
           }
           if (action === 'toggle-regulated') { STATE.calcInputs.regulated = act.getAttribute('data-val') === 'true'; render(); return; }
+          if (action === 'pick-ux-scenario') {
+            const idx = parseInt(act.getAttribute('data-idx'), 10);
+            if (!isNaN(idx)) {
+              STATE.uxScenarioIdx = idx;
+              if (STATE.flowRunning) { resetFlow(); }
+              render();
+            }
+            return;
+          }
           if (action === 'select-device') { STATE.flowDevice = act.getAttribute('data-device'); startFlow(); return; }
           if (action === 'toggle-flow' || action === 'step-flow' || action === 'reset-flow') {
             // Fan out to every selected view's animation. Admin Console + User Experience
