@@ -7793,7 +7793,6 @@
                     <button type="button" data-action="toggle-flow" title="${_label}" aria-label="${_label}" class="bg-[#0070F3] text-white w-8 h-8 rounded-full hover:bg-[#005AD0] inline-flex items-center justify-center transition shadow-sm"><i data-lucide="${_icon}" class="w-3.5 h-3.5"></i></button>
                     <button type="button" data-action="step-flow" title="Step" aria-label="Step" class="bg-white text-[#0070F3] border border-[#0070F3] w-8 h-8 rounded-full hover:bg-[#eff6ff] inline-flex items-center justify-center transition"><i data-lucide="step-forward" class="w-3.5 h-3.5"></i></button>
                     <button type="button" data-action="reset-flow" title="Reset" aria-label="Reset" class="bg-white text-[#0A1C60] border border-[#0A1C60]/30 w-8 h-8 rounded-full hover:bg-slate-50 hover:border-[#0A1C60] inline-flex items-center justify-center transition"><i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i></button>
-                    <button type="button" data-action="play-demo-loop" title="${STATE.demoLoopPlaying ? 'Stop continuous demo loop' : 'Play continuous demo loop (booth mode)'}" aria-label="${STATE.demoLoopPlaying ? 'Stop demo loop' : 'Play demo loop'}" class="${STATE.demoLoopPlaying ? 'bg-[#00BFFF] text-[#0A1C60]' : 'bg-[#0070F3] text-white hover:bg-[#005AD0]'} w-8 h-8 rounded-full inline-flex items-center justify-center transition shadow-sm relative"><i data-lucide="${STATE.demoLoopPlaying ? 'square' : 'repeat'}" class="w-3.5 h-3.5"></i></button>
                   </div>
                     `;
                   })() : ''}
@@ -8733,112 +8732,6 @@
             if (view === 'dashboard') STATE.solutionViewDashboard = !STATE.solutionViewDashboard;
             if (view === 'onboarding') STATE.solutionViewOnboarding = !STATE.solutionViewOnboarding;
             scrollPreserveRender(); return;
-          }
-          if (action === 'play-demo-loop') {
-            // Toggle the booth demo loop. When playing, automatically re-runs play-lifecycle on each cycle.
-            if (STATE.demoLoopPlaying) {
-              STATE.demoLoopPlaying = false;
-              document.body.classList.remove('demo-loop-active');
-              STATE.lcTimers.forEach(id => clearTimeout(id)); STATE.lcTimers = [];
-              STATE.lifecyclePlaying = false; STATE.lcStep = -1;
-              // Reset all views so booth display returns to a clean overview
-              STATE.solutionViewSetupStore = false; STATE.solutionViewAdmin = false; STATE.solutionViewOnboarding = false;
-              STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
-              scrollPreserveRender(); return;
-            }
-            STATE.demoLoopPlaying = true;
-            document.body.classList.add('demo-loop-active');
-            // Helper: scroll dynamically so the active demo content is centered in the viewport.
-            // Throttled so back-to-back renders don't queue conflicting smooth-scrolls.
-            let _lastScrollAt = 0;
-            const scrollToDemoTop = (focusContent = false) => {
-              const now = Date.now();
-              if (now - _lastScrollAt < 300) return;
-              _lastScrollAt = now;
-              requestAnimationFrame(() => {
-                const card  = document.querySelector('#panel-solution .arch-fit-card');
-                if (!card) return;
-                const rect = card.getBoundingClientRect();
-                const top  = rect.top + window.pageYOffset - 12;
-                if (Math.abs(window.pageYOffset - top) < 8) return;
-                // Instant scroll: smooth-scroll fights with continuous re-renders during sub-animations
-                window.scrollTo({ top, behavior: 'auto' });
-              });
-            };
-            // Start the first cycle by triggering the existing play-lifecycle handler
-            const startCycle = () => {
-              if (!STATE.demoLoopPlaying) return;
-              // Reuse play-lifecycle logic by simulating the same action
-              const fakeBtn = document.createElement('button');
-              fakeBtn.setAttribute('data-action', 'play-lifecycle');
-              // Directly invoke the same code path
-              STATE.lcTimers.forEach(id => clearTimeout(id)); STATE.lcTimers = [];
-              STATE.ssTimers.forEach(id => clearTimeout(id)); STATE.ssTimers = [];
-              clearFlowTimers();
-              STATE.ssRunning = false; STATE.ssPaused = false; STATE.ssPhase = 'idle'; STATE.ssQueue = []; STATE.ssQueueIdx = 0;
-              STATE.ssAct = 'idle'; STATE.ssCounter = 0; STATE.ssCaption = ''; STATE.ssCaptionFinal = false;
-              STATE.ssFieldStep = 0; STATE.ssInheritStep = 0; STATE.ssBadgesAdobe = false; STATE.ssBadgesYour = false;
-              STATE.ssYourCardIn = false; STATE.ssAdobeShifted = false; STATE.ssTickerHistory = [];
-              if (STATE.ssCounterRaf) { cancelAnimationFrame(STATE.ssCounterRaf); STATE.ssCounterRaf = null; }
-              if (typeof ssTickerStop === 'function') ssTickerStop();
-              STATE.obRunning = false; STATE.obPaused = false; STATE.obPhase = 'idle'; STATE.obQueue = []; STATE.obQueueIdx = 0;
-              STATE.drRunning = false; STATE.drPaused = false; STATE.drPhase = 'idle'; STATE.drQueue = []; STATE.drQueueIdx = 0;
-              STATE.mtRunning = false; STATE.mtPaused = false; STATE.mtPhase = 'idle'; STATE.mtQueue = []; STATE.mtQueueIdx = 0;
-              STATE.solutionViewSetupStore = false; STATE.solutionViewAdmin = false; STATE.solutionViewOnboarding = false;
-              STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
-              STATE.lifecyclePlaying = true; STATE.lcStep = -1;
-
-              const lcSteps = [
-                { key: 'solutionViewSetupStore', start: () => startSs(),   dwell: 16500 },
-                { key: 'solutionViewAdmin',       start: () => startFlow(), dwell: 13000 },
-                { key: 'solutionViewOnboarding',  start: () => startOb(),   dwell: 18500 },
-                { key: 'solutionViewUser',        start: () => startFlow(), dwell: 13000 },
-                { key: 'solutionViewDashboard',   start: () => startDr(),   dwell: 11500 },
-                { key: 'solutionViewMultiTenant', start: () => startMt(),   dwell: 11500 },
-              ];
-              let elapsed = 0;
-              lcSteps.forEach((step, i) => {
-                const t = setTimeout(() => {
-                  if (!STATE.lifecyclePlaying || !STATE.demoLoopPlaying) return;
-                  STATE.ssTimers.forEach(id => clearTimeout(id)); STATE.ssTimers = [];
-                  clearFlowTimers();
-                  STATE.ssRunning = false; STATE.ssPaused = false;
-                  STATE.obRunning = false; STATE.obPaused = false;
-                  STATE.drRunning = false; STATE.drPaused = false;
-                  STATE.mtRunning = false; STATE.mtPaused = false;
-                  STATE.solutionViewSetupStore = false; STATE.solutionViewAdmin = false; STATE.solutionViewOnboarding = false;
-                  STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
-                  STATE[step.key] = true; STATE.lcStep = i;
-                  scrollPreserveRender();
-                  scrollToDemoTop(true);
-                  if (step.start) {
-                    // Wait long enough for fade-in (480ms) plus paint settling before triggering animation
-                    const ts = setTimeout(() => { if (STATE.lifecyclePlaying && STATE.lcStep === i) step.start(); }, 550);
-                    STATE.lcTimers.push(ts);
-                  }
-                }, elapsed);
-                STATE.lcTimers.push(t);
-                elapsed += step.dwell;
-              });
-              // At end of cycle, restart if loop is still active
-              const tEnd = setTimeout(() => {
-                if (!STATE.demoLoopPlaying) {
-                  STATE.lifecyclePlaying = false; STATE.lcStep = -1;
-                  scrollPreserveRender();
-                  return;
-                }
-                // Brief pause between cycles, then loop
-                const tPause = setTimeout(() => {
-                  if (STATE.demoLoopPlaying) startCycle();
-                }, 1500);
-                STATE.lcTimers.push(tPause);
-              }, elapsed);
-              STATE.lcTimers.push(tEnd);
-              scrollPreserveRender();
-              scrollToDemoTop();
-            };
-            startCycle();
-            return;
           }
           if (action === 'play-lifecycle') {
             // Clear any in-flight lifecycle timers
