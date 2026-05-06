@@ -2137,6 +2137,126 @@
       .border-blue-200, .border-indigo-200 { border-color: var(--r-divider) !important; }
 
       /* ───── Logo ticker gradient masks use white — keep */
+
+      /* ═════════════════════════════════════════════════════════════
+         DEMO MODAL — pop-out container for the lifecycle demos
+         Each lifecycle pill (Setup Store → Multi-Tenant) opens its
+         demo inside this overlay so it sits cleanly above the page,
+         centered and fully visible without scrolling. Backdrop click
+         or ESC closes; chevron advances to the adjacent module.
+         ═════════════════════════════════════════════════════════════ */
+      .demo-modal-backdrop {
+        position: fixed; inset: 0; z-index: 80;
+        background: rgba(10, 28, 96, 0.42);
+        /* The backdrop and panel are full-rebuilt on every phase render
+           (because the inner demos call scrollPreserveRender). We keep
+           their entrance keyframes — innerHTML mount fires them once — but
+           we DO NOT animate the demo-stage children, since those rebuild
+           on every phase tick and would flicker forever. */
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        display: flex; align-items: flex-start; justify-content: center;
+        padding: 4vh 24px;
+        overflow-y: auto;
+        opacity: 1;
+      }
+      /* Only animate in on the FIRST mount of the modal — gated by an
+         is-fresh flag that JS sets once and clears on the next render. */
+      .demo-modal-backdrop.is-fresh {
+        animation: demoBackdropIn 220ms ease forwards;
+      }
+      @keyframes demoBackdropIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+      .demo-modal-panel {
+        position: relative;
+        width: 100%; max-width: 1180px;
+        background: #ffffff;
+        border-radius: 18px;
+        box-shadow: 0 24px 60px rgba(10, 28, 96, 0.28), 0 4px 12px rgba(10, 28, 96, 0.12);
+        opacity: 1; transform: none;
+      }
+      .demo-modal-backdrop.is-fresh .demo-modal-panel {
+        animation: demoPanelIn 320ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        opacity: 0; transform: translateY(12px) scale(0.985);
+      }
+      @keyframes demoPanelIn {
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      .demo-modal-header {
+        display: flex; align-items: center; gap: 12px;
+        padding: 14px 18px 12px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .demo-modal-stage-label {
+        font-size: 9.5px; font-weight: 700;
+        color: #64748B; text-transform: uppercase;
+        letter-spacing: 0.14em;
+      }
+      .demo-modal-title {
+        font-size: 17px; font-weight: 700;
+        color: #0A1C60; letter-spacing: -0.01em;
+        display: inline-flex; align-items: center; gap: 8px;
+      }
+      .demo-modal-title i { width: 18px; height: 18px; color: #0070F3; }
+      .demo-modal-progress {
+        display: inline-flex; align-items: center; gap: 4px;
+        margin-left: 10px;
+      }
+      .demo-modal-progress-dot {
+        width: 10px; height: 10px; border-radius: 50%;
+        background: #cbd5e1;
+        border: 0; padding: 0; cursor: pointer;
+        transition: background 0.18s ease, transform 0.18s ease;
+      }
+      .demo-modal-progress-dot:hover { background: #94a3b8; transform: scale(1.15); }
+      .demo-modal-progress-dot.is-active { background: #0070F3; transform: scale(1.3); }
+      .demo-modal-progress-dot.is-active:hover { background: #0070F3; }
+      .demo-modal-controls {
+        margin-left: auto;
+        display: inline-flex; align-items: center; gap: 8px;
+      }
+      .demo-modal-btn {
+        width: 34px; height: 34px; border-radius: 9999px;
+        display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid #cbd5e1; background: #ffffff; color: #0A1C60;
+        cursor: pointer; transition: all 0.18s ease;
+      }
+      .demo-modal-btn:hover { background: #f1f5f9; border-color: #94a3b8; }
+      .demo-modal-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+      .demo-modal-btn-next {
+        background: #0070F3; color: #ffffff; border-color: #0070F3;
+        gap: 6px;
+        font-size: 12px; font-weight: 700;
+      }
+      .demo-modal-btn-next:hover { background: #005AD0; border-color: #005AD0; }
+      .demo-modal-btn-next i { width: 14px; height: 14px; }
+      .demo-modal-btn-close { color: #64748b; }
+      .demo-modal-btn-close i { width: 16px; height: 16px; }
+      .demo-modal-body {
+        padding: 16px 18px 18px;
+        max-height: calc(92vh - 70px);
+        overflow: hidden;
+      }
+      .demo-modal-panel { max-height: 92vh; display: flex; flex-direction: column; }
+      .demo-modal-body > #demo-stage { height: 100%; }
+      /* Scale the demo content to fit the modal body without scroll. The
+         outer body uses overflow:hidden; the inner stage shrinks to fit
+         via CSS transform if needed. Each demo's renderer outputs a
+         fixed-size canvas that we constrain to width:100% and clamp
+         max-height to fit. */
+      .demo-modal-body .section-card { max-width: 100%; }
+      /* (No per-child entrance animation — the demos run their own phase
+         animations internally, and re-rendering would re-trigger this
+         every phase tick, causing the flicker the user reported.) */
+      @media (max-width: 760px) {
+        .demo-modal-backdrop { padding: 2vh 8px; }
+        .demo-modal-header { padding: 10px 12px; gap: 8px; flex-wrap: wrap; }
+        .demo-modal-title { font-size: 15px; }
+        .demo-modal-controls { width: 100%; justify-content: flex-end; }
+      }
+
       /* ═════════════════════════════════════════════════════════════
          SETUP STORE VIEW
          ═════════════════════════════════════════════════════════════ */
@@ -4327,6 +4447,25 @@
         { id: 'BYOD', icon: 'smartphone', desc: 'Personal device' },
       ];
 
+      // Modules surfaced in the "Inside Application Workspace" lifecycle strip,
+      // in canonical lifecycle order. Used both for the strip and for the
+      // pop-out modal's Next button (which advances to the adjacent module).
+      const LIFECYCLE_MODULES = [
+        {view:'setupstore', stage:'PACKAGE',   name:'Setup Store',           icon:'library'},
+        {view:'admin',      stage:'CONFIGURE', name:'Admin Console',         icon:'settings-2'},
+        {view:'onboarding', stage:'DELIVER',   name:'Onboarding',            icon:'user-plus'},
+        {view:'user',       stage:'RUN',       name:'User Experience',       icon:'monitor-smartphone'},
+        {view:'dashboard',  stage:'MEASURE',   name:'Dashboard & Reporting', icon:'bar-chart-3'},
+        {view:'multitenant',stage:'SCALE',     name:'Multi-Tenant',          icon:'building-2'},
+      ];
+      const lifecycleViewFlag = (view) => ({
+        setupstore:'solutionViewSetupStore', admin:'solutionViewAdmin',
+        onboarding:'solutionViewOnboarding', user:'solutionViewUser',
+        dashboard:'solutionViewDashboard', multitenant:'solutionViewMultiTenant',
+      })[view];
+      const activeLifecycleView = () =>
+        LIFECYCLE_MODULES.find(m => STATE[lifecycleViewFlag(m.view)])?.view || null;
+
       const SCENARIOS = [
         {
           id: 'catalog', label: 'Self-service', subtitle: 'User gets an app -  no ticket',
@@ -5884,12 +6023,7 @@
               <div class="text-[10px] text-center mt-2 text-slate-400">${scenario.bannerMsg}</div>
             ` : ''}
 
-            ${live && phase === 'final' ? `
-              <div class="sub-card p-3 mt-2 text-center" style="background:linear-gradient(135deg,#f0fdf4,#eff6ff);border-color:#10b981">
-                <div class="text-sm font-bold text-[#0A1C60] mb-0.5">Click → It just works</div>
-                <div class="text-[10px] text-[#4A5568]">Three different scenarios. The user experience was identical every time.</div>
-              </div>
-            ` : ''}
+
           </div>
         `;
       }
@@ -7787,14 +7921,8 @@
               <div class="arch-lifecycle-strip">
                 <div class="arch-lifecycle-eyebrow">Inside Application Workspace</div>
                 <div class="flex items-end gap-1.5 flex-wrap">
-                  ${[
-                    {view:'setupstore', stage:'PACKAGE',   name:'Setup Store',          icon:'library',           active:STATE.solutionViewSetupStore},
-                    {view:'admin',      stage:'CONFIGURE',  name:'Admin Console',        icon:'settings-2',        active:STATE.solutionViewAdmin},
-                    {view:'onboarding', stage:'DELIVER',    name:'Onboarding',           icon:'user-plus',         active:STATE.solutionViewOnboarding},
-                    {view:'user',       stage:'RUN',        name:'User Experience',      icon:'monitor-smartphone',active:STATE.solutionViewUser},
-                    {view:'dashboard',  stage:'MEASURE',    name:'Dashboard & Reporting',icon:'bar-chart-3',       active:STATE.solutionViewDashboard},
-                    {view:'multitenant',stage:'SCALE',      name:'Multi-Tenant',         icon:'building-2',        active:STATE.solutionViewMultiTenant},
-                  ].map((item, idx, arr) => {
+                  ${LIFECYCLE_MODULES.map((m) => ({...m, active: STATE[lifecycleViewFlag(m.view)]}))
+                    .map((item, idx, arr) => {
                     const isDone    = STATE.lifecyclePlaying && idx < STATE.lcStep;
                     const isCurrent = STATE.lifecyclePlaying && idx === STATE.lcStep;
                     const dotClass  = isDone ? 'lifecycle-dot-done' : (isCurrent ? 'lifecycle-dot-active lifecycle-dot-playing' : (item.active ? 'lifecycle-dot-active' : ''));
@@ -7830,15 +7958,53 @@
               </div>
             </div>
 
-            <!-- ZONE B: Main content (dynamic columns) -->
-            <div id="demo-stage" class="grid grid-cols-1 ${multiCol ? 'lg:grid-cols-2' : ''} gap-3">
-              ${STATE.solutionViewSetupStore ? renderSetupStoreView() : ''}
-              ${STATE.solutionViewAdmin ? renderAdminConsole() : ''}
-              ${STATE.solutionViewOnboarding ? renderOnboardingView() : ''}
-              ${STATE.solutionViewUser ? renderUserView() : ''}
-              ${STATE.solutionViewDashboard ? renderDashboardView() : ''}
-              ${STATE.solutionViewMultiTenant ? renderMultiTenantView() : ''}
-            </div>
+            <!-- ZONE B: Demo modal — pop-out overlay
+                 Each lifecycle pill opens its demo inside a centered modal so
+                 it sits cleanly above the page, fully visible without scroll.
+                 Clicking the backdrop closes the modal; the chevron advances
+                 to the adjacent module. -->
+            ${(() => {
+              const activeView = activeLifecycleView();
+              if (!activeView) return '';
+              const idx = LIFECYCLE_MODULES.findIndex(m => m.view === activeView);
+              const mod = LIFECYCLE_MODULES[idx];
+              const nextMod = idx < LIFECYCLE_MODULES.length - 1 ? LIFECYCLE_MODULES[idx + 1] : null;
+              return `
+              <div class="demo-modal-backdrop ${STATE._modalFresh ? 'is-fresh' : ''}" data-action="close-demo-modal">
+                <div class="demo-modal-panel" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title" onclick="if(!event.target.closest('[data-action]'))event.stopPropagation()">
+                  <div class="demo-modal-header">
+                    <span class="demo-modal-stage-label">${mod.stage}</span>
+                    <span class="demo-modal-title" id="demo-modal-title">
+                      <i data-lucide="${mod.icon}"></i>
+                      <span>${mod.name}</span>
+                    </span>
+                    <span class="demo-modal-progress" aria-label="Step ${idx + 1} of ${LIFECYCLE_MODULES.length}">
+                      ${LIFECYCLE_MODULES.map((m, i) => `<button type="button" class="demo-modal-progress-dot ${i === idx ? 'is-active' : ''}" data-action="next-demo-module" data-view="${m.view}" title="${m.name}" aria-label="Jump to ${m.name}"></button>`).join('')}
+                    </span>
+                    <span class="demo-modal-controls">
+                      ${nextMod ? `
+                        <button type="button" class="demo-modal-btn demo-modal-btn-next" data-action="next-demo-module" data-view="${nextMod.view}" title="Next: ${nextMod.name}" aria-label="Next: ${nextMod.name}">
+                          <i data-lucide="arrow-right"></i>
+                        </button>
+                      ` : ''}
+                      <button type="button" class="demo-modal-btn demo-modal-btn-close" data-action="close-demo-modal" title="Close" aria-label="Close demo">
+                        <i data-lucide="x"></i>
+                      </button>
+                    </span>
+                  </div>
+                  <div class="demo-modal-body" data-modal-body>
+                    <div id="demo-stage" class="grid grid-cols-1 ${multiCol ? 'lg:grid-cols-2' : ''} gap-3">
+                      ${STATE.solutionViewSetupStore ? renderSetupStoreView() : ''}
+                      ${STATE.solutionViewAdmin ? renderAdminConsole() : ''}
+                      ${STATE.solutionViewOnboarding ? renderOnboardingView() : ''}
+                      ${STATE.solutionViewUser ? renderUserView() : ''}
+                      ${STATE.solutionViewDashboard ? renderDashboardView() : ''}
+                      ${STATE.solutionViewMultiTenant ? renderMultiTenantView() : ''}
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+            })()}
             ` : ''}
             ${STATE.activeCard === 'trust' ? renderTrustPanel() : ''}
             ${STATE.activeCard === 'onboarding' ? renderOnboardingPanel() : ''}
@@ -8753,30 +8919,35 @@
           if (action === 'switch-tab') { STATE.activeTab = act.getAttribute('data-tab'); STATE.visitedCards = []; STATE.activePopover = null; if (STATE.openWhyModal && STATE._savedDriverStates) { STATE.drivers.forEach((d, i) => { d.state = STATE._savedDriverStates[i]; }); STATE.showTippingPoint = STATE._savedTippingPoint; STATE.recastMode = STATE._savedRecastMode; STATE.targetDemandExponent = STATE._savedDemandExp; STATE.targetCapacitySlope = STATE._savedCapSlope; STATE._savedDriverStates = null; updateCurves(); } STATE.openWhyModal = null; STATE.insightContent = null; STATE.flowStep = -1; STATE.flowRunning = false; STATE.flowPaused = false; STATE.flowScenarioIdx = -1; STATE.flowPhase = 'idle'; STATE.flowAppOpened = false; STATE._firstOpenDone = false; STATE.showAdminView = false; STATE.showAutopilot = false; STATE.autopilotStep = -1; STATE.autopilotAppCount = 0; STATE.drPhase = 'idle'; STATE.drRunning = false; STATE.drPaused = false; STATE.drQueue = []; STATE.drQueueIdx = 0; STATE.obPhase = 'idle'; STATE.obRunning = false; STATE.obPaused = false; STATE.obQueue = []; STATE.obQueueIdx = 0; STATE.ssPhase = 'idle'; STATE.ssRunning = false; STATE.ssPaused = false; STATE.ssQueue = []; STATE.ssQueueIdx = 0; STATE.ssTimers.forEach(id => clearTimeout(id)); STATE.ssTimers = []; STATE.lcTimers.forEach(id => clearTimeout(id)); STATE.lcTimers = []; STATE.lifecyclePlaying = false; STATE.lcStep = -1; clearFlowTimers(); render(); return; }
           if (action === 'advance') { STATE.activeTab = act.getAttribute('data-next'); if (STATE.openWhyModal && STATE._savedDriverStates) { STATE.drivers.forEach((d, i) => { d.state = STATE._savedDriverStates[i]; }); STATE.showTippingPoint = STATE._savedTippingPoint; STATE.recastMode = STATE._savedRecastMode; STATE.targetDemandExponent = STATE._savedDemandExp; STATE.targetCapacitySlope = STATE._savedCapSlope; STATE._savedDriverStates = null; updateCurves(); } STATE.openWhyModal = null; if (STATE.activeTab === 'roi') { calculateImpact(); } render(); return; }
           if (action === 'toggle-proof-details') { STATE.proofDetailsOpen = !STATE.proofDetailsOpen; render(); return; }
-          if (action === 'toggle-solution-view') {
+          if (action === 'toggle-solution-view' || action === 'next-demo-module') {
             const view = act.getAttribute('data-view');
-            // ── 1. Hard-reset every demo so the chosen one plays cleanly from t=0.
+            // ── Hard-reset every demo so the chosen one plays cleanly from t=0.
             //    Without this, switching views mid-animation leaves the previous
             //    demo's timers running, causing flicker as two state machines
-            //    fight over the DOM. With this reset, only the active demo runs.
-            STATE.lifecyclePlaying = false; STATE.lcStep = -1;
-            STATE.lcTimers.forEach(id => clearTimeout(id)); STATE.lcTimers = [];
-            STATE.ssTimers.forEach(id => clearTimeout(id)); STATE.ssTimers = [];
-            clearFlowTimers();
-            STATE.ssRunning = false; STATE.ssPaused = false; STATE.ssPhase = 'idle'; STATE.ssQueue = []; STATE.ssQueueIdx = 0;
-            STATE.ssAct = 'idle'; STATE.ssCounter = 0; STATE.ssCaption = ''; STATE.ssCaptionFinal = false;
-            STATE.ssFieldStep = 0; STATE.ssInheritStep = 0; STATE.ssBadgesAdobe = false; STATE.ssBadgesYour = false;
-            STATE.ssYourCardIn = false; STATE.ssAdobeShifted = false; STATE.ssTickerHistory = [];
-            if (STATE.ssCounterRaf) { cancelAnimationFrame(STATE.ssCounterRaf); STATE.ssCounterRaf = null; }
-            if (typeof ssTickerStop === 'function') ssTickerStop();
-            STATE.obRunning = false; STATE.obPaused = false; STATE.obPhase = 'idle'; STATE.obQueue = []; STATE.obQueueIdx = 0;
-            STATE.drRunning = false; STATE.drPaused = false; STATE.drPhase = 'idle'; STATE.drQueue = []; STATE.drQueueIdx = 0;
-            STATE.mtRunning = false; STATE.mtPaused = false; STATE.mtPhase = 'idle'; STATE.mtQueue = []; STATE.mtQueueIdx = 0;
-            STATE.flowAppOpened = false; STATE._firstOpenDone = false; STATE._firstDeliveryBadgeDone = false; STATE._acSeen = {};
+            //    fight over the DOM.
+            const resetAllDemos = () => {
+              STATE.lifecyclePlaying = false; STATE.lcStep = -1;
+              STATE.lcTimers.forEach(id => clearTimeout(id)); STATE.lcTimers = [];
+              STATE.ssTimers.forEach(id => clearTimeout(id)); STATE.ssTimers = [];
+              clearFlowTimers();
+              STATE.flowRunning = false; STATE.flowPaused = false; STATE.flowPhase = 'idle'; STATE.flowQueue = []; STATE.flowQueueIdx = 0; STATE.flowScenarioIdx = -1;
+              STATE.ssRunning = false; STATE.ssPaused = false; STATE.ssPhase = 'idle'; STATE.ssQueue = []; STATE.ssQueueIdx = 0;
+              STATE.ssAct = 'idle'; STATE.ssCounter = 0; STATE.ssCaption = ''; STATE.ssCaptionFinal = false;
+              STATE.ssFieldStep = 0; STATE.ssInheritStep = 0; STATE.ssBadgesAdobe = false; STATE.ssBadgesYour = false;
+              STATE.ssYourCardIn = false; STATE.ssAdobeShifted = false; STATE.ssTickerHistory = [];
+              if (STATE.ssCounterRaf) { cancelAnimationFrame(STATE.ssCounterRaf); STATE.ssCounterRaf = null; }
+              if (typeof ssTickerStop === 'function') ssTickerStop();
+              STATE.obRunning = false; STATE.obPaused = false; STATE.obPhase = 'idle'; STATE.obQueue = []; STATE.obQueueIdx = 0;
+              STATE.drRunning = false; STATE.drPaused = false; STATE.drPhase = 'idle'; STATE.drQueue = []; STATE.drQueueIdx = 0;
+              STATE.mtRunning = false; STATE.mtPaused = false; STATE.mtPhase = 'idle'; STATE.mtQueue = []; STATE.mtQueueIdx = 0;
+              STATE.flowAppOpened = false; STATE._firstOpenDone = false; STATE._firstDeliveryBadgeDone = false; STATE._acSeen = {};
+            };
+            resetAllDemos();
 
-            // ── 2. Solo the chosen view (radio behavior — only one open at a time)
-            //    so the lifecycle stays a guided story instead of a busy dashboard.
-            const wasActive = (
+            // Solo the chosen view (radio behavior). For toggle-solution-view,
+            // re-clicking the active pill closes the modal. For next-demo-module,
+            // we always advance, never toggle off.
+            const wasActive = action === 'toggle-solution-view' && (
               (view === 'user' && STATE.solutionViewUser) ||
               (view === 'admin' && STATE.solutionViewAdmin) ||
               (view === 'setupstore' && STATE.solutionViewSetupStore) ||
@@ -8787,45 +8958,23 @@
             STATE.solutionViewSetupStore = false; STATE.solutionViewAdmin = false; STATE.solutionViewOnboarding = false;
             STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
             if (wasActive) { scrollPreserveRender(); return; }   // toggle off → close
-            if (view === 'user') STATE.solutionViewUser = true;
-            if (view === 'admin') STATE.solutionViewAdmin = true;
-            if (view === 'setupstore') STATE.solutionViewSetupStore = true;
-            if (view === 'multitenant') STATE.solutionViewMultiTenant = true;
-            if (view === 'dashboard') STATE.solutionViewDashboard = true;
-            if (view === 'onboarding') STATE.solutionViewOnboarding = true;
 
-            // ── 3. Scroll the demo stage into view BEFORE rendering, so the
-            //    initial scrollPreserveRender snapshot already reflects the
-            //    desired scroll position. A smooth-scroll animation would
-            //    fight with the per-phase scrollPreserveRender (each phase
-            //    snapshots scrollTop pre-render and restores it post-render),
-            //    so we scroll instantly here and let the demo's own motion
-            //    carry the eye from there.
-            //
-            //    The scroll container is <main> — window/html have overflow:hidden.
-            const mainEl = document.querySelector('body > #app > main');
-            if (mainEl) {
-              // Render once so the demo stage exists in the DOM, then measure.
-              scrollPreserveRender();
-              const stage = document.getElementById('demo-stage');
-              const card  = stage ? stage.closest('.arch-fit-card') || stage.parentElement : null;
-              const target = card || stage;
-              if (target) {
-                const targetRect = target.getBoundingClientRect();
-                const mainRect   = mainEl.getBoundingClientRect();
-                const visibleTop = targetRect.top - mainRect.top;
-                const needsScroll = visibleTop < 24 || visibleTop > mainEl.clientHeight * 0.4;
-                if (needsScroll) {
-                  const desired = Math.max(0, visibleTop + mainEl.scrollTop - 24);
-                  mainEl.scrollTop = desired;   // instant — survives subsequent scrollPreserveRender
-                }
-              }
-            } else {
-              scrollPreserveRender();
-            }
-            // ── 4. Auto-start the chosen demo on the next frame so layout has
-            //    settled before the timeline begins. The demo's own internal
-            //    timeline is fragile if the DOM is still mid-paint.
+            if (view === 'user') STATE.solutionViewUser = true;
+            else if (view === 'admin') STATE.solutionViewAdmin = true;
+            else if (view === 'setupstore') STATE.solutionViewSetupStore = true;
+            else if (view === 'multitenant') STATE.solutionViewMultiTenant = true;
+            else if (view === 'dashboard') STATE.solutionViewDashboard = true;
+            else if (view === 'onboarding') STATE.solutionViewOnboarding = true;
+
+            // Mark this render as a FRESH modal mount so the backdrop and
+            // panel play their entrance keyframes once. Cleared on next
+            // render so subsequent phase ticks don't re-fire the pop-in.
+            STATE._modalFresh = true;
+            scrollPreserveRender();
+            STATE._modalFresh = false;
+
+            // Auto-start the chosen demo on the next frame so layout has
+            // settled before the timeline begins.
             requestAnimationFrame(() => requestAnimationFrame(() => {
               if (view === 'setupstore' && !STATE.ssRunning) startSs();
               else if (view === 'admin' && !STATE.flowRunning) startFlow();
@@ -8834,6 +8983,24 @@
               else if (view === 'dashboard' && !STATE.drRunning) startDr();
               else if (view === 'multitenant' && !STATE.mtRunning) startMt();
             }));
+            return;
+          }
+          if (action === 'close-demo-modal') {
+            // Close the pop-out modal: clear all timers and unset all view flags.
+            // Triggered by backdrop click, X button, or ESC keydown.
+            STATE.lifecyclePlaying = false; STATE.lcStep = -1;
+            STATE.lcTimers.forEach(id => clearTimeout(id)); STATE.lcTimers = [];
+            STATE.ssTimers.forEach(id => clearTimeout(id)); STATE.ssTimers = [];
+            clearFlowTimers();
+            STATE.ssRunning = false; STATE.ssPaused = false; STATE.ssPhase = 'idle';
+            STATE.obRunning = false; STATE.obPaused = false; STATE.obPhase = 'idle';
+            STATE.drRunning = false; STATE.drPaused = false; STATE.drPhase = 'idle';
+            STATE.mtRunning = false; STATE.mtPaused = false; STATE.mtPhase = 'idle';
+            if (STATE.ssCounterRaf) { cancelAnimationFrame(STATE.ssCounterRaf); STATE.ssCounterRaf = null; }
+            if (typeof ssTickerStop === 'function') ssTickerStop();
+            STATE.solutionViewSetupStore = false; STATE.solutionViewAdmin = false; STATE.solutionViewOnboarding = false;
+            STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
+            scrollPreserveRender();
             return;
           }
           if (action === 'play-lifecycle') {
