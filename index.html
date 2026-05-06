@@ -264,7 +264,16 @@
         pointer-events: none; z-index: 5;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
       }
-      .ux-delivery-badge.show { opacity: 1; transform: translateY(0); }
+      .ux-delivery-badge.show {
+        animation: uxDeliveryBadgeIn 280ms ease forwards;
+      }
+      .ux-delivery-badge.show-instant {
+        opacity: 1; transform: translateY(0);
+      }
+      @keyframes uxDeliveryBadgeIn {
+        from { opacity: 0; transform: translateY(-4px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
       .ux-delivery-badge i { width: 11px; height: 11px; color: #00BFFF; }
       .ux-delivery-badge .ux-delivery-label { color: rgba(255,255,255,0.7); font-weight: 600; font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; }
       .ux-delivery-badge .ux-delivery-method { color: #ffffff; }
@@ -358,14 +367,24 @@
         100% { transform: scale(2.4); opacity: 0; border-width: 1px; }
       }
 
-      /* Teams app inside frame */
+      /* Teams app inside frame.
+         Uses a CSS keyframe so the entrance plays on mount — innerHTML
+         re-renders skip transitions (the element is parsed already in
+         the final state), but keyframe animations always run on insert. */
       .ux-frame-app {
         flex: 1; background: #ffffff; display: flex;
         opacity: 0; transform: translateY(8px) scale(0.985);
-        transition: opacity 360ms ease, transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
       }
-      .ux-frame-app.open, .ux-frame-app.open-instant { opacity: 1; transform: translateY(0) scale(1); }
-      .ux-frame-app.open-instant { transition: none; }
+      .ux-frame-app.open {
+        animation: uxFrameAppIn 360ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+      .ux-frame-app.open-instant {
+        opacity: 1; transform: translateY(0) scale(1);
+      }
+      @keyframes uxFrameAppIn {
+        from { opacity: 0; transform: translateY(8px) scale(0.985); }
+        to   { opacity: 1; transform: translateY(0)   scale(1); }
+      }
 
       .ux-teams { display: flex; flex: 1; min-height: 0; }
       .ux-teams-side {
@@ -390,10 +409,17 @@
       .ux-teams-msg {
         display: flex; align-items: flex-start; gap: 6px;
         opacity: 0; transform: translateY(6px);
-        transition: opacity 260ms ease, transform 260ms ease;
       }
-      .ux-teams-msg.show { opacity: 1; transform: translateY(0); }
-      .ux-teams-msg.show-instant { opacity: 1; transform: translateY(0); transition: none; }
+      .ux-teams-msg.show {
+        animation: uxTeamsMsgIn 260ms ease forwards;
+      }
+      .ux-teams-msg.show-instant {
+        opacity: 1; transform: translateY(0);
+      }
+      @keyframes uxTeamsMsgIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
       .ux-teams-avatar {
         width: 18px; height: 18px; border-radius: 50%;
         display: grid; place-items: center;
@@ -552,9 +578,14 @@
       .ux-closer {
         margin-top: 18px; text-align: center;
         opacity: 0; transform: translateY(6px);
-        transition: opacity 480ms ease 850ms, transform 480ms ease 850ms;
       }
-      .ux-closer.show { opacity: 1; transform: translateY(0); }
+      .ux-closer.show {
+        animation: uxCloserIn 480ms ease 850ms forwards;
+      }
+      @keyframes uxCloserIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
       .ux-closer-tension {
         display: block;
         font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
@@ -5612,6 +5643,11 @@
         // Per-frame divergent backend path is visible during the routing/config beats.
         // It snaps off as the frames converge on the identical Teams chat.
         const showDeliveryBadge = live && ['routing','config'].includes(effectivePhase);
+        // Animate the badge in once on first appearance; keep it instant on subsequent phase ticks.
+        const firstDeliveryBadge = showDeliveryBadge && !STATE._firstDeliveryBadgeDone;
+        if (firstDeliveryBadge) STATE._firstDeliveryBadgeDone = true;
+        if (!showDeliveryBadge) STATE._firstDeliveryBadgeDone = false;
+        const deliveryBadgeClass = showDeliveryBadge ? (firstDeliveryBadge ? 'show' : 'show-instant') : '';
 
         // Tighter catalog: 6 apps, 2 rows of 3. The viewer's eye lands on Teams.
         const TEAMS_APP = (CATALOG_APPS.find(a => a.id === 'teams')) || { id:'teams', letter:'T', name:'Teams', color:'#5B53D6' };
@@ -5701,7 +5737,7 @@
         // out as the three frames converge on identical Teams chat.
         const deviceFrame = (variant) => {
           const badge = variant.deliveryMethod ? `
-            <div class="ux-delivery-badge ${showDeliveryBadge ? 'show' : ''}">
+            <div class="ux-delivery-badge ${deliveryBadgeClass}">
               <i data-lucide="${variant.deliveryIcon}"></i>
               <span class="ux-delivery-label">Delivered via</span>
               <span class="ux-delivery-method">${variant.deliveryMethod}</span>
