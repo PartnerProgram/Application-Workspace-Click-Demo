@@ -3783,32 +3783,24 @@
         #panel-roi .bi-input-cta { padding: 9px 16px !important; font-size: 13px !important; }
         #panel-roi .bi-input-advanced { padding: 8px 12px !important; font-size: 12px !important; }
 
-        /* Hero: tighter */
-        #panel-roi .bi-hero { padding: 18px 24px !important; gap: 22px !important; grid-template-columns: 1fr 280px !important; }
-        #panel-roi .bi-hero-eyebrow { font-size: 10px !important; margin-bottom: 6px !important; }
-        #panel-roi .bi-hero-number { font-size: 54px !important; }
-        #panel-roi .bi-hero-unit { font-size: 16px !important; }
-        #panel-roi .bi-hero-sub { font-size: 13px !important; margin-top: 8px !important; }
-        #panel-roi .bi-hero-secondary { padding-left: 20px !important; gap: 10px !important; }
-        #panel-roi .bi-hero-stat-value { font-size: 18px !important; }
-        #panel-roi .bi-hero-stat-label { font-size: 10px !important; }
+        /* Before/after comparison chart: compact */
+        #panel-roi .bi-compare { padding: 14px 18px !important; }
+        #panel-roi .bi-compare-head { margin-bottom: 10px !important; padding-bottom: 8px !important; }
+        #panel-roi .bi-compare-title { font-size: 13px !important; }
+        #panel-roi .bi-compare-sub { font-size: 11px !important; }
+        #panel-roi .bi-compare-legend-item { font-size: 11px !important; }
+        #panel-roi .bi-compare-row { grid-template-columns: 120px 1fr !important; padding: 6px 0 !important; }
+        #panel-roi .bi-compare-label { font-size: 12px !important; }
+        #panel-roi .bi-compare-bar-fill { height: 12px !important; }
+        #panel-roi .bi-compare-bar-value { font-size: 11px !important; }
+        #panel-roi .bi-compare-axis { grid-template-columns: 120px 1fr !important; margin-top: 6px !important; padding-top: 6px !important; }
 
-        /* Breakdown + Reinvest: compact padding */
-        #panel-roi .bi-breakdown, #panel-roi .bi-reinvest { padding: 14px 18px !important; }
-        #panel-roi .bi-section-head { margin-bottom: 10px !important; padding-bottom: 8px !important; }
-        #panel-roi .bi-section-title { font-size: 13px !important; }
-        #panel-roi .bi-section-sub { font-size: 11px !important; }
-        #panel-roi .bi-bars { gap: 8px !important; }
-        #panel-roi .bi-bar-row { grid-template-columns: 260px 1fr 110px !important; }
-        #panel-roi .bi-bar-name { font-size: 12px !important; }
-        #panel-roi .bi-bar-note { font-size: 10px !important; }
-        #panel-roi .bi-bar-track { height: 8px !important; }
-        #panel-roi .bi-bar-value { font-size: 15px !important; }
-
-        /* Reinvest tiles compact */
-        #panel-roi .bi-reinvest-tile { padding: 10px !important; font-size: 11px !important; gap: 5px !important; }
-        #panel-roi .bi-reinvest-tile i[data-lucide] { width: 15px !important; height: 15px !important; }
-        #panel-roi .bi-reinvest-grid { gap: 8px !important; }
+        /* KPI cards: compact */
+        #panel-roi .bi-kpi { padding: 12px 16px !important; gap: 4px !important; }
+        #panel-roi .bi-kpi-label { font-size: 10px !important; }
+        #panel-roi .bi-kpi-value { font-size: 26px !important; }
+        #panel-roi .bi-kpi-unit { font-size: 13px !important; }
+        #panel-roi .bi-kpi-sub { font-size: 11px !important; }
 
         /* Action bar compact */
         #panel-roi .bi-actionbar { padding-top: 0 !important; }
@@ -4044,171 +4036,189 @@
       .bi-toosmall-title { font-size: 14px; font-weight: 700; color: var(--r-ink); margin-bottom: 4px; }
       .bi-toosmall-body { font-size: 13px; color: var(--r-ink-2); line-height: 1.5; }
 
-      /* Hero metric block */
-      .bi-hero {
-        background: var(--r-blue);
-        color: #fff;
-        border-radius: 8px;
-        padding: 28px 32px;
-        display: grid;
-        grid-template-columns: 1fr 320px;
-        gap: 32px;
-        align-items: center;
-        position: relative;
-        overflow: hidden;
-      }
-      .bi-hero::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image:
-          radial-gradient(circle, var(--r-decorator) 1.5px, transparent 1.8px);
-        background-size: 14px 14px;
-        opacity: 0.4;
-        -webkit-mask-image: linear-gradient(90deg, transparent 0, transparent 70%, #000);
-                mask-image: linear-gradient(90deg, transparent 0, transparent 70%, #000);
-        pointer-events: none;
-      }
-      .bi-hero > * { position: relative; }
-      .bi-hero-eyebrow {
-        font-size: 11px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: var(--r-muted-blue);
-        margin-bottom: 10px;
-      }
-      .bi-hero-number {
-        font-size: 72px;
-        font-weight: 800;
-        line-height: 1;
-        letter-spacing: -0.03em;
-        color: #fff;
-      }
-      .bi-hero-unit {
-        font-size: 20px;
-        font-weight: 600;
-        color: var(--r-muted-blue);
-        margin-left: 10px;
-        letter-spacing: 0;
-      }
-      .bi-hero-sub {
-        margin-top: 12px;
-        font-size: 14px;
-        line-height: 1.55;
-        color: var(--r-muted-blue);
-        max-width: 46ch;
-      }
-      .bi-hero-sub strong { color: #fff; font-weight: 700; }
-      .bi-hero-secondary {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        border-left: 1px solid rgba(255,255,255,0.2);
-        padding-left: 24px;
-      }
-      .bi-hero-stat { }
-      .bi-hero-stat-value {
-        font-size: 22px;
-        font-weight: 700;
-        color: #fff;
-        line-height: 1.1;
-      }
-      .bi-hero-stat-label {
-        font-size: 11px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: var(--r-muted-blue);
-        margin-top: 2px;
-      }
-
-      /* Breakdown */
-      .bi-breakdown, .bi-reinvest {
+      /* Before/After comparison chart */
+      .bi-compare {
         background: #fff;
         border: 1px solid var(--r-divider);
         border-radius: 8px;
         padding: 20px 24px;
         box-shadow: var(--shadow-card);
       }
-      .bi-section-head {
+      .bi-compare-head {
         display: flex;
-        align-items: baseline;
+        align-items: flex-start;
         justify-content: space-between;
         gap: 16px;
         margin-bottom: 16px;
         padding-bottom: 12px;
         border-bottom: 1px solid var(--r-divider);
+        flex-wrap: wrap;
       }
-      .bi-section-title {
+      .bi-compare-title {
         font-size: 15px;
         font-weight: 700;
         color: var(--r-ink);
       }
-      .bi-section-sub {
+      .bi-compare-sub {
         font-size: 12px;
         color: var(--r-ink-2);
+        margin-top: 2px;
       }
-      .bi-bars { display: flex; flex-direction: column; gap: 14px; }
-      .bi-bar-row {
+      .bi-compare-legend {
+        display: inline-flex;
+        align-items: center;
+        gap: 18px;
+        flex-shrink: 0;
+      }
+      .bi-compare-legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--r-ink-2);
+      }
+      .bi-compare-legend-swatch {
+        width: 12px;
+        height: 12px;
+        border-radius: 2px;
+        flex-shrink: 0;
+      }
+      .bi-compare-body { display: flex; flex-direction: column; }
+      .bi-compare-row {
         display: grid;
-        grid-template-columns: 280px 1fr 130px;
+        grid-template-columns: 140px 1fr;
         gap: 16px;
         align-items: center;
+        padding: 10px 0;
       }
-      .bi-bar-label { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
-      .bi-bar-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-      .bi-bar-name { font-size: 13px; font-weight: 700; color: var(--r-ink); }
-      .bi-bar-note { font-size: 11px; color: var(--r-ink-2); flex-basis: 100%; margin-left: 18px; }
-      .bi-bar-track {
-        height: 10px;
-        background: var(--r-surface-2);
-        border-radius: 5px;
-        overflow: hidden;
+      .bi-compare-row + .bi-compare-row {
+        border-top: 1px solid var(--r-surface-2);
       }
-      .bi-bar-fill {
-        height: 100%;
-        border-radius: 5px;
-        transition: width 700ms cubic-bezier(.2,.8,.2,1);
-      }
-      .bi-bar-value {
-        font-size: 18px;
-        font-weight: 700;
+      .bi-compare-label {
+        font-size: 13px;
+        font-weight: 600;
         color: var(--r-ink);
         text-align: right;
+        line-height: 1.3;
       }
-      .bi-bar-value span {
-        font-size: 11px;
+      .bi-compare-pair { display: flex; flex-direction: column; gap: 6px; }
+      .bi-compare-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .bi-compare-bar-fill {
+        height: 14px;
+        border-radius: 2px;
+        min-width: 2px;
+        transition: width 800ms cubic-bezier(.2,.8,.2,1);
+      }
+      .bi-compare-bar-fill.is-old { background: var(--r-red); }
+      .bi-compare-bar-fill.is-new { background: var(--r-blue); }
+      .bi-compare-bar-value {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--r-ink);
+        white-space: nowrap;
+      }
+      .bi-compare-axis {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        gap: 16px;
+        margin-top: 10px;
+        padding-top: 8px;
+        border-top: 1px solid var(--r-divider);
+      }
+      .bi-compare-axis-track {
+        position: relative;
+        height: 14px;
+      }
+      .bi-compare-summary {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 1px solid var(--r-divider);
+        font-size: 12px;
+        color: var(--r-ink-2);
+        flex-wrap: wrap;
+        line-height: 1.4;
+      }
+      .bi-compare-summary b { color: var(--r-ink); font-weight: 800; }
+      .bi-compare-summary .is-positive { color: #047857; font-weight: 600; }
+      .bi-compare-summary .is-positive b { color: #047857; }
+      .bi-compare-axis-tick {
+        position: absolute;
+        top: 0;
+        transform: translateX(-50%);
+        font-size: 10px;
         font-weight: 600;
         color: var(--r-ink-2);
-        margin-left: 4px;
+        white-space: nowrap;
       }
 
-      /* Reinvest tiles */
-      .bi-reinvest-grid {
+      /* KPI summary cards */
+      .bi-kpis {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 10px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
       }
-      .bi-reinvest-tile {
+      .bi-kpi {
+        border-radius: 8px;
+        padding: 18px 20px;
+        border: 1px solid;
+        box-shadow: var(--shadow-card);
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-        padding: 14px;
-        background: var(--r-quote-bg);
-        border: 1px solid var(--r-divider);
-        border-radius: 6px;
-        font-size: 12px;
+        gap: 6px;
+      }
+      .bi-kpi-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .bi-kpi-value {
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .bi-kpi-unit {
+        font-size: 15px;
         font-weight: 600;
-        color: var(--r-ink);
-        line-height: 1.35;
+        margin-left: 4px;
       }
-      .bi-reinvest-tile i[data-lucide] {
-        width: 18px;
-        height: 18px;
-        color: var(--r-blue-bright);
+      .bi-kpi-sub {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.4;
+        margin-top: 2px;
       }
+      .bi-kpi-old {
+        background: #FEE2E2;
+        border-color: #FCA5A5;
+        color: #7F1D1D;
+      }
+      .bi-kpi-old .bi-kpi-label { color: var(--r-red); }
+      .bi-kpi-old .bi-kpi-sub { color: #991B1B; }
+      .bi-kpi-new {
+        background: #DDE6FF;
+        border-color: #A5B4FC;
+        color: #1E1B96;
+      }
+      .bi-kpi-new .bi-kpi-label { color: var(--r-blue); }
+      .bi-kpi-new .bi-kpi-sub { color: #312E81; }
+      .bi-kpi-strategy {
+        background: #CFF4FA;
+        border-color: #7DD3FC;
+        color: #075985;
+      }
+      .bi-kpi-strategy .bi-kpi-label { color: #0369A1; }
+      .bi-kpi-strategy .bi-kpi-sub { color: #0C4A6E; }
 
       /* Action bar */
       .bi-actionbar {
@@ -4278,19 +4288,495 @@
       }
       .bi-pdf-cancel { color: #94a3b8; font-size: 14px; cursor: pointer; padding: 0 4px; }
 
+      /* Section eyebrow — separates Ongoing vs One-time stories */
+      .bi-section-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--r-ink-2);
+        margin: 0 0 8px 2px;
+        padding: 5px 0;
+        line-height: 1;
+      }
+      .bi-section-eyebrow::before {
+        content: "";
+        width: 18px; height: 2px;
+        background: var(--r-blue);
+        border-radius: 1px;
+        flex-shrink: 0;
+      }
+      .bi-section-eyebrow.is-cycle::before { background: #B45309; }
+      .bi-section-eyebrow.is-compound::before { background: #047857; }
+      .bi-section-eyebrow.is-toggle {
+        background: none;
+        border: 0;
+        cursor: pointer;
+        font: inherit;
+        color: inherit;
+        letter-spacing: inherit;
+        text-transform: inherit;
+        text-align: left;
+        padding: 5px 10px 5px 0;
+        margin-left: 0;
+        width: fit-content;
+        border-radius: 6px;
+        transition: color 150ms, background 150ms;
+      }
+      .bi-section-eyebrow.is-toggle:hover {
+        color: var(--r-ink);
+        background: rgba(15, 23, 42, 0.04);
+      }
+      .bi-section-eyebrow.is-toggle:focus-visible {
+        outline: 2px solid var(--r-blue);
+        outline-offset: 2px;
+      }
+      .bi-section-chevron {
+        width: 13px;
+        height: 13px;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none;
+        transition: transform 200ms cubic-bezier(.2,.8,.2,1);
+        flex-shrink: 0;
+        opacity: 0.7;
+      }
+      .bi-section-eyebrow.is-toggle:hover .bi-section-chevron { opacity: 1; }
+      .bi-section-eyebrow.is-toggle[aria-expanded="false"] .bi-section-chevron {
+        transform: rotate(-90deg);
+      }
+      .bi-section-content.is-collapsed { display: none; }
+
+      /* Compounding-value card — stacks one-time + recurring across Year 1, 2, 3 */
+      .bi-compound {
+        background: #fff;
+        border: 1px solid var(--r-divider);
+        border-radius: 8px;
+        padding: 20px 24px;
+        box-shadow: var(--shadow-card);
+      }
+      .bi-compound-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 18px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--r-divider);
+        flex-wrap: wrap;
+      }
+      .bi-compound-head-main { min-width: 0; flex: 1 1 320px; }
+      .bi-compound-hero {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 0 0 4px;
+      }
+      .bi-compound-hero-num {
+        font-size: 40px;
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        color: #047857;
+        line-height: 1;
+      }
+      .bi-compound-hero-unit {
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: -0.005em;
+        color: #047857;
+        line-height: 1.2;
+      }
+      .bi-compound-sub { font-size: 13px; color: var(--r-ink-2); margin-top: 4px; line-height: 1.5; max-width: 540px; }
+      .bi-compound-sub b { color: var(--r-ink); font-weight: 700; }
+      .bi-compound-legend { display: inline-flex; align-items: center; gap: 14px; flex-shrink: 0; flex-wrap: wrap; }
+      .bi-compound-legend-item {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: 11px; font-weight: 600; color: var(--r-ink-2);
+      }
+      .bi-compound-legend-swatch { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+      .bi-compound-legend-swatch.is-onetime { background: #D97706; }
+      .bi-compound-legend-swatch.is-recurring { background: var(--r-blue); }
+      .bi-compound-inputs {
+        padding: 0 0 14px;
+        margin-bottom: 14px;
+        border-bottom: 1px dashed var(--r-divider);
+      }
+      .bi-compound-rows { display: flex; flex-direction: column; gap: 11px; }
+      .bi-compound-row {
+        display: grid;
+        grid-template-columns: 64px 1fr 160px;
+        gap: 14px;
+        align-items: center;
+      }
+      .bi-compound-row-label {
+        font-size: 13px; font-weight: 800; color: var(--r-ink);
+        letter-spacing: -0.01em;
+      }
+      .bi-compound-bar {
+        display: flex;
+        height: 30px;
+        background: var(--r-surface-3);
+        border-radius: 5px;
+        overflow: hidden;
+        align-items: stretch;
+      }
+      .bi-compound-seg {
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        font-size: 11px;
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+        white-space: nowrap;
+        overflow: hidden;
+        transition: width 800ms cubic-bezier(.2,.8,.2,1);
+        min-width: 0;
+        box-shadow: inset -1px 0 0 rgba(255,255,255,0.18);
+      }
+      .bi-compound-seg:last-child { box-shadow: none; }
+      .bi-compound-seg-onetime { background: #D97706; }
+      .bi-compound-seg-rec { background: var(--r-blue); }
+      .bi-compound-seg-rec.is-yr2 { background: #2563EB; }
+      .bi-compound-seg-rec.is-yr3 { background: #1D4ED8; }
+      .bi-compound-total {
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--r-ink);
+        letter-spacing: -0.02em;
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+        line-height: 1.05;
+      }
+      .bi-compound-total small {
+        display: block;
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--r-ink-2);
+        letter-spacing: normal;
+        margin-top: 3px;
+      }
+      .bi-compound-foot {
+        font-size: 12px;
+        color: var(--r-ink-2);
+        line-height: 1.55;
+        margin-top: 16px;
+        padding-top: 12px;
+        border-top: 1px solid var(--r-divider);
+      }
+      .bi-compound-foot b { color: var(--r-ink); font-weight: 700; }
+      .bi-compound-foot b:first-of-type { color: #047857; }
+
+      @media (max-height: 900px) {
+        #panel-roi .bi-compound { padding: 14px 18px !important; }
+        #panel-roi .bi-compound-hero-num { font-size: 32px !important; }
+        #panel-roi .bi-compound-hero-unit { font-size: 14px !important; }
+        #panel-roi .bi-compound-sub { font-size: 12px !important; }
+        #panel-roi .bi-compound-row { grid-template-columns: 56px 1fr 130px !important; gap: 10px !important; }
+        #panel-roi .bi-compound-bar { height: 24px !important; }
+        #panel-roi .bi-compound-seg { font-size: 10px !important; padding: 0 6px !important; }
+        #panel-roi .bi-compound-total { font-size: 16px !important; }
+        #panel-roi .bi-compound-total small { font-size: 9px !important; }
+        #panel-roi .bi-compound-foot { font-size: 11px !important; }
+      }
+      .bi-section-eyebrow.is-roi::before { background: #047857; }
+
+      /* Investment vs Return card — pays-for-itself summary */
+      .bi-roi {
+        background: #fff;
+        border: 1px solid var(--r-divider);
+        border-radius: 8px;
+        padding: 20px 24px;
+        box-shadow: var(--shadow-card);
+      }
+      .bi-roi-headline {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding-bottom: 16px;
+        margin-bottom: 16px;
+        border-bottom: 1px solid var(--r-divider);
+      }
+      .bi-roi-headline-eyebrow {
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--r-ink-2);
+      }
+      .bi-roi-headline-text {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--r-ink);
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+      }
+      .bi-roi-headline-text b {
+        color: #047857;
+        font-weight: 800;
+      }
+      .bi-roi-kpis {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      .bi-roi-kpi {
+        border-radius: 8px;
+        padding: 14px 16px;
+        border: 1px solid;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .bi-roi-kpi-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+      .bi-roi-kpi-value { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+      .bi-roi-kpi-sub { font-size: 11px; font-weight: 500; line-height: 1.35; margin-top: 2px; }
+      .bi-roi-kpi-invest { background: #F1F5F9; border-color: #CBD5E1; color: #334155; }
+      .bi-roi-kpi-invest .bi-roi-kpi-label, .bi-roi-kpi-invest .bi-roi-kpi-value { color: #334155; }
+      .bi-roi-kpi-invest .bi-roi-kpi-sub { color: #64748B; }
+      .bi-roi-kpi-year1 { background: #ECFDF5; border-color: #6EE7B7; color: #064E3B; }
+      .bi-roi-kpi-year1 .bi-roi-kpi-label, .bi-roi-kpi-year1 .bi-roi-kpi-value { color: #047857; }
+      .bi-roi-kpi-year1 .bi-roi-kpi-sub { color: #065F46; }
+      .bi-roi-kpi-3yr { background: #DBEAFE; border-color: #93C5FD; color: #1E3A8A; }
+      .bi-roi-kpi-3yr .bi-roi-kpi-label, .bi-roi-kpi-3yr .bi-roi-kpi-value { color: #1D4ED8; }
+      .bi-roi-kpi-3yr .bi-roi-kpi-sub { color: #1E40AF; }
+      .bi-roi-breakdown {
+        background: var(--r-surface-3);
+        border: 1px solid var(--r-divider);
+        border-radius: 6px;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+      }
+      .bi-roi-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 0;
+        font-size: 12px;
+        color: var(--r-ink-2);
+        gap: 12px;
+      }
+      .bi-roi-row b { color: var(--r-ink); font-weight: 700; }
+      .bi-roi-row.is-add { color: #065F46; }
+      .bi-roi-row.is-sub { color: #334155; }
+      .bi-roi-row.is-net {
+        border-top: 1px solid var(--r-divider);
+        padding-top: 10px;
+        margin-top: 4px;
+        font-weight: 700;
+        color: var(--r-ink);
+        font-size: 13px;
+      }
+      .bi-roi-row .is-positive { color: #047857; font-weight: 800; }
+      .bi-roi-row .is-negative { color: var(--r-red); font-weight: 800; }
+      .bi-roi-foot {
+        font-size: 10px;
+        color: var(--r-ink-2);
+        line-height: 1.5;
+        margin-top: 0;
+      }
+
+      @media (max-height: 900px) {
+        #panel-roi .bi-roi { padding: 14px 18px !important; }
+        #panel-roi .bi-roi-headline-text { font-size: 18px !important; }
+        #panel-roi .bi-roi-kpi { padding: 10px 14px !important; }
+        #panel-roi .bi-roi-kpi-value { font-size: 22px !important; }
+        #panel-roi .bi-roi-kpi-label { font-size: 9px !important; }
+        #panel-roi .bi-roi-kpi-sub { font-size: 10px !important; }
+        #panel-roi .bi-roi-row { font-size: 11px !important; }
+      }
+
+      /* Packaging cycle ROI card — field-test benchmark visualization */
+      .bi-pkg {
+        background: #fff;
+        border: 1px solid var(--r-divider);
+        border-radius: 8px;
+        padding: 20px 24px;
+        box-shadow: var(--shadow-card);
+      }
+      .bi-pkg-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--r-divider);
+        flex-wrap: wrap;
+      }
+      .bi-pkg-title { font-size: 15px; font-weight: 700; color: var(--r-ink); display: flex; align-items: center; gap: 8px; }
+      .bi-pkg-title .bi-pkg-badge {
+        font-size: 9px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+        background: var(--r-quote-bg); color: var(--r-blue);
+        padding: 3px 7px; border-radius: 999px;
+      }
+      .bi-pkg-sub { font-size: 12px; color: var(--r-ink-2); margin-top: 2px; line-height: 1.45; }
+
+      /* Inline editable inputs — surfaces the 3 levers your notes specified */
+      .bi-pkg-inputs {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 12px 0 14px;
+        margin-bottom: 12px;
+        border-bottom: 1px dashed var(--r-divider);
+      }
+      .bi-pkg-inputs-prompt {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--r-ink-2);
+        margin-right: 2px;
+      }
+      .bi-pkg-input-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--r-ink-2);
+        background: var(--r-surface-3);
+        border: 1px solid var(--r-divider);
+        border-radius: 999px;
+        padding: 5px 12px;
+        transition: border-color 150ms, box-shadow 150ms;
+      }
+      .bi-pkg-input-chip:focus-within {
+        border-color: var(--r-blue-bright);
+        box-shadow: 0 0 0 3px rgba(42,127,255,0.12);
+      }
+      .bi-pkg-input-chip input {
+        background: transparent;
+        border: 0;
+        outline: 0;
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--r-blue);
+        text-align: center;
+        appearance: textfield;
+        -moz-appearance: textfield;
+        min-width: 36px;
+        padding: 0;
+      }
+      .bi-pkg-input-chip input::-webkit-outer-spin-button,
+      .bi-pkg-input-chip input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+      .bi-pkg-input-chip input.is-wide { width: 64px; }
+      .bi-pkg-input-chip-label { font-weight: 600; }
+
+      /* Savings annotation — closes the visual gap between the two bars */
+      .bi-pkg-savings {
+        display: grid;
+        grid-template-columns: 110px 1fr;
+        gap: 14px;
+        align-items: center;
+        margin: 2px 0;
+      }
+      .bi-pkg-savings-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        color: #047857;
+        background: #ECFDF5;
+        border: 1px solid #6EE7B7;
+        border-radius: 999px;
+        padding: 3px 10px;
+        width: fit-content;
+      }
+      .bi-pkg-savings-tag svg { width: 12px; height: 12px; }
+      .bi-pkg-savings-tag b { font-weight: 800; }
+
+      .bi-pkg-bars { display: flex; flex-direction: column; gap: 10px; }
+      .bi-pkg-row { display: grid; grid-template-columns: 110px 1fr; gap: 14px; align-items: center; }
+      .bi-pkg-row-label {
+        font-size: 12px; font-weight: 700; color: var(--r-ink);
+        text-align: right; line-height: 1.25;
+      }
+      .bi-pkg-row-label small { display: block; font-weight: 500; font-size: 10px; color: var(--r-ink-2); margin-top: 2px; }
+      .bi-pkg-bar { position: relative; height: 28px; background: var(--r-surface-3); border-radius: 4px; overflow: hidden; }
+      .bi-pkg-bar-fill {
+        position: absolute; inset: 0 auto 0 0;
+        border-radius: 4px;
+        transition: width 800ms cubic-bezier(.2,.8,.2,1);
+      }
+      .bi-pkg-bar-fill.is-old { background: var(--r-red); }
+      .bi-pkg-bar-fill.is-new { background: var(--r-blue); }
+      .bi-pkg-bar-value {
+        position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+        font-size: 12px; font-weight: 800; color: #fff;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+        white-space: nowrap;
+      }
+      .bi-pkg-bar-value.is-outside { color: var(--r-ink); text-shadow: none; }
+      .bi-pkg-kpis {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 16px;
+      }
+      .bi-pkg-kpi {
+        border-radius: 8px;
+        padding: 14px 16px;
+        border: 1px solid;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .bi-pkg-kpi-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+      .bi-pkg-kpi-value { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+      .bi-pkg-kpi-value .bi-pkg-kpi-unit { font-size: 13px; font-weight: 600; margin-left: 4px; }
+      .bi-pkg-kpi-sub { font-size: 11px; font-weight: 500; line-height: 1.35; margin-top: 2px; }
+      .bi-pkg-kpi-hours { background: #DDE6FF; border-color: #A5B4FC; color: #1E1B96; }
+      .bi-pkg-kpi-hours .bi-pkg-kpi-label, .bi-pkg-kpi-hours .bi-pkg-kpi-value { color: var(--r-blue); }
+      .bi-pkg-kpi-hours .bi-pkg-kpi-sub { color: #312E81; }
+      .bi-pkg-kpi-mult { background: #ECFDF5; border-color: #6EE7B7; color: #064E3B; }
+      .bi-pkg-kpi-mult .bi-pkg-kpi-label, .bi-pkg-kpi-mult .bi-pkg-kpi-value { color: #047857; }
+      .bi-pkg-kpi-mult .bi-pkg-kpi-sub { color: #065F46; }
+      .bi-pkg-kpi-dollars { background: #FEF3C7; border-color: #FCD34D; color: #78350F; }
+      .bi-pkg-kpi-dollars .bi-pkg-kpi-label, .bi-pkg-kpi-dollars .bi-pkg-kpi-value { color: #B45309; }
+      .bi-pkg-kpi-dollars .bi-pkg-kpi-sub { color: #92400E; }
+      .bi-pkg-foot { font-size: 10px; color: var(--r-ink-2); margin-top: 10px; line-height: 1.45; }
+
+      /* Compact mode for short-viewport rules already used by panel-roi */
+      @media (max-height: 900px) {
+        #panel-roi .bi-pkg { padding: 14px 18px !important; }
+        #panel-roi .bi-pkg-head { margin-bottom: 10px !important; padding-bottom: 8px !important; }
+        #panel-roi .bi-pkg-title { font-size: 13px !important; }
+        #panel-roi .bi-pkg-sub { font-size: 11px !important; }
+        #panel-roi .bi-pkg-row { grid-template-columns: 100px 1fr !important; }
+        #panel-roi .bi-pkg-bar { height: 22px !important; }
+        #panel-roi .bi-pkg-bar-value { font-size: 11px !important; }
+        #panel-roi .bi-pkg-kpi { padding: 10px 14px !important; }
+        #panel-roi .bi-pkg-kpi-value { font-size: 22px !important; }
+        #panel-roi .bi-pkg-kpi-label { font-size: 9px !important; }
+        #panel-roi .bi-pkg-kpi-sub { font-size: 10px !important; }
+      }
+
       @media (max-width: 900px) {
-        .bi-hero { grid-template-columns: 1fr !important; padding: 20px !important; gap: 20px !important; }
-        .bi-hero-secondary { border-left: 0 !important; border-top: 1px solid rgba(255,255,255,0.2); padding-left: 0 !important; padding-top: 16px; flex-direction: row !important; flex-wrap: wrap; gap: 18px !important; }
-        .bi-hero-number { font-size: 52px !important; }
         .bi-input-row { flex-direction: column; align-items: stretch !important; }
         .bi-input-field { flex-wrap: wrap; }
         .bi-input-cta, .bi-input-advanced { width: 100%; justify-content: center; }
         .bi-assumptions-grid, .bi-assumptions-grid.four { grid-template-columns: repeat(2, 1fr) !important; }
-        .bi-bar-row { grid-template-columns: 1fr !important; gap: 6px !important; }
-        .bi-bar-value { text-align: left !important; }
-        .bi-reinvest-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        .bi-compare-row, .bi-compare-axis { grid-template-columns: 1fr !important; gap: 6px !important; }
+        .bi-compare-label { text-align: left !important; }
+        .bi-kpis { grid-template-columns: 1fr !important; }
         .bi-actionbar { flex-direction: column; align-items: stretch; }
         .bi-action-primary, .bi-action-secondary { width: 100%; justify-content: center; }
+        .bi-pkg-row, .bi-pkg-savings { grid-template-columns: 1fr !important; gap: 4px !important; }
+        .bi-pkg-row-label { text-align: left !important; }
+        .bi-pkg-kpis { grid-template-columns: 1fr !important; }
+        .bi-roi-kpis { grid-template-columns: 1fr !important; }
+        .bi-compound-row { grid-template-columns: 1fr !important; gap: 6px !important; }
+        .bi-compound-total { text-align: left !important; }
       }
       /* (Removed viewFadeIn — re-rendering during sub-animations caused the cards to flicker
          because the keyframe animation restarted on every render. Crisp swap is smoother.) */
@@ -4487,11 +4973,13 @@
         calcInputs: {
           users: 5000, endpoints: 6000, envs: 3, apps: 150, customApps: 30,
           monthlyTickets: 600, avgTicketMins: 18, pkgHours: 80, patchHours: 60,
-          openReqs: 0, delayedInitiatives: 0, regulated: false
+          openReqs: 0, delayedInitiatives: 0, regulated: false,
+          complexMixPct: 20, loadedRate: 95
         },
         calcScenario: 'expected',
         calcResult: null,
         showAssumptions: false,
+        collapsedSections: { compound: false },
         editingAssumptions: false,
         pdfCompanyInput: false,
         pdfCompanyName: '',
@@ -5286,6 +5774,11 @@
 
       function render(){
         const root=document.getElementById('app');
+        // Preserve focus + caret on an input/textarea across destructive re-renders so live editing doesn't lose its place.
+        const _focusEl = document.activeElement;
+        const _focusId = _focusEl && _focusEl.id && (_focusEl.tagName === 'INPUT' || _focusEl.tagName === 'TEXTAREA') ? _focusEl.id : null;
+        const _focusSelStart = _focusId ? _focusEl.selectionStart : null;
+        const _focusSelEnd   = _focusId ? _focusEl.selectionEnd   : null;
         root.innerHTML = `
           <header class="rs-appbar">
             <div class="rs-appbar-strip">
@@ -5330,6 +5823,17 @@
         `;
         if (window.lucide?.createIcons) { try { window.lucide.createIcons(); } catch {} }
         attachEvents();
+        if (_focusId) {
+          const el = document.getElementById(_focusId);
+          if (el && typeof el.focus === 'function') {
+            try {
+              el.focus({ preventScroll: true });
+              if (typeof el.setSelectionRange === 'function' && _focusSelStart != null) {
+                el.setSelectionRange(_focusSelStart, _focusSelEnd);
+              }
+            } catch {}
+          }
+        }
         if (STATE.activeTab === 'solution') { attachAccordionKeyboard(); }
         if (STATE.activeTab === 'roi') { updateROIOutputs(); }
         if (STATE.activeTab === 'problems') {
@@ -8701,10 +9205,42 @@
       }
 
       const ROI_ASSUMPTIONS = {
-        conservative: { ticketReduction: 0.20, pkgReduction: 0.35, patchReduction: 0.30, strategicRealloc: 0.40, fteHours: 1920, label: 'Conservative' },
-        expected:     { ticketReduction: 0.70, pkgReduction: 0.50, patchReduction: 0.45, strategicRealloc: 0.50, fteHours: 1920, label: 'Expected' },
-        high:         { ticketReduction: 0.90, pkgReduction: 0.65, patchReduction: 0.60, strategicRealloc: 0.70, fteHours: 1920, label: 'High' },
+        conservative: { ticketReduction: 0.20, pkgReduction: 0.35, patchReduction: 0.30, strategicRealloc: 0.40, fteHours: 1920, uxShare: 0.55, dashShare: 0.20, mtShare: 0.25, label: 'Conservative' },
+        expected:     { ticketReduction: 0.70, pkgReduction: 0.50, patchReduction: 0.45, strategicRealloc: 0.50, fteHours: 1920, uxShare: 0.55, dashShare: 0.20, mtShare: 0.25, label: 'Expected' },
+        high:         { ticketReduction: 0.90, pkgReduction: 0.65, patchReduction: 0.60, strategicRealloc: 0.70, fteHours: 1920, uxShare: 0.55, dashShare: 0.20, mtShare: 0.25, label: 'High' },
       };
+
+      // Field-test packaging benchmarks. AW: 3 standard apps in 38 min = 0.21 hrs each; 3.0 hrs per complex app.
+      // Traditional: 27 hrs total − 14 hrs (complex) = 13 hrs across 3 standard apps = 4.33 hrs each; 14.0 hrs per complex.
+      const PACKAGING_BENCHMARKS = {
+        awStdHrs: 0.21,
+        awComplexHrs: 3.0,
+        tradStdHrs: 4.33,
+        tradComplexHrs: 14.0
+      };
+
+      // Application Workspace pricing — graduated per-user/month list pricing from the Recast partner estimator.
+      // Each tier applies only to the users in its band (not the whole quantity).
+      const AW_PRICING_TIERS = [
+        { max: 999,      rate: 4.00 },
+        { max: 4999,     rate: 3.50 },
+        { max: 9999,     rate: 3.00 },
+        { max: 24999,    rate: 2.50 },
+        { max: 49999,    rate: 2.00 },
+        { max: Infinity, rate: 1.50 }
+      ];
+      function awAnnualCost(users){
+        let rem = Math.max(250, Math.floor(users || 0));
+        let from = 0, monthly = 0;
+        for (const t of AW_PRICING_TIERS){
+          if (rem <= 0) break;
+          const chunk = Math.min(rem, t.max - from);
+          monthly += chunk * t.rate;
+          rem -= chunk;
+          from = t.max;
+        }
+        return monthly * 12;
+      }
 
       function roiInput(id, icon, label, hint, placeholder, val, extra){
         return `<div><div class="text-[10px] font-semibold text-[#64748b] uppercase tracking-wide mb-1 flex items-center gap-1.5"><i data-lucide="${icon}" class="w-3 h-3 text-[#0070F3]"></i> ${label}</div><div class="text-[10px] text-[#94a3b8] mb-1.5">${hint}</div><div class="input-field"><input type="${extra === 'bool' ? 'hidden' : 'number'}" id="${id}" placeholder="${placeholder}" value="${val}" class="focus-ring" ${extra || ''}>${extra === 'bool' ? `<div class="flex gap-2"><button type="button" data-action="toggle-regulated" data-val="true" class="px-3 py-1.5 text-xs rounded-lg border ${STATE.calcInputs.regulated ? 'bg-[#0070F3] text-white border-[#0070F3]' : 'bg-white text-slate-500 border-slate-200'}">Yes</button><button type="button" data-action="toggle-regulated" data-val="false" class="px-3 py-1.5 text-xs rounded-lg border ${!STATE.calcInputs.regulated ? 'bg-[#0070F3] text-white border-[#0070F3]' : 'bg-white text-slate-500 border-slate-200'}">No</button></div>` : ''}</div></div>`;
@@ -8936,12 +9472,80 @@
         doc.setFont('Helvetica','normal'); doc.setFontSize(8.5); setC(MG);
         doc.text('AI & Copilot rollouts  \u00b7  Cloud migrations  \u00b7  Compliance & security  \u00b7  Automation & self-service  \u00b7  Pilot programs', ML + CW/2, y + 4, { align: 'center' });
         y += 18;
-        setD([230,230,236]); doc.setLineWidth(1); doc.rect(ML, y, CW, 24, 'S');
-        doc.setFont('Helvetica','bold'); doc.setFontSize(10.5); setC(GR);
-        doc.text('Annual capacity value: ' + fmtDollars(r.totalRecoveredAnnual), ML + 12, y + 15);
-        doc.setFont('Helvetica','normal'); doc.setFontSize(9); setC(RR);
-        doc.text('Monthly cost of waiting: ' + fmtDollars(r.monthlyCostOfWaiting), W - MR - 12, y + 15, { align: 'right' });
-        y += 36;
+        // ── INVESTMENT VS RETURN — the financial bottom line ──
+        y = secBarFull(y, 'INVESTMENT VS RETURN — WHY IT PAYS OFF');
+        y += 4;
+        const roiH = 46;
+        const roiKpiW = (CW - 8) / 3;
+        const yr1RoiNet = r.year1Net || 0;
+        const paybackM  = r.paybackMonths || 0;
+        const paybackText = paybackM <= 0 ? 'Immediate'
+          : paybackM < 1 ? 'Under a month'
+          : paybackM.toFixed(1) + ' months';
+        const roiKpis = [
+          { label: 'ANNUAL INVESTMENT', val: fmtDollars(r.awAnnualInvestment || 0), sub: num(ci.users) + ' users · list pricing', bg: [241,245,249], fg: [51,65,85], sfg: [100,116,139] },
+          { label: 'YEAR 1 NET BENEFIT', val: (yr1RoiNet >= 0 ? '+' : '−') + fmtDollars(Math.abs(yr1RoiNet)), sub: (r.year1ROIMultiple || 0).toFixed(1) + '× return on investment', bg: [236,253,245], fg: [4,120,87], sfg: [6,95,70] },
+          { label: 'PAYBACK PERIOD', val: paybackText, sub: 'Then it keeps returning value', bg: [219,234,254], fg: [29,78,216], sfg: [30,64,175] },
+        ];
+        roiKpis.forEach((k, i) => {
+          const kx = ML + (roiKpiW + 4) * i;
+          setF(k.bg); doc.rect(kx, y, roiKpiW, roiH, 'F');
+          doc.setFont('Helvetica','bold'); doc.setFontSize(6.5); setC(k.sfg);
+          doc.text(k.label, kx + 9, y + 11);
+          doc.setFont('Helvetica','bold'); doc.setFontSize(14); setC(k.fg);
+          doc.text(k.val, kx + 9, y + 28);
+          doc.setFont('Helvetica','normal'); doc.setFontSize(7); setC(k.sfg);
+          doc.text(k.sub, kx + 9, y + 40);
+        });
+        y += roiH + 5;
+        doc.setFont('Helvetica','italic'); doc.setFontSize(7.5); setC(MG);
+        doc.text('Year 1 value: ' + fmtDollars(r.year1Value || 0) + ' (' + fmtDollars(r.recurringAnnualValue || 0) + ' recurring + ' + fmtDollars(r.oneTimePackagingValue || 0) + ' one-time packaging) vs ' + fmtDollars(r.awAnnualInvestment || 0) + ' subscription. 3-year net: ' + (r.threeYearNet >= 0 ? '+' : '−') + fmtDollars(Math.abs(r.threeYearNet || 0)) + '.', ML, y + 4);
+        y += 14;
+
+        // \u2500\u2500 PACKAGING CYCLE ROI \u2014 field-test benchmarks \u2500\u2500
+        y = secBarFull(y, 'PACKAGING CYCLE ROI \u2014 ONE-TIME CATALOG VALUE');
+        y += 4;
+        const pkgScale = Math.max(r.tradCycleHours || 0, r.awCycleHours || 0, 1);
+        const pkgBarX = ML + 90, pkgBarW = CW - 240, pkgBarH = 12, pkgRowH = 17;
+        // Traditional bar
+        doc.setFont('Helvetica','bold'); doc.setFontSize(8); setC(DT); doc.text('Traditional', ML, y + 8);
+        setF([230,230,236]); doc.rect(pkgBarX, y + 2, pkgBarW, pkgBarH, 'F');
+        setF(RR); doc.rect(pkgBarX, y + 2, pkgBarW * ((r.tradCycleHours || 0) / pkgScale), pkgBarH, 'F');
+        doc.setFont('Helvetica','bold'); doc.setFontSize(8.5); setC(RR);
+        doc.text(num(Math.round(r.tradCycleHours || 0)) + ' hrs', W - MR, y + 8, { align: 'right' });
+        y += pkgRowH;
+        // AW bar
+        doc.setFont('Helvetica','bold'); doc.setFontSize(8); setC(DT); doc.text('App Workspace', ML, y + 8);
+        setF([230,230,236]); doc.rect(pkgBarX, y + 2, pkgBarW, pkgBarH, 'F');
+        setF(PB); doc.rect(pkgBarX, y + 2, pkgBarW * ((r.awCycleHours || 0) / pkgScale), pkgBarH, 'F');
+        doc.setFont('Helvetica','bold'); doc.setFontSize(8.5); setC(PB);
+        doc.text(num(Math.round(r.awCycleHours || 0)) + ' hrs', W - MR, y + 8, { align: 'right' });
+        y += pkgRowH + 4;
+        // KPI strip
+        const kpiH = 28, kpiW = (CW - 8) / 3;
+        const kpis = [
+          { label: 'Hrs saved', val: num(Math.round(r.cycleHoursSaved || 0)), unit: 'hrs', col: PB },
+          { label: 'Time multiple', val: (r.cycleTimeMultiple || 0).toFixed(1), unit: '\u00d7 faster', col: GR },
+          { label: 'Capacity reclaimed', val: ((r.cycleHoursSaved || 0) / 160).toFixed(1), unit: 'engineer-months', col: GR }
+        ];
+        kpis.forEach((k, i) => {
+          const kx = ML + (kpiW + 4) * i;
+          setF([245,247,252]); setD([225,228,235]); doc.setLineWidth(0.5); doc.rect(kx, y, kpiW, kpiH, 'FD');
+          doc.setFont('Helvetica','normal'); doc.setFontSize(6.5); setC(MG);
+          doc.text(k.label.toUpperCase(), kx + 8, y + 9);
+          doc.setFont('Helvetica','bold'); doc.setFontSize(13); setC(k.col);
+          doc.text(k.val, kx + 8, y + 22);
+          if (k.unit) {
+            const vw = doc.getTextWidth(k.val);
+            doc.setFont('Helvetica','normal'); doc.setFontSize(7.5); setC(MG);
+            doc.text(k.unit, kx + 8 + vw + 3, y + 22);
+          }
+        });
+        y += kpiH + 4;
+        doc.setFont('Helvetica','italic'); doc.setFontSize(7); setC(MG);
+        doc.text(num(ci.apps) + ' apps at ' + Math.round(100 - (ci.complexMixPct ?? 20)) + '/' + Math.round(ci.complexMixPct ?? 20) + ' standard/complex \u00b7 loaded at ' + fmtDollars(ci.loadedRate || 95) + '/hr \u00b7 field-test benchmarks: AW ' + PACKAGING_BENCHMARKS.awStdHrs + '/' + PACKAGING_BENCHMARKS.awComplexHrs + ' hrs vs Traditional ' + PACKAGING_BENCHMARKS.tradStdHrs + '/' + PACKAGING_BENCHMARKS.tradComplexHrs + ' hrs per std/complex app.', ML, y + 4);
+        y += 10;
+
         setD(CO); doc.setLineWidth(0.5); doc.line(ML, y, ML + CW * 0.3, y);
         y += 8;
         doc.setFont('Helvetica','normal'); doc.setFontSize(7.5); setC(MG);
@@ -9007,6 +9611,24 @@
                     <label class="bi-rate"><span>Patching reduction</span><input type="number" id="asn-patch" min="0" max="100" value="${Math.round(a.patchReduction * 100)}"></label>
                     <label class="bi-rate"><span>Strategic reallocation</span><input type="number" id="asn-strategic" min="0" max="100" value="${Math.round(a.strategicRealloc * 100)}"></label>
                   </div>
+                  <div class="bi-assumptions-title" style="margin-top:16px">Support-hours allocation (%) — drives UX / Dashboarding / Multi-tenant bars</div>
+                  <div class="bi-assumptions-grid">
+                    <label class="bi-rate"><span>User experience</span><input type="number" id="asn-ux" min="0" max="100" value="${Math.round(a.uxShare * 100)}"></label>
+                    <label class="bi-rate"><span>Dashboarding</span><input type="number" id="asn-dash" min="0" max="100" value="${Math.round(a.dashShare * 100)}"></label>
+                    <label class="bi-rate"><span>Multi-tenant</span><input type="number" id="asn-mt" min="0" max="100" value="${Math.round(a.mtShare * 100)}"></label>
+                  </div>
+                  <div class="bi-assumptions-title" style="margin-top:16px">Packaging cycle inputs — drives Packaging cycle ROI card</div>
+                  <div class="bi-assumptions-grid">
+                    <label class="bi-rate"><span>Complex-app mix (%)</span><input type="number" id="asn-complex-mix" min="0" max="100" value="${Math.round(ci.complexMixPct ?? 20)}"></label>
+                    <label class="bi-rate"><span>Loaded engineer rate ($/hr)</span><input type="number" id="asn-loaded-rate" min="0" value="${ci.loadedRate || 95}"></label>
+                  </div>
+                  <div class="bi-assumptions-title" style="margin-top:16px">Per-app benchmarks (hrs) — defaults from Recast field test</div>
+                  <div class="bi-assumptions-grid four">
+                    <label class="bi-rate"><span>AW · standard app</span><input type="number" id="asn-aw-std" min="0" step="0.01" value="${PACKAGING_BENCHMARKS.awStdHrs}"></label>
+                    <label class="bi-rate"><span>AW · complex app</span><input type="number" id="asn-aw-cmp" min="0" step="0.1" value="${PACKAGING_BENCHMARKS.awComplexHrs}"></label>
+                    <label class="bi-rate"><span>Traditional · standard</span><input type="number" id="asn-trad-std" min="0" step="0.01" value="${PACKAGING_BENCHMARKS.tradStdHrs}"></label>
+                    <label class="bi-rate"><span>Traditional · complex</span><input type="number" id="asn-trad-cmp" min="0" step="0.1" value="${PACKAGING_BENCHMARKS.tradComplexHrs}"></label>
+                  </div>
                   <div class="bi-assumptions-actions">
                     <button type="button" data-action="save-assumptions" class="bi-assumptions-save">Save &amp; Recalculate</button>
                     <button type="button" data-action="toggle-assumptions" class="bi-assumptions-close">Close</button>
@@ -9068,96 +9690,211 @@
         const r = STATE.calcResult;
         const a = ROI_ASSUMPTIONS[STATE.calcScenario];
         const ci = STATE.calcInputs;
-        const supportPct = Math.round(a.ticketReduction * 100);
-        const pkgPct = Math.round(a.pkgReduction * 100);
-        const patchPct = Math.round(a.patchReduction * 100);
-        const total = r.ticketHoursReturned + r.pkgHoursReturned + r.patchHoursReturned;
-        const ticketShare = total ? Math.round((r.ticketHoursReturned / total) * 100) : 0;
-        const pkgShare = total ? Math.round((r.pkgHoursReturned / total) * 100) : 0;
-        const patchShare = 100 - ticketShare - pkgShare;
+
+        // ── 5-bar distribution, derived entirely from the calculator's truth ──
+        // Catalog vs custom share of packaging + patching, driven by inputs.
+        const apps = Math.max(1, ci.apps);
+        const customShare = Math.min(1, ci.customApps / apps);
+        const catalogShare = 1 - customShare;
+        // Support hours split across UX, dashboarding, multi-tenant — from assumptions.
+        // Normalized so the three always sum to 1, even if the user enters off-totals.
+        const rawSum = (a.uxShare + a.dashShare + a.mtShare) || 1;
+        const uxShare = a.uxShare / rawSum;
+        const dashShare = a.dashShare / rawSum;
+        const mtShare = a.mtShare / rawSum;
+
+        const pkgPatchOld = ci.pkgHours + ci.patchHours;
+        const pkgPatchRet = r.pkgHoursReturned + r.patchHoursReturned;
+        const sup = r.currentSupportHours;
+        const supRet = r.ticketHoursReturned;
+
+        const bars = [
+          { label: 'Managed apps',     old: pkgPatchOld * catalogShare, ret: pkgPatchRet * catalogShare },
+          { label: 'Custom packaging', old: pkgPatchOld * customShare,  ret: pkgPatchRet * customShare  },
+          { label: 'User experience',  old: sup * uxShare,              ret: supRet * uxShare           },
+          { label: 'Dashboarding',     old: sup * dashShare,            ret: supRet * dashShare         },
+          { label: 'Multi-tenant',     old: sup * mtShare,              ret: supRet * mtShare           },
+        ].map(b => {
+          const oldR = Math.round(b.old);
+          const retR = Math.round(b.ret);
+          return { label: b.label, old: oldR, neww: Math.max(0, oldR - retR) };
+        });
+
+        const oldTotal = bars.reduce((s,b) => s + b.old,  0);
+        const newTotal = bars.reduce((s,b) => s + b.neww, 0);
+        const totalReturned = Math.max(0, oldTotal - newTotal);
+        const pctReduction = oldTotal ? Math.round((totalReturned / oldTotal) * 100) : 0;
+        const ftesAbsorbed = oldTotal ? (oldTotal * 12 / a.fteHours).toFixed(1) : '0.0';
+
+        // Nice axis ceiling for the chart (round up to a clean tick).
+        const axisMax = Math.max(...bars.map(b => b.old), 10);
+        const niceCeil = (n) => {
+          const tiers = [10, 20, 50, 100, 150, 200, 300, 500, 1000];
+          for (const t of tiers) { if (n <= t) return t; }
+          return Math.ceil(n / 500) * 500;
+        };
+        const axisCeil = niceCeil(axisMax);
+        const tickCount = axisCeil <= 50 ? 6 : (axisCeil <= 150 ? 8 : 6);
+        const tickStep = axisCeil / (tickCount - 1);
+        const ticks = Array.from({length: tickCount}, (_, i) => Math.round(i * tickStep));
+
+        const barRow = (b) => `
+          <div class="bi-compare-row">
+            <div class="bi-compare-label">${b.label}</div>
+            <div class="bi-compare-pair">
+              <div class="bi-compare-bar">
+                <div class="bi-compare-bar-fill is-old" style="width:${(b.old / axisCeil) * 100}%"></div>
+                <div class="bi-compare-bar-value">${num(b.old)} hrs</div>
+              </div>
+              <div class="bi-compare-bar">
+                <div class="bi-compare-bar-fill is-new" style="width:${(b.neww / axisCeil) * 100}%"></div>
+                <div class="bi-compare-bar-value">${num(b.neww)} hrs</div>
+              </div>
+            </div>
+          </div>`;
+
+        // ── Packaging cycle ROI (field-test benchmarks) ──
+        const awCycle    = r.awCycleHours      ?? 0;
+        const tradCycle  = r.tradCycleHours    ?? 0;
+        const hrsSaved   = r.cycleHoursSaved   ?? 0;
+        const timeMult   = r.cycleTimeMultiple ?? 0;
+        const $saved     = r.cycleDollarsSaved ?? 0;
+        const hasCycle   = awCycle > 0 && tradCycle > 0;
+        const cycleScale = Math.max(tradCycle, awCycle, 1);
+        const awPct      = (awCycle   / cycleScale) * 100;
+        const tradPct    = (tradCycle / cycleScale) * 100;
+        const tradVal    = `${num(Math.round(tradCycle))} hrs`;
+        const awVal      = `${num(Math.round(awCycle))} hrs`;
+        // If the bar is too short to fit text inside, render the value outside.
+        const tradOutside = tradPct < 18;
+        const awOutside   = awPct < 18;
+        const cycleStdApps = r.cycleStandardApps ?? 0;
+        const cycleCmpApps = r.cycleComplexApps  ?? 0;
+        const pctLess      = hasCycle ? Math.round((1 - awCycle / tradCycle) * 100) : 0;
+        const timeMultStr  = hasCycle ? timeMult.toFixed(1) : '—';
+        const timeMultUnit = hasCycle ? '× faster' : '';
+
         return `
-          <!-- HERO METRIC — one clear takeaway -->
-          <div class="bi-hero dash-animate">
-            <div class="bi-hero-primary">
-              <div class="bi-hero-eyebrow">Estimated annual impact for ${num(ci.users)} employees</div>
-              <div class="bi-hero-number">${num(r.totalHoursYear)}<span class="bi-hero-unit">hours</span></div>
-              <div class="bi-hero-sub">returned to your team every year — the equivalent of <strong>${r.fteCapacity} full-time engineers</strong> freed from routine work.</div>
-            </div>
-            <div class="bi-hero-secondary">
-              <div class="bi-hero-stat">
-                <div class="bi-hero-stat-value">${fmtDollars(r.totalRecoveredAnnual)}</div>
-                <div class="bi-hero-stat-label">Annual capacity value</div>
+          <!-- ONGOING IMPACT — monthly recurring -->
+          <div class="bi-section-eyebrow">Ongoing &mdash; hours per month</div>
+          <div class="bi-compare dash-animate">
+            <div class="bi-compare-head">
+              <div>
+                <div class="bi-compare-title">Recurring operational hours, before and after</div>
+                <div class="bi-compare-sub">Modeled for ${num(ci.users)} employees, ${num(ci.apps)} active apps, ${ci.envs} environment${ci.envs===1?'':'s'} · ${a.label} scenario</div>
               </div>
-              <div class="bi-hero-stat">
-                <div class="bi-hero-stat-value">4–6 wk</div>
-                <div class="bi-hero-stat-label">Time to first value</div>
-              </div>
-              <div class="bi-hero-stat">
-                <div class="bi-hero-stat-value">${num(r.strategicHours)} h</div>
-                <div class="bi-hero-stat-label">Reinvested in strategy</div>
+              <div class="bi-compare-legend">
+                <span class="bi-compare-legend-item"><span class="bi-compare-legend-swatch" style="background:var(--r-red)"></span>Old way</span>
+                <span class="bi-compare-legend-item"><span class="bi-compare-legend-swatch" style="background:var(--r-blue)"></span>With Application Workspace</span>
               </div>
             </div>
-          </div>
-
-          <!-- BREAKDOWN — where the hours come from -->
-          <div class="bi-breakdown dash-animate">
-            <div class="bi-section-head">
-              <div class="bi-section-title">Where the hours come from</div>
-              <div class="bi-section-sub">Monthly hours returned, by workflow</div>
+            <div class="bi-compare-body">
+              ${bars.map(barRow).join('')}
             </div>
-            <div class="bi-bars">
-              <div class="bi-bar-row">
-                <div class="bi-bar-label">
-                  <span class="bi-bar-dot" style="background:#10B981"></span>
-                  <span class="bi-bar-name">Support &amp; tickets</span>
-                  <span class="bi-bar-note">${num(r.ticketsAvoided)} tickets avoided/mo · ${supportPct}% reduction</span>
-                </div>
-                <div class="bi-bar-track">
-                  <div class="bi-bar-fill" style="width:${supportPct}%;background:#10B981"></div>
-                </div>
-                <div class="bi-bar-value">${num(r.ticketHoursReturned)} <span>hrs/mo</span></div>
+            <div class="bi-compare-axis">
+              <div></div>
+              <div class="bi-compare-axis-track">
+                ${ticks.map((t, i) => `<span class="bi-compare-axis-tick" style="left:${(i / (tickCount - 1)) * 100}%">${t} hrs</span>`).join('')}
               </div>
-              <div class="bi-bar-row">
-                <div class="bi-bar-label">
-                  <span class="bi-bar-dot" style="background:var(--r-blue-bright)"></span>
-                  <span class="bi-bar-name">Packaging</span>
-                  <span class="bi-bar-note">Across ${ci.envs} environments · ${pkgPct}% reduction</span>
-                </div>
-                <div class="bi-bar-track">
-                  <div class="bi-bar-fill" style="width:${pkgPct}%;background:var(--r-blue-bright)"></div>
-                </div>
-                <div class="bi-bar-value">${num(r.pkgHoursReturned)} <span>hrs/mo</span></div>
-              </div>
-              <div class="bi-bar-row">
-                <div class="bi-bar-label">
-                  <span class="bi-bar-dot" style="background:var(--r-blue)"></span>
-                  <span class="bi-bar-name">Patching</span>
-                  <span class="bi-bar-note">Staged pipeline replaces rebuilds · ${patchPct}% reduction</span>
-                </div>
-                <div class="bi-bar-track">
-                  <div class="bi-bar-fill" style="width:${patchPct}%;background:var(--r-blue)"></div>
-                </div>
-                <div class="bi-bar-value">${num(r.patchHoursReturned)} <span>hrs/mo</span></div>
-              </div>
+            </div>
+            <div class="bi-compare-summary">
+              <span><b>${num(oldTotal)}</b> hrs/mo today &rarr; <b>${num(newTotal)}</b> hrs/mo with App Workspace</span>
+              <span class="is-positive">${pctReduction}% reduction &middot; <b>${num(totalReturned)} hrs/mo</b> returned to strategy</span>
             </div>
           </div>
 
-          <!-- WHERE IT GOES — strategic reallocation -->
-          <div class="bi-reinvest dash-animate">
-            <div class="bi-section-head">
-              <div class="bi-section-title">Where the recovered capacity goes</div>
-              <div class="bi-section-sub">${num(r.strategicHours)} hours / year · ${r.fteCapacity} FTE reallocated, not eliminated</div>
+          ${(() => {
+            const oneTimeHrs = Math.round(hasCycle ? hrsSaved : 0);
+            const recurHrs   = Math.round(r.totalHoursYear || 0);
+            if ((oneTimeHrs + recurHrs) <= 0) return '';
+            const yr1Hrs = oneTimeHrs + recurHrs;
+            const yr2Hrs = oneTimeHrs + recurHrs * 2;
+            const yr3Hrs = oneTimeHrs + recurHrs * 3;
+            const max = Math.max(yr3Hrs, 1);
+            const otPct  = (oneTimeHrs / max) * 100;
+            const recPct = (recurHrs   / max) * 100;
+            const labelInside = (pct, value, unit) => pct >= 7 ? `+${num(value)} ${unit}` : '';
+            const engYears = yr3Hrs / 1920;
+            const useYears = engYears >= 1;
+            const heroNum  = useYears ? engYears.toFixed(1) : (engYears * 12).toFixed(1);
+            const heroUnit = useYears ? 'engineer-years over 3 years' : 'engineer-months over 3 years';
+            const envCount = ci.envs || 1;
+            const ticketsAnnual = Math.round((r.ticketsAvoided || 0) * 12);
+            const ticketsTotal  = ticketsAnnual * 3;
+            const tixReductionPct = Math.round(a.ticketReduction * 100);
+            const engMonths = hasCycle ? (hrsSaved / 160).toFixed(1) : '0';
+            return `
+          <!-- COMPOUNDING OPERATIONAL CAPACITY OVER 3 YEARS -->
+          <button class="bi-section-eyebrow is-compound is-toggle" type="button" data-action="toggle-section" data-section="compound" aria-expanded="${STATE.collapsedSections.compound ? 'false' : 'true'}" aria-controls="section-compound">
+            <span class="bi-section-eyebrow-label">Year 1 &rarr; Year 3 &mdash; how your operations compound</span>
+            <svg class="bi-section-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="bi-section-content${STATE.collapsedSections.compound ? ' is-collapsed' : ''}" id="section-compound">
+          <div class="bi-compound dash-animate">
+            <div class="bi-compound-head">
+              <div class="bi-compound-head-main">
+                <div class="bi-compound-hero">
+                  <span class="bi-compound-hero-num">${heroNum}</span>
+                  <span class="bi-compound-hero-unit">${heroUnit}</span>
+                </div>
+                <div class="bi-compound-sub">Team capacity returned across <b>${envCount} environment${envCount===1?'':'s'}</b> &mdash; handle more apps and platforms with the same headcount.</div>
+              </div>
+              <div class="bi-compound-legend">
+                <span class="bi-compound-legend-item"><span class="bi-compound-legend-swatch is-onetime"></span>One-time packaging onboarding</span>
+                <span class="bi-compound-legend-item"><span class="bi-compound-legend-swatch is-recurring"></span>Recurring annual capacity</span>
+              </div>
             </div>
-            <div class="bi-reinvest-grid">
-              ${[
-                {icon:'sparkles', label:'AI &amp; Copilot rollouts'},
-                {icon:'cloud', label:'Cloud &amp; endpoint migrations'},
-                {icon:'shield-check', label:'Compliance &amp; security posture'},
-                {icon:'zap', label:'Automation &amp; self-service'},
-                {icon:'flag', label:'Pilot programs &amp; modernization'}
-              ].map(t => `<div class="bi-reinvest-tile"><i data-lucide="${t.icon}"></i><span>${t.label}</span></div>`).join('')}
+            <div class="bi-pkg-inputs bi-compound-inputs">
+              <span class="bi-pkg-inputs-prompt">Tune the one-time onboarding</span>
+              <label class="bi-pkg-input-chip" title="Total apps to onboard">
+                <input type="number" id="pkg-apps" min="0" step="1" value="${ci.apps}" class="is-wide" aria-label="Total apps to onboard">
+                <span class="bi-pkg-input-chip-label">apps</span>
+              </label>
+              <label class="bi-pkg-input-chip" title="Share of apps that are complex (rest are standard)">
+                <input type="number" id="pkg-mix" min="0" max="100" step="1" value="${Math.round(ci.complexMixPct ?? 20)}" aria-label="Percent complex apps">
+                <span class="bi-pkg-input-chip-label">% complex &middot; ${Math.round(100 - (ci.complexMixPct ?? 20))}% standard</span>
+              </label>
+              <label class="bi-pkg-input-chip" title="Loaded engineer hourly rate">
+                <span class="bi-pkg-input-chip-label">$</span>
+                <input type="number" id="pkg-rate" min="0" step="1" value="${ci.loadedRate || 95}" aria-label="Loaded engineer hourly rate">
+                <span class="bi-pkg-input-chip-label">/hr loaded</span>
+              </label>
+            </div>
+            <div class="bi-compound-rows">
+              <div class="bi-compound-row">
+                <div class="bi-compound-row-label">Year 1</div>
+                <div class="bi-compound-bar">
+                  <div class="bi-compound-seg bi-compound-seg-onetime" style="width:${otPct}%">${labelInside(otPct, oneTimeHrs, 'hrs')}</div>
+                  <div class="bi-compound-seg bi-compound-seg-rec"     style="width:${recPct}%">${labelInside(recPct, recurHrs, 'hrs')}</div>
+                </div>
+                <div class="bi-compound-total">${num(yr1Hrs)} hrs<small>reclaimed cumulatively</small></div>
+              </div>
+              <div class="bi-compound-row">
+                <div class="bi-compound-row-label">Year 2</div>
+                <div class="bi-compound-bar">
+                  <div class="bi-compound-seg bi-compound-seg-onetime" style="width:${otPct}%"></div>
+                  <div class="bi-compound-seg bi-compound-seg-rec"     style="width:${recPct}%"></div>
+                  <div class="bi-compound-seg bi-compound-seg-rec is-yr2" style="width:${recPct}%">${labelInside(recPct, recurHrs, 'hrs')}</div>
+                </div>
+                <div class="bi-compound-total">${num(yr2Hrs)} hrs<small>reclaimed cumulatively</small></div>
+              </div>
+              <div class="bi-compound-row">
+                <div class="bi-compound-row-label">Year 3</div>
+                <div class="bi-compound-bar">
+                  <div class="bi-compound-seg bi-compound-seg-onetime" style="width:${otPct}%"></div>
+                  <div class="bi-compound-seg bi-compound-seg-rec"     style="width:${recPct}%"></div>
+                  <div class="bi-compound-seg bi-compound-seg-rec is-yr2" style="width:${recPct}%"></div>
+                  <div class="bi-compound-seg bi-compound-seg-rec is-yr3" style="width:${recPct}%">${labelInside(recPct, recurHrs, 'hrs')}</div>
+                </div>
+                <div class="bi-compound-total">${num(yr3Hrs)} hrs<small>reclaimed cumulatively</small></div>
+              </div>
+            </div>
+            <div class="bi-compound-foot">
+              <b>+ ${num(ticketsTotal)} end-user tickets prevented</b> over 3 years &mdash; <b>${tixReductionPct}% fewer helpdesk calls</b>. Users self-serve their apps across all ${envCount} environment${envCount===1?'':'s'} instead of waiting for IT, and the one-time packaging onboarding (&asymp; <b>${engMonths} engineer-months</b>) stays returned forever.
             </div>
           </div>
+          </div>`;
+          })()}
         `;
       }
 
@@ -9185,7 +9922,43 @@
         const totalBurnAnnual = supportCostAnnual + engineeringCostAnnual + wasteCostAnnual;
         const totalRecoveredAnnual = Math.round((ticketHoursReturned * 90 + (pkgHoursReturned + patchHoursReturned) * 120) * 12);
         const monthlyCostOfWaiting = Math.round(totalRecoveredAnnual / 12);
-        STATE.calcResult = { currentSupportHours, ticketHoursReturned, ticketsAvoided, pkgHoursReturned, patchHoursReturned, totalHoursMonth, totalHoursYear, fteCapacity, strategicHours, reqsDeferred, delayedInitiatives, supportCostAnnual, engineeringCostAnnual, wasteCostAnnual, totalBurnAnnual, totalRecoveredAnnual, monthlyCostOfWaiting };
+
+        // ── Packaging cycle ROI (field-test model) ──
+        // Standard_Apps  = Total_Apps × (1 − complex%);   Complex_Apps = Total_Apps × complex%
+        // AW_Hours       = (Std × awStd) + (Complex × awComplex)
+        // Trad_Hours     = (Std × tradStd) + (Complex × tradComplex)
+        // Hours_Saved    = Trad − AW;   Time_Multiple = Trad ÷ AW;   $_Saved = Hours_Saved × loadedRate
+        const pb = PACKAGING_BENCHMARKS;
+        const complexMix = Math.max(0, Math.min(1, (ci.complexMixPct ?? 20) / 100));
+        const standardMix = 1 - complexMix;
+        const cycleStandardApps = Math.round(ci.apps * standardMix);
+        const cycleComplexApps  = Math.max(0, ci.apps - cycleStandardApps);
+        const awCycleHours      = (cycleStandardApps * pb.awStdHrs)   + (cycleComplexApps * pb.awComplexHrs);
+        const tradCycleHours    = (cycleStandardApps * pb.tradStdHrs) + (cycleComplexApps * pb.tradComplexHrs);
+        const cycleHoursSaved   = Math.max(0, tradCycleHours - awCycleHours);
+        const cycleTimeMultiple = awCycleHours > 0 ? (tradCycleHours / awCycleHours) : 0;
+        const cycleDollarsSaved = Math.round(cycleHoursSaved * (ci.loadedRate || 95));
+
+        // ── Investment vs Return (full 3-year financial model) ──
+        // Investment is real list pricing; value is recurring annual savings + one-time packaging cycle savings.
+        // Payback nets the one-time packaging windfall against the first-year subscription, then divides by monthly recurring savings.
+        const awAnnualInvestment = awAnnualCost(ci.users);
+        const recurringAnnualValue = totalRecoveredAnnual;
+        const oneTimePackagingValue = cycleDollarsSaved;
+        const year1Value = recurringAnnualValue + oneTimePackagingValue;
+        const year1Net = year1Value - awAnnualInvestment;
+        const year1ROIMultiple = awAnnualInvestment > 0 ? (year1Value / awAnnualInvestment) : 0;
+        const recurringROIMultiple = awAnnualInvestment > 0 ? (recurringAnnualValue / awAnnualInvestment) : 0;
+        const netUpfrontCost = Math.max(0, awAnnualInvestment - oneTimePackagingValue);
+        const paybackMonths = recurringAnnualValue > 0
+          ? (netUpfrontCost / (recurringAnnualValue / 12))
+          : 0;
+        const threeYearValue = (recurringAnnualValue * 3) + oneTimePackagingValue;
+        const threeYearInvestment = awAnnualInvestment * 3;
+        const threeYearNet = threeYearValue - threeYearInvestment;
+        const awBlendedPerUserMonth = ci.users > 0 ? (awAnnualInvestment / 12 / ci.users) : 0;
+
+        STATE.calcResult = { currentSupportHours, ticketHoursReturned, ticketsAvoided, pkgHoursReturned, patchHoursReturned, totalHoursMonth, totalHoursYear, fteCapacity, strategicHours, reqsDeferred, delayedInitiatives, supportCostAnnual, engineeringCostAnnual, wasteCostAnnual, totalBurnAnnual, totalRecoveredAnnual, monthlyCostOfWaiting, cycleStandardApps, cycleComplexApps, awCycleHours, tradCycleHours, cycleHoursSaved, cycleTimeMultiple, cycleDollarsSaved, awAnnualInvestment, recurringAnnualValue, oneTimePackagingValue, year1Value, year1Net, year1ROIMultiple, recurringROIMultiple, paybackMonths, threeYearValue, threeYearInvestment, threeYearNet, awBlendedPerUserMonth };
       }
 
       const USER_ID = String(window.APP_USER_ID || "guest");
@@ -9545,10 +10318,30 @@
           if (action === 'expand-all') { Object.keys(STATE.openCards).forEach(k => STATE.openCards[k] = true); STATE.visitedCards = ['core','onboarding','trust']; render(); return; }
           if (action === 'calculate-impact') { calculateImpact(); render(); return; }
           if (action === 'toggle-assumptions') { STATE.showAssumptions = !STATE.showAssumptions; render(); return; }
+          if (action === 'toggle-section') {
+            const section = act.getAttribute('data-section');
+            if (section && STATE.collapsedSections.hasOwnProperty(section)) {
+              STATE.collapsedSections[section] = !STATE.collapsedSections[section];
+              render();
+            }
+            return;
+          }
           if (action === 'save-assumptions') {
             const sc = STATE.calcScenario; const clamp = (v) => Math.max(0, Math.min(100, cleanNum(v))) / 100;
             const t = document.getElementById('asn-ticket'); const p = document.getElementById('asn-pkg'); const pa = document.getElementById('asn-patch'); const s = document.getElementById('asn-strategic');
+            const ux = document.getElementById('asn-ux'); const dh = document.getElementById('asn-dash'); const mt = document.getElementById('asn-mt');
             if (t) ROI_ASSUMPTIONS[sc].ticketReduction = clamp(t.value); if (p) ROI_ASSUMPTIONS[sc].pkgReduction = clamp(p.value); if (pa) ROI_ASSUMPTIONS[sc].patchReduction = clamp(pa.value); if (s) ROI_ASSUMPTIONS[sc].strategicRealloc = clamp(s.value);
+            if (ux) ROI_ASSUMPTIONS[sc].uxShare = clamp(ux.value); if (dh) ROI_ASSUMPTIONS[sc].dashShare = clamp(dh.value); if (mt) ROI_ASSUMPTIONS[sc].mtShare = clamp(mt.value);
+            // Packaging cycle inputs + per-app benchmarks
+            const cmix = document.getElementById('asn-complex-mix'); const lrate = document.getElementById('asn-loaded-rate');
+            const awS = document.getElementById('asn-aw-std'); const awC = document.getElementById('asn-aw-cmp');
+            const trS = document.getElementById('asn-trad-std'); const trC = document.getElementById('asn-trad-cmp');
+            if (cmix)  STATE.calcInputs.complexMixPct = Math.max(0, Math.min(100, cleanNum(cmix.value)));
+            if (lrate) STATE.calcInputs.loadedRate    = Math.max(0, cleanNum(lrate.value));
+            if (awS)   PACKAGING_BENCHMARKS.awStdHrs      = Math.max(0, cleanNum(awS.value));
+            if (awC)   PACKAGING_BENCHMARKS.awComplexHrs  = Math.max(0, cleanNum(awC.value));
+            if (trS)   PACKAGING_BENCHMARKS.tradStdHrs    = Math.max(0, cleanNum(trS.value));
+            if (trC)   PACKAGING_BENCHMARKS.tradComplexHrs= Math.max(0, cleanNum(trC.value));
             calculateImpact(); STATE.showAssumptions = false; render(); return;
           }
           if (action === 'toggle-regulated') { STATE.calcInputs.regulated = act.getAttribute('data-val') === 'true'; render(); return; }
@@ -9702,6 +10495,12 @@
           if (e.target?.id === 'roi-patchhrs') { STATE.calcInputs.patchHours = cleanNum(e.target.value); return; }
           if (e.target?.id === 'roi-reqs') { STATE.calcInputs.openReqs = cleanNum(e.target.value); return; }
           if (e.target?.id === 'roi-initiatives') { STATE.calcInputs.delayedInitiatives = cleanNum(e.target.value); return; }
+          if (e.target?.id === 'asn-complex-mix') { STATE.calcInputs.complexMixPct = Math.max(0, Math.min(100, cleanNum(e.target.value))); return; }
+          if (e.target?.id === 'asn-loaded-rate') { STATE.calcInputs.loadedRate = Math.max(0, cleanNum(e.target.value)); return; }
+          // Inline packaging-cycle levers — live update + debounced re-render so the bars and KPIs follow keystrokes.
+          if (e.target?.id === 'pkg-apps') { STATE.calcInputs.apps = Math.max(0, cleanNum(e.target.value)); calculateImpact(); clearTimeout(_roiDebounce); _roiDebounce = setTimeout(() => render(), 500); return; }
+          if (e.target?.id === 'pkg-mix')  { STATE.calcInputs.complexMixPct = Math.max(0, Math.min(100, cleanNum(e.target.value))); calculateImpact(); clearTimeout(_roiDebounce); _roiDebounce = setTimeout(() => render(), 500); return; }
+          if (e.target?.id === 'pkg-rate') { STATE.calcInputs.loadedRate = Math.max(0, cleanNum(e.target.value)); calculateImpact(); clearTimeout(_roiDebounce); _roiDebounce = setTimeout(() => render(), 500); return; }
           const buf = e.target.closest('[data-action="edit-buffer"]');
           if (buf) { const key = buf.getAttribute('data-key'); const sub = buf.getAttribute('data-subkey'); if (STATE.editBuffers?.[key]) STATE.editBuffers[key][sub] = e.target.value; }
           if (STATE.modalOpen && STATE.editTab === 'chart') { STATE.editChartBuffer = readChartFieldsRaw(); }
