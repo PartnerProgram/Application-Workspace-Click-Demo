@@ -918,9 +918,587 @@
       .dr-zone-badge.dr-active { border-color: #8b5cf6; background: #f5f3ff; color: #6d28d9; }
       .dr-global-badge { display: inline-flex; align-items: center; gap: 4px; padding: 6px 14px; border-radius: 8px; font-size: 11px; font-weight: 700; background: linear-gradient(135deg, #0070F3, #8b5cf6); color: white; box-shadow: 0 2px 8px rgba(0,112,243,0.3); }
       .dr-arrow-line { width: 2px; height: 0; background: linear-gradient(180deg, #8b5cf6, #0070F3); margin: 0 auto; transition: height 0.6s ease; border-radius: 2px; }
-      .dr-arrow-line.dr-drawn { height: 20px; }
-      @keyframes drPulse { 0% { box-shadow: 0 0 0 0 rgba(0,112,243,0); } 50% { box-shadow: 0 0 12px 3px rgba(0,112,243,0.15); } 100% { box-shadow: 0 0 0 0 rgba(0,112,243,0); } }
+      .dr-arrow-line.dr-drawn { height: 20px; }      @keyframes drPulse { 0% { box-shadow: 0 0 0 0 rgba(0,112,243,0); } 50% { box-shadow: 0 0 12px 3px rgba(0,112,243,0.15); } 100% { box-shadow: 0 0 0 0 rgba(0,112,243,0); } }
       .dr-pulse { animation: drPulse 2s ease-in-out infinite; }
+
+      /* ===== AI Copilot view ===== */
+      .ai-shell {
+        background: #ffffff;
+        position: relative;
+        overflow: hidden;
+      }
+      .ai-shell::before {
+        content: "";
+        position: absolute; inset: -20px -20px auto auto;
+        width: 220px; height: 220px;
+        background: radial-gradient(circle at 70% 30%, rgba(139,92,246,0.10), transparent 60%);
+        pointer-events: none;
+      }
+      .ai-shell::after {
+        content: "";
+        position: absolute; left: -40px; bottom: -40px;
+        width: 240px; height: 240px;
+        background: radial-gradient(circle at 30% 70%, rgba(0,191,255,0.10), transparent 60%);
+        pointer-events: none;
+      }
+      /* Co-branded lockup: Microsoft Copilot + Recast */
+      .ai-cobrand-row {
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 12px; margin-bottom: 12px;
+        position: relative; z-index: 1;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .ai-cobrand {
+        display: flex; align-items: center; gap: 10px;
+      }
+      .ai-copilot-badge {
+        display: inline-grid; place-items: center;
+        width: 32px; height: 32px;
+      }
+      .copilot-mark-img { width: 100%; height: 100%; display: block; object-fit: contain; }
+      .ai-cobrand-stack {
+        display: flex; flex-direction: column;
+        line-height: 1.15;
+      }
+      .ai-cobrand-name {
+        font-size: 13px; font-weight: 700;
+        color: #0A1C60; letter-spacing: -0.01em;
+      }
+      .ai-cobrand-sub {
+        font-size: 9.5px; font-weight: 500;
+        color: #64748b; letter-spacing: 0.02em;
+        text-transform: none;
+      }
+      .ai-cobrand-x {
+        font-size: 18px; font-weight: 300;
+        color: #cbd5e1;
+        margin: 0 4px;
+        line-height: 1;
+        user-select: none;
+      }
+      .ai-recast-logo {
+        height: 22px; width: auto;
+        display: block;
+      }
+      .ai-recast-text {
+        font-family: Inter, -apple-system, "Segoe UI", sans-serif;
+        font-weight: 700;
+        font-size: 22px;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        display: inline-block;
+      }
+      .ai-recast-re { color: #0066FF; }
+      .ai-recast-cast { color: #0A1C60; }
+      .ai-eyebrow {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+        color: #0A1C60; text-transform: uppercase;
+      }
+      .ai-spark {
+        display: inline-grid; place-items: center;
+        width: 18px; height: 18px; border-radius: 5px;
+        background: conic-gradient(from 140deg, #0070F3, #8b5cf6, #00BFFF, #0070F3);
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(139,92,246,0.25);
+        animation: aiSparkSpin 6s linear infinite;
+      }
+      @keyframes aiSparkSpin { to { filter: hue-rotate(40deg); } }
+      .ai-tab {
+        display: inline-flex; align-items: center; gap: 5px;
+        padding: 4px 10px; border-radius: 999px;
+        font-size: 10px; font-weight: 600;
+        color: #475569; background: #f1f5f9;
+        border: 1px solid transparent;
+        transition: all 0.2s ease;
+      }
+      .ai-tab:hover { color: #0A1C60; background: #e0e7ff; }
+      .ai-tab.is-active {
+        color: #fff;
+        background: linear-gradient(135deg, #0070F3 0%, #6d28d9 100%);
+        box-shadow: 0 4px 12px rgba(109,40,217,0.25);
+      }
+
+      .ai-empty {
+        display: flex; flex-direction: column; align-items: center;
+        text-align: center; padding: 22px 12px 8px;
+        position: relative;
+      }
+      .ai-empty-orb {
+        width: 64px; height: 64px; border-radius: 18px;
+        display: grid; place-items: center;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 10px 28px rgba(109,40,217,0.18);
+        margin-bottom: 14px;
+        animation: aiOrb 4s ease-in-out infinite;
+      }
+      .ai-empty-orb .copilot-mark-img { width: 44px; height: 44px; }
+      @keyframes aiOrb {
+        0%, 100% { transform: scale(1); box-shadow: 0 10px 28px rgba(109,40,217,0.18); }
+        50% { transform: scale(1.04); box-shadow: 0 14px 36px rgba(109,40,217,0.28); }
+      }
+      .ai-empty-title { font-size: 14px; font-weight: 700; color: #0A1C60; margin-bottom: 4px; }
+      .ai-empty-sub { font-size: 11px; color: #64748b; max-width: 540px; line-height: 1.5; }
+      .ai-empty-chips { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
+      .ai-empty-chip {
+        display: inline-flex; align-items: center; gap: 4px;
+        font-size: 10px; font-weight: 600; color: #475569;
+        background: #f8fafc; border: 1px solid #e2e8f0;
+        padding: 3px 8px; border-radius: 999px;
+      }
+
+      .ai-row { display: flex; gap: 8px; margin-top: 4px; align-items: flex-start; position: relative; z-index: 1; }
+      .ai-row-user { justify-content: flex-end; }
+
+      /* Chat turns */
+      .ai-chat {
+        display: flex; flex-direction: column;
+        gap: 14px;
+        position: relative; z-index: 1;
+      }
+      .ai-turn {
+        display: flex; flex-direction: column; gap: 4px;
+      }
+      .ai-turn-meta {
+        display: flex; align-items: center; gap: 6px;
+        font-size: 10px; color: #64748b;
+        font-weight: 500;
+      }
+      .ai-turn-user .ai-turn-meta {
+        justify-content: flex-end;
+        padding-right: 36px;
+      }
+      .ai-turn-bot .ai-turn-meta {
+        padding-left: 36px;
+      }
+      .ai-turn-name { font-weight: 700; color: #0A1C60; }
+      .ai-turn-time { color: #94a3b8; }
+      .ai-turn-avatar-mini {
+        display: inline-grid; place-items: center;
+        width: 14px; height: 14px;
+      }
+      .ai-turn-avatar-mini .copilot-mark-img { width: 14px; height: 14px; }
+
+      .ai-avatar {
+        flex-shrink: 0;
+        width: 28px; height: 28px; border-radius: 8px;
+        display: grid; place-items: center;
+        color: #fff;
+        overflow: hidden;
+      }
+      .ai-avatar-user { background: #0A1C60; }
+      .ai-avatar-user svg { width: 14px; height: 14px; }
+      .ai-avatar-bot {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 8px rgba(109,40,217,0.12);
+      }
+      .ai-avatar-bot .copilot-mark-img { width: 22px; height: 22px; }
+      .ai-avatar-bot.is-thinking { animation: aiPulse 1.4s ease-in-out infinite; }
+      @keyframes aiPulse {
+        0%, 100% { box-shadow: 0 2px 8px rgba(109,40,217,0.15); }
+        50% { box-shadow: 0 2px 16px rgba(109,40,217,0.45); transform: scale(1.06); }
+      }
+
+      .ai-bubble {
+        max-width: 760px;
+        padding: 8px 12px;
+        border-radius: 12px;
+        font-size: 11.5px;
+        line-height: 1.5;
+      }
+      .ai-bubble-user {
+        background: #0A1C60; color: #fff;
+        border-bottom-right-radius: 4px;
+        font-weight: 500;
+        max-width: 540px;
+      }
+      .ai-bubble-bot {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-bottom-left-radius: 4px;
+        flex: 1;
+        /* Reserve space so the bubble doesn't expand visibly between phases */
+        min-height: 360px;
+      }
+      .ai-typed { display: inline; }
+      .ai-caret {
+        display: inline-block; width: 1px; height: 11px;
+        background: #fff; margin-left: 2px; vertical-align: -1px;
+        animation: aiCaret 0.7s steps(2) infinite;
+      }
+      @keyframes aiCaret { 50% { opacity: 0; } }
+
+      /* Inline tool-call card inside the Copilot bubble */
+      .ai-toolcall {
+        margin-bottom: 10px;
+        padding: 6px 10px;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-left: 2px solid #8b5cf6;
+        border-radius: 6px;
+      }
+      .ai-toolcall-head {
+        display: flex; align-items: center; gap: 6px;
+        font-size: 9.5px; font-weight: 700;
+        color: #6d28d9;
+        text-transform: uppercase; letter-spacing: 0.06em;
+        margin-bottom: 5px;
+      }
+      .ai-toolcall-head svg { color: #8b5cf6; }
+      .ai-toolcall-window {
+        margin-left: auto;
+        font-size: 9px; font-weight: 500;
+        color: #94a3b8;
+        text-transform: none; letter-spacing: 0;
+      }
+      .ai-toolcall-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+
+      /* Next-step cue at end of conversation */
+      .ai-next-cue {
+        margin-top: 4px;
+        padding: 10px 14px;
+        background: linear-gradient(135deg, #f5f3ff 0%, #eff6ff 100%);
+        border: 1px dashed #c4b5fd;
+        border-radius: 10px;
+        display: flex; align-items: center; gap: 8px;
+        font-size: 11px;
+        color: #475569;
+        animation: aiCueIn 0.5s ease both;
+      }
+      @keyframes aiCueIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+      .ai-next-arrow {
+        display: inline-grid; place-items: center;
+        width: 22px; height: 22px; border-radius: 50%;
+        background: #fff;
+        color: #6d28d9;
+        border: 1px solid #c4b5fd;
+        flex-shrink: 0;
+      }
+      .ai-next-link {
+        display: inline-flex; align-items: center; gap: 4px;
+        padding: 3px 8px; margin: 0 2px;
+        border-radius: 999px;
+        background: #fff;
+        border: 1px solid #8b5cf6;
+        color: #6d28d9;
+        font-weight: 700; font-size: 10.5px;
+        transition: all 0.2s ease;
+      }
+      .ai-next-link:hover {
+        background: #6d28d9; color: #fff;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(109,40,217,0.25);
+      }
+
+      /* Executive close — quote-style callout after the final scenario */
+      .ai-close {
+        margin-top: 4px;
+        padding: 14px 18px;
+        background: #0A1C60;
+        color: #fff;
+        border-radius: 12px;
+        display: flex; align-items: flex-start; gap: 14px;
+        position: relative; z-index: 1;
+        animation: aiCueIn 0.5s ease both;
+      }
+      .ai-close-mark {
+        width: 32px; height: 32px; flex-shrink: 0;
+        background: #fff; border-radius: 8px;
+        display: grid; place-items: center;
+        padding: 4px;
+      }
+      .ai-close-mark .copilot-mark-img { width: 24px; height: 24px; }
+      .ai-close-body { flex: 1; }
+      .ai-close-line {
+        font-size: 13px; font-weight: 500;
+        line-height: 1.5;
+        font-style: italic;
+        color: #fff;
+        letter-spacing: -0.005em;
+      }
+      .ai-close-meta {
+        margin-top: 8px;
+        font-size: 10px; color: #94a3b8;
+        font-weight: 500;
+      }
+
+      .ai-sources {
+        margin: 8px 0 4px;
+        padding: 6px 10px;
+        background: #fafbff;
+        border: 1px dashed #c7d2fe;
+        border-radius: 8px;
+        display: flex; align-items: center; gap: 10px;
+        font-size: 10px; color: #475569;
+        position: relative; z-index: 1;
+      }
+      .ai-sources-label {
+        display: inline-flex; align-items: center; gap: 4px;
+        font-weight: 700; color: #0A1C60;
+        text-transform: uppercase; letter-spacing: 0.06em;
+        font-size: 9px;
+      }
+      .ai-sources-list { display: flex; gap: 4px; flex-wrap: wrap; flex: 1; }
+      .ai-source-chip {
+        display: inline-flex; align-items: center; gap: 3px;
+        padding: 2px 7px; border-radius: 5px;
+        font-size: 9px; font-weight: 600;
+        color: #6d28d9; background: #f5f3ff;
+        border: 1px solid #c4b5fd;
+      }
+      .ai-source-chip.is-lit { color: #6d28d9; border-color: #c4b5fd; background: #f5f3ff; }
+      .ai-sources-window {
+        font-size: 9px; color: #94a3b8;
+        white-space: nowrap;
+      }
+
+      .ai-thinking {
+        display: inline-flex; align-items: center; gap: 4px;
+        color: #64748b; font-size: 10.5px;
+      }
+      .ai-thinking span {
+        width: 5px; height: 5px; border-radius: 50%;
+        background: #8b5cf6;
+        animation: aiDot 1.2s ease-in-out infinite;
+      }
+      .ai-thinking span:nth-child(2) { animation-delay: 0.15s; }
+      .ai-thinking span:nth-child(3) { animation-delay: 0.3s; }
+      .ai-thinking em { font-style: normal; margin-left: 4px; }
+      @keyframes aiDot {
+        0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+        30% { transform: translateY(-3px); opacity: 1; }
+      }
+
+      .ai-answer { /* visible immediately when this branch renders */ }
+      .ai-headline {
+        font-size: 12.5px; font-weight: 700;
+        color: #0A1C60; margin-bottom: 8px;
+        letter-spacing: -0.01em;
+      }
+      /* Scope strip — Environments + Devices the answer spans */
+      .ai-scope {
+        display: flex; flex-direction: column; gap: 4px;
+        margin-bottom: 10px;
+        padding: 8px 10px;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+      }
+      .ai-scope-line {
+        display: flex; align-items: center; gap: 8px;
+        flex-wrap: wrap;
+      }
+      .ai-scope-label {
+        display: inline-flex; align-items: center; gap: 4px;
+        font-size: 9px; font-weight: 700;
+        color: #475569;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        flex-shrink: 0;
+        min-width: 100px;
+      }
+      .ai-scope-label svg { color: #0A1C60; }
+      .ai-scope-chips {
+        display: flex; flex-wrap: wrap; gap: 4px; flex: 1;
+      }
+      .ai-scope-chip {
+        display: inline-flex; align-items: center;
+        padding: 2px 8px; border-radius: 999px;
+        font-size: 9.5px; font-weight: 600;
+        line-height: 1.5;
+      }
+      .ai-scope-chip-env {
+        background: #f0f9ff;
+        color: #0A1C60;
+        border: 1px solid #bae6fd;
+      }
+      .ai-scope-chip-dev {
+        background: #fafbff;
+        color: #4338ca;
+        border: 1px solid #c7d2fe;
+      }
+      .ai-insights {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+      }
+      .ai-insight {
+        display: flex; gap: 8px; align-items: flex-start;
+        padding: 8px 10px;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-left: 3px solid #cbd5e1;
+        border-radius: 6px;
+      }
+      .ai-insight-icon {
+        width: 22px; height: 22px; border-radius: 6px;
+        display: grid; place-items: center; flex-shrink: 0;
+        background: #f1f5f9; color: #475569;
+      }
+      .ai-insight-body { flex: 1; min-width: 0; }
+      .ai-insight-top {
+        display: flex; justify-content: space-between; align-items: baseline;
+        gap: 4px;
+      }
+      .ai-insight-label { font-size: 10px; font-weight: 600; color: #475569; }
+      .ai-insight-value { font-size: 13px; font-weight: 700; color: #0A1C60; letter-spacing: -0.01em; }
+      .ai-insight-delta { font-size: 9px; font-weight: 600; margin-top: 1px; }
+      .ai-insight-note { font-size: 9px; color: #64748b; margin-top: 3px; line-height: 1.4; }
+      .ai-tone-good { border-left-color: #10b981; }
+      .ai-tone-good .ai-insight-icon { background: #d1fae5; color: #065f46; }
+      .ai-tone-good .ai-insight-delta { color: #065f46; }
+      .ai-tone-warn { border-left-color: #f59e0b; }
+      .ai-tone-warn .ai-insight-icon { background: #fef3c7; color: #92400e; }
+      .ai-tone-warn .ai-insight-delta { color: #92400e; }
+      .ai-tone-risk { border-left-color: #ef4444; }
+      .ai-tone-risk .ai-insight-icon { background: #fee2e2; color: #991b1b; }
+      .ai-tone-risk .ai-insight-delta { color: #991b1b; }
+
+      /* Table output (used by 'Adoption & cost') */
+      .ai-table-wrap {
+        margin-top: 4px;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .ai-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+      .ai-table-th {
+        text-align: left;
+        padding: 8px 10px;
+        background: #0A1C60;
+        color: #fff;
+        font-size: 9.5px; font-weight: 700;
+        letter-spacing: 0.06em; text-transform: uppercase;
+        border-right: 1px solid rgba(255,255,255,0.08);
+        white-space: nowrap;
+      }
+      .ai-table-th:last-child { border-right: 0; }
+      .ai-table-row {
+        border-top: 1px solid #e2e8f0;
+        transition: background 0.15s ease;
+        border-left: 3px solid transparent;
+      }
+      .ai-table-row.ai-tone-good { border-left-color: #10b981; background: #f7fdf9; }
+      .ai-table-row.ai-tone-warn { border-left-color: #f59e0b; background: #fffaf2; }
+      .ai-table-row.ai-tone-risk { border-left-color: #ef4444; background: #fff7f7; }
+      .ai-table-td {
+        padding: 9px 10px;
+        vertical-align: top;
+        color: #1e293b;
+        line-height: 1.45;
+        border-right: 1px solid #f1f5f9;
+      }
+      .ai-table-td:last-child { border-right: 0; }
+      .ai-table-td:first-child {
+        display: flex; align-items: center; gap: 7px;
+        font-weight: 600; color: #0A1C60;
+      }
+      .ai-table-icon {
+        display: inline-grid; place-items: center;
+        width: 22px; height: 22px; border-radius: 6px;
+        background: #f1f5f9; color: #475569;
+        flex-shrink: 0;
+      }
+      .ai-table-row.ai-tone-good .ai-table-icon { background: #d1fae5; color: #065f46; }
+      .ai-table-row.ai-tone-warn .ai-table-icon { background: #fef3c7; color: #92400e; }
+      .ai-table-row.ai-tone-risk .ai-table-icon { background: #fee2e2; color: #991b1b; }
+      .ai-table-cell { display: inline; }
+      .ai-table-sub { color: #64748b; font-weight: 400; }
+      .ai-align-left { text-align: left; }
+      .ai-align-right { text-align: right; }
+      .ai-table-td.ai-align-right { white-space: nowrap; }
+
+      .ai-pill {
+        display: inline-flex; align-items: center;
+        padding: 2px 8px; border-radius: 999px;
+        font-size: 9.5px; font-weight: 700;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+      }
+      .ai-pill-good { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+      .ai-pill-warn { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+      .ai-pill-risk { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+      .ai-table-footnote {
+        display: flex; align-items: center; gap: 5px;
+        padding: 6px 10px;
+        background: #fafbff;
+        border-top: 1px dashed #c7d2fe;
+        font-size: 10px; color: #475569;
+        font-style: italic;
+      }
+      .ai-table-footnote svg { color: #8b5cf6; flex-shrink: 0; }
+
+      .ai-actions { margin-top: 10px; }
+      .ai-actions-label {
+        display: inline-flex; align-items: center; gap: 4px;
+        font-size: 9px; font-weight: 700;
+        color: #6d28d9; text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 4px;
+      }
+      .ai-actions-list { display: flex; flex-wrap: wrap; gap: 5px; }
+      .ai-action {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 5px 10px; border-radius: 999px;
+        background: #fff;
+        border: 1px solid #ddd6fe;
+        font-size: 10.5px; font-weight: 600;
+        color: #0A1C60;
+        transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      }
+      .ai-action:hover {
+        background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+        border-color: #8b5cf6;
+        transform: translateY(-1px);
+      }
+      .ai-action-icon {
+        display: grid; place-items: center;
+        width: 16px; height: 16px; border-radius: 5px;
+        background: conic-gradient(from 140deg, #0070F3, #8b5cf6, #00BFFF, #0070F3);
+        color: #fff;
+      }
+      .ai-action-arrow { color: #8b5cf6; opacity: 0; transform: translateX(-4px); transition: all 0.2s ease; }
+      .ai-action:hover .ai-action-arrow { opacity: 1; transform: translateX(0); }
+
+      .ai-impact {
+        margin-top: 10px;
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 5px 10px; border-radius: 6px;
+        background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+        color: #0A1C60;
+        font-size: 11px; font-weight: 600;
+        border: 1px solid #ddd6fe;
+      }
+
+      .ai-rail {
+        position: relative; z-index: 1;
+        margin-top: 12px; padding-top: 8px;
+        border-top: 1px solid #e2e8f0;
+        display: flex; align-items: center; gap: 6px;
+      }
+      .ai-rail-dot {
+        width: 18px; height: 6px; border-radius: 3px;
+        background: #e2e8f0; padding: 0; border: 0;
+        transition: all 0.3s ease;
+      }
+      .ai-rail-dot.is-past { background: #c4b5fd; }
+      .ai-rail-dot.is-active {
+        width: 32px;
+        background: linear-gradient(90deg, #0070F3, #8b5cf6);
+      }
+      .ai-rail-caption {
+        margin-left: auto; font-size: 9px; color: #94a3b8;
+        letter-spacing: 0.04em;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .ai-spark, .ai-empty-orb, .ai-avatar-bot.is-thinking,
+        .ai-caret, .ai-thinking span { animation: none !important; }
+      }
+
       /* Onboarding view */
       .ob-device { border-radius: 12px; padding: 12px; transition: opacity 0.5s ease, transform 0.5s ease; }
       .ob-device.ob-hidden { opacity: 0; transform: translateY(10px); }
@@ -1306,6 +1884,7 @@
       .arch-row-label-end { color: #0A1C60; }
       .arch-tool-pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px 5px 9px; border-radius: 9999px; font-size: 13px; font-weight: 600; color: #0A1C60; line-height: 1.2; background: #FFFFFF; border: 1px solid #E2E8F0; box-shadow: 0 1px 2px rgba(10,28,96,0.05); }
       .arch-tool-pill svg { width: 16px; height: 16px; flex-shrink: 0; display: block; }
+      .arch-tool-pill img { width: 16px; height: 16px; flex-shrink: 0; display: block; object-fit: contain; }
       .arch-device-pill { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 8px; border: 1px solid #E2E8F0; background: #FFFFFF; font-size: 11px; font-weight: 500; color: #475569; line-height: 1.2; }
       .arch-bracket-up { width: 60%; max-width: 520px; height: 10px; margin: 3px auto 0; border: 2px dashed #CBD5E1; border-top: none; border-radius: 0 0 10px 10px; }
       .arch-bracket-down { width: 60%; max-width: 520px; height: 10px; margin: 0 auto 3px; border: 1.5px solid #93C5FD; border-top: none; border-radius: 0 0 10px 10px; }
@@ -4401,49 +4980,6 @@
         border-radius: 1px;
         flex-shrink: 0;
       }
-      .bi-section-eyebrow.is-cycle::before { background: #B45309; }
-      .bi-section-eyebrow.is-compound::before { background: #047857; }
-      .bi-section-eyebrow.is-toggle {
-        background: none;
-        border: 0;
-        cursor: pointer;
-        font: inherit;
-        color: inherit;
-        letter-spacing: inherit;
-        text-transform: inherit;
-        text-align: left;
-        padding: 5px 10px 5px 0;
-        margin-left: 0;
-        width: fit-content;
-        border-radius: 6px;
-        transition: color 150ms, background 150ms;
-      }
-      .bi-section-eyebrow.is-toggle:hover {
-        color: var(--r-ink);
-        background: rgba(15, 23, 42, 0.04);
-      }
-      .bi-section-eyebrow.is-toggle:focus-visible {
-        outline: 2px solid var(--r-blue);
-        outline-offset: 2px;
-      }
-      .bi-section-chevron {
-        width: 13px;
-        height: 13px;
-        stroke: currentColor;
-        stroke-width: 2;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        fill: none;
-        transition: transform 200ms cubic-bezier(.2,.8,.2,1);
-        flex-shrink: 0;
-        opacity: 0.7;
-      }
-      .bi-section-eyebrow.is-toggle:hover .bi-section-chevron { opacity: 1; }
-      .bi-section-eyebrow.is-toggle[aria-expanded="false"] .bi-section-chevron {
-        transform: rotate(-90deg);
-      }
-      .bi-section-content.is-collapsed { display: none; }
-
       /* Compounding-value card — stacks one-time + recurring across Year 1, 2, 3 */
       .bi-compound {
         background: #fff;
@@ -4598,6 +5134,186 @@
         #panel-roi .bi-compound-inputs { padding: 8px 12px !important; margin-bottom: 12px !important; }
       }
 
+      /* ─── Outcomes pillars: Speed / Scale / Risk ───────────────────
+         Three stacked cards on the left side of the result split.
+         Same white-card + light-border vocabulary as the rest of the
+         tab. Accent lives on the left rule only — blue / green /
+         amber — so the three categories are distinct without competing
+         with the right-hand bar chart. */
+      .bi-pillars {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .bi-pillar {
+        position: relative;
+        background: #fff;
+        border: 1px solid var(--r-divider);
+        border-left: 6px solid var(--r-blue);
+        border-radius: 8px;
+        padding: 16px 20px 14px;
+        box-shadow: 0 1px 2px rgba(26,26,46,0.05), 0 4px 12px rgba(26,26,46,0.06);
+      }
+      .bi-pillar.is-speed { border-left-color: var(--r-blue); }
+      .bi-pillar.is-scale { border-left-color: var(--r-green); }
+      .bi-pillar.is-risk  { border-left-color: var(--r-amber); }
+      .bi-pillar-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .bi-pillar-eyebrow {
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--r-blue);
+        background: rgba(0, 0, 204, 0.09);
+        padding: 3px 7px 2px;
+        border-radius: 3px;
+        line-height: 1;
+      }
+      .is-scale .bi-pillar-eyebrow { color: var(--r-green); background: rgba(15, 122, 63, 0.10); }
+      .is-risk  .bi-pillar-eyebrow { color: var(--r-amber); background: rgba(204, 136, 0, 0.12); }
+      .bi-pillar-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--r-ink);
+        margin: 0;
+        line-height: 1.2;
+        letter-spacing: -0.005em;
+      }
+      .bi-pillar-hero {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        flex-wrap: wrap;
+        padding: 10px 14px;
+        margin: 0 -6px 12px;
+        border-radius: 6px;
+        background: rgba(0, 0, 204, 0.045);
+      }
+      .is-scale .bi-pillar-hero { background: rgba(15, 122, 63, 0.055); }
+      .is-risk  .bi-pillar-hero { background: rgba(204, 136, 0, 0.065); }
+      .bi-pillar-hero-num {
+        font-size: 36px;
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        color: var(--r-blue);
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+      }
+      .is-scale .bi-pillar-hero-num { color: var(--r-green); }
+      .is-risk  .bi-pillar-hero-num { color: var(--r-amber); }
+      .bi-pillar-hero-num.bi-pillar-hero-text {
+        font-size: 22px;
+        letter-spacing: -0.015em;
+        font-variant-numeric: normal;
+        line-height: 1.15;
+      }
+      .bi-pillar-hero-unit {
+        font-size: 15px;
+        font-weight: 700;
+        color: inherit;
+        letter-spacing: 0;
+      }
+      .bi-pillar-hero-sub {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--r-ink-2);
+        line-height: 1.45;
+        display: inline-flex;
+        align-items: baseline;
+        gap: 5px;
+        flex-wrap: wrap;
+      }
+      .bi-pillar-hero-note {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--r-ink-2);
+        opacity: 0.85;
+        font-style: italic;
+      }
+      .bi-pillar-rows {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .bi-pillar-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+      .bi-pillar-row-lbl {
+        color: var(--r-ink-2);
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+      .bi-pillar-row-val {
+        font-weight: 700;
+        color: var(--r-ink);
+        font-variant-numeric: tabular-nums;
+        display: inline-flex;
+        align-items: baseline;
+        gap: 5px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .bi-pillar-row-val-single {
+        font-weight: 700;
+        color: var(--r-ink);
+      }
+      .bi-pillar-from {
+        color: var(--r-ink-2);
+        font-weight: 600;
+      }
+      .bi-pillar-arrow {
+        color: var(--r-ink-2);
+        font-weight: 700;
+      }
+      .bi-pillar-to {
+        color: var(--r-blue);
+        font-weight: 800;
+      }
+      .is-scale .bi-pillar-to { color: var(--r-green); }
+      .is-risk  .bi-pillar-to { color: var(--r-amber); }
+      .bi-pillar-tag {
+        font-size: 10px;
+        font-weight: 800;
+        padding: 1px 6px;
+        border-radius: 3px;
+        background: rgba(15, 122, 63, 0.10);
+        color: var(--r-green);
+        letter-spacing: 0;
+      }
+      .bi-pillars-foot {
+        margin: 10px 2px 0;
+        font-size: 11px;
+        color: var(--r-ink-2);
+        font-style: italic;
+      }
+      @media (max-height: 900px) {
+        #panel-roi .bi-pillars { gap: 10px !important; }
+        #panel-roi .bi-pillar { padding: 13px 16px 11px !important; }
+        #panel-roi .bi-pillar-head { margin-bottom: 8px !important; }
+        #panel-roi .bi-pillar-hero { padding: 8px 12px !important; margin: 0 -4px 9px !important; }
+        #panel-roi .bi-pillar-hero-num { font-size: 28px !important; }
+        #panel-roi .bi-pillar-hero-num.bi-pillar-hero-text { font-size: 18px !important; }
+        #panel-roi .bi-pillar-hero-unit { font-size: 13px !important; }
+        #panel-roi .bi-pillar-hero-sub { font-size: 11px !important; }
+        #panel-roi .bi-pillar-title { font-size: 13px !important; }
+        #panel-roi .bi-pillar-row { font-size: 11px !important; gap: 10px !important; }
+        #panel-roi .bi-pillar-rows { gap: 5px !important; }
+        #panel-roi .bi-pillars-foot { font-size: 10px !important; margin-top: 6px !important; }
+      }
+
       /* ─── Side-by-side split: Ongoing × 3-year horizon ─── */
       /* Default to stacked so narrow viewports remain readable. */
       .bi-split {
@@ -4611,8 +5327,7 @@
         min-width: 0;
       }
       /* Pin the eyebrow header heights so both columns line up at the top. */
-      .bi-split-col > .bi-section-eyebrow,
-      .bi-split-col > .bi-section-eyebrow.is-toggle {
+      .bi-split-col > .bi-section-eyebrow {
         min-height: 22px;
         margin-bottom: 8px;
       }
@@ -4621,19 +5336,16 @@
       @media (min-width: 1100px) {
         .bi-split:not(.is-single) { grid-template-columns: 1fr 1fr; }
 
-        /* Stretch both column cards so the right side matches the left's
+        /* Stretch column cards so the right side matches the left's
            natural height (no ragged bottoms when the panel sits side-by-side). */
-        .bi-split:not(.is-single) .bi-split-col > .bi-compare,
-        .bi-split:not(.is-single) .bi-split-col > .bi-section-content {
+        .bi-split:not(.is-single) .bi-split-col > .bi-compare {
           flex: 1;
           display: flex;
           flex-direction: column;
         }
-        .bi-split:not(.is-single) .bi-section-content > .bi-compound {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-        }
+        /* Stretch the outcomes pillars stack on the left to match the
+           right-hand bar chart's natural height. */
+        .bi-split:not(.is-single) .bi-split-col > .bi-pillars { flex: 1; }
         /* Year rows expand and distribute to fill any spare vertical space. */
         .bi-split:not(.is-single) .bi-compound-rows {
           flex: 1;
@@ -5035,6 +5747,13 @@
         drQueue: [],
         drQueueIdx: 0,
         solutionViewDashboard: false,
+        solutionViewAi: false,
+        aiPhase: 'idle',
+        aiScenarioIdx: 0,
+        aiRunning: false,
+        aiPaused: false,
+        aiQueue: [],
+        aiQueueIdx: 0,
         solutionViewOnboarding: false,
         obPhase: 'idle',
         obRunning: false,
@@ -5196,7 +5915,6 @@
         calcScenario: 'expected',
         calcResult: null,
         showAssumptions: false,
-        collapsedSections: { compound: false },
         editingAssumptions: false,
         pdfCompanyInput: false,
         pdfCompanyName: '',
@@ -5315,12 +6033,13 @@
         {view:'onboarding', stage:'DELIVER',   name:'Onboarding',            icon:'user-plus'},
         {view:'user',       stage:'RUN',       name:'User Experience',       icon:'monitor-smartphone'},
         {view:'dashboard',  stage:'MEASURE',   name:'Dashboard & Reporting', icon:'bar-chart-3'},
+        {view:'ai',         stage:'ASSIST',    name:'AI Copilot',            icon:'sparkles'},
         {view:'multitenant',stage:'SCALE',     name:'Multi-Tenant',          icon:'building-2'},
       ];
       const lifecycleViewFlag = (view) => ({
         setupstore:'solutionViewSetupStore', admin:'solutionViewAdmin',
         onboarding:'solutionViewOnboarding', user:'solutionViewUser',
-        dashboard:'solutionViewDashboard', multitenant:'solutionViewMultiTenant',
+        dashboard:'solutionViewDashboard', ai:'solutionViewAi', multitenant:'solutionViewMultiTenant',
       })[view];
       const activeLifecycleView = () =>
         LIFECYCLE_MODULES.find(m => STATE[lifecycleViewFlag(m.view)])?.view || null;
@@ -8224,6 +8943,293 @@
         `;
       }
 
+      /* ========== AI COPILOT VIEW ========== */
+      // Microsoft Copilot brand mark (used in header, avatar, and empty-state orb).
+      const COPILOT_MARK_SVG = `<img src="data:image/png;base64,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" alt="Microsoft Copilot" class="copilot-mark-img"/>`;
+      const RECAST_LOGO_IMG = `<span class="ai-recast-text" aria-label="Recast"><span class="ai-recast-re">Re</span><span class="ai-recast-cast">cast</span></span>`;
+
+      const AI_SCENARIOS = [
+        {
+          id: 'adoption',
+          tag: 'Adoption & cost',
+          icon: 'wallet',
+          prompt: "Which apps are we paying for but barely using — and where are users blocked from apps they should have?",
+          sources: ['licenses','events','identities','users'],
+          window: 'trailing 90 days · all tenants',
+          scopeEnvs: ['Intune','ConfigMgr','Citrix','AVD / W365','Jamf'],
+          scopeDevices: ['Windows','Windows on ARM','macOS','Virtual Desktop','Cloud PC / W365','BYOD','Browser-Based'],
+          headline: 'Reclaim candidates and access friction — both visible in one answer.',
+          table: {
+            columns: [
+              { label: 'Item',              align: 'left' },
+              { label: 'Install / Launch',  align: 'left' },
+              { label: 'Where it lives',    align: 'left' },
+              { label: 'Status',            align: 'left' },
+              { label: 'Annual cost',       align: 'right' },
+            ],
+            rows: [
+              {
+                icon: 'image', tone: 'warn',
+                cells: [
+                  '<strong>Adobe Creative Cloud</strong>',
+                  '312 installs<span class="ai-table-sub"> · &lt;5 launches per quarter</span>',
+                  'Intune · Jamf · Citrix',
+                  '<span class="ai-pill ai-pill-warn">Reclaim candidate</span>',
+                  '<strong>~$58K</strong><span class="ai-table-sub">/yr</span>'
+                ]
+              },
+              {
+                icon: 'workflow', tone: 'warn',
+                cells: [
+                  '<strong>Visio Plan 2</strong>',
+                  '87 installs<span class="ai-table-sub"> · no launches 90+ days</span>',
+                  'ConfigMgr · AVD / W365 <span class="ai-table-sub">(Field Services)</span>',
+                  '<span class="ai-pill ai-pill-warn">Reclaim candidate</span>',
+                  '<strong>~$24K</strong><span class="ai-table-sub">/yr</span>'
+                ]
+              },
+              {
+                icon: 'user-x', tone: 'risk',
+                cells: [
+                  '<strong>Access friction</strong>',
+                  '47 users<span class="ai-table-sub"> · denied / failed logins · 7 d</span>',
+                  'Tableau <span class="ai-table-sub">(Cloud PC)</span> · Salesforce <span class="ai-table-sub">(Browser)</span>',
+                  '<span class="ai-pill ai-pill-risk">Identity-Based Access misalignment</span>',
+                  '<span class="ai-table-sub">—</span>'
+                ]
+              },
+            ],
+            footnote: 'Reclaim figures are <strong>candidates</strong> — verify contract terms before action.'
+          },
+          impact: 'Reclaim candidates surface as questions, not quarterly audits — finance and end users both win.'
+        },
+        {
+          id: 'currency',
+          tag: 'Currency & exposure',
+          icon: 'shield-alert',
+          prompt: "Which apps are out of date or unpatched, on which devices — across Intune, ConfigMgr, Jamf, macOS, ARM and virtual?",
+          sources: ['packages','servers','devices','deployments'],
+          window: 'latest agent check-in · all consoles',
+          scopeEnvs: ['Intune','ConfigMgr','Citrix','AVD / W365','Jamf'],
+          scopeDevices: ['Windows','Windows on ARM','macOS','Virtual Desktop','Cloud PC / W365','BYOD','Browser-Based'],
+          headline: 'Currency gaps cluster exactly where coverage falls through — macOS, BYOD, virtual.',
+          insights: [
+            { tone:'risk', icon:'monitor-down',  label:'Outdated Windows builds',  value:'218', delta:'22H2 \u2192 23H2 missing',   note:'184 ConfigMgr Windows + 34 Cloud PC / W365 — Agent Info shows Last Seen current, just unpatched.' },
+            { tone:'risk', icon:'laptop-minimal',label:'macOS apps unpatched',     value:'94',  delta:'Jamf · 30+ days behind',     note:'Chrome, Slack, Zoom · Package Status reports current channel available but not deployed.' },
+            { tone:'warn', icon:'cpu',           label:'Virtual / ARM coverage',   value:'47 devices', delta:'Agent stale or missing', note:'31 AVD Windows on ARM + 16 Citrix VDI — Last Seen > 14 days. Compliance finding waiting to happen.' },
+          ],
+          impact: 'A board-level exposure picture — credible because the data already spans Jamf and the Microsoft estate together.'
+        },
+        {
+          id: 'health',
+          tag: 'Deployment health',
+          icon: 'layers',
+          prompt: "What's the deployment health of Microsoft Teams across our entire estate?",
+          sources: ['deployments','devices','events'],
+          window: 'last 24 hours · all consoles',
+          scopeEnvs: ['Intune','ConfigMgr','Citrix','AVD / W365','Jamf'],
+          scopeDevices: ['Windows','Windows on ARM','macOS','Virtual Desktop','Cloud PC / W365','BYOD','Browser-Based'],
+          headline: 'Teams health rolls up across every console — one answer instead of four consoles to reconcile.',
+          insights: [
+            { tone:'good', icon:'activity',    label:'Install Health %',     value:'98.2%', delta:'7,842 / 7,983 healthy',     note:'Endpoint Info reconciled across Intune, ConfigMgr, Citrix, AVD / W365, Jamf — no manual stitching.' },
+            { tone:'warn', icon:'play-circle', label:'Launch Health %',      value:'93.4%', delta:'Soft regression on macOS',  note:'App Status: Jamf-managed Macs at 87% launches. Distribution Success is 99%, so the gap is post-install, not delivery.' },
+            { tone:'good', icon:'truck',       label:'Distribution Success', value:'99.4%', delta:'Stable across surfaces',    note:'All package targets reached, including ARM, Cloud PC / W365, and Browser-Based delivery.' },
+          ],
+          impact: "The view Copilot couldn't produce against the raw consoles — Recast's normalization is the unlock."
+        },
+      ];
+
+      function renderAiView(){
+        const p = STATE.aiPhase;
+        const order = ['idle','prompt','thinking','sources','answer','actions','done'];
+        const past = (target) => order.indexOf(p) >= order.indexOf(target);
+        const sIdx = STATE.aiScenarioIdx || 0;
+        const s = AI_SCENARIOS[sIdx];
+
+        // Type the prompt out by character while in 'prompt' phase, then keep full text.
+        const promptChars = s.prompt.length;
+        const showPrompt = past('prompt');
+        const showThinking = past('thinking') && !past('answer');
+        const sourcesLit = past('sources');
+        const showAnswer = past('answer');
+        const showActions = past('actions');
+        const showImpact = past('done');
+
+        if (!past('prompt')) {
+          return `
+            <div class="section-card p-4 ai-shell">
+              <div class="ai-cobrand-row">
+                <div class="ai-cobrand">
+                  <span class="ai-copilot-badge">${COPILOT_MARK_SVG}</span>
+                  <span class="ai-cobrand-stack">
+                    <span class="ai-cobrand-name">Microsoft Copilot</span>
+                    <span class="ai-cobrand-sub">for Application Workspace</span>
+                  </span>
+                  <span class="ai-cobrand-x" aria-hidden="true">+</span>
+                  ${RECAST_LOGO_IMG}
+                </div>
+                <div class="flex items-center gap-1">
+                  ${AI_SCENARIOS.map((sc, i) => `
+                    <button type="button" data-action="ai-pick-scenario" data-idx="${i}" class="ai-tab ${i===sIdx?'is-active':''}">
+                      <i data-lucide="${sc.icon}" class="w-3 h-3"></i> ${sc.tag}
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+              <div class="ai-empty">
+                <div class="ai-empty-orb">${COPILOT_MARK_SVG}</div>
+                <div class="ai-empty-title">Ask Copilot what's hiding in your dashboards.</div>
+                <div class="ai-empty-sub">Copilot reads the same OData feed you saw in <strong>Dashboard &amp; Reporting</strong> and answers in plain English. Press <strong>Auto</strong> or <strong>Step</strong> to watch three high-impact scenarios.</div>
+                <div class="ai-empty-chips">
+                  ${AI_SCENARIOS.map(sc => `<span class="ai-empty-chip"><i data-lucide="${sc.icon}" class="w-3 h-3"></i> ${sc.tag}</span>`).join('')}
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="section-card p-4 ai-shell">
+            <!-- Co-branded header -->
+            <div class="ai-cobrand-row">
+              <div class="ai-cobrand">
+                <span class="ai-copilot-badge">${COPILOT_MARK_SVG}</span>
+                <span class="ai-cobrand-stack">
+                  <span class="ai-cobrand-name">Microsoft Copilot</span>
+                  <span class="ai-cobrand-sub">for Application Workspace</span>
+                </span>
+                <span class="ai-cobrand-x" aria-hidden="true">+</span>
+                ${RECAST_LOGO_IMG}
+              </div>
+              <div class="flex items-center gap-1">
+                ${AI_SCENARIOS.map((sc, i) => `
+                  <button type="button" data-action="ai-pick-scenario" data-idx="${i}" class="ai-tab ${i===sIdx?'is-active':''}">
+                    <i data-lucide="${sc.icon}" class="w-3 h-3"></i> ${sc.tag}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Chat conversation -->
+            <div class="ai-chat">
+
+              <!-- User turn -->
+              <div class="ai-turn ai-turn-user">
+                <div class="ai-turn-meta">
+                  <span class="ai-turn-name">You</span>
+                  <span class="ai-turn-time">just now</span>
+                </div>
+                <div class="ai-row ai-row-user">
+                  <div class="ai-bubble ai-bubble-user">
+                    <span>${s.prompt}</span>
+                  </div>
+                  <div class="ai-avatar ai-avatar-user"><i data-lucide="user" class="w-3.5 h-3.5"></i></div>
+                </div>
+              </div>
+
+              <!-- Copilot turn -->
+              <div class="ai-turn ai-turn-bot">
+                <div class="ai-turn-meta">
+                  <span class="ai-turn-avatar-mini">${COPILOT_MARK_SVG}</span>
+                  <span class="ai-turn-name">Copilot</span>
+                  <span class="ai-turn-time">${showImpact ? 'responded' : 'replying…'}</span>
+                </div>
+                <div class="ai-row ai-row-bot">
+                  <div class="ai-avatar ai-avatar-bot ${showThinking ? 'is-thinking' : ''}">${COPILOT_MARK_SVG}</div>
+                  <div class="ai-bubble ai-bubble-bot">
+
+                    ${showThinking ? `
+                      <div class="ai-thinking"><span></span><span></span><span></span><em>Thinking\u2026 reading ${s.sources.length} datasets from Application Workspace</em></div>
+                    ` : ''}
+
+                    ${sourcesLit ? `
+                      <div class="ai-toolcall">
+                        <div class="ai-toolcall-head">
+                          <i data-lucide="database" class="w-3 h-3"></i>
+                          <span>Grounded in OData</span>
+                          <span class="ai-toolcall-window">${s.window}</span>
+                        </div>
+                        <div class="ai-toolcall-chips">
+                          ${s.sources.map((src, i) => `<span class="ai-source-chip is-lit" style="transition-delay:${i*0.12}s"><i data-lucide="check" class="w-2.5 h-2.5"></i> ${src}</span>`).join('')}
+                        </div>
+                      </div>
+                    ` : ''}
+
+                    ${showAnswer ? `
+                      <div class="ai-answer">
+                        <div class="ai-headline">${s.headline}</div>
+                        <div class="ai-scope">
+                          <div class="ai-scope-line">
+                            <span class="ai-scope-label"><i data-lucide="layers" class="w-3 h-3"></i> Environments</span>
+                            <div class="ai-scope-chips">
+                              ${s.scopeEnvs.map(e => `<span class="ai-scope-chip ai-scope-chip-env">${e}</span>`).join('')}
+                            </div>
+                          </div>
+                          <div class="ai-scope-line">
+                            <span class="ai-scope-label"><i data-lucide="laptop" class="w-3 h-3"></i> Devices</span>
+                            <div class="ai-scope-chips">
+                              ${s.scopeDevices.map(d => `<span class="ai-scope-chip ai-scope-chip-dev">${d}</span>`).join('')}
+                            </div>
+                          </div>
+                        </div>
+                        ${s.table ? `
+                          <div class="ai-table-wrap">
+                            <table class="ai-table">
+                              <thead>
+                                <tr>
+                                  ${s.table.columns.map(c => `<th class="ai-table-th ai-align-${c.align||'left'}">${c.label}</th>`).join('')}
+                                </tr>
+                              </thead>
+                              <tbody>
+                                ${s.table.rows.map(r => `
+                                  <tr class="ai-table-row ai-tone-${r.tone}">
+                                    ${r.cells.map((cell, ci) => `
+                                      <td class="ai-table-td ai-align-${(s.table.columns[ci] && s.table.columns[ci].align) || 'left'}">
+                                        ${ci === 0 && r.icon ? `<span class="ai-table-icon"><i data-lucide="${r.icon}" class="w-3.5 h-3.5"></i></span>` : ''}
+                                        <span class="ai-table-cell">${cell}</span>
+                                      </td>
+                                    `).join('')}
+                                  </tr>
+                                `).join('')}
+                              </tbody>
+                            </table>
+                            ${s.table.footnote ? `<div class="ai-table-footnote"><i data-lucide="info" class="w-3 h-3"></i> ${s.table.footnote}</div>` : ''}
+                          </div>
+                        ` : `
+                          <div class="ai-insights">
+                            ${s.insights.map((it, i) => `
+                              <div class="ai-insight ai-tone-${it.tone}">
+                                <div class="ai-insight-icon"><i data-lucide="${it.icon}" class="w-3.5 h-3.5"></i></div>
+                                <div class="ai-insight-body">
+                                  <div class="ai-insight-top">
+                                    <span class="ai-insight-label">${it.label}</span>
+                                    <span class="ai-insight-value">${it.value}</span>
+                                  </div>
+                                  <div class="ai-insight-delta">${it.delta}</div>
+                                  <div class="ai-insight-note">${it.note}</div>
+                                </div>
+                              </div>
+                            `).join('')}
+                          </div>
+                        `}
+                      </div>
+                    ` : ''}
+
+                    ${showActions ? `` : ''}
+
+                    ${showImpact ? `` : ''}
+
+                  </div>
+                </div>
+              </div>
+
+              ${showImpact && sIdx === AI_SCENARIOS.length - 1 ? `` : ''}
+
+            </div>
+          </div>
+        `;
+      }
+
       /* ========== ONBOARDING VIEW ========== */
       function renderOnboardingView(){
         const p = STATE.obPhase;
@@ -8601,6 +9607,72 @@
         scrollPreserveRender();
       }
 
+      /* ========== AI COPILOT ANIMATION ENGINE ========== */
+      // Each Auto/Step play runs ONE scenario only. User clicks the next
+      // scenario tab to play that one. Prompt is shown immediately, so the
+      // queue picks up at 'thinking' to avoid an empty-state flash.
+      function buildAiQueue(){
+        const queue = [];
+        const phases = ['thinking','sources','answer','done'];
+        const delays = [1200, 1300, 1700, 600];
+        phases.forEach((phase, i) => {
+          queue.push({ delay: delays[i], fn(){ STATE.aiPhase = phase; scrollPreserveRender(); } });
+        });
+        queue.push({ delay: 300, fn(){ STATE.aiRunning = false; STATE.aiPaused = false; scrollPreserveRender(); } });
+        return queue;
+      }
+
+      function runAiQueue(){
+        if (STATE.aiPaused || STATE.aiQueueIdx >= STATE.aiQueue.length) return;
+        const step = STATE.aiQueue[STATE.aiQueueIdx];
+        const tid = setTimeout(() => {
+          if (STATE.aiPaused) return;
+          step.fn();
+          STATE.aiQueueIdx++;
+          runAiQueue();
+        }, step.delay);
+        STATE.flowTimers.timeouts.push(tid);
+      }
+
+      function startAi(){
+        if (STATE.aiRunning) return;
+        STATE.flowTimers.timeouts.forEach(id => clearTimeout(id));
+        STATE.flowTimers.timeouts = [];
+        STATE.aiRunning = true;
+        STATE.aiPaused = false;
+        // Show the user's prompt immediately so there's no empty-state flash.
+        STATE.aiPhase = 'prompt';
+        STATE.aiQueue = buildAiQueue();
+        STATE.aiQueueIdx = 0;
+        scrollPreserveRender();
+        runAiQueue();
+      }
+
+      function stepAi(){
+        if (STATE.aiRunning) return;
+        if (!STATE.aiQueue || STATE.aiQueue.length === 0 || STATE.aiPhase === 'done') {
+          STATE.aiQueue = buildAiQueue();
+          STATE.aiQueueIdx = 0;
+          STATE.aiPhase = 'idle';
+        }
+        if (STATE.aiQueueIdx >= STATE.aiQueue.length) return;
+        const step = STATE.aiQueue[STATE.aiQueueIdx];
+        step.fn();
+        STATE.aiQueueIdx++;
+      }
+
+      function resetAi(){
+        STATE.flowTimers.timeouts.forEach(id => clearTimeout(id));
+        STATE.flowTimers.timeouts = [];
+        STATE.aiPhase = 'idle';
+        STATE.aiScenarioIdx = 0;
+        STATE.aiRunning = false;
+        STATE.aiPaused = false;
+        STATE.aiQueue = [];
+        STATE.aiQueueIdx = 0;
+        scrollPreserveRender();
+      }
+
       /* ========== MT ANIMATION ENGINE ========== */
       function buildMtQueue(){
         const phases = ['primary','catalog','syncing','customers','controls','done'];
@@ -8965,7 +10037,7 @@
         const sc = STATE.flowScenarioIdx;
         const phase = STATE.flowPhase;
         const scenario = sc >= 0 && sc < SCENARIOS.length ? SCENARIOS[sc] : null;
-        const activeViewCount = [STATE.solutionViewUser, STATE.solutionViewAdmin, STATE.solutionViewSetupStore, STATE.solutionViewMultiTenant, STATE.solutionViewDashboard, STATE.solutionViewOnboarding].filter(Boolean).length;
+        const activeViewCount = [STATE.solutionViewUser, STATE.solutionViewAdmin, STATE.solutionViewSetupStore, STATE.solutionViewMultiTenant, STATE.solutionViewDashboard, STATE.solutionViewAi, STATE.solutionViewOnboarding].filter(Boolean).length;
         const multiCol = activeViewCount >= 2;
 
         return `
@@ -8986,7 +10058,7 @@
                   <span class="arch-tool-pill" title="Microsoft Configuration Manager"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="4" y="4" width="11.5" height="11.5" fill="#F25022"/><rect x="16.5" y="4" width="11.5" height="11.5" fill="#7FBA00"/><rect x="4" y="16.5" width="11.5" height="11.5" fill="#00A4EF"/><rect x="16.5" y="16.5" width="11.5" height="11.5" fill="#FFB900"/></svg>ConfigMgr</span>
                   <span class="arch-tool-pill" title="Citrix"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#000"/><path d="M22 11.2a8.5 8.5 0 1 0 0 9.6l-2.6-1.5a5.5 5.5 0 1 1 0-6.6z" fill="#fff"/></svg>Citrix</span>
                   <span class="arch-tool-pill" title="Azure Virtual Desktop / Windows 365"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="4" width="12" height="12" fill="#F25022"/><rect x="17" y="4" width="12" height="12" fill="#7FBA00"/><rect x="3" y="18" width="12" height="12" fill="#00A4EF"/><rect x="17" y="18" width="12" height="12" fill="#FFB900"/></svg>AVD / W365</span>
-                  <span class="arch-tool-pill" title="macOS"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#1A1A2E" d="M22.3 17c0-2.7 2.2-4 2.3-4.1-1.3-1.8-3.2-2.1-3.9-2.1-1.7-.2-3.2 1-4 1-.8 0-2.1-1-3.5-1-1.8 0-3.5 1-4.4 2.7-1.9 3.3-.5 8.1 1.4 10.7.9 1.3 2 2.7 3.4 2.7 1.4-.1 1.9-.9 3.5-.9 1.7 0 2.1.9 3.5.9 1.5 0 2.4-1.3 3.3-2.6 1-1.5 1.4-3 1.5-3.1-.1-.1-2.9-1.1-3-4.2zM19.7 9.1c.7-.9 1.2-2.1 1.1-3.3-1 0-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.2 1.2.1 2.3-.6 3-1.5z"/></svg>macOS</span>
+                  <span class="arch-tool-pill" title="Omnissa Horizon"><img src="data:image/png;base64,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" alt="" aria-hidden="true"/>Omnissa Horizon</span>
                   <span class="arch-tool-pill" title="Jamf"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#1168ED" d="M22.5 4.5c.6 0 1 .5 1 1.1V18c0 5-4 9-9 9-2.4 0-4.5-.9-6.1-2.4-.4-.4-.4-1 0-1.4l2.1-2.1c.4-.4 1-.4 1.4-.1.7.6 1.6 1 2.6 1 2.2 0 4-1.8 4-4V5.6c0-.6.5-1.1 1.1-1.1h2.9zM10.5 16.5a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>Jamf</span>
                 </div>
                 <div class="arch-bracket-up"></div>
@@ -9042,11 +10114,12 @@
                     ${idx < arr.length - 1 ? '<div class="lifecycle-connector ' + connClass + '"></div>' : ''}
                   `;}).join('')}
                   <!-- Flow controls (icon-only) -->
-                  ${(STATE.solutionViewUser || STATE.solutionViewAdmin || STATE.solutionViewSetupStore || STATE.solutionViewMultiTenant || STATE.solutionViewDashboard || STATE.solutionViewOnboarding) ? (() => {
+                  ${(STATE.solutionViewUser || STATE.solutionViewAdmin || STATE.solutionViewSetupStore || STATE.solutionViewMultiTenant || STATE.solutionViewDashboard || STATE.solutionViewAi || STATE.solutionViewOnboarding) ? (() => {
                     const _running =
                       (STATE.solutionViewSetupStore && STATE.ssRunning && !STATE.ssPaused) ||
                       (STATE.solutionViewMultiTenant && STATE.mtRunning && !STATE.mtPaused) ||
                       (STATE.solutionViewDashboard && STATE.drRunning && !STATE.drPaused) ||
+                      (STATE.solutionViewAi && STATE.aiRunning && !STATE.aiPaused) ||
                       (STATE.solutionViewOnboarding && STATE.obRunning && !STATE.obPaused) ||
                       ((STATE.solutionViewUser || STATE.solutionViewAdmin) && STATE.flowRunning && !STATE.flowPaused);
                     const _label = _running ? 'Pause' : 'Play';
@@ -9104,6 +10177,7 @@
                       ${STATE.solutionViewOnboarding ? renderOnboardingView() : ''}
                       ${STATE.solutionViewUser ? renderUserView() : ''}
                       ${STATE.solutionViewDashboard ? renderDashboardView() : ''}
+                      ${STATE.solutionViewAi ? renderAiView() : ''}
                       ${STATE.solutionViewMultiTenant ? renderMultiTenantView() : ''}
                     </div>
                   </div>
@@ -9421,10 +10495,15 @@
         return `<div class="flex items-center justify-between mt-4" aria-hidden="true">${phases.map((p, i) => `${i > 0 ? '<div class="flex-1 h-px bg-slate-200 mx-2"></div>' : ''}<div class="flex flex-col items-center"><i data-lucide="${p.icon}" class="w-5 h-5 text-[#0070F3]"></i><span class="text-xs mt-1 text-[#4A5568]">${p.label}</span></div>`).join('')}</div>`;
       }
 
+      // Packaging reductions are split into two pools so a catalog-heavy
+      // stack doesn't get the same answer as a custom-heavy one. Anchored
+      // to side-by-side field measurements: store/catalog apps collapse
+      // to near-zero touch time, while complex custom apps still need
+      // packaging engineering (just far less of it).
       const ROI_ASSUMPTIONS = {
-        conservative: { ticketReduction: 0.20, pkgReduction: 0.35, patchReduction: 0.30, strategicRealloc: 0.40, fteHours: 1920, uxShare: 0.55, dashShare: 0.20, mtShare: 0.25, label: 'Conservative' },
-        expected:     { ticketReduction: 0.70, pkgReduction: 0.50, patchReduction: 0.45, strategicRealloc: 0.50, fteHours: 1920, uxShare: 0.55, dashShare: 0.20, mtShare: 0.25, label: 'Expected' },
-        high:         { ticketReduction: 0.90, pkgReduction: 0.65, patchReduction: 0.60, strategicRealloc: 0.70, fteHours: 1920, uxShare: 0.55, dashShare: 0.20, mtShare: 0.25, label: 'High' },
+        conservative: { ticketReduction: 0.20, catalogPkgReduction: 0.85, customPkgReduction: 0.55, patchReduction: 0.30, strategicRealloc: 0.40, fteHours: 1920, uxShare: 0.55, dashShare: 0.20, mtShare: 0.25, label: 'Conservative' },
+        expected:     { ticketReduction: 0.70, catalogPkgReduction: 0.95, customPkgReduction: 0.79, patchReduction: 0.45, strategicRealloc: 0.50, fteHours: 1920, uxShare: 0.55, dashShare: 0.20, mtShare: 0.25, label: 'Expected' },
+        high:         { ticketReduction: 0.90, catalogPkgReduction: 0.97, customPkgReduction: 0.85, patchReduction: 0.60, strategicRealloc: 0.70, fteHours: 1920, uxShare: 0.55, dashShare: 0.20, mtShare: 0.25, label: 'High' },
       };
 
       // Field-test packaging benchmarks. AW: 3 standard apps in 38 min = 0.21 hrs each; 3.0 hrs per complex app.
@@ -9659,9 +10738,10 @@
         y += 46;
         y = secBarFull(y, 'WHERE IT COMES FROM');
         y += 6;
+        const pkgPct = ci.pkgHours > 0 ? Math.round((r.pkgHoursReturned / ci.pkgHours) * 100) : 0;
         const bars = [
           {label:'Support & tickets', hrs: r.ticketHoursReturned, pct: Math.round(a.ticketReduction*100), detail: num(r.ticketsAvoided)+' tickets avoided per month', color: GR},
-          {label:'Packaging', hrs: r.pkgHoursReturned, pct: Math.round(a.pkgReduction*100), detail: Math.round(a.pkgReduction*100)+'% reduction across '+ci.envs+' environments', color: PB},
+          {label:'Packaging', hrs: r.pkgHoursReturned, pct: pkgPct, detail: pkgPct+'% blended reduction across catalog + custom apps', color: PB},
           {label:'Patching', hrs: r.patchHoursReturned, pct: Math.round(a.patchReduction*100), detail: 'Staged pipeline replaces per-platform rebuilds', color: AC}
         ];
         bars.forEach(b => {
@@ -9769,7 +10849,7 @@
         doc.text('Prepared for ' + companyName + '  \u00b7  ' + num(ci.users) + ' employees  \u00b7  ' + ci.envs + ' environments  \u00b7  ' + ci.apps + ' apps  \u00b7  ' + a.label + ' scenario', ML, y + 4);
         y += 11;
         doc.setFontSize(7);
-        doc.text('Ticket reduction: ' + Math.round(a.ticketReduction*100) + '%  \u00b7  Packaging: ' + Math.round(a.pkgReduction*100) + '%  \u00b7  Patching: ' + Math.round(a.patchReduction*100) + '%  \u00b7  Strategic reallocation: ' + Math.round(a.strategicRealloc*100) + '%', ML, y + 4);
+        doc.text('Ticket reduction: ' + Math.round(a.ticketReduction*100) + '%  \u00b7  Packaging: ' + (ci.pkgHours > 0 ? Math.round((r.pkgHoursReturned / ci.pkgHours) * 100) : 0) + '% blended (catalog ' + Math.round(a.catalogPkgReduction*100) + '% / custom ' + Math.round(a.customPkgReduction*100) + '%)  \u00b7  Patching: ' + Math.round(a.patchReduction*100) + '%  \u00b7  Strategic reallocation: ' + Math.round(a.strategicRealloc*100) + '%', ML, y + 4);
         y += 9;
         doc.text('Generated from Recast Software Business Impact Model  \u00b7  ' + today, ML, y + 4);
         drawFooter(2);
@@ -9824,7 +10904,8 @@
                   <div class="bi-assumptions-title" style="margin-top:16px">Reduction rates (%)</div>
                   <div class="bi-assumptions-grid four">
                     <label class="bi-rate"><span>Ticket reduction</span><input type="number" id="asn-ticket" min="0" max="100" value="${Math.round(a.ticketReduction * 100)}"></label>
-                    <label class="bi-rate"><span>Packaging reduction</span><input type="number" id="asn-pkg" min="0" max="100" value="${Math.round(a.pkgReduction * 100)}"></label>
+                    <label class="bi-rate"><span>Catalog packaging</span><input type="number" id="asn-pkg-catalog" min="0" max="100" value="${Math.round(a.catalogPkgReduction * 100)}"></label>
+                    <label class="bi-rate"><span>Custom packaging</span><input type="number" id="asn-pkg-custom" min="0" max="100" value="${Math.round(a.customPkgReduction * 100)}"></label>
                     <label class="bi-rate"><span>Patching reduction</span><input type="number" id="asn-patch" min="0" max="100" value="${Math.round(a.patchReduction * 100)}"></label>
                     <label class="bi-rate"><span>Strategic reallocation</span><input type="number" id="asn-strategic" min="0" max="100" value="${Math.round(a.strategicRealloc * 100)}"></label>
                   </div>
@@ -9908,8 +10989,17 @@
         const a = ROI_ASSUMPTIONS[STATE.calcScenario];
         const ci = STATE.calcInputs;
 
-        // ── 5-bar distribution, derived entirely from the calculator's truth ──
-        // Catalog vs custom share of packaging + patching, driven by inputs.
+        // ── 5-bar distribution, partitioning the engine's raw pools ──
+        // The bars represent the same pools the engine adds up
+        // (currentSupportHoursRaw + pkgHours + patchHours), so on raw
+        // values the parts sum to the whole exactly. To keep that true
+        // after rounding, we apply largest-remainder rounding with the
+        // bar totals locked to the engine's headline.
+        //
+        // Packaging is split by app-mix into catalog/custom pools with
+        // distinct reduction rates (catalog collapses much harder than
+        // custom). Patching shares the same catalog/custom split for
+        // display but applies a single uniform patch reduction.
         const apps = Math.max(1, ci.apps);
         const customShare = Math.min(1, ci.customApps / apps);
         const catalogShare = 1 - customShare;
@@ -9920,31 +11010,108 @@
         const dashShare = a.dashShare / rawSum;
         const mtShare = a.mtShare / rawSum;
 
-        const pkgPatchOld = ci.pkgHours + ci.patchHours;
-        const pkgPatchRet = r.pkgHoursReturned + r.patchHoursReturned;
-        const sup = r.currentSupportHours;
-        const supRet = r.ticketHoursReturned;
+        // Hover narratives for each row — longer-form explanations of
+        // why this pool collapses with AW, written for a sales-facing
+        // audience. Surfaced via the row's `title` tooltip.
+        const BAR_NARRATIVES = {
+          'Managed apps':     'Vendor apps come pre-built from the Recast Setup Store — Recast packages, tests, and keeps each one current, so new versions apply automatically instead of being repackaged by hand.',
+          'Custom packaging': 'Your in-house apps are packaged once with reusable install, update, and detection logic, then delivered through the same automation engine — no manual scripting per environment.',
+          'User experience':  'Users install what they need on demand from one self-service catalog with single sign-on — instant access and far fewer help-desk tickets for installs and logins.',
+          'Dashboarding':     'Every action is logged automatically and surfaced through built-in reporting and OData — audit evidence and usage dashboards generate themselves instead of being compiled by hand.',
+          'Multi-tenant':     'One package promotes identically across every environment and tenant — build once, get the same result everywhere, with no drift between dev, test, and prod.'
+        };
 
-        const bars = [
-          { label: 'Managed apps',     sub: 'Deploy + lifecycle',     old: pkgPatchOld * catalogShare, ret: pkgPatchRet * catalogShare },
-          { label: 'Custom packaging', sub: 'In-house apps',          old: pkgPatchOld * customShare,  ret: pkgPatchRet * customShare  },
-          { label: 'User experience',  sub: 'Self-serve + auth',      old: sup * uxShare,              ret: supRet * uxShare           },
-          { label: 'Dashboarding',     sub: 'Reporting + audit',      old: sup * dashShare,            ret: supRet * dashShare         },
-          { label: 'Multi-tenant',     sub: 'Cross-env consistency',  old: sup * mtShare,              ret: supRet * mtShare           },
-        ].map(b => {
-          const oldR = Math.round(b.old);
-          const retR = Math.round(b.ret);
-          const neww = Math.max(0, oldR - retR);
-          const reclaimed = oldR - neww;
-          const pct = oldR > 0 ? Math.round((reclaimed / oldR) * 100) : 0;
-          return { label: b.label, sub: b.sub, old: oldR, neww, reclaimed, pct };
+        // Per-pool raw values, sourced from the engine. Patching is
+        // excluded from this visualization — it lives in the Risk card's
+        // "Patch validation effort" row. The Scale card headline still
+        // includes patching reclaim (engine truth); these bars only
+        // partition the packaging + support pools that they actually
+        // visualize, and the rounding targets are locked to that subset.
+        const supRaw    = r.currentSupportHoursRaw;
+        const supRetRaw = r.ticketHoursReturnedRaw;
+
+        const barsRaw = [
+          { label: 'Managed apps',     sub: 'Catalog + lifecycle',    old: r.catalogPkgHoursRaw,   ret: r.catalogPkgReturnedRaw },
+          { label: 'Custom packaging', sub: 'In-house apps',          old: r.customPkgHoursRaw,    ret: r.customPkgReturnedRaw  },
+          { label: 'User experience',  sub: 'Self-serve + auth',      old: supRaw * uxShare,       ret: supRetRaw * uxShare     },
+          { label: 'Dashboarding',     sub: 'Reporting + audit',      old: supRaw * dashShare,     ret: supRetRaw * dashShare   },
+          { label: 'Multi-tenant',     sub: 'Cross-env consistency',  old: supRaw * mtShare,       ret: supRetRaw * mtShare     },
+        ].map(b => ({ ...b, neww: Math.max(0, b.old - b.ret) }));
+
+        // Visible totals (excluding patching), used as rounding targets
+        // so the bars reconcile to what they actually display.
+        const visibleBaselineRaw = supRaw + r.catalogPkgHoursRaw + r.customPkgHoursRaw;
+        const visibleReturnedRaw = supRetRaw + r.catalogPkgReturnedRaw + r.customPkgReturnedRaw;
+        const visibleReclaim     = Math.round(visibleReturnedRaw);
+        const patchingReclaim    = r.patchHoursReturned; // shown as a separate note below the bars
+
+        // Largest-remainder rounding: residuals are absorbed into the
+        // rows with the largest fractional parts so the integer parts
+        // sum exactly to the integer target.
+        function roundToTotal(rawParts, target){
+          const fl = rawParts.map(v => Math.floor(v));
+          let rem = target - fl.reduce((s,n) => s+n, 0);
+          if (rem <= 0) return fl;
+          const order = rawParts.map((v,i) => ({ i, frac: v - Math.floor(v) }))
+                                .sort((x,y) => y.frac - x.frac);
+          for (let k = 0; k < rem && k < order.length; k++) fl[order[k].i]++;
+          return fl;
+        }
+
+        // Force bar totals to match the engine's visible pools exactly:
+        //   sum(oldR) === Math.round(visibleBaselineRaw)
+        //   sum(newR) === Math.round(visibleBaselineRaw) − visibleReclaim
+        // → sum(oldR) − sum(newR) === visibleReclaim, always.
+        const oldTarget = Math.round(visibleBaselineRaw);
+        const newTarget = Math.max(0, oldTarget - visibleReclaim);
+        const oldR = roundToTotal(barsRaw.map(b => b.old),  oldTarget);
+        const newR = roundToTotal(barsRaw.map(b => b.neww), newTarget);
+
+        // Clamp new[i] ≤ old[i]; redistribute any rounding overflow
+        // into rows that still have slack (preserves the total).
+        for (let i = 0; i < oldR.length; i++) {
+          if (newR[i] > oldR[i]) {
+            let excess = newR[i] - oldR[i];
+            newR[i] = oldR[i];
+            for (let j = 0; j < newR.length && excess > 0; j++) {
+              if (j === i) continue;
+              const slack = oldR[j] - newR[j];
+              if (slack > 0) {
+                const take = Math.min(slack, excess);
+                newR[j] += take;
+                excess  -= take;
+              }
+            }
+          }
+        }
+
+        const bars = barsRaw.map((b, i) => {
+          const oldV = oldR[i];
+          const newV = newR[i];
+          const reclaimed = oldV - newV;
+          const pct = oldV > 0 ? Math.round((reclaimed / oldV) * 100) : 0;
+          return { label: b.label, sub: b.sub, narrative: BAR_NARRATIVES[b.label] || '', old: oldV, neww: newV, reclaimed, pct };
         });
 
         const oldTotal = bars.reduce((s,b) => s + b.old,  0);
         const newTotal = bars.reduce((s,b) => s + b.neww, 0);
-        const totalReturned = Math.max(0, oldTotal - newTotal);
+        const totalReturned = visibleReclaim; // visible bars only; full engine reclaim is on the Scale card
         const pctReduction = oldTotal ? Math.round((totalReturned / oldTotal) * 100) : 0;
-        const ftesAbsorbed = oldTotal ? (oldTotal * 12 / a.fteHours).toFixed(1) : '0.0';
+        const ftesAbsorbed = oldTotal && a.fteHours > 0 ? (oldTotal * 12 / a.fteHours).toFixed(1) : '0.0';
+
+        // Scale-card numbers use the full engine reclaim (includes
+        // patching). Right-panel bars+summary use the visible-pool
+        // reclaim. Both are honest within their scope; the small note
+        // under the summary bridges them.
+        const fullReclaim = r.totalHoursMonth;
+        const fullPctReduction = r.baselineRaw > 0 ? Math.round((fullReclaim / r.baselineRaw) * 100) : 0;
+
+        // Dev guardrail — fails loudly if engine and bar partition ever diverge.
+        console.assert(
+          oldTotal - newTotal === visibleReclaim,
+          'bars do not reconcile to visible reclaim',
+          { barReclaim: oldTotal - newTotal, visibleReclaim }
+        );
 
         // Nice axis ceiling for the chart (round up to a clean tick).
         const axisMax = Math.max(...bars.map(b => b.old), 10);
@@ -9959,9 +11126,11 @@
         const ticks = Array.from({length: tickCount}, (_, i) => Math.round(i * tickStep));
 
         const barRow = (b) => {
-          const tip = `${b.label}: ${num(b.old)} hrs today → ${num(b.neww)} hrs with App Workspace (−${b.pct}%, ${num(b.reclaimed)} hrs reclaimed)`;
+          const detail = `${num(b.old)} hrs today → ${num(b.neww)} hrs with App Workspace (−${b.pct}%, ${num(b.reclaimed)} hrs reclaimed)`;
+          const narrative = b.narrative ? `\n\n${b.narrative}` : '';
+          const tip = `${b.label} · ${b.sub}\n${detail}${narrative}`;
           return `
-          <div class="bi-compare-row" title="${tip}">
+          <div class="bi-compare-row" title="${tip.replace(/"/g, '&quot;')}">
             <div class="bi-compare-label">
               ${b.label}
               <span class="bi-compare-label-sub">${b.sub}</span>
@@ -9983,128 +11152,170 @@
           </div>`;
         };
 
-        // ── Packaging cycle ROI (field-test benchmarks) ──
-        const awCycle    = r.awCycleHours      ?? 0;
-        const tradCycle  = r.tradCycleHours    ?? 0;
-        const hrsSaved   = r.cycleHoursSaved   ?? 0;
-        const timeMult   = r.cycleTimeMultiple ?? 0;
-        const $saved     = r.cycleDollarsSaved ?? 0;
-        const hasCycle   = awCycle > 0 && tradCycle > 0;
-        const cycleScale = Math.max(tradCycle, awCycle, 1);
-        const awPct      = (awCycle   / cycleScale) * 100;
-        const tradPct    = (tradCycle / cycleScale) * 100;
-        const tradVal    = `${num(Math.round(tradCycle))} hrs`;
-        const awVal      = `${num(Math.round(awCycle))} hrs`;
-        // If the bar is too short to fit text inside, render the value outside.
-        const tradOutside = tradPct < 18;
-        const awOutside   = awPct < 18;
-        const cycleStdApps = r.cycleStandardApps ?? 0;
-        const cycleCmpApps = r.cycleComplexApps  ?? 0;
-        const pctLess      = hasCycle ? Math.round((1 - awCycle / tradCycle) * 100) : 0;
-        const timeMultStr  = hasCycle ? timeMult.toFixed(1) : '—';
-        const timeMultUnit = hasCycle ? '× faster' : '';
+        // ─── SPEED / SCALE / RISK card derivations ───────────────────
+        // Every value below feeds the same r/ci/a state that drives the
+        // right-hand "Where time gets returned" panel — both update
+        // together on Recalculate or assumption edits, so the two
+        // columns can never show inconsistent numbers. Only two values
+        // are new derivations: blended per-app build time (Speed hero)
+        // and reclaimed-hour dollar value (Scale hero sub).
+        const pb = PACKAGING_BENCHMARKS;
+        const complexMix  = Math.max(0, Math.min(1, (ci.complexMixPct ?? 20) / 100));
+        const standardMix = 1 - complexMix;
+        const tradBlended = standardMix * pb.tradStdHrs + complexMix * pb.tradComplexHrs;
+        const awBlended   = standardMix * pb.awStdHrs   + complexMix * pb.awComplexHrs;
+        const pctFaster   = tradBlended > 0 ? Math.round((1 - awBlended / tradBlended) * 100) : 0;
 
-        const compoundCol = (() => {
-            const oneTimeHrs = Math.round(hasCycle ? hrsSaved : 0);
-            const recurHrs   = Math.round(r.totalHoursYear || 0);
-            if ((oneTimeHrs + recurHrs) <= 0) return '';
-            const yr1Hrs = oneTimeHrs + recurHrs;
-            const yr2Hrs = oneTimeHrs + recurHrs * 2;
-            const yr3Hrs = oneTimeHrs + recurHrs * 3;
-            const max = Math.max(yr3Hrs, 1);
-            const otPct  = (oneTimeHrs / max) * 100;
-            const recPct = (recurHrs   / max) * 100;
-            const labelInside = (pct, value, unit) => pct >= 7 ? `+${num(value)}${unit}` : '';
-            const engYears = yr3Hrs / 1920;
-            const useYears = engYears >= 1;
-            const heroNum  = useYears ? engYears.toFixed(1) : (engYears * 12).toFixed(1);
-            const heroUnit = useYears ? 'engineer-years' : 'engineer-months';
-            const envCount = ci.envs || 1;
-            const ticketsAnnual = Math.round((r.ticketsAvoided || 0) * 12);
-            const ticketsTotal  = ticketsAnnual * 3;
-            const tixReductionPct = Math.round(a.ticketReduction * 100);
-            const engMonths = hasCycle ? (hrsSaved / 160).toFixed(1) : '0';
-            return `
-          <!-- COMPOUNDING OPERATIONAL CAPACITY OVER 3 YEARS -->
-          <section class="bi-split-col">
-            <button class="bi-section-eyebrow is-compound is-toggle" type="button" data-action="toggle-section" data-section="compound" aria-expanded="${STATE.collapsedSections.compound ? 'false' : 'true'}" aria-controls="section-compound">
-              <span class="bi-section-eyebrow-label">3-year horizon</span>
-              <svg class="bi-section-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-            </button>
-            <div class="bi-section-content${STATE.collapsedSections.compound ? ' is-collapsed' : ''}" id="section-compound">
-              <div class="bi-compound dash-animate">
-                <div class="bi-compound-head">
-                  <div class="bi-compound-head-main">
-                    <div class="bi-compound-hero">
-                      <span class="bi-compound-hero-num">${heroNum}</span>
-                      <span class="bi-compound-hero-unit">${heroUnit}</span>
-                      <span class="bi-compound-hero-suffix">reclaimed by Year 3</span>
-                    </div>
-                    <div class="bi-compound-sub">Onboarding pays for itself in Year 1. Recurring capacity compounds every year after across <b>${envCount} environment${envCount===1?'':'s'}</b>.</div>
-                  </div>
-                  <div class="bi-compound-legend">
-                    <span class="bi-compound-legend-item"><span class="bi-compound-legend-swatch is-onetime"></span>One-time onboarding</span>
-                    <span class="bi-compound-legend-item"><span class="bi-compound-legend-swatch is-recurring"></span>Recurring capacity</span>
-                  </div>
-                </div>
-                <div class="bi-pkg-inputs bi-compound-inputs">
-                  <span class="bi-pkg-inputs-prompt">Tune onboarding</span>
-                  <label class="bi-pkg-input-chip" title="Total apps to onboard">
-                    <input type="number" id="pkg-apps" min="0" step="1" value="${ci.apps}" class="is-wide" aria-label="Total apps to onboard">
-                    <span class="bi-pkg-input-chip-label">apps</span>
-                  </label>
-                  <label class="bi-pkg-input-chip" title="Share of apps that are complex (rest are standard)">
-                    <input type="number" id="pkg-mix" min="0" max="100" step="1" value="${Math.round(ci.complexMixPct ?? 20)}" aria-label="Percent complex apps">
-                    <span class="bi-pkg-input-chip-label">% complex &middot; ${Math.round(100 - (ci.complexMixPct ?? 20))}% standard</span>
-                  </label>
-                  <label class="bi-pkg-input-chip" title="Loaded engineer hourly rate">
-                    <span class="bi-pkg-input-chip-label">$</span>
-                    <input type="number" id="pkg-rate" min="0" step="1" value="${ci.loadedRate || 95}" aria-label="Loaded engineer hourly rate">
-                    <span class="bi-pkg-input-chip-label">/hr loaded</span>
-                  </label>
-                  <span class="bi-pkg-inputs-note">Defaults from Recast field test</span>
-                </div>
-                <div class="bi-compound-rows">
-                  <div class="bi-compound-row" title="Year 1: ${num(oneTimeHrs)} one-time + ${num(recurHrs)} recurring = ${num(yr1Hrs)} hrs">
-                    <div class="bi-compound-row-label">Year 1</div>
-                    <div class="bi-compound-bar">
-                      <div class="bi-compound-seg bi-compound-seg-onetime" style="width:${otPct}%">${labelInside(otPct, oneTimeHrs, 'hrs')}</div>
-                      <div class="bi-compound-seg bi-compound-seg-rec"     style="width:${recPct}%">${labelInside(recPct, recurHrs, 'hrs')}</div>
-                    </div>
-                    <div class="bi-compound-total">${num(yr1Hrs)} hrs<small>cumulative</small></div>
-                  </div>
-                  <div class="bi-compound-row" title="Year 2 cumulative: ${num(oneTimeHrs)} one-time + ${num(recurHrs * 2)} recurring = ${num(yr2Hrs)} hrs">
-                    <div class="bi-compound-row-label">Year 2</div>
-                    <div class="bi-compound-bar">
-                      <div class="bi-compound-seg bi-compound-seg-onetime" style="width:${otPct}%"></div>
-                      <div class="bi-compound-seg bi-compound-seg-rec"     style="width:${recPct}%"></div>
-                      <div class="bi-compound-seg bi-compound-seg-rec is-yr2" style="width:${recPct}%">${labelInside(recPct, recurHrs, 'hrs')}</div>
-                    </div>
-                    <div class="bi-compound-total">${num(yr2Hrs)} hrs<small>cumulative</small></div>
-                  </div>
-                  <div class="bi-compound-row" title="Year 3 cumulative: ${num(oneTimeHrs)} one-time + ${num(recurHrs * 3)} recurring = ${num(yr3Hrs)} hrs">
-                    <div class="bi-compound-row-label">Year 3</div>
-                    <div class="bi-compound-bar">
-                      <div class="bi-compound-seg bi-compound-seg-onetime" style="width:${otPct}%"></div>
-                      <div class="bi-compound-seg bi-compound-seg-rec"     style="width:${recPct}%"></div>
-                      <div class="bi-compound-seg bi-compound-seg-rec is-yr2" style="width:${recPct}%"></div>
-                      <div class="bi-compound-seg bi-compound-seg-rec is-yr3" style="width:${recPct}%">${labelInside(recPct, recurHrs, 'hrs')}</div>
-                    </div>
-                    <div class="bi-compound-total">${num(yr3Hrs)} hrs<small>cumulative</small></div>
-                  </div>
-                </div>
-                <div class="bi-compound-foot">
-                  <svg class="bi-compound-foot-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                  <span><b>+ ${num(ticketsTotal)} end-user tickets prevented</b> over 3 years &mdash; <b>${tixReductionPct}% fewer helpdesk calls</b>. Users self-serve their apps across all ${envCount} environment${envCount===1?'':'s'} instead of waiting for IT, and the one-time packaging onboarding (&asymp; <b>${engMonths} engineer-months</b>) stays returned forever.</span>
-                </div>
-              </div>
-            </div>
-          </section>`;
-          })();
+        const loadedRate = r.rate;
+        const reclaimedDollarsAnnual = r.totalRecoveredAnnual; // engine value, no recompute
+        const fmtDollarsK = (n) => '$' + Math.round(n / 1000).toLocaleString() + 'K';
+
+        // Cross-platform touchpoints — same formula the removed env
+        // picker used, driven by ci.envs and a fixed 50% coverage (a
+        // typical app lives on ~half the platforms in a stack).
+        const ENV_COVERAGE = 0.5;
+        const streamsToday = Math.max(ci.apps, Math.round(ci.apps * ci.envs * ENV_COVERAGE));
+        const streamsAw    = ci.apps;
+        const touchpointReduction = streamsToday > 0 ? Math.max(0, Math.round(((streamsToday - streamsAw) / streamsToday) * 100)) : 0;
+
+        // After-state hours read from the engine, not recomputed — so the
+        // row totals match `pkgHoursReturned` / `patchHoursReturned` exactly.
+        const pkgAfter   = Math.max(0, ci.pkgHours   - r.pkgHoursReturned);
+        const patchAfter = Math.max(0, ci.patchHours - r.patchHoursReturned);
+        const dashRow    = bars.find(b => b.label === 'Dashboarding') || { old: 0, neww: 0 };
+        const envsLabel  = ci.envs === 1 ? 'env' : 'envs';
 
         return `
-          <div class="bi-split${compoundCol ? '' : ' is-single'}">
-            <!-- ONGOING IMPACT — monthly recurring -->
+          <div class="bi-split">
+            <!-- OUTCOMES — Speed / Scale / Risk (left side: the headline story) -->
+            <section class="bi-split-col">
+              <div class="bi-section-eyebrow">Outcomes &middot; speed, scale, risk</div>
+              <div class="bi-pillars">
+
+                <article class="bi-pillar is-speed">
+                  <header class="bi-pillar-head">
+                    <span class="bi-pillar-eyebrow">Speed</span>
+                    <h3 class="bi-pillar-title">Time to deliver</h3>
+                  </header>
+                  <div class="bi-pillar-hero">
+                    <div class="bi-pillar-hero-num">&minus;${pctFaster}<span class="bi-pillar-hero-unit">%</span></div>
+                    <div class="bi-pillar-hero-sub">
+                      per-app build time &middot;
+                      <span class="bi-pillar-from">${tradBlended.toFixed(1)} hrs</span>
+                      <span class="bi-pillar-arrow">&rarr;</span>
+                      <span class="bi-pillar-to">${awBlended.toFixed(1)} hrs</span>
+                    </div>
+                  </div>
+                  <ul class="bi-pillar-rows">
+                    <li class="bi-pillar-row">
+                      <span class="bi-pillar-row-lbl">Builds per release</span>
+                      <span class="bi-pillar-row-val">
+                        <span class="bi-pillar-from">${ci.envs}</span>
+                        <span class="bi-pillar-arrow">&rarr;</span>
+                        <span class="bi-pillar-to">1</span>
+                      </span>
+                    </li>
+                    <li class="bi-pillar-row">
+                      <span class="bi-pillar-row-lbl">User access</span>
+                      <span class="bi-pillar-row-val">
+                        <span class="bi-pillar-from">days</span>
+                        <span class="bi-pillar-arrow">&rarr;</span>
+                        <span class="bi-pillar-to">&lt;1 min</span>
+                      </span>
+                    </li>
+                    <li class="bi-pillar-row">
+                      <span class="bi-pillar-row-lbl">Patch window</span>
+                      <span class="bi-pillar-row-val">
+                        <span class="bi-pillar-from">5&ndash;10 days</span>
+                        <span class="bi-pillar-arrow">&rarr;</span>
+                        <span class="bi-pillar-to">day-zero</span>
+                      </span>
+                    </li>
+                  </ul>
+                </article>
+
+                <article class="bi-pillar is-scale">
+                  <header class="bi-pillar-head">
+                    <span class="bi-pillar-eyebrow">Scale</span>
+                    <h3 class="bi-pillar-title">Capacity reclaimed</h3>
+                  </header>
+                  <div class="bi-pillar-hero">
+                    <div class="bi-pillar-hero-num">${num(fullReclaim)}<span class="bi-pillar-hero-unit"> hrs/mo</span></div>
+                    <div class="bi-pillar-hero-sub">
+                      &asymp; <span class="bi-pillar-to">${fmtDollarsK(reclaimedDollarsAnnual)}/yr</span>
+                      &middot; <span class="bi-pillar-to">&minus;${fullPctReduction}%</span>
+                      <span class="bi-pillar-hero-note">of operational hours</span>
+                    </div>
+                  </div>
+                  <ul class="bi-pillar-rows">
+                    <li class="bi-pillar-row">
+                      <span class="bi-pillar-row-lbl">Packaging effort</span>
+                      <span class="bi-pillar-row-val">
+                        <span class="bi-pillar-from">${num(ci.pkgHours)} hrs/mo</span>
+                        <span class="bi-pillar-arrow">&rarr;</span>
+                        <span class="bi-pillar-to">${num(pkgAfter)} hrs/mo</span>
+                      </span>
+                    </li>
+                    <li class="bi-pillar-row">
+                      <span class="bi-pillar-row-lbl">Delivery touchpoints</span>
+                      <span class="bi-pillar-row-val">
+                        <span class="bi-pillar-from">${num(streamsToday)}</span>
+                        <span class="bi-pillar-arrow">&rarr;</span>
+                        <span class="bi-pillar-to">${num(streamsAw)}</span>
+                        <span class="bi-pillar-tag">&minus;${touchpointReduction}%</span>
+                      </span>
+                    </li>
+                    <li class="bi-pillar-row">
+                      <span class="bi-pillar-row-lbl">Engineer time</span>
+                      <span class="bi-pillar-row-val">
+                        <span class="bi-pillar-from">repetitive packaging</span>
+                        <span class="bi-pillar-arrow">&rarr;</span>
+                        <span class="bi-pillar-to">strategy</span>
+                      </span>
+                    </li>
+                  </ul>
+                </article>
+
+                <article class="bi-pillar is-risk">
+                  <header class="bi-pillar-head">
+                    <span class="bi-pillar-eyebrow">Risk</span>
+                    <h3 class="bi-pillar-title">Audit-ready by default</h3>
+                  </header>
+                  <div class="bi-pillar-hero">
+                    <div class="bi-pillar-hero-num bi-pillar-hero-text">Per-action log</div>
+                    <div class="bi-pillar-hero-sub">replaces manual evidence &middot; every change captured</div>
+                  </div>
+                  <ul class="bi-pillar-rows">
+                    <li class="bi-pillar-row">
+                      <span class="bi-pillar-row-lbl">Reporting + audit effort</span>
+                      <span class="bi-pillar-row-val">
+                        <span class="bi-pillar-from">${num(dashRow.old)} hrs/mo</span>
+                        <span class="bi-pillar-arrow">&rarr;</span>
+                        <span class="bi-pillar-to">${num(dashRow.neww)} hrs/mo</span>
+                      </span>
+                    </li>
+                    <li class="bi-pillar-row">
+                      <span class="bi-pillar-row-lbl">Patch validation effort</span>
+                      <span class="bi-pillar-row-val">
+                        <span class="bi-pillar-from">${num(ci.patchHours)} hrs/mo</span>
+                        <span class="bi-pillar-arrow">&rarr;</span>
+                        <span class="bi-pillar-to">${num(patchAfter)} hrs/mo</span>
+                      </span>
+                    </li>
+                    <li class="bi-pillar-row">
+                      <span class="bi-pillar-row-lbl">App consistency</span>
+                      <span class="bi-pillar-row-val bi-pillar-row-val-single">
+                        1 build &equals; all ${ci.envs} ${envsLabel}
+                      </span>
+                    </li>
+                  </ul>
+                </article>
+
+              </div>
+              <p class="bi-pillars-foot">Modeled from your Assumptions &mdash; editable above.</p>
+            </section>
+
+            <!-- ONGOING IMPACT — monthly recurring (right side: data backs the story) -->
             <section class="bi-split-col">
               <div class="bi-section-eyebrow">Ongoing &middot; hours per month</div>
               <div class="bi-compare dash-animate">
@@ -10114,7 +11325,7 @@
                     <div class="bi-compare-sub">Recurring operational hours, today vs. with Application Workspace. Hover any row for the math.</div>
                   </div>
                   <div class="bi-compare-legend">
-                    <span class="bi-compare-legend-item"><span class="bi-compare-legend-swatch" style="background:var(--r-red)"></span>Today (manual)</span>
+                    <span class="bi-compare-legend-item"><span class="bi-compare-legend-swatch" style="background:var(--r-red)"></span>Today</span>
                     <span class="bi-compare-legend-item"><span class="bi-compare-legend-swatch" style="background:var(--r-blue)"></span>With App Workspace</span>
                   </div>
                 </div>
@@ -10136,13 +11347,12 @@
                     <span class="bi-compare-summary-tag">with Application Workspace</span>
                   </div>
                   <div class="bi-compare-summary-right">
-                    <span class="bi-compare-summary-pct">${pctReduction}% reduction</span>
+                    <span class="bi-compare-summary-pct">${pctReduction}% of operational hours</span>
                     <span class="bi-compare-summary-detail">&middot; <b>${num(totalReturned)} hrs/mo</b> returned to strategy</span>
                   </div>
                 </div>
               </div>
             </section>
-            ${compoundCol}
           </div>
         `;
       }
@@ -10154,23 +11364,54 @@
       function calculateImpact(){
         const ci = STATE.calcInputs;
         const a = ROI_ASSUMPTIONS[STATE.calcScenario];
-        const currentSupportHours = round((ci.monthlyTickets * ci.avgTicketMins) / 60);
-        const ticketHoursReturned = round(currentSupportHours * a.ticketReduction);
-        const ticketsAvoided = Math.round(ci.monthlyTickets * a.ticketReduction);
-        const pkgHoursReturned = round(ci.pkgHours * a.pkgReduction);
-        const patchHoursReturned = round(ci.patchHours * a.patchReduction);
-        const totalHoursMonth = round(ticketHoursReturned + pkgHoursReturned + patchHoursReturned);
-        const totalHoursYear = round(totalHoursMonth * 12);
-        const fteCapacity = round(totalHoursYear / a.fteHours);
-        const strategicHours = Math.round(totalHoursYear * a.strategicRealloc);
-        const reqsDeferred = ci.openReqs > 0 ? Math.min(ci.openReqs, Math.floor(fteCapacity)) : 0;
-        const delayedInitiatives = ci.delayedInitiatives;
-        const supportCostAnnual = Math.round(currentSupportHours * 90 * 12);
-        const engineeringCostAnnual = Math.round((ci.pkgHours + ci.patchHours) * 120 * 12);
-        const wasteCostAnnual = Math.round((supportCostAnnual + engineeringCostAnnual) * 0.25);
-        const totalBurnAnnual = supportCostAnnual + engineeringCostAnnual + wasteCostAnnual;
-        const totalRecoveredAnnual = Math.round((ticketHoursReturned * 90 + (pkgHoursReturned + patchHoursReturned) * 120) * 12);
-        const monthlyCostOfWaiting = Math.round(totalRecoveredAnnual / 12);
+        const rate = ci.loadedRate || 95; // single editable loaded rate, used everywhere
+
+        // ── Raw (unrounded) values are the canonical source of truth ──
+        // Every monthly-hours figure flows from these. We round only on output
+        // so rounded parts can never disagree with the rounded whole.
+        const currentSupportHoursRaw = (ci.monthlyTickets * ci.avgTicketMins) / 60;
+        const ticketHoursReturnedRaw = currentSupportHoursRaw * a.ticketReduction;
+
+        // Packaging is two distinct pools — catalog/store apps collapse
+        // near-completely; custom apps still need engineering. Split the
+        // pool by app share, apply per-pool reductions, then recombine.
+        const totalApps    = Math.max(0, ci.apps);
+        const customApps   = Math.max(0, Math.min(ci.customApps, totalApps));
+        const customShare  = totalApps > 0 ? customApps / totalApps : 0;
+        const catalogShareEngine = 1 - customShare;
+        const catalogPkgHoursRaw    = ci.pkgHours * catalogShareEngine;
+        const customPkgHoursRaw     = ci.pkgHours * customShare;
+        const catalogPkgReturnedRaw = catalogPkgHoursRaw * a.catalogPkgReduction;
+        const customPkgReturnedRaw  = customPkgHoursRaw  * a.customPkgReduction;
+        const pkgHoursReturnedRaw   = catalogPkgReturnedRaw + customPkgReturnedRaw;
+        const blendedPkgReduction   = ci.pkgHours > 0 ? (pkgHoursReturnedRaw / ci.pkgHours) : 0;
+
+        const patchHoursReturnedRaw  = ci.patchHours * a.patchReduction;
+        const totalReturnedRaw       = ticketHoursReturnedRaw + pkgHoursReturnedRaw + patchHoursReturnedRaw;
+        const baselineRaw            = currentSupportHoursRaw + ci.pkgHours + ci.patchHours;
+
+        // ── Rounded outputs (display-only) ──
+        const currentSupportHours = Math.round(currentSupportHoursRaw);
+        const ticketHoursReturned = Math.round(ticketHoursReturnedRaw);
+        const ticketsAvoided      = Math.round(ci.monthlyTickets * a.ticketReduction);
+        const pkgHoursReturned    = Math.round(pkgHoursReturnedRaw);
+        const patchHoursReturned  = Math.round(patchHoursReturnedRaw);
+        const totalHoursMonth     = Math.round(totalReturnedRaw); // canonical monthly reclaim
+        const totalHoursYear      = Math.round(totalReturnedRaw * 12);
+        const fteCapacity         = a.fteHours > 0 ? Math.round(totalHoursYear / a.fteHours) : 0;
+        const strategicHours      = Math.round(totalHoursYear * a.strategicRealloc);
+        const reqsDeferred        = ci.openReqs > 0 ? Math.min(ci.openReqs, Math.floor(fteCapacity)) : 0;
+        const delayedInitiatives  = ci.delayedInitiatives;
+
+        // ── Dollars: one declared rate for every figure ──
+        // Replaces the previous hardcoded $90 (support) / $120 (engineering)
+        // mix with the single editable Assumptions rate so all $ values agree.
+        const supportCostAnnual     = Math.round(currentSupportHoursRaw * rate * 12);
+        const engineeringCostAnnual = Math.round((ci.pkgHours + ci.patchHours) * rate * 12);
+        const wasteCostAnnual       = Math.round((supportCostAnnual + engineeringCostAnnual) * 0.25);
+        const totalBurnAnnual       = supportCostAnnual + engineeringCostAnnual + wasteCostAnnual;
+        const totalRecoveredAnnual  = Math.round(totalReturnedRaw * rate * 12);
+        const monthlyCostOfWaiting  = Math.round(totalRecoveredAnnual / 12);
 
         // ── Packaging cycle ROI (field-test model) ──
         // Standard_Apps  = Total_Apps × (1 − complex%);   Complex_Apps = Total_Apps × complex%
@@ -10207,7 +11448,24 @@
         const threeYearNet = threeYearValue - threeYearInvestment;
         const awBlendedPerUserMonth = ci.users > 0 ? (awAnnualInvestment / 12 / ci.users) : 0;
 
-        STATE.calcResult = { currentSupportHours, ticketHoursReturned, ticketsAvoided, pkgHoursReturned, patchHoursReturned, totalHoursMonth, totalHoursYear, fteCapacity, strategicHours, reqsDeferred, delayedInitiatives, supportCostAnnual, engineeringCostAnnual, wasteCostAnnual, totalBurnAnnual, totalRecoveredAnnual, monthlyCostOfWaiting, cycleStandardApps, cycleComplexApps, awCycleHours, tradCycleHours, cycleHoursSaved, cycleTimeMultiple, cycleDollarsSaved, awAnnualInvestment, recurringAnnualValue, oneTimePackagingValue, year1Value, year1Net, year1ROIMultiple, recurringROIMultiple, paybackMonths, threeYearValue, threeYearInvestment, threeYearNet, awBlendedPerUserMonth };
+        STATE.calcResult = {
+          // Display-rounded fields the view reads directly.
+          currentSupportHours, ticketHoursReturned, ticketsAvoided, pkgHoursReturned, patchHoursReturned,
+          totalHoursMonth, totalHoursYear, fteCapacity, strategicHours, reqsDeferred, delayedInitiatives,
+          supportCostAnnual, engineeringCostAnnual, wasteCostAnnual, totalBurnAnnual,
+          totalRecoveredAnnual, monthlyCostOfWaiting,
+          cycleStandardApps, cycleComplexApps, awCycleHours, tradCycleHours, cycleHoursSaved,
+          cycleTimeMultiple, cycleDollarsSaved,
+          awAnnualInvestment, recurringAnnualValue, oneTimePackagingValue, year1Value, year1Net,
+          year1ROIMultiple, recurringROIMultiple, paybackMonths,
+          threeYearValue, threeYearInvestment, threeYearNet, awBlendedPerUserMonth,
+          // Raw fields the bar partition reads to stay in lockstep with the engine.
+          currentSupportHoursRaw, ticketHoursReturnedRaw, pkgHoursReturnedRaw, patchHoursReturnedRaw,
+          totalReturnedRaw, baselineRaw, rate,
+          // Per-pool packaging split + blended pct (used by bars and the PDF).
+          catalogPkgHoursRaw, customPkgHoursRaw, catalogPkgReturnedRaw, customPkgReturnedRaw,
+          blendedPkgReduction
+        };
       }
 
       const USER_ID = String(window.APP_USER_ID || "guest");
@@ -10345,6 +11603,7 @@
               if (typeof ssTickerStop === 'function') ssTickerStop();
               STATE.obRunning = false; STATE.obPaused = false; STATE.obPhase = 'idle'; STATE.obQueue = []; STATE.obQueueIdx = 0;
               STATE.drRunning = false; STATE.drPaused = false; STATE.drPhase = 'idle'; STATE.drQueue = []; STATE.drQueueIdx = 0;
+              STATE.aiRunning = false; STATE.aiPaused = false; STATE.aiPhase = 'idle'; STATE.aiQueue = []; STATE.aiQueueIdx = 0; STATE.aiScenarioIdx = 0;
               STATE.mtRunning = false; STATE.mtPaused = false; STATE.mtPhase = 'idle'; STATE.mtQueue = []; STATE.mtQueueIdx = 0;
               STATE.flowAppOpened = false; STATE._firstOpenDone = false; STATE._firstDeliveryBadgeDone = false; STATE._acSeen = {};
             };
@@ -10359,10 +11618,11 @@
               (view === 'setupstore' && STATE.solutionViewSetupStore) ||
               (view === 'multitenant' && STATE.solutionViewMultiTenant) ||
               (view === 'dashboard' && STATE.solutionViewDashboard) ||
+              (view === 'ai' && STATE.solutionViewAi) ||
               (view === 'onboarding' && STATE.solutionViewOnboarding)
             );
             STATE.solutionViewSetupStore = false; STATE.solutionViewAdmin = false; STATE.solutionViewOnboarding = false;
-            STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
+            STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewAi = false; STATE.solutionViewMultiTenant = false;
             if (wasActive) { scrollPreserveRender(); return; }   // toggle off → close
 
             if (view === 'user') STATE.solutionViewUser = true;
@@ -10370,6 +11630,7 @@
             else if (view === 'setupstore') STATE.solutionViewSetupStore = true;
             else if (view === 'multitenant') STATE.solutionViewMultiTenant = true;
             else if (view === 'dashboard') STATE.solutionViewDashboard = true;
+            else if (view === 'ai') STATE.solutionViewAi = true;
             else if (view === 'onboarding') STATE.solutionViewOnboarding = true;
 
             // Mark this render as a FRESH modal mount so the backdrop and
@@ -10387,6 +11648,7 @@
               else if (view === 'onboarding' && !STATE.obRunning) startOb();
               else if (view === 'user' && !STATE.flowRunning) startFlow();
               else if (view === 'dashboard' && !STATE.drRunning) startDr();
+              else if (view === 'ai' && !STATE.aiRunning) startAi();
               else if (view === 'multitenant' && !STATE.mtRunning) startMt();
             }));
             return;
@@ -10401,11 +11663,12 @@
             STATE.ssRunning = false; STATE.ssPaused = false; STATE.ssPhase = 'idle';
             STATE.obRunning = false; STATE.obPaused = false; STATE.obPhase = 'idle';
             STATE.drRunning = false; STATE.drPaused = false; STATE.drPhase = 'idle';
+            STATE.aiRunning = false; STATE.aiPaused = false; STATE.aiPhase = 'idle';
             STATE.mtRunning = false; STATE.mtPaused = false; STATE.mtPhase = 'idle';
             if (STATE.ssCounterRaf) { cancelAnimationFrame(STATE.ssCounterRaf); STATE.ssCounterRaf = null; }
             if (typeof ssTickerStop === 'function') ssTickerStop();
             STATE.solutionViewSetupStore = false; STATE.solutionViewAdmin = false; STATE.solutionViewOnboarding = false;
-            STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
+            STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewAi = false; STATE.solutionViewMultiTenant = false;
             scrollPreserveRender();
             return;
           }
@@ -10430,9 +11693,10 @@
             if (typeof ssTickerStop === 'function') ssTickerStop();
             STATE.obRunning = false; STATE.obPaused = false; STATE.obPhase = 'idle'; STATE.obQueue = []; STATE.obQueueIdx = 0;
             STATE.drRunning = false; STATE.drPaused = false; STATE.drPhase = 'idle'; STATE.drQueue = []; STATE.drQueueIdx = 0;
+              STATE.aiRunning = false; STATE.aiPaused = false; STATE.aiPhase = 'idle'; STATE.aiQueue = []; STATE.aiQueueIdx = 0; STATE.aiScenarioIdx = 0;
             STATE.mtRunning = false; STATE.mtPaused = false; STATE.mtPhase = 'idle'; STATE.mtQueue = []; STATE.mtQueueIdx = 0;
             STATE.solutionViewSetupStore = false; STATE.solutionViewAdmin = false; STATE.solutionViewOnboarding = false;
-            STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
+            STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewAi = false; STATE.solutionViewMultiTenant = false;
             STATE.lifecyclePlaying = true; STATE.lcStep = -1;
 
             // Dwell = sum of all animation phase delays + breathing room after "done"
@@ -10446,6 +11710,7 @@
               { key: 'solutionViewOnboarding',  start: () => startOb(),   dwell: 17500 },
               { key: 'solutionViewUser',        start: () => startFlow(), dwell: 12000 },
               { key: 'solutionViewDashboard',   start: () => startDr(),   dwell: 10900 },
+              { key: 'solutionViewAi',          start: () => startAi(),   dwell: 12000 },
               { key: 'solutionViewMultiTenant', start: () => startMt(),   dwell: 10900 },
             ];
 
@@ -10459,10 +11724,11 @@
                 STATE.ssRunning = false; STATE.ssPaused = false;
                 STATE.obRunning = false; STATE.obPaused = false;
                 STATE.drRunning = false; STATE.drPaused = false;
+                STATE.aiRunning = false; STATE.aiPaused = false;
                 STATE.mtRunning = false; STATE.mtPaused = false;
                 // Open this step's view
                 STATE.solutionViewSetupStore = false; STATE.solutionViewAdmin = false; STATE.solutionViewOnboarding = false;
-                STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewMultiTenant = false;
+                STATE.solutionViewUser = false; STATE.solutionViewDashboard = false; STATE.solutionViewAi = false; STATE.solutionViewMultiTenant = false;
                 STATE[step.key] = true; STATE.lcStep = i;
                 scrollPreserveRender();
                 // Trigger animation after the render has settled
@@ -10567,19 +11833,14 @@
           if (action === 'expand-all') { Object.keys(STATE.openCards).forEach(k => STATE.openCards[k] = true); STATE.visitedCards = ['core','onboarding','trust']; render(); return; }
           if (action === 'calculate-impact') { calculateImpact(); render(); return; }
           if (action === 'toggle-assumptions') { STATE.showAssumptions = !STATE.showAssumptions; render(); return; }
-          if (action === 'toggle-section') {
-            const section = act.getAttribute('data-section');
-            if (section && STATE.collapsedSections.hasOwnProperty(section)) {
-              STATE.collapsedSections[section] = !STATE.collapsedSections[section];
-              render();
-            }
-            return;
-          }
           if (action === 'save-assumptions') {
             const sc = STATE.calcScenario; const clamp = (v) => Math.max(0, Math.min(100, cleanNum(v))) / 100;
-            const t = document.getElementById('asn-ticket'); const p = document.getElementById('asn-pkg'); const pa = document.getElementById('asn-patch'); const s = document.getElementById('asn-strategic');
+            const t = document.getElementById('asn-ticket'); const pCat = document.getElementById('asn-pkg-catalog'); const pCust = document.getElementById('asn-pkg-custom'); const pa = document.getElementById('asn-patch'); const s = document.getElementById('asn-strategic');
             const ux = document.getElementById('asn-ux'); const dh = document.getElementById('asn-dash'); const mt = document.getElementById('asn-mt');
-            if (t) ROI_ASSUMPTIONS[sc].ticketReduction = clamp(t.value); if (p) ROI_ASSUMPTIONS[sc].pkgReduction = clamp(p.value); if (pa) ROI_ASSUMPTIONS[sc].patchReduction = clamp(pa.value); if (s) ROI_ASSUMPTIONS[sc].strategicRealloc = clamp(s.value);
+            if (t) ROI_ASSUMPTIONS[sc].ticketReduction = clamp(t.value);
+            if (pCat)  ROI_ASSUMPTIONS[sc].catalogPkgReduction = clamp(pCat.value);
+            if (pCust) ROI_ASSUMPTIONS[sc].customPkgReduction  = clamp(pCust.value);
+            if (pa) ROI_ASSUMPTIONS[sc].patchReduction = clamp(pa.value); if (s) ROI_ASSUMPTIONS[sc].strategicRealloc = clamp(s.value);
             if (ux) ROI_ASSUMPTIONS[sc].uxShare = clamp(ux.value); if (dh) ROI_ASSUMPTIONS[sc].dashShare = clamp(dh.value); if (mt) ROI_ASSUMPTIONS[sc].mtShare = clamp(mt.value);
             // Packaging cycle inputs + per-app benchmarks
             const cmix = document.getElementById('asn-complex-mix'); const lrate = document.getElementById('asn-loaded-rate');
@@ -10594,6 +11855,23 @@
             calculateImpact(); STATE.showAssumptions = false; render(); return;
           }
           if (action === 'toggle-regulated') { STATE.calcInputs.regulated = act.getAttribute('data-val') === 'true'; render(); return; }
+          if (action === 'ai-pick-scenario') {
+            const idx = parseInt(act.getAttribute('data-idx'), 10);
+            if (!isNaN(idx)) {
+              // Switch scenario and play it from the top. Animation does NOT
+              // auto-advance to other scenarios — user clicks the next tab.
+              STATE.flowTimers.timeouts.forEach(id => clearTimeout(id));
+              STATE.flowTimers.timeouts = [];
+              STATE.aiRunning = false;
+              STATE.aiPaused = false;
+              STATE.aiScenarioIdx = idx;
+              STATE.aiPhase = 'prompt';  // Show user message immediately, no idle flash.
+              STATE.aiQueue = [];
+              STATE.aiQueueIdx = 0;
+              startAi();
+            }
+            return;
+          }
           if (action === 'pick-ux-scenario') {
             const idx = parseInt(act.getAttribute('data-idx'), 10);
             if (!isNaN(idx)) {
@@ -10612,6 +11890,7 @@
             if (STATE.solutionViewSetupStore) targets.push('ss');
             if (STATE.solutionViewMultiTenant) targets.push('mt');
             if (STATE.solutionViewDashboard) targets.push('dr');
+            if (STATE.solutionViewAi) targets.push('ai');
             if (STATE.solutionViewOnboarding) targets.push('ob');
             if (targets.length === 0) targets.push('flow'); // safe default
 
@@ -10621,6 +11900,7 @@
               (targets.includes('ss')   && STATE.ssRunning   && !STATE.ssPaused)   ||
               (targets.includes('mt')   && STATE.mtRunning   && !STATE.mtPaused)   ||
               (targets.includes('dr')   && STATE.drRunning   && !STATE.drPaused)   ||
+              (targets.includes('ai')   && STATE.aiRunning   && !STATE.aiPaused)   ||
               (targets.includes('ob')   && STATE.obRunning   && !STATE.obPaused)
             );
 
@@ -10655,6 +11935,13 @@
                   else if (STATE.drPaused) { STATE.drPaused = false; runDrQueue(); }
                 } else if (action === 'step-flow') { stepDr(); }
                 else if (action === 'reset-flow') { resetDr(); }
+              } else if (t === 'ai') {
+                if (action === 'toggle-flow') {
+                  if (!STATE.aiRunning) { startAi(); }
+                  else if (anyActive) { STATE.aiPaused = true; clearTimers(); }
+                  else if (STATE.aiPaused) { STATE.aiPaused = false; runAiQueue(); }
+                } else if (action === 'step-flow') { stepAi(); }
+                else if (action === 'reset-flow') { resetAi(); }
               } else if (t === 'ob') {
                 if (action === 'toggle-flow') {
                   if (!STATE.obRunning) { startOb(); }
