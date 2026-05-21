@@ -1420,6 +1420,7 @@
       .ai-pill-good { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
       .ai-pill-warn { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
       .ai-pill-risk { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+      .ai-pill-info { background: #ddd6fe; color: #5b21b6; border: 1px solid #c4b5fd; }
 
       .ai-table-footnote {
         display: flex; align-items: center; gap: 5px;
@@ -8955,25 +8956,24 @@
           icon: 'wallet',
           prompt: "Which apps are we paying for but barely using — and where are users blocked from apps they should have?",
           sources: ['licenses','events','identities','users'],
-          window: 'trailing 90 days · all tenants',
-          scopeEnvs: ['Intune','ConfigMgr','Citrix','AVD / W365','Jamf'],
+          window: 'all tenants',
           scopeDevices: ['Windows','Windows on ARM','macOS','Virtual Desktop','Cloud PC / W365','BYOD','Browser-Based'],
           headline: 'Reclaim candidates and access friction — both visible in one answer.',
           table: {
             columns: [
-              { label: 'Item',              align: 'left' },
-              { label: 'Install / Launch',  align: 'left' },
-              { label: 'Where it lives',    align: 'left' },
-              { label: 'Status',            align: 'left' },
-              { label: 'Annual cost',       align: 'right' },
+              { label: 'Item',         align: 'left'  },
+              { label: 'Installs',     align: 'left'  },
+              { label: 'Launches',     align: 'left'  },
+              { label: 'Status',       align: 'left'  },
+              { label: 'Annual cost',  align: 'right' },
             ],
             rows: [
               {
                 icon: 'image', tone: 'warn',
                 cells: [
                   '<strong>Adobe Creative Cloud</strong>',
-                  '312 installs<span class="ai-table-sub"> · &lt;5 launches per quarter</span>',
-                  'Intune · Jamf · Citrix',
+                  '<strong>312</strong><span class="ai-table-sub"> seats</span>',
+                  '<strong>&lt;5</strong><span class="ai-table-sub"> / quarter</span>',
                   '<span class="ai-pill ai-pill-warn">Reclaim candidate</span>',
                   '<strong>~$58K</strong><span class="ai-table-sub">/yr</span>'
                 ]
@@ -8982,60 +8982,226 @@
                 icon: 'workflow', tone: 'warn',
                 cells: [
                   '<strong>Visio Plan 2</strong>',
-                  '87 installs<span class="ai-table-sub"> · no launches 90+ days</span>',
-                  'ConfigMgr · AVD / W365 <span class="ai-table-sub">(Field Services)</span>',
+                  '<strong>87</strong><span class="ai-table-sub"> seats</span>',
+                  '<strong>0</strong><span class="ai-table-sub"> · 90+ days dormant</span>',
                   '<span class="ai-pill ai-pill-warn">Reclaim candidate</span>',
                   '<strong>~$24K</strong><span class="ai-table-sub">/yr</span>'
+                ]
+              },
+              {
+                icon: 'copy', tone: 'warn',
+                cells: [
+                  '<strong>DocuSign vs Adobe Sign</strong><span class="ai-table-sub"><br/>Same job, two vendors</span>',
+                  'DocuSign <strong>1,240</strong> <span class="ai-table-sub">(Sales, Legal)</span><br/>Adobe Sign <strong>380</strong> <span class="ai-table-sub">(Marketing, HR)</span>',
+                  'DocuSign <strong>78%</strong> MAU<br/>Adobe Sign <strong>18%</strong> MAU',
+                  '<span class="ai-pill ai-pill-warn">Consolidation candidate</span>',
+                  '<strong>~$32K</strong><span class="ai-table-sub">/yr if standardized</span>'
                 ]
               },
               {
                 icon: 'user-x', tone: 'risk',
                 cells: [
                   '<strong>Access friction</strong>',
-                  '47 users<span class="ai-table-sub"> · denied / failed logins · 7 d</span>',
-                  'Tableau <span class="ai-table-sub">(Cloud PC)</span> · Salesforce <span class="ai-table-sub">(Browser)</span>',
+                  '<span class="ai-table-sub">47 users entitled</span>',
+                  '<span class="ai-table-sub">Denied / failed · 7 d</span>',
                   '<span class="ai-pill ai-pill-risk">Identity-Based Access misalignment</span>',
                   '<span class="ai-table-sub">—</span>'
                 ]
               },
             ],
-            footnote: 'Reclaim figures are <strong>candidates</strong> — verify contract terms before action.'
+            footnote: 'Reclaim and consolidation figures are <strong>candidates</strong> — verify contract terms and stakeholder needs before action.'
           },
           impact: 'Reclaim candidates surface as questions, not quarterly audits — finance and end users both win.'
         },
         {
-          id: 'health',
-          tag: 'Deployment health',
-          icon: 'layers',
-          prompt: "What's the deployment health of Microsoft Teams across our entire estate?",
-          sources: ['deployments','devices','events'],
-          window: 'last 24 hours · all consoles',
-          scopeEnvs: ['Intune','ConfigMgr','Citrix','AVD / W365','Jamf'],
+          id: 'consolidate',
+          tag: 'Stack consolidation',
+          icon: 'git-merge',
+          prompt: "Identify overlapping application delivery, patching, and storefront platforms.",
+          sources: ['packages','deployments','servers','workspaces'],
+          window: 'current tooling footprint',
           scopeDevices: ['Windows','Windows on ARM','macOS','Virtual Desktop','Cloud PC / W365','BYOD','Browser-Based'],
-          headline: 'Teams health rolls up across every console — one answer instead of four consoles to reconcile.',
-          insights: [
-            { tone:'good', icon:'activity',    label:'Install Health %',     value:'98.2%', delta:'7,842 / 7,983 healthy',     note:'Endpoint Info reconciled across Intune, ConfigMgr, Citrix, AVD / W365, Jamf — no manual stitching.' },
-            { tone:'warn', icon:'play-circle', label:'Launch Health %',      value:'93.4%', delta:'Soft regression on macOS',  note:'App Status: Jamf-managed Macs at 87% launches. Distribution Success is 99%, so the gap is post-install, not delivery.' },
-            { tone:'good', icon:'truck',       label:'Distribution Success', value:'99.4%', delta:'Stable across surfaces',    note:'All package targets reached, including ARM, Cloud PC / W365, and Browser-Based delivery.' },
-          ],
-          impact: "The view Copilot couldn't produce against the raw consoles — Recast's normalization is the unlock."
+          headline: 'Three app-delivery layers doing one job — clear sunset / reduce / expand picture.',
+          table: {
+            columns: [
+              { label: 'Platform',         align: 'left' },
+              { label: 'Current role',     align: 'left' },
+              { label: 'Overlap with AW',  align: 'left' },
+              { label: 'Recommendation',   align: 'left' },
+            ],
+            rows: [
+              {
+                icon: 'monitor', tone: 'risk',
+                cells: [
+                  '<strong>Citrix XenApp</strong>',
+                  'App storefront<span class="ai-table-sub"> · primary launcher for VDI titles</span>',
+                  '<strong>High</strong>',
+                  '<span class="ai-pill ai-pill-risk">Sunset</span>'
+                ]
+              },
+              {
+                icon: 'shield-check', tone: 'risk',
+                cells: [
+                  '<strong>Patch My PC</strong>',
+                  '3rd-party patching<span class="ai-table-sub"> · Adobe, Chrome, Zoom, etc.</span>',
+                  '<strong>High</strong>',
+                  '<span class="ai-pill ai-pill-risk">Sunset</span>'
+                ]
+              },
+              {
+                icon: 'package', tone: 'warn',
+                cells: [
+                  '<strong>SCCM app deploy</strong>',
+                  'Packaging &amp; deployment<span class="ai-table-sub"> · legacy line-of-business apps</span>',
+                  '<strong>Medium-high</strong>',
+                  '<span class="ai-pill ai-pill-warn">Reduce</span>'
+                ]
+              },
+              {
+                icon: 'smartphone', tone: 'good',
+                cells: [
+                  '<strong>Intune</strong>',
+                  'Device management<span class="ai-table-sub"> · MDM, compliance, security</span>',
+                  '<strong>Low</strong>',
+                  '<span class="ai-pill ai-pill-good">Retain</span>'
+                ]
+              },
+              {
+                icon: 'sparkles', tone: 'good',
+                cells: [
+                  '<strong>Application Workspace</strong>',
+                  'Unified app delivery<span class="ai-table-sub"> · catalog, install, update, audit</span>',
+                  '<strong>Strategic</strong>',
+                  '<span class="ai-pill ai-pill-info">Expand</span>'
+                ]
+              },
+            ],
+            footnote: 'Future state: <strong>Intune manages devices · Application Workspace delivers apps</strong> — eliminate redundant layers in between.'
+          },
+          impact: '~60% less packaging effort · 3 legacy delivery tools sunset · one app layer, one device layer.'
+        },
+        {
+          id: 'health',
+          tag: 'Application health',
+          icon: 'layers',
+          prompt: "What's the application health of Microsoft Teams across our entire estate?",
+          sources: ['deployments','devices','events'],
+          window: 'last 24 hours',
+          scopeDevices: ['Windows','Windows on ARM','macOS','Virtual Desktop','Cloud PC / W365','BYOD','Browser-Based'],
+          headline: 'Teams health rolls up across every device type — one normalized answer, no manual stitching.',
+          table: {
+            columns: [
+              { label: 'Metric',  align: 'left' },
+              { label: 'Value',   align: 'left' },
+              { label: 'Trend',   align: 'left' },
+              { label: 'Detail',  align: 'left' },
+            ],
+            rows: [
+              {
+                icon: 'activity', tone: 'good',
+                cells: [
+                  '<strong>Install Health %</strong>',
+                  '<strong>98.2%</strong>',
+                  '7,842 / 7,983 healthy',
+                  'Endpoint Info reconciled across every device type<span class="ai-table-sub"> — no manual stitching.</span>'
+                ]
+              },
+              {
+                icon: 'play-circle', tone: 'warn',
+                cells: [
+                  '<strong>Launch Health %</strong>',
+                  '<strong>93.4%</strong>',
+                  'Soft regression on macOS',
+                  'Macs at 87% launches.<span class="ai-table-sub"> Distribution Success is 99%, so the gap is post-install, not delivery.</span>'
+                ]
+              },
+              {
+                icon: 'truck', tone: 'good',
+                cells: [
+                  '<strong>Distribution Success</strong>',
+                  '<strong>99.4%</strong>',
+                  'Stable across surfaces',
+                  'All package targets reached<span class="ai-table-sub"> — including ARM, Cloud PC / W365, and Browser-Based delivery.</span>'
+                ]
+              },
+              {
+                icon: 'laptop', tone: 'good',
+                cells: [
+                  '<strong>Device coverage</strong>',
+                  '<strong>7,983 / 8,012</strong>',
+                  '99.6% reporting in',
+                  '29 devices missing latest check-in<span class="ai-table-sub"> — 18 BYOD + 11 Cloud PC offline > 24 h.</span>'
+                ]
+              },
+              {
+                icon: 'monitor-smartphone', tone: 'warn',
+                cells: [
+                  '<strong>Device launch success</strong>',
+                  '<strong>91.8%</strong>',
+                  'macOS + ARM lag the field',
+                  'Windows 96.1%, Cloud PC 95.4%, macOS 87.2%, Windows-on-ARM 84.9%<span class="ai-table-sub"> — Teams cold-start regression on ARM build 23H2.</span>'
+                ]
+              },
+              {
+                icon: 'shield-check', tone: 'good',
+                cells: [
+                  '<strong>Per-device compliance</strong>',
+                  '<strong>96.5%</strong>',
+                  'Stable WoW',
+                  '281 devices outside policy<span class="ai-table-sub"> — concentrated in BYOD; auto-remediation candidates flagged.</span>'
+                ]
+              },
+            ]
+          },
+          impact: "The view Copilot couldn't produce against raw consoles — Recast's normalization is the unlock."
         },
         {
           id: 'currency',
           tag: 'Currency & exposure',
           icon: 'shield-alert',
-          prompt: "Which apps are out of date or unpatched, on which devices — across Intune, ConfigMgr, Jamf, macOS, ARM and virtual?",
+          prompt: "Which apps are out of date or unpatched, on which devices — across macOS, ARM and virtual?",
           sources: ['packages','servers','devices','deployments'],
-          window: 'latest agent check-in · all consoles',
-          scopeEnvs: ['Intune','ConfigMgr','Citrix','AVD / W365','Jamf'],
+          window: 'latest agent check-in',
           scopeDevices: ['Windows','Windows on ARM','macOS','Virtual Desktop','Cloud PC / W365','BYOD','Browser-Based'],
           headline: 'Currency gaps cluster exactly where coverage falls through — macOS, BYOD, virtual.',
-          insights: [
-            { tone:'risk', icon:'monitor-down',  label:'Outdated Windows builds',  value:'218', delta:'22H2 \u2192 23H2 missing',   note:'184 ConfigMgr Windows + 34 Cloud PC / W365 — Agent Info shows Last Seen current, just unpatched.' },
-            { tone:'risk', icon:'laptop-minimal',label:'macOS apps unpatched',     value:'94',  delta:'Jamf · 30+ days behind',     note:'Chrome, Slack, Zoom · Package Status reports current channel available but not deployed.' },
-            { tone:'warn', icon:'cpu',           label:'Virtual / ARM coverage',   value:'47 devices', delta:'Agent stale or missing', note:'31 AVD Windows on ARM + 16 Citrix VDI — Last Seen > 14 days. Compliance finding waiting to happen.' },
-          ],
-          impact: 'A board-level exposure picture — credible because the data already spans Jamf and the Microsoft estate together.'
+          table: {
+            columns: [
+              { label: 'Issue',   align: 'left' },
+              { label: 'Count',   align: 'left' },
+              { label: 'Trend',   align: 'left' },
+              { label: 'Detail',  align: 'left' },
+            ],
+            rows: [
+              {
+                icon: 'monitor-down', tone: 'risk',
+                cells: [
+                  '<strong>Outdated Windows builds</strong>',
+                  '<strong>218</strong>',
+                  '22H2 → 23H2 missing',
+                  'Agent Info shows Last Seen current<span class="ai-table-sub"> — just unpatched.</span>'
+                ]
+              },
+              {
+                icon: 'laptop-minimal', tone: 'risk',
+                cells: [
+                  '<strong>macOS apps unpatched</strong>',
+                  '<strong>94</strong>',
+                  '30+ days behind',
+                  'Chrome, Slack, Zoom<span class="ai-table-sub"> · Package Status reports current channel available but not deployed.</span>'
+                ]
+              },
+              {
+                icon: 'cpu', tone: 'warn',
+                cells: [
+                  '<strong>Virtual / ARM coverage</strong>',
+                  '<strong>47 devices</strong>',
+                  'Agent stale or missing',
+                  'Last Seen > 14 days.<span class="ai-table-sub"> Compliance finding waiting to happen.</span>'
+                ]
+              },
+            ]
+          },
+          impact: 'A board-level exposure picture — credible because the data already spans every device type together.'
         },
       ];
 
@@ -9159,12 +9325,6 @@
                       <div class="ai-answer">
                         <div class="ai-headline">${s.headline}</div>
                         <div class="ai-scope">
-                          <div class="ai-scope-line">
-                            <span class="ai-scope-label"><i data-lucide="layers" class="w-3 h-3"></i> Environments</span>
-                            <div class="ai-scope-chips">
-                              ${s.scopeEnvs.map(e => `<span class="ai-scope-chip ai-scope-chip-env">${e}</span>`).join('')}
-                            </div>
-                          </div>
                           <div class="ai-scope-line">
                             <span class="ai-scope-label"><i data-lucide="laptop" class="w-3 h-3"></i> Devices</span>
                             <div class="ai-scope-chips">
