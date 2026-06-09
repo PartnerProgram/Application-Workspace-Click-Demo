@@ -5971,6 +5971,7 @@
         },
         calcScenario: 'expected',
         calcResult: null,
+        ipCalc: { open: false, engineers: '', envs: [], devices: [], employees: '', result: null },
         showAssumptions: false,
         editingAssumptions: false,
         pdfCompanyInput: false,
@@ -7227,6 +7228,253 @@
 
       function openInsight(content){ STATE.insightContent = content; STATE.highlightDriverId = content?.id || null; render(); }
 
+      const IP_ENVS = [
+        { key:'intune', icon:'cloud',        label:'Intune',          color:'#5B53D6' },
+        { key:'sccm',   icon:'server',       label:'SCCM',            color:'#E84D1A' },
+        { key:'citrix', icon:'monitor-play', label:'Citrix',          color:'#0070F3' },
+        { key:'avd',    icon:'box',          label:'Azure VD / W365', color:'#0A1C60' },
+        { key:'jamf',   icon:'laptop-minimal', label:'Jamf Pro',      color:'#006B3F' },
+        { key:'other',  icon:'ellipsis',     label:'Other',           color:'#64748b' },
+      ];
+      const IP_DEVICES = [
+        { key:'windows', icon:'monitor',   label:'Windows',     color:'#0070F3' },
+        { key:'mac',     icon:'laptop',    label:'macOS',       color:'#0A1C60' },
+        { key:'arm',     icon:'cpu',       label:'Windows ARM', color:'#5B53D6' },
+        { key:'virtual', icon:'cloud-cog', label:'Virtual',     color:'#006B3F' },
+      ];
+
+      function renderIPTileGroup(group, options, selected, cols){
+        return `<div class="grid ${cols} gap-2">` + options.map(o => {
+          const sel = selected.includes(o.key);
+          return `<button type="button" data-action="ip-toggle-${group}" data-val="${o.key}" aria-pressed="${sel}" title="${o.label}"
+            class="relative flex flex-col items-center justify-center gap-1.5 px-1 py-3 rounded-xl border-2 transition focus-ring ${sel ? 'border-[#0070F3] bg-blue-50' : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'}">
+            ${sel ? `<span class="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-[#0A1C60] flex items-center justify-center ring-2 ring-white"><i data-lucide="check" class="w-2.5 h-2.5 text-white"></i></span>` : ''}
+            <span class="${sel ? 'text-[#0070F3]' : 'text-slate-400'}"><i data-lucide="${o.icon}" class="w-5 h-5"></i></span>
+            <span class="text-[10px] font-semibold leading-tight text-center ${sel ? 'text-[#0A1C60]' : 'text-slate-500'}">${o.label}</span>
+          </button>`;
+        }).join('') + `</div>`;
+      }
+
+      function renderIPChart(r){
+        const C = { navy:'#0A1C60', blue:'#0070F3', red:'#D4213D', ink:'#475569', mute:'#94a3b8' };
+        const animate = STATE.ipCalc.justCalculated;
+        if (animate) {
+          requestAnimationFrame(() => { STATE.ipCalc.justCalculated = false; });
+          // Strip the animation-gating class once the build-in finishes so the resting DOM
+          // (and any screenshot/PDF/export clone) shows the fully-drawn chart, not the hidden start state.
+          setTimeout(() => { document.querySelectorAll('.ipc-animate').forEach(el => el.classList.remove('ipc-animate')); }, 2600);
+        }
+        const isHealthy = r.status === 'healthy' || r.status === 'stable';
+        const headline = r.status === 'past' ? 'Already past it' : r.status === 'healthy' ? 'Healthy headroom' : r.status === 'stable' ? 'Currently stable' : r.label;
+        const eyebrow  = isHealthy ? 'Operational status' : 'Projected tipping point';
+        // One compact, plain-language takeaway — no second paragraph.
+        const msg = r.status === 'past'
+          ? `Demand already outruns your team. The fix isn't headcount — it's becoming <strong>operationally dynamic</strong> now.`
+          : r.status === 'healthy'
+            ? `You're ahead of the curve for now. Stay <strong>operationally dynamic</strong> to keep that gap open as demand grows.`
+          : r.status === 'stable'
+            ? `One environment, one device type, one engineer, a small team — workload sits well within capacity. Re-check as you add any of those.`
+            : `Thin bandwidth, fast-rising demand — they collide around <strong>${r.label}</strong>. Get <strong>operationally dynamic</strong> before they do.`;
+
+        const base = r.baseYear, g = r.growth, d0 = r.demand, cap = r.capacity, years = r.years;
+        const demandAt = t => d0 * Math.pow(1 + g, t);
+
+        // ── X / Y windows ──
+        const lnG = Math.log(1 + g);
+        let xMin = 0, xMax;
+        if (r.status === 'past')      { xMin = Math.min(-0.6, Math.floor(years) - 0.3); xMax = 2; }
+        else if (isHealthy)           { xMax = Math.min(5, Math.max(3.5, Math.log(0.72 * cap / d0) / lnG)); }
+        else                          { xMax = Math.min(7, Math.max(4, Math.ceil(years) + 1.5)); }
+        const yMax = isHealthy ? cap * 1.15 : Math.max(cap, demandAt(xMax)) * 1.08;
+
+        // ── Geometry — wider, shorter frame reads cleaner and more compact ──
+        const W = 560, H = 196, L = 14, R = 14, T = 30, B = 26;
+        const pw = W - L - R, ph = H - T - B;
+        const sx = t => L + ((t - xMin) / (xMax - xMin)) * pw;
+        const sy = v => T + ph - (Math.min(v, yMax) / yMax) * ph;
+        const capY = sy(cap);
+        const x0 = sx(xMin), x1 = sx(xMax), yBot = T + ph;
+
+        // ── Demand samples, crossing inserted so segments meet exactly on the line ──
+        const N = 96; const pts = [];
+        for (let i = 0; i <= N; i++){ const t = xMin + (xMax - xMin) * i / N; pts.push([t, demandAt(t)]); }
+        const crossingInView = years >= xMin && years <= xMax;
+        if (crossingInView) { pts.push([years, cap]); pts.sort((a,b)=>a[0]-b[0]); }
+        const eps = cap * 1e-6;
+        const toPath = arr => arr.map((p,i)=>(i?'L':'M') + sx(p[0]).toFixed(1) + ' ' + sy(p[1]).toFixed(1)).join(' ');
+        const bluePts = pts.filter(p => p[1] <= cap + eps);
+        const redPts  = pts.filter(p => p[1] >= cap - eps);
+        const bluePath = bluePts.length > 1 ? toPath(bluePts) : '';
+        const redPath  = redPts.length  > 1 ? toPath(redPts)  : '';
+
+        // ── Overload area (between workload curve and the capacity line) ──
+        let overloadArea = '';
+        if (redPts.length > 1){
+          const xs = sx(redPts[0][0]).toFixed(1), xe = sx(redPts[redPts.length-1][0]).toFixed(1);
+          overloadArea = `M${xs} ${capY.toFixed(1)} ` + redPts.map(p=>`L${sx(p[0]).toFixed(1)} ${sy(p[1]).toFixed(1)}`).join(' ') + ` L${xe} ${capY.toFixed(1)} Z`;
+        }
+
+        // ── Year ticks (lighter, the crossing year gets emphasised below) ──
+        let ticks = '';
+        for (let yr = Math.ceil(xMin); yr <= Math.floor(xMax); yr++){
+          const x = sx(yr);
+          ticks += `<line x1="${x.toFixed(1)}" y1="${yBot}" x2="${x.toFixed(1)}" y2="${(yBot+3).toFixed(1)}" stroke="${C.mute}" stroke-width="1"/>`;
+          ticks += `<text x="${x.toFixed(1)}" y="${(yBot+16).toFixed(1)}" text-anchor="middle" font-size="10.5" fill="${C.mute}">${base+yr}</text>`;
+        }
+
+        // ── "Now" anchor on the curve at t = 0 ──
+        const todayX = sx(0), todayY = sy(demandAt(0));
+        const todayMark = (0 >= xMin && 0 <= xMax) ? `
+          <g class="ipc-today">
+            <circle cx="${todayX.toFixed(1)}" cy="${todayY.toFixed(1)}" r="3.5" fill="${C.blue}" stroke="#fff" stroke-width="1.5"/>
+            <text x="${(todayX+3).toFixed(1)}" y="${(todayY+15).toFixed(1)}" font-size="9.5" font-weight="700" fill="${C.blue}" style="paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round">NOW</text>
+          </g>` : '';
+
+        // ── Continuous-draw timing: blue + red together look like one stroke ──
+        const fBlue = crossingInView ? Math.min(0.92, Math.max(0.08, (sx(years) - x0) / (x1 - x0))) : 1;
+        const DRAW = 0.95, DSTART = 0.62;
+        const blueDur = (DRAW * fBlue).toFixed(2), redDur = (DRAW * (1 - fBlue)).toFixed(2), redStart = (DSTART + DRAW * fBlue).toFixed(2);
+        const blueAnim = animate ? `style="animation:ipcDraw ${blueDur}s linear ${DSTART}s forwards"` : '';
+        const redAnim  = animate ? `style="animation:ipcDraw ${redDur}s linear ${redStart}s forwards"` : '';
+
+        // ── Capacity line label — flips below the line when it sits near the top ──
+        const capAbove = (capY - T) > 16;
+        const capLabelY = capAbove ? (capY - 7) : (capY + 13);
+
+        // ── Crossing callout + dropline + pulsing dot ──
+        let crossing = '';
+        if (crossingInView){
+          const cx = sx(years), cy = capY;
+          const txt = r.label, bw = Math.max(58, txt.length * 7.2 + 26), bh = 30, bx = Math.min(Math.max(cx - bw/2, x0+1), x1 - bw - 1), by = Math.max(T-2, cy - 50);
+          crossing = `
+            <g class="ipc-cross-line"><line x1="${cx.toFixed(1)}" y1="${(by+bh).toFixed(1)}" x2="${cx.toFixed(1)}" y2="${yBot}" stroke="${C.red}" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.65"/></g>
+            <g class="ipc-cross-dot">
+              <circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="9" fill="${C.red}" opacity="0.2"><animate attributeName="r" values="6;13;6" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0;0.25" dur="2.2s" repeatCount="indefinite"/></circle>
+              <circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5" fill="${C.red}" stroke="#fff" stroke-width="2"/>
+            </g>
+            <g class="ipc-cross-badge">
+              <rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${bw.toFixed(1)}" height="${bh}" rx="6" fill="${C.red}"/>
+              <path d="M${(cx-5).toFixed(1)} ${(by+bh).toFixed(1)} L${cx.toFixed(1)} ${(by+bh+5).toFixed(1)} L${(cx+5).toFixed(1)} ${(by+bh).toFixed(1)} Z" fill="${C.red}"/>
+              <text x="${(bx+bw/2).toFixed(1)}" y="${(by+12).toFixed(1)}" text-anchor="middle" font-size="8" font-weight="700" fill="#fff" opacity="0.8" letter-spacing="0.6">TIPPING POINT</text>
+              <text x="${(bx+bw/2).toFixed(1)}" y="${(by+24).toFixed(1)}" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">${txt}</text>
+            </g>`;
+        } else {
+          // Healthy / stable: crossing off-frame — show the headroom gap on the right edge.
+          const hrTop = capY, hrBot = sy(demandAt(xMax)), hx = x1 - 11, hmid = (hrTop + hrBot) / 2;
+          crossing = (hrBot - hrTop > 20) ? `
+            <g class="ipc-wllabel">
+              <line x1="${hx}" y1="${(hrTop+3).toFixed(1)}" x2="${hx}" y2="${(hrBot-3).toFixed(1)}" stroke="${C.navy}" stroke-width="1.5" opacity="0.45"/>
+              <path d="M${(hx-3.5).toFixed(1)} ${(hrTop+6).toFixed(1)} L${hx} ${(hrTop+2).toFixed(1)} L${(hx+3.5).toFixed(1)} ${(hrTop+6).toFixed(1)}" fill="none" stroke="${C.navy}" stroke-width="1.5" opacity="0.45"/>
+              <path d="M${(hx-3.5).toFixed(1)} ${(hrBot-6).toFixed(1)} L${hx} ${(hrBot-2).toFixed(1)} L${(hx+3.5).toFixed(1)} ${(hrBot-6).toFixed(1)}" fill="none" stroke="${C.navy}" stroke-width="1.5" opacity="0.45"/>
+              <text x="${(hx-7).toFixed(1)}" y="${hmid.toFixed(1)}" text-anchor="end" font-size="10" font-weight="700" fill="${C.navy}" style="dominant-baseline:central;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round">Headroom</text>
+            </g>` : '';
+        }
+
+        // Growth label rides the blue (pre-crossing) part of the curve, clear of the tipping-point dot.
+        const wlT = xMin + (xMax - xMin) * (crossingInView ? 0.24 : 0.34);
+        const wlX = sx(wlT), wlY = Math.max(T + 12, sy(demandAt(wlT)) - 9);
+        const wlColor = demandAt(wlT) > cap ? C.red : C.blue;
+
+        const svg = `
+          <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Application workload versus team capacity over time" style="display:block">
+            <!-- zone fills -->
+            <rect class="ipc-zone" x="${x0}" y="${T}" width="${pw}" height="${(capY-T).toFixed(1)}" fill="${C.red}" opacity="0.05"/>
+            <rect class="ipc-zone" x="${x0}" y="${capY.toFixed(1)}" width="${pw}" height="${(yBot-capY).toFixed(1)}" fill="${C.blue}" opacity="0.04"/>
+            ${overloadArea ? `<path class="ipc-area" d="${overloadArea}" fill="${C.red}" opacity="0.13"/>` : ''}
+
+            <!-- baseline -->
+            <line x1="${x0}" y1="${yBot}" x2="${x1}" y2="${yBot}" stroke="#E2E8F0" stroke-width="1.25"/>
+            ${ticks}
+
+            <!-- capacity (bandwidth) line -->
+            <line x1="${x0}" y1="${capY.toFixed(1)}" x2="${x1}" y2="${capY.toFixed(1)}" stroke="${C.navy}" stroke-width="2" stroke-dasharray="6 4">${animate ? `<animate attributeName="x2" from="${x0}" to="${x1}" dur="0.5s" begin="0.1s" fill="freeze"/>` : ''}</line>
+            <text class="ipc-bwlabel" x="${(x0+5).toFixed(1)}" y="${capLabelY.toFixed(1)}" font-size="10.5" font-weight="700" fill="${C.navy}" style="paint-order:stroke;stroke:#fff;stroke-width:3.5px;stroke-linejoin:round">Your team's capacity</text>
+
+            <!-- workload curve -->
+            ${bluePath ? `<path class="ipc-draw ipc-blue" ${blueAnim} pathLength="1" d="${bluePath}" fill="none" stroke="${C.blue}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>` : ''}
+            ${redPath ? `<path class="ipc-draw ipc-red" ${redAnim} pathLength="1" d="${redPath}" fill="none" stroke="${C.red}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>` : ''}
+            <text class="ipc-wllabel" x="${wlX.toFixed(1)}" y="${wlY.toFixed(1)}" text-anchor="middle" font-size="10.5" font-weight="800" fill="${wlColor}" style="paint-order:stroke;stroke:#fff;stroke-width:3.5px;stroke-linejoin:round">App workload · +40%/yr</text>
+
+            ${todayMark}
+            ${crossing}
+          </svg>`;
+
+        // ── Three-beat takeaway strip (brand rhythm), tighter ──
+        const beats = r.status === 'stable'
+          ? [['minimize-2','Lean footprint','slate'], ['shield-check','Within capacity','green'], ['activity','Stay ready to scale','blue']]
+          : [['gauge','Thin bandwidth','slate'], ['trending-up','Fast-rising demand','red'], ['activity','Get operationally dynamic','blue']];
+        const beatStyle = { slate:['bg-slate-50 border-slate-200','text-[#0A1C60]','text-[#0A1C60]'],
+                            red:['bg-red-50 border-red-100','text-[#D4213D]','text-[#D4213D]'],
+                            green:['bg-emerald-50 border-emerald-100','text-[#0F7A3F]','text-[#0F7A3F]'],
+                            blue:['bg-[#0070F3] border-[#0070F3]','text-white','text-white'] };
+        const storyStrip = `
+          <div class="flex items-stretch gap-1 mt-2.5 px-0.5">
+            ${beats.map((b,i) => {
+              const [icon,label,tone] = b; const [box,ic,tx] = beatStyle[tone];
+              return `${i ? `<i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-300 flex-shrink-0 self-center"></i>` : ''}
+                <div class="ipc-strip-item flex-1 flex items-center gap-1.5 px-2 py-1.5 rounded-md border ${box}">
+                  <i data-lucide="${icon}" class="w-3.5 h-3.5 ${ic} flex-shrink-0"></i>
+                  <span class="text-[10.5px] font-bold ${tx} leading-tight">${label}</span>
+                </div>`;
+            }).join('')}
+          </div>`;
+
+        return `
+          <style>
+            @media (prefers-reduced-motion: no-preference){
+              .ipc-animate .ipc-draw{ stroke-dasharray:1; stroke-dashoffset:1; }
+              .ipc-animate .ipc-zone{ opacity:0; animation: ipcFadeIn .35s ease-out .05s forwards; }
+              .ipc-animate .ipc-today,
+              .ipc-animate .ipc-bwlabel,
+              .ipc-animate .ipc-wllabel,
+              .ipc-animate .ipc-area,
+              .ipc-animate .ipc-cross-line,
+              .ipc-animate .ipc-cross-badge,
+              .ipc-animate .ipc-cross-dot,
+              .ipc-animate .ipc-strip-item{ opacity:0; }
+              .ipc-animate .ipc-bwlabel{ animation: ipcFadeIn .35s ease-out .5s forwards; }
+              .ipc-animate .ipc-today{ animation: ipcFadeIn .35s ease-out .75s forwards; }
+              .ipc-animate .ipc-area{ animation: ipcFadeArea .4s ease-out 1.45s forwards; }
+              .ipc-animate .ipc-wllabel{ animation: ipcFadeIn .35s ease-out 1.55s forwards; }
+              .ipc-animate .ipc-cross-line{ animation: ipcFadeIn .3s ease-out 1.5s forwards; }
+              .ipc-animate .ipc-cross-dot{ transform-box: fill-box; transform-origin: center; animation: ipcPop .4s cubic-bezier(.2,.8,.2,1) 1.5s forwards; }
+              .ipc-animate .ipc-cross-badge{ animation: ipcRise .45s ease-out 1.65s forwards; }
+              .ipc-animate .ipc-strip-item:nth-of-type(1){ animation: ipcRise .4s ease-out 1.8s forwards; }
+              .ipc-animate .ipc-strip-item:nth-of-type(2){ animation: ipcRise .4s ease-out 1.92s forwards; }
+              .ipc-animate .ipc-strip-item:nth-of-type(3){ animation: ipcRise .4s ease-out 2.04s forwards; }
+            }
+            @keyframes ipcDraw{ to{ stroke-dashoffset:0; } }
+            @keyframes ipcFadeIn{ to{ opacity:1; } }
+            @keyframes ipcFadeArea{ to{ opacity:.13; } }
+            @keyframes ipcRise{ from{ opacity:0; transform:translateY(7px);} to{ opacity:1; transform:translateY(0);} }
+            @keyframes ipcPop{ 0%{opacity:0; transform:scale(.4);} 60%{opacity:1; transform:scale(1.12);} 100%{opacity:1; transform:scale(1);} }
+          </style>
+          <div class="mt-2 rounded-xl overflow-hidden shadow-sm" style="background:${C.navy}">
+            <div class="px-4 pt-3 pb-2.5 flex items-end justify-between gap-3">
+              <div>
+                <div class="text-[10px] uppercase tracking-wider text-white/55 mb-0.5">${eyebrow}</div>
+                <div class="text-[26px] font-extrabold text-white leading-tight whitespace-nowrap">${headline}</div>
+              </div>
+              <div class="flex items-center gap-2.5 flex-shrink-0">
+                <div class="text-right">
+                  <div class="text-[9px] uppercase tracking-wider text-white/55 leading-none mb-0.5">Load today</div>
+                  <div class="text-xl font-bold text-white leading-none">~${r.loadPct}%</div>
+                </div>
+                <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background:conic-gradient(${r.loadPct >= 85 ? C.red : C.blue} ${Math.min(100,r.loadPct)*3.6}deg, rgba(255,255,255,0.18) 0deg)">
+                  <div class="w-6 h-6 rounded-full" style="background:${C.navy}"></div>
+                </div>
+              </div>
+            </div>
+            <div class="px-2.5 pb-2.5">
+              <div class="rounded-lg bg-white px-2.5 pt-2.5 pb-2 ${animate ? 'ipc-animate' : ''}">
+                ${svg}
+                ${storyStrip}
+              </div>
+            </div>
+          </div>
+          <p class="text-[13px] text-[#475569] mt-2.5 leading-snug">${msg} <span class="text-[#94a3b8] italic">Directional model — assumptions are tunable.</span></p>`;
+      }
+
       function renderInsightModal(){
         if (!STATE.insightContent) return '';
         const c = STATE.insightContent;
@@ -7238,8 +7486,8 @@
         const isTippingPoint = c.title === 'Inflection Point';
         const isChangeVelocity = c.id === 'constant_updates';
         const modalWidth = isPlatformMult ? 'max-w-6xl' : isChangeVelocity ? 'max-w-5xl' : 'max-w-4xl';
-        const modalStyle = isPlatformMult ? 'max-height:95vh;display:flex;flex-direction:column' : '';
-        const bodyStyle = isPlatformMult ? 'flex:1;min-height:0;overflow-y:auto' : '';
+        const modalStyle = (isPlatformMult || isTippingPoint) ? 'max-height:95vh;display:flex;flex-direction:column' : '';
+        const bodyStyle = (isPlatformMult || isTippingPoint) ? 'flex:1;min-height:0;overflow-y:auto' : '';
         // Driver navigation: show prev/next arrows when this is a driver insight (has an id from drivers list)
         const pool = (STATE.drivers || []).filter(d => d.id);
         const curIdx = pool.findIndex(d => d.id === c.id);
@@ -7268,6 +7516,53 @@
                   <div class="flex items-start gap-4 p-4 rounded-xl bg-white/70 backdrop-blur-lg shadow-sm hover:shadow-md transition-shadow"><div class="text-sm font-bold min-w-[120px] flex-shrink-0" style="color:#0070F3">Gartner, 2025</div><div class="text-sm text-[#475569] italic">"By 2027, organizations that fail to modernize application delivery will spend 40% more on operational overhead than those that do."</div></div>
                   <div class="flex items-start gap-4 p-4 rounded-xl bg-white/70 backdrop-blur-lg shadow-sm hover:shadow-md transition-shadow"><div class="text-sm font-bold min-w-[120px] flex-shrink-0" style="color:#006B3F">Forrester, 2025</div><div class="text-sm text-[#475569] italic">"Application complexity has overtaken infrastructure as the primary bottleneck in IT operations. The breaking point is not a staffing issue — it's architectural."</div></div>
                   <div class="flex items-start gap-4 p-4 rounded-xl bg-white/70 backdrop-blur-lg shadow-sm hover:shadow-md transition-shadow"><div class="text-sm font-bold min-w-[120px] flex-shrink-0" style="color:#D4213D">IDC, 2025</div><div class="text-sm text-[#475569] italic">"Application sprawl across hybrid environments is now the leading driver of unplanned IT work, consuming up to 60% of IT operations capacity."</div></div>
+                </div>
+
+                <div class="mt-5 pt-5" style="border-top:1px solid var(--border-subtle)">
+                  <button type="button" data-action="toggle-ip-calc" class="w-full inline-flex items-center justify-center gap-2 bg-[#0070F3] text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-[#005AD0] transition shadow-sm">
+                    <i data-lucide="calculator" class="w-4 h-4"></i>
+                    ${STATE.ipCalc.open ? 'Hide the inflection point estimator' : 'Estimate your own inflection point'}
+                  </button>
+                  ${STATE.ipCalc.open ? `
+                  <div class="mt-4 p-5 rounded-xl bg-white/70 backdrop-blur-lg shadow-sm space-y-4">
+                    <p class="text-xs text-[#64748b]">A few quick inputs — we project where your application workload outgrows your team, using the ~40%/yr growth pattern Gartner, Forrester &amp; IDC describe above.</p>
+
+                    <div>
+                      <label class="flex items-center justify-between text-[11px] font-semibold text-[#0A1C60] uppercase tracking-wide mb-1.5">
+                        <span>Delivery environments <span class="text-slate-400 normal-case font-medium">— select all you manage</span></span>
+                        <span class="text-[10px] font-bold text-[#0070F3] tabular-nums">${STATE.ipCalc.envs.length || ''}</span>
+                      </label>
+                      ${renderIPTileGroup('env', IP_ENVS, STATE.ipCalc.envs, 'grid-cols-3')}
+                    </div>
+
+                    <div>
+                      <label class="flex items-center justify-between text-[11px] font-semibold text-[#0A1C60] uppercase tracking-wide mb-1.5">
+                        <span>Device estate <span class="text-slate-400 normal-case font-medium">— what you deliver to</span></span>
+                        <span class="text-[10px] font-bold text-[#0070F3] tabular-nums">${STATE.ipCalc.devices.length || ''}</span>
+                      </label>
+                      ${renderIPTileGroup('device', IP_DEVICES, STATE.ipCalc.devices, 'grid-cols-4')}
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-x-3 gap-y-3">
+                      <div>
+                        <label class="block text-[11px] font-semibold text-[#0A1C60] uppercase tracking-wide mb-1">Engineers on apps</label>
+                        <input type="number" min="1" id="ip-engineers" value="${STATE.ipCalc.engineers}" placeholder="e.g. 4" class="focus-ring w-full px-3 py-2 rounded-lg border border-slate-200 text-sm">
+                      </div>
+                      <div>
+                        <label class="block text-[11px] font-semibold text-[#0A1C60] uppercase tracking-wide mb-1">Total employees</label>
+                        <input type="number" min="1" id="ip-employees" value="${STATE.ipCalc.employees}" placeholder="e.g. 5000" class="focus-ring w-full px-3 py-2 rounded-lg border border-slate-200 text-sm">
+                      </div>
+                    </div>
+
+                    <button type="button" data-action="calculate-ip" class="w-full bg-[#0A1C60] text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-[#0070F3] transition">Estimate inflection</button>
+
+                    ${(() => {
+                      const r = STATE.ipCalc.result; if (!r) return '';
+                      if (r.error) return `<p class="text-sm text-[#D4213D] font-medium">${r.error}</p>`;
+                      return renderIPChart(r);
+                    })()}
+                  </div>
+                  ` : ''}
                 </div>
                 ` : `
                 ${intro ? `<p class="text-base leading-relaxed text-[#4A5568] mb-4">${intro}</p>` : ''}
@@ -10309,7 +10604,6 @@
                   <span class="arch-tool-pill" title="Microsoft Configuration Manager"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="4" y="4" width="11.5" height="11.5" fill="#F25022"/><rect x="16.5" y="4" width="11.5" height="11.5" fill="#7FBA00"/><rect x="4" y="16.5" width="11.5" height="11.5" fill="#00A4EF"/><rect x="16.5" y="16.5" width="11.5" height="11.5" fill="#FFB900"/></svg>ConfigMgr</span>
                   <span class="arch-tool-pill" title="Citrix"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#000"/><path d="M22 11.2a8.5 8.5 0 1 0 0 9.6l-2.6-1.5a5.5 5.5 0 1 1 0-6.6z" fill="#fff"/></svg>Citrix</span>
                   <span class="arch-tool-pill" title="Azure Virtual Desktop / Windows 365"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="4" width="12" height="12" fill="#F25022"/><rect x="17" y="4" width="12" height="12" fill="#7FBA00"/><rect x="3" y="18" width="12" height="12" fill="#00A4EF"/><rect x="17" y="18" width="12" height="12" fill="#FFB900"/></svg>AVD / W365</span>
-                  <span class="arch-tool-pill" title="Omnissa Horizon"><img src="data:image/png;base64,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" alt="" aria-hidden="true"/>Omnissa Horizon</span>
                   <span class="arch-tool-pill" title="Jamf"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#1168ED" d="M22.5 4.5c.6 0 1 .5 1 1.1V18c0 5-4 9-9 9-2.4 0-4.5-.9-6.1-2.4-.4-.4-.4-1 0-1.4l2.1-2.1c.4-.4 1-.4 1.4-.1.7.6 1.6 1 2.6 1 2.2 0 4-1.8 4-4V5.6c0-.6.5-1.1 1.1-1.1h2.9zM10.5 16.5a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>Jamf</span>
                 </div>
                 <div class="arch-bracket-up"></div>
@@ -11612,6 +11906,47 @@
 
       function setText(id, value){ const el=document.getElementById(id); if(el) el.textContent = String(value); }
 
+      function computeInflectionPoint(){
+        const c = STATE.ipCalc;
+        const E = parseFloat(c.engineers);     // engineers / IT staff on apps
+        const V = (c.envs || []).length;       // delivery environments selected
+        const N = parseFloat(c.employees);     // total employees
+        const devs = c.devices || [];
+        const hasVirtual  = devs.includes('virtual');
+        const hasPhysical = devs.some(d => d !== 'virtual');
+        const bothDevices = hasVirtual && hasPhysical;
+        if (!(E > 0) || !(V >= 1) || !(N > 0) || devs.length === 0) {
+          c.result = { error: 'Pick your environments and devices, then add engineers and employees to see your projected inflection point.' };
+          return;
+        }
+        // ---- Illustrative model constants (tunable ASSUMPTIONS, not measured data) ----
+        const BASE_YEAR = 2026;                 // "now"
+        const GROWTH    = 0.40;                  // annual demand growth — mirrors the Gartner 40% scenario figure
+        const PER_ENG   = 10;                    // sustainable workload units one engineer carries
+        const DIVISOR   = 1000;                  // ~1 demand unit per 1000 employees of app/support load
+        // Each additional device type multiplies packaging/test/patch work; a mixed virtual+physical estate adds more again.
+        const DEVICE_OVERHEAD = 1 + 0.15 * Math.max(0, devs.length - 1) + (bothDevices ? 0.25 : 0);
+        const demand    = (N / DIVISOR) * V * DEVICE_OVERHEAD;
+        const capacity  = E * PER_ENG;
+        const load      = demand / capacity;     // 1.0 = saturation
+        const years = Math.log(capacity / demand) / Math.log(1 + GROWTH);
+        let status, label;
+        if (load >= 1) {
+          status = 'past'; label = 'Now';
+        } else {
+          const yearInt = BASE_YEAR + Math.floor(years);
+          const frac    = years - Math.floor(years);
+          const season  = frac < 0.34 ? 'Early' : frac < 0.67 ? 'Mid' : 'Late';
+          if (years > 5) { status = 'healthy'; label = (BASE_YEAR + 5) + '+'; }
+          else           { status = 'soon';    label = season + ' ' + yearInt; }
+        }
+        // Small, single-track shop: one environment, one device type, one engineer, ≤200 employees → call it out as currently stable.
+        if (N <= 200 && V === 1 && devs.length === 1 && E === 1) {
+          status = 'stable'; label = 'Currently stable';
+        }
+        c.result = { status, label, loadPct: Math.round(load * 100), demand, capacity, growth: GROWTH, baseYear: BASE_YEAR, years };
+      }
+
       function calculateImpact(){
         const ci = STATE.calcInputs;
         const a = ROI_ASSUMPTIONS[STATE.calcScenario];
@@ -12050,6 +12385,10 @@
           if (action === 'open-ai-agent') { STATE.showAIAgent = true; render(); return; }
           if (action === 'close-ai-agent') { STATE.showAIAgent = false; render(); return; }
           if (action === 'close-insight-modal') { STATE.insightContent = null; STATE.highlightDriverId = null; render(); return; }
+          if (action === 'toggle-ip-calc') { STATE.ipCalc.open = !STATE.ipCalc.open; render(); return; }
+          if (action === 'ip-toggle-env') { const k = act.getAttribute('data-val'); const a = STATE.ipCalc.envs; const i = a.indexOf(k); if (i >= 0) a.splice(i,1); else a.push(k); render(); return; }
+          if (action === 'ip-toggle-device') { const k = act.getAttribute('data-val'); const a = STATE.ipCalc.devices; const i = a.indexOf(k); if (i >= 0) a.splice(i,1); else a.push(k); render(); return; }
+          if (action === 'calculate-ip') { computeInflectionPoint(); STATE.ipCalc.justCalculated = true; render(); return; }
           if (action === 'why-nav') { STATE.openWhyModal = act.getAttribute('data-to'); render(); return; }
           if (action === 'step-driver') {
             const dir = parseInt(act.getAttribute('data-dir'), 10) || 1;
@@ -12270,6 +12609,8 @@
 
         let _roiDebounce = null;
         root.addEventListener('input', (e) => {
+          if (e.target?.id === 'ip-engineers')    { STATE.ipCalc.engineers = e.target.value; return; }
+          if (e.target?.id === 'ip-employees')    { STATE.ipCalc.employees = e.target.value; return; }
           if (e.target?.id === 'roi-employees') { const n = cleanNum(e.target.value); if (n > 0) { deriveFromEmployees(n); calculateImpact(); clearTimeout(_roiDebounce); _roiDebounce = setTimeout(() => render(), 600); } return; }
           if (e.target?.id === 'roi-users') { STATE.calcInputs.users = cleanNum(e.target.value); return; }
           if (e.target?.id === 'roi-endpoints') { STATE.calcInputs.endpoints = cleanNum(e.target.value); return; }
