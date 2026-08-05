@@ -62,8 +62,8 @@
         font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       }
       .focus-ring:focus-visible { outline: 2px solid var(--r-cyan, #00BFFF); outline-offset: 2px; box-shadow: none; }
-      .section-card { border-radius: var(--radius); background: #ffffff; box-shadow: var(--shadow-card); transition: box-shadow 300ms ease, transform 300ms ease; }
-      .section-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+      .section-card { border-radius: var(--radius); background: #ffffff; box-shadow: var(--shadow-card); transition: box-shadow 300ms ease; }
+      .section-card:hover { box-shadow: var(--shadow-hover); }
       .sub-card { border-radius: calc(var(--radius) / 1.5); border: 1px solid var(--border-subtle); background: #F0F0F6; transition: box-shadow 300ms ease; }
       .tile { width: 0.45rem; height: 0.45rem; border-radius: 2px; background: #DDDDEE; opacity: 0.9; }
       .run .tile { animation: tilePulse 1s ease-in-out var(--d, 0s) 1 forwards; }
@@ -75,7 +75,7 @@
       .run .bolt-line { animation: boltDrop 0.9s ease forwards var(--d, 0s); }
       @keyframes boltDrop { to { transform: scaleY(1); } }
       .logo-ring { width: 2.1rem; height: 2.1rem; border-radius: 9999px; display: grid; place-items: center; background: #ffffff; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1); transition: all 0.3s ease; }
-      .logo-ring:hover { box-shadow: 0 0 8px rgba(0, 0, 204,0.3); transform: scale(1.05); }
+      .logo-ring:hover { box-shadow: 0 0 8px rgba(0, 0, 204,0.3); }
       .logo-wrap { display: flex; align-items: center; gap: 0.4rem; position: relative; transition: all 300ms ease; }
       .logo-name { font-size: 0.7rem; color: #6A6A7A; opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; }
       .show-labels .logo-wrap { flex-direction: column; align-items: flex-start; gap: 0.2rem; }
@@ -92,10 +92,10 @@
       .cat-row:first-child { border-top: none; padding-top: 0; }
       .cat-title { font-size: 0.7rem; letter-spacing: 0.08em; display: flex; align-items: center; gap: 0.5rem; }
       .re-primary { background: var(--primary) !important; color: #fff !important; border: 0; border-radius: 9999px; padding: 0.55rem 1.5rem; font-weight: 600; box-shadow: 0 2px 6px rgba(0, 0, 204, 0.28); transition: background 0.2s ease, transform 0.2s ease; }
-      .re-primary:hover { background: var(--primary-hover) !important; transform: scale(1.02); }
+      .re-primary:hover { background: var(--primary-hover) !important; }
       .re-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 0, 204, 0.30); }
       .re-secondary { background: transparent !important; color: var(--text-primary) !important; border: 1.5px solid #C3C3D2 !important; border-radius: 9999px; padding: 0.5rem 1.5rem; transition: all 0.2s ease, transform 0.2s ease; }
-      .re-secondary:hover { color: var(--primary) !important; border-color: var(--primary) !important; background: #F6F8FF !important; transform: scale(1.02); }
+      .re-secondary:hover { color: var(--primary) !important; border-color: var(--primary) !important; background: #F6F8FF !important; }
       @media (prefers-reduced-motion: reduce) {
         .accordion-content { transition: none !important; }
       }
@@ -106,7 +106,7 @@
       .check-appear{opacity:0;animation:fadeInOut 1.5s ease var(--d,0s) forwards}
       @keyframes fadeInOut{0%{opacity:0}30%{opacity:1}70%{opacity:1}100%{opacity:0}}
       .flow-connect{background-image:linear-gradient(to right, transparent 50%, #DDDDEE 50%);background-size:4px 1px;background-repeat:repeat-x;height:1px;opacity:0.5}
-      .end-user-expand{transition:all 0.5s ease;transform:scale(1.05);background:#ffffff;border-color:#0F7A3F}
+      .end-user-expand{transition:all 0.5s ease;background:#ffffff;border-color:#0F7A3F;box-shadow:0 2px 10px rgba(15,122,63,0.18)}
       .icon-launch{animation:iconLaunch 0.5s ease forwards}
       @keyframes iconLaunch{0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1)}}
       .tagline-fade{opacity:0;animation:fadeIn 1s ease 10s forwards}
@@ -136,7 +136,7 @@
       .run .metrics-banner { animation: metricsAppear 0.8s ease forwards var(--d, 3.5s); }
       @keyframes metricsAppear { to { opacity: 1; transform: translateY(0); } }
       .interactive-node { transition: opacity 0.3s, transform 0.3s; }
-      .interactive-node:hover { opacity: 0.9; transform: scale(1.05); }
+      .interactive-node:hover { opacity: 0.75; }
       .chart-container { width: 100%; height: auto; aspect-ratio: 860 / 420; background: #ffffff; border-radius: 16px; padding: 8px; }
       #capacity-gap-chart { width: 100%; height: 100%; }
       .chart-nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 999px; background: white; border: 1px solid #C3C3D2; box-shadow: 0 2px 6px rgba(26, 26, 46,0.12); display: flex; align-items: center; justify-content: center; color: #1A1A2E; cursor: pointer; z-index: 10; transition: all 0.15s ease; }
@@ -292,7 +292,6 @@
         display: inline-flex; align-items: center; gap: 6px;
         padding: 5px 9px; border-radius: 6px;
         background: rgba(26, 26, 46, 0.78);
-        backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
         border: 1px solid rgba(0, 191, 255, 0.45);
         font-size: 10px; font-weight: 700; letter-spacing: 0.02em;
         color: #ffffff;
@@ -487,7 +486,7 @@
       .ux-win-controls span { width: 9px; height: 9px; background: #C3C3D2; border-radius: 1px; }
       .ux-win-controls .ux-win-close { background: #CC2222; }
       .ux-chrome-win-taskbar {
-        background: rgba(0, 0, 0, 0.78); backdrop-filter: blur(10px);
+        background: rgba(0, 0, 0, 0.9);
         height: 26px; padding: 0 8px;
         display: flex; align-items: center; gap: 5px;
       }
@@ -510,7 +509,7 @@
 
       /* ─── macOS chrome ─── */
       .ux-chrome-mac-menubar {
-        background: rgba(255,255,255,0.92); backdrop-filter: blur(10px);
+        background: #F8F8FC;
         height: 22px; padding: 0 8px;
         display: flex; align-items: center; gap: 8px;
         border-bottom: 1px solid rgba(0,0,0,0.06);
@@ -526,8 +525,7 @@
       }
       .ux-mac-dock-inner {
         display: flex; align-items: center; gap: 4px;
-        padding: 3px 8px; background: rgba(255,255,255,0.55);
-        backdrop-filter: blur(14px);
+        padding: 3px 8px; background: rgba(255,255,255,0.86);
         border-radius: 8px; border: 1px solid rgba(255,255,255,0.6);
         box-shadow: 0 4px 10px rgba(0,0,0,0.12);
       }
@@ -875,7 +873,7 @@
       .ac-status-pill i { width: 9px; height: 9px; }
 
       /* Floating "Create action" modal */
-      .ac-modal-overlay { position: absolute; inset: 0; background: rgba(26, 26, 46, 0.32); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); display: grid; place-items: center; z-index: 30; opacity: 0; pointer-events: none; transition: opacity 0.32s ease; }
+      .ac-modal-overlay { position: absolute; inset: 0; background: rgba(26, 26, 46, 0.42); display: grid; place-items: center; z-index: 30; opacity: 0; pointer-events: none; transition: opacity 0.32s ease; }
       .ac-modal-overlay.is-open { opacity: 1; pointer-events: auto; }
       .ac-modal { width: min(440px, calc(100% - 36px)); background: #FFFFFF; border-radius: 8px; box-shadow: 0 20px 50px -10px rgba(26, 26, 46,0.32), 0 4px 16px rgba(26, 26, 46,0.18); overflow: hidden; transform: translateY(8px) scale(0.985); transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1); }
       .ac-modal-overlay.is-open .ac-modal { transform: translateY(0) scale(1); }
@@ -924,7 +922,7 @@
       .ac-empty strong { color: #4A4A5A; }
 
       /* Caption ribbon (explains what's happening) */
-      .ac-caption { position: absolute; left: 16px; right: 16px; bottom: 12px; background: rgba(255, 255, 255, 0.96); color: #2A2A3E; padding: 10px 14px; border-radius: 8px; font-size: 12px; line-height: 1.35; display: flex; align-items: flex-start; gap: 9px; box-shadow: 0 6px 20px rgba(26, 26, 46,0.10), 0 1px 3px rgba(26, 26, 46,0.06); border: 1px solid #DDDDEE; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); opacity: 0; transform: translateY(6px); transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; }
+      .ac-caption { position: absolute; left: 16px; right: 16px; bottom: 12px; background: #FFFFFF; color: #2A2A3E; padding: 10px 14px; border-radius: 8px; font-size: 12px; line-height: 1.35; display: flex; align-items: flex-start; gap: 9px; box-shadow: 0 6px 20px rgba(26, 26, 46,0.10), 0 1px 3px rgba(26, 26, 46,0.06); border: 1px solid #DDDDEE; opacity: 0; transform: translateY(6px); transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; }
       .ac-caption.is-shown { opacity: 1; transform: translateY(0); }
       .ac-caption-dot { width: 7px; height: 7px; border-radius: 9999px; background: #00BFFF; box-shadow: 0 0 0 3px rgba(0, 191, 255,0.18); margin-top: 5px; flex-shrink: 0; }
       .ac-caption-text { flex: 1; min-width: 0; }
@@ -1047,7 +1045,7 @@
       .pt-pill-name i { width: 12px; height: 12px; color: #0000CC; }
       .pt-pill-tag { font-size: 8.5px; font-weight: 600; color: #6A6A7A; text-transform: uppercase; letter-spacing: 0.06em; }
       .pt-playall { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 9999px; border: 0; background: #0000CC; color: white; font-size: 11px; font-weight: 700; cursor: pointer; transition: background 0.18s ease, transform 0.18s ease; box-shadow: 0 2px 6px rgba(0, 0, 204,0.28); }
-      .pt-playall:hover { background: #0000A8; transform: scale(1.02); }
+      .pt-playall:hover { background: #0000A8; }
       .pt-playall i { width: 12px; height: 12px; }
       .pt-statband { display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; border: 1px solid #BFEBFF; background: #F2FBFF; border-radius: 10px; padding: 12px 18px; }
       .pt-stat-pct { font-family: Inter, ui-sans-serif, sans-serif; font-size: 34px; font-weight: 800; letter-spacing: -0.02em; color: #0C6634; line-height: 1; }
@@ -1234,7 +1232,7 @@
       .pt-ctls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
       .pt-ctl { display: inline-flex; align-items: center; justify-content: center; gap: 5px; height: 27px; min-width: 27px; padding: 0 7px; border: 1px solid #DDDDEE; border-radius: 8px; background: white; color: #6A6A7A; cursor: pointer; transition: all 0.15s ease; }
       .pt-ctl:hover { color: #1A1A2E; border-color: #8A8A9A; }
-      .pt-ctl:active { transform: scale(0.96); }
+      .pt-ctl:active { background: #F0F0F6; }
       .pt-ctl-primary { padding: 0 11px; background: #F6F8FF; border-color: #AABBEE; color: #00008F; font-size: 10.5px; font-weight: 700; white-space: nowrap; }
       .pt-ctl-primary:hover { background: #E4E7FA; border-color: #0000CC; color: #00008F; }
       .aw-mk { display:inline-grid; place-items:center; border-radius:6px; overflow:hidden; flex:0 0 auto; background:#fff; box-shadow:0 1px 2px rgba(26, 26, 46,0.10); }
@@ -1771,8 +1769,8 @@
       .pt-pdfbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 14px; border-top: 1px solid #DDDDEE; padding-top: 12px; }
       .pt-pdfbar span { flex: 1; font-size: 10px; line-height: 1.5; color: #8A8A9A; max-width: 96ch; }
       .pt-pdfbtn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 9999px; border: 0; background: #0000CC; color: #fff; font-size: 11.5px; font-weight: 700; cursor: pointer; box-shadow: 0 2px 6px rgba(0, 0, 204,0.28); transition: background 0.18s ease, transform 0.18s ease; }
-      .pt-pdfbtn:hover { background: #0000A8; transform: translateY(-1px); }
-      .pt-pdfbtn:active { transform: scale(0.98); }
+      .pt-pdfbtn:hover { background: #0000A8; }
+      .pt-pdfbtn:active { background: #000090; }
       .pt-pdfbtn svg { width: 14px; height: 14px; }
       #pt-print { position: absolute; left: -99999px; top: 0; width: 1180px; pointer-events: none; }
       .ptp-page { width: 1180px; background: #fff; padding-bottom: 4px; }
@@ -2106,7 +2104,6 @@
       }
       .ai-next-link:hover {
         background: #00719A; color: #fff;
-        transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(0, 113, 154,0.25);
       }
 
@@ -2425,7 +2422,7 @@
       .ai-action:hover {
         background: #F6F8FF;
         border-color: #0086B3;
-        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 134, 179,0.10);
       }
       .ai-action-icon {
         display: grid; place-items: center;
@@ -2499,7 +2496,7 @@
       .ob-laptop.ob-visible { opacity: 1; transform: perspective(800px) rotateY(0deg) scale(1); }
       .ob-laptop-r { transition-delay: 0.15s; }
       .ob-screen-content { min-height: 180px; position: relative; background: #FAFAFE; overflow: hidden; }
-      .ob-taskbar { display: flex; align-items: center; justify-content: space-between; padding: 4px 10px; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); border-top: 1px solid rgba(195, 195, 210,0.5); font-size: 8px; color: #6A6A7A; }
+      .ob-taskbar { display: flex; align-items: center; justify-content: space-between; padding: 4px 10px; background: #FFFFFF; border-top: 1px solid rgba(195, 195, 210,0.5); font-size: 8px; color: #6A6A7A; }
       .ob-oobe { background: #0078D4; min-height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
       .ob-desktop { background: #D5DAF5; min-height: 180px; display: flex; flex-direction: column; position: relative; }
       .ob-desktop-icons { flex: 1; padding: 10px 12px; display: flex; flex-wrap: wrap; gap: 8px; align-content: start; }
@@ -2507,12 +2504,12 @@
       .ob-desktop-icon .ob-icon-sq { width: 30px; height: 30px; border-radius: 7px; display: grid; place-items: center; font-size: 11px; font-weight: 800; color: white; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
       .ob-desktop-icon .ob-icon-label { font-size: 7px; color: #3A3A4C; text-align: center; line-height: 1.1; }
       .ob-placeholder-icon .ob-icon-sq { background: rgba(138, 138, 154,0.25); border: 1.5px dashed #8A8A9A; color: #8A8A9A; font-size: 10px; font-weight: 700; box-shadow: none; }
-      .ob-toast { position: absolute; bottom: 6px; right: 6px; left: 6px; padding: 5px 8px; border-radius: 6px; font-size: 8px; font-weight: 600; display: flex; align-items: center; gap: 4px; backdrop-filter: blur(4px); }
+      .ob-toast { position: absolute; bottom: 6px; right: 6px; left: 6px; padding: 5px 8px; border-radius: 6px; font-size: 8px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
       .ob-toast-warn { background: rgba(252, 246, 234,0.95); border: 1px solid #CC8800; color: #855700; }
       .ob-toast-error { background: rgba(251, 220, 220,0.95); border: 1px solid #F0AAAA; color: #A81C1C; }
       .ob-toast-info { background: rgba(213, 218, 245,0.95); border: 1px solid #7777EA; color: #00008F; }
       .ob-toast-success { background: rgba(234, 245, 238,0.95); border: 1px solid #BFEBFF; color: #005C7D; }
-      .ob-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); backdrop-filter: blur(2px); }
+      .ob-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); }
       .ob-overlay-card { background: white; border-radius: 10px; padding: 12px 16px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
 
       /* Onboarding verdict: the minutes carry the demo — the deck's one
@@ -2745,10 +2742,10 @@
       .catalog-get-btn { padding: 2px 10px; border-radius: 9999px; font-size: 9px; font-weight: 600; background: #0000CC; color: white; border: none; cursor: default; }
       .catalog-get-btn.gotten { background: #0F7A3F; }
       .dash-metric { text-align: center; padding: 20px 12px; border-radius: 12px; background: white; border: 1px solid #DDDDEE; transition: all 0.3s ease; position: relative; overflow: hidden; }
-      .dash-metric:hover { border-color: #0000CC; box-shadow: 0 4px 20px rgba(0, 0, 204,0.08); transform: translateY(-2px); }
-      .dash-metric .metric-value { font-size: 32px; font-weight: 700; line-height: 1; background: #0000CC; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-      .dash-metric.accent-green .metric-value { background: #0F7A3F; -webkit-background-clip: text; background-clip: text; }
-      .dash-metric.accent-amber .metric-value { background: #CC8800; -webkit-background-clip: text; background-clip: text; }
+      .dash-metric:hover { border-color: #0000CC; box-shadow: 0 4px 20px rgba(0, 0, 204,0.08); }
+      .dash-metric .metric-value { font-size: 32px; font-weight: 700; line-height: 1; color: #0000CC; }
+      .dash-metric.accent-green .metric-value { color: #0F7A3F; }
+      .dash-metric.accent-amber .metric-value { color: #CC8800; }
       .dash-metric .metric-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #6A6A7A; margin-top: 6px; }
       .dash-metric .metric-sub { font-size: 12px; color: #8A8A9A; margin-top: 2px; }
       .dash-metric .metric-icon { position: absolute; top: 10px; right: 10px; opacity: 0.15; }
@@ -3178,7 +3175,7 @@
         transition: all 200ms cubic-bezier(.2,.8,.2,1);
         cursor: pointer;
       }
-      .cardtab:hover { border-color: #C3C3D2; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+      .cardtab:hover { border-color: #C3C3D2; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
       .cardtab-active {
         border-color: var(--r-blue);
         box-shadow: 0 0 0 3px rgba(0, 0, 204,0.14), 0 4px 12px rgba(0,0,0,0.06);
@@ -3206,8 +3203,8 @@
       .arch-lifecycle-strip { margin-top: 4px; padding: 8px 4px 2px; border-top: 1px dashed #DDDDEE; position: relative; }
       .arch-lifecycle-eyebrow { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #6A6A7A; text-align: center; margin-bottom: 8px; }
       .demo-loop-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px 8px 14px; border-radius: 999px; background: #0000CC; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border: none; cursor: pointer; transition: all 160ms cubic-bezier(0.2,0.8,0.2,1); box-shadow: 0 2px 8px -2px rgba(0, 0, 204,0.4); }
-      .demo-loop-btn:hover { background: #00BFFF; color: #1A1A2E; transform: translateY(-1px); box-shadow: 0 4px 12px -2px rgba(0, 191, 255,0.5); }
-      .demo-loop-btn:active { transform: translateY(0); }
+      .demo-loop-btn:hover { background: #00BFFF; color: #1A1A2E; box-shadow: 0 4px 12px -2px rgba(0, 191, 255,0.5); }
+      .demo-loop-btn:active { box-shadow: none; }
       .demo-loop-btn i { width: 12px; height: 12px; }
       .demo-loop-btn.is-playing { background: #00BFFF; color: #1A1A2E; }
       .demo-loop-btn.is-playing .demo-loop-pulse { width: 7px; height: 7px; border-radius: 50%; background: #CC2222; box-shadow: 0 0 0 0 rgba(204, 34, 34,0.7); animation: demoLoopPulse 1.4s infinite; display: inline-block; }
@@ -3290,7 +3287,7 @@
       .teams-chat-input-box { flex: 1; height: 24px; border: 1px solid #DDDDEE; border-radius: 4px; background: white; padding: 0 8px; font-size: 9px; color: #8A8A9A; display: flex; align-items: center; }
 
       /* Cinema Mode */
-      .cinema-mode .device-frame { box-shadow: 0 12px 40px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.05); transform: scale(1.02); transition: transform 0.5s ease, box-shadow 0.5s ease; }
+      .cinema-mode .device-frame { box-shadow: 0 12px 40px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.05); transition: box-shadow 0.5s ease; }
       @media (max-width: 768px) { .cinema-mode .device-frame { transform: none; } }
       .cinema-caption { font-size: 13px; font-weight: 600; text-align: center; padding: 10px 0 2px; color: #3A3A4C; min-height: 28px; transition: opacity 0.3s ease; }
       .cinema-caption.done-caption { color: #0C6634; }
@@ -3306,15 +3303,16 @@
       .platform-bar-mini { background: #0000CC; border-radius: 8px; padding: 8px 14px; color: white; display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; position: relative; overflow: hidden; }
       .platform-bar-mini::before { content: ''; position: absolute; top: -50%; right: -10%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%); pointer-events: none; }
       .cinema-scenario-caption { font-size: 13px; font-weight: 600; color: #4A4A5A; text-align: center; padding: 2px 0 6px; }
-      .cinema-working-badge { display: flex; align-items: center; justify-content: center; gap: 5px; padding: 4px 12px; font-size: 10px; font-weight: 600; color: #0C6634; background: rgba(234, 245, 238,0.9); border: 1px solid #BFEBFF; border-radius: 9999px; backdrop-filter: blur(4px); margin: 4px auto 0; width: fit-content; }
-      .flip-card { perspective: 1000px; cursor: pointer; height: 90px; transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+      .cinema-working-badge { display: flex; align-items: center; justify-content: center; gap: 5px; padding: 4px 12px; font-size: 10px; font-weight: 600; color: #0C6634; background: rgba(234, 245, 238,0.9); border: 1px solid #BFEBFF; border-radius: 9999px; margin: 4px auto 0; width: fit-content; }
+      .flip-card { cursor: pointer; height: 90px; transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
       .flip-card.flipped { height: 240px; }
-      .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
-      .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-      .flip-card-front, .flip-card-back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: var(--radius); border: 1px solid var(--border-subtle); overflow: hidden; }
+      .flip-card-inner { position: relative; width: 100%; height: 100%; }
+      .flip-card-front, .flip-card-back { position: absolute; inset: 0; border-radius: var(--radius); border: 1px solid var(--border-subtle); overflow: hidden; }
+      .flip-card:not(.flipped) .flip-card-back { visibility: hidden; pointer-events: none; }
+      .flip-card.flipped .flip-card-front { visibility: hidden; pointer-events: none; }
       .flip-card-front { background: white; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; padding: 0 16px; }
-      .flip-card-back { background: #ffffff; color: #1A1A2E; transform: rotateY(180deg); padding: 20px; display: flex; flex-direction: column; justify-content: space-between; border: 2px solid #0000CC; }
-      .flip-card-stat { font-size: 24px; line-height: 1.08; font-weight: 800; background: #0000CC; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; white-space: nowrap; }
+      .flip-card-back { background: #ffffff; color: #1A1A2E; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; border: 2px solid #0000CC; }
+      .flip-card-stat { font-size: 24px; font-weight: 800; color: #0000CC; line-height: 1; white-space: nowrap; }
       /* Front face reads on its own: the figure plus what it measures. */
       .flip-card { height: auto; min-height: 78px; }
       .flip-card-front { justify-content: flex-start !important; gap: 11px !important; }
@@ -3562,7 +3560,7 @@
         font-weight: 600 !important;
         box-shadow: none !important;
       }
-      .re-primary:hover { background: var(--r-blue-hover) !important; transform: translateY(-1px) !important; }
+      .re-primary:hover { background: var(--r-blue-hover) !important; }
       .re-secondary {
         background: transparent !important;
         color: var(--r-blue) !important;
@@ -4237,8 +4235,6 @@
            their entrance keyframes — innerHTML mount fires them once — but
            we DO NOT animate the demo-stage children, since those rebuild
            on every phase tick and would flicker forever. */
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
         display: flex; align-items: flex-start; justify-content: center;
         padding: 4vh 24px;
         overflow-y: auto;
@@ -6051,6 +6047,44 @@
       .bi-facts dt { font-size: 12.5px; font-weight: 700; color: #1A1A2E; }
       .bi-facts dd { margin: 2px 0 0; font-size: 11.5px; line-height: 1.45; color: #4A4A5A; }
 
+      /* Eight-week proof of value (enterprise) */
+      .pov-cal { display: grid; gap: 4px; margin-bottom: 16px; }
+      .pov-row { display: grid; grid-template-columns: 210px 1fr; gap: 12px; align-items: center; }
+      .pov-row-l b { display: block; font-size: 12.5px; font-weight: 700; color: #1A1A2E; }
+      .pov-row-l span { display: block; font-size: 11px; line-height: 1.4; color: #4A4A5A; margin-top: 1px; text-wrap: pretty; }
+      .pov-track { position: relative; display: grid; grid-template-columns: repeat(8, 1fr); align-items: center; min-height: 30px; }
+      .pov-track::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(to right, #E4E4EF 0 1px, transparent 1px 12.5%); pointer-events: none; }
+      .pov-head .pov-row-l { font-size: 9.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #6A6A7A; }
+      .pov-head .pov-track { min-height: 20px; border-bottom: 1px solid #C9C9DA; }
+      .pov-head .pov-track::before { display: none; }
+      .pov-wk { font-size: 9.5px; font-weight: 700; color: #6A6A7A; text-align: center; font-variant-numeric: tabular-nums; }
+      .pov-bar { position: relative; z-index: 1; display: flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 4px; background: #0000CC; color: #FFF; font-size: 10.5px; font-weight: 700; letter-spacing: 0.01em; white-space: nowrap; }
+      .pov-bar-end { background: #00BFFF; color: #1A1A2E; }
+      .pov-proofs { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-bottom: 16px; }
+      .pov-proof { border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px 13px 13px; background: #FFF; }
+      .pov-proof-k { font-size: 11.5px; font-weight: 700; color: #1A1A2E; line-height: 1.35; min-height: 31px; }
+      .pov-proof-n { display: flex; align-items: baseline; gap: 7px; margin: 8px 0 7px; font-variant-numeric: tabular-nums; }
+      .pov-now { font-size: 15px; font-weight: 700; color: #6A6A7A; }
+      .pov-proof-n i { font-style: normal; font-size: 12px; color: #AAAABB; }
+      .pov-aim { font-size: 21px; font-weight: 800; color: #0000CC; line-height: 1; }
+      .pov-proof-h { font-size: 11px; line-height: 1.45; color: #4A4A5A; text-wrap: pretty; }
+      .pov-lab { font-size: 9.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #6A6A7A; margin-bottom: 8px; }
+      @media (max-width: 640px) {
+        .pov-row { grid-template-columns: 1fr; gap: 3px; }
+        .pov-head { display: none; }
+      }
+
+      /* Partner tiers table */
+      .ptier { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 12px; }
+      .ptier th { font-size: 9.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #6A6A7A; padding: 0 8px 7px; border-bottom: 1px solid #C9C9DA; line-height: 1.35; text-align: center; vertical-align: bottom; }
+      .ptier th:first-child { text-align: left; padding-left: 0; }
+      .ptier td { padding: 7px 8px; border-bottom: 1px solid #F0F0F6; color: #4A4A5A; line-height: 1.4; text-align: center; }
+      .ptier td:first-child { text-align: left; padding-left: 0; color: #1A1A2E; }
+      .ptier-g td { padding: 9px 0 6px; border-bottom: 1px solid #DDDDEE; font-size: 9.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #0000CC; }
+      .ptier-y { color: #0F7A3F; font-weight: 700; }
+      .ptier-n { color: #C3C3D2; }
+      .ptier tr:last-child td { border-bottom: 0; }
+
       .bi-col-h, .bi-rail-h { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #1A1A2E; }
       .bi-chart-col { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
       .bi-chart-col .ex-chart { margin: 0; }
@@ -6163,7 +6197,7 @@
       .ex-f-lg input { width: 120px; font-size: 14px; font-weight: 700; }
       .ex-btn { border: 1px solid #0000CC; background: #0000CC; color: #fff; border-radius: 6px; padding: 8px 14px; font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; transition: background 150ms, color 150ms, border-color 150ms; }
       .ex-btn:hover { background: #0000A8; border-color: #0000A8; }
-      .ex-btn:active { transform: translateY(1px); }
+      .ex-btn:active { background: #000090; border-color: #000090; }
       .ex-btn-q { background: #fff; color: #1A1A2E; border-color: #C9C9DA; }
       .ex-btn-q:hover { background: var(--r-quote-bg); color: #0000CC; border-color: #0000CC; }
       .ex-seg { display: inline-flex; border: 1px solid #C9C9DA; border-radius: 6px; overflow: hidden; }
@@ -7496,7 +7530,7 @@
         drivers: [
           { id: "more_apps", label: "App Portfolio Growth", subtext: "Portfolio growth across Windows, macOS, VDI, web", markerYear: 2025.6, bullets: ["Every new app adds ongoing work - packaging, testing, updates, support.", "App sprawl compounds across Windows, macOS, VDI, and web delivery paths.", "Portfolio growth increases version drift and troubleshooting load."], short: "Every new app creates ongoing packaging, testing, update, and support work across every platform.", state: 'off' },
           { id: "constant_updates", label: "Continuous Change Velocity", subtext: "Security patches, compatibility, vendor releases", markerYear: 2026.2, bullets: ["Updates are continuous, not occasional - work never clears.", "Security patches and compatibility changes create perpetual churn.", "Release velocity outpaces admin capacity."], short: "Updates are constant -  not occasional. Stability now requires perpetual change management.", state: 'off' },
-          { id: "exploit_window", label: "Collapsing Update Window", subtext: "Exploit development is outpacing remediation", markerYear: 2026.4, bullets: ["Mean time to exploit reached -7 days in 2026, from +63 days in 2018 \u2014 exploitation now routinely precedes an available patch.", "NVD moved to a triage enrichment model in April 2026; the free prioritisation layer many teams relied on now covers a fraction of intake.", "Remediation SLAs, coordinated disclosure windows, and monthly maintenance cycles were all designed around an assumption that no longer holds."], short: "The gap between disclosure and working exploit has inverted. Update cycles measured in weeks now sit on the wrong side of it.", state: 'off' },
+          { id: "exploit_window", label: "Fixes Arrive Too Late", subtext: "Attacks now land before the fix is available", markerYear: 2026.4, bullets: ["In 2018 you had about two months between a flaw becoming public and attackers using it. In 2026 the attack comes first \u2014 about a week before a fix exists.", "The free public list many teams used to rank which flaws matter most cut its coverage in April 2026. That shortcut is largely gone.", "Patch deadlines, vendor disclosure timelines, and monthly maintenance nights were all built for a slower world. That world is gone."], short: "Attackers now get in before the fix ships. A patch cycle measured in weeks is on the wrong side of the race.", state: 'off' },
           { id: "too_many_tools", label: "Platform Multiplication", subtext: "Fragmented delivery across platforms", markerYear: 2026.8, bullets: ["App delivery is fragmented across tools and environments (e.g., Intune/ConfigMgr/VDI).", "Teams rebuild packaging and deployment logic per platform.", "Tool fragmentation creates handoffs, duplication, and drift."], short: "Same app, different platforms. Packaging and deployment logic rebuilt per environment.", state: 'off' },
           { id: "manual_rework", label: "Rework & Technical Debt", subtext: "Rebuilds, exceptions, one-off fixes", markerYear: 2027.3, bullets: ["Manual rebuilds per version create packaging backlog and rework.", "Reactive fixes become permanent exceptions (technical debt).", "Firefighting displaces planned work and modernization."], short: "Manual rebuilds, one-off fixes, and undocumented exceptions compound into permanent drag.", state: 'off' },
           { id: "security_compliance", label: "Security & Compliance Pressure", subtext: "Higher urgency, higher risk", markerYear: 2027.7, bullets: ["Security/compliance raises the urgency and risk of app change.", "Inconsistent versions and installs increase exposure and escalations.", "Patching timelines stretch when workflows are manual and fragmented."], short: "Higher urgency, tighter windows, zero tolerance -  on top of everything else.", state: 'off' }
@@ -7598,7 +7632,7 @@
           return JSON.parse(JSON.stringify([
             { id: "more_apps", label: "App Portfolio Growth", subtext: "Portfolio growth across Windows, macOS, VDI, web", markerYear: 2025.6, bullets: ["Every new app adds ongoing work - packaging, testing, updates, support.", "App sprawl compounds across Windows, macOS, VDI, and web delivery paths.", "Portfolio growth increases version drift and troubleshooting load."], short: "Every new app creates ongoing packaging, testing, update, and support work across every platform.", state: 'off' },
             { id: "constant_updates", label: "Continuous Change Velocity", subtext: "Security patches, compatibility, vendor releases", markerYear: 2026.2, bullets: ["Updates are continuous, not occasional - work never clears.", "Security patches and compatibility changes create perpetual churn.", "Release velocity outpaces admin capacity."], short: "Updates are constant -  not occasional. Stability now requires perpetual change management.", state: 'off' },
-            { id: "exploit_window", label: "Collapsing Update Window", subtext: "Exploit development is outpacing remediation", markerYear: 2026.4, bullets: ["Mean time to exploit reached -7 days in 2026, from +63 days in 2018 \u2014 exploitation now routinely precedes an available patch.", "NVD moved to a triage enrichment model in April 2026; the free prioritisation layer many teams relied on now covers a fraction of intake.", "Remediation SLAs, coordinated disclosure windows, and monthly maintenance cycles were all designed around an assumption that no longer holds."], short: "The gap between disclosure and working exploit has inverted. Update cycles measured in weeks now sit on the wrong side of it.", state: 'off' },
+            { id: "exploit_window", label: "Fixes Arrive Too Late", subtext: "Attacks now land before the fix is available", markerYear: 2026.4, bullets: ["In 2018 you had about two months between a flaw becoming public and attackers using it. In 2026 the attack comes first \u2014 about a week before a fix exists.", "The free public list many teams used to rank which flaws matter most cut its coverage in April 2026. That shortcut is largely gone.", "Patch deadlines, vendor disclosure timelines, and monthly maintenance nights were all built for a slower world. That world is gone."], short: "Attackers now get in before the fix ships. A patch cycle measured in weeks is on the wrong side of the race.", state: 'off' },
             { id: "too_many_tools", label: "Platform Multiplication", subtext: "Fragmented delivery across platforms", markerYear: 2026.8, bullets: ["App delivery is fragmented across tools and environments (e.g., Intune/ConfigMgr/VDI).", "Teams rebuild packaging and deployment logic per platform.", "Tool fragmentation creates handoffs, duplication, and drift."], short: "Same app, different platforms. Packaging and deployment logic rebuilt per environment.", state: 'off' },
             { id: "manual_rework", label: "Rework & Technical Debt", subtext: "Rebuilds, exceptions, one-off fixes", markerYear: 2027.3, bullets: ["Manual rebuilds per version create packaging backlog and rework.", "Reactive fixes become permanent exceptions (technical debt).", "Firefighting displaces planned work and modernization."], short: "Manual rebuilds, one-off fixes, and undocumented exceptions compound into permanent drag.", state: 'off' },
             { id: "security_compliance", label: "Security & Compliance Pressure", subtext: "Higher urgency, higher risk", markerYear: 2027.7, bullets: ["Security/compliance raises the urgency and risk of app change.", "Inconsistent versions and installs increase exposure and escalations.", "Patching timelines stretch when workflows are manual and fragmented."], short: "Higher urgency, tighter windows, zero tolerance -  on top of everything else.", state: 'off' }
@@ -8072,7 +8106,7 @@
                 </div>
 
                 ${appOpen && !catalogMode && ['checking','routing','config'].includes(phase) ? (isPlaying ? '' : `
-                  <div style="position:absolute;bottom:6px;right:6px;z-index:10;display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:9999px;background:rgba(255,255,255,0.92);border:1px solid #BFEBFF;font-size:9px;font-weight:600;color:#0C6634;backdrop-filter:blur(4px)">
+                  <div style="position:absolute;bottom:6px;right:6px;z-index:10;display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:9999px;background:rgba(255,255,255,0.92);border:1px solid #BFEBFF;font-size:9px;font-weight:600;color:#0C6634;">
                     <i data-lucide="check-circle" class="w-3 h-3"></i>
                     User is working -  orchestration happens invisibly
                   </div>
@@ -15809,14 +15843,105 @@
               </table>`;
       }
 
-      function exRolloutHtml(){
+      function exPovHtml(m){
+        const r = m.r, ci = m.ci;
+        const phases = [
+          ['Connect it up', 1, 2, 'Point it at Intune or ConfigMgr and your identity system. Nothing is replaced and nothing new is installed.'],
+          ['Build a first set of apps', 2, 4, 'Ten to fifteen of your own applications, including one built in-house. Each one built once.'],
+          ['Give them to a pilot team', 3, 6, 'A real team gets the apps on their own machines \u2014 Windows and Mac if you run both.'],
+          ['Compare and decide', 6, 8, 'Put the numbers next to how the same work runs today. Carry on or stop.'],
+        ];
+        const proofs = [
+          ['How long a request takes to reach a machine', exD1(r.cycleDaysNow || 0) + ' days', exD1(r.cycleDaysModelled || 0) + ' days', 'Timed on real requests raised during the pilot, start to finish.'],
+          ['Hours the team spends on this work each month', num(m.tNow) + ' hrs', num(m.tAw) + ' hrs', 'Counted against the same four pools of work you have today.'],
+          ['Application tickets raised each month', num(ci.monthlyTickets), num(m.ticketsAfter), 'Taken straight from the service desk for the pilot group.'],
+        ];
+        const facts = [
+          ['Free for the eight weeks', 'No licence cost while you test. Anything you build during the trial is yours to keep.'],
+          ['Nothing gets replaced', 'It sits above Intune, ConfigMgr and your identity system as they already are.'],
+          ['One or two engineers, part-time', 'No project team. A Recast solution architect works alongside them.'],
+          ['Your apps, not a demo', 'Every number comes from your own applications and your own people.'],
+        ];
         return `
-              <div class="bi-phases">
-                ${AW_ROLLOUT.phases.map((p, i) => `<span class="bi-phase"><b>${i + 1}</b>${p}</span>`).join('')}
+              <div class="pov-cal">
+                <div class="pov-row pov-head">
+                  <div class="pov-row-l">Eight weeks</div>
+                  <div class="pov-track">${[1,2,3,4,5,6,7,8].map((w) => `<span class="pov-wk">${w}</span>`).join('')}</div>
+                </div>
+                ${phases.map((p, i) => `
+                  <div class="pov-row">
+                    <div class="pov-row-l"><b>${p[0]}</b><span>${p[3]}</span></div>
+                    <div class="pov-track"><span class="pov-bar ${i === phases.length - 1 ? 'pov-bar-end' : ''}" style="grid-column:${p[1]}/${p[2] + 1}">Weeks ${p[1]}\u2013${p[2]}</span></div>
+                  </div>`).join('')}
+              </div>
+              <div class="pov-lab">What you are measuring, and what it looks like today</div>
+              <div class="pov-proofs">
+                ${proofs.map((p) => `
+                  <div class="pov-proof">
+                    <div class="pov-proof-k">${p[0]}</div>
+                    <div class="pov-proof-n"><span class="pov-now">${p[1]}</span><i>\u2192</i><span class="pov-aim">${p[2]}</span></div>
+                    <div class="pov-proof-h">${p[3]}</div>
+                  </div>`).join('')}
               </div>
               <dl class="bi-facts">
-                ${AW_ROLLOUT.facts.map((f) => `<div><dt>${f[0]}</dt><dd>${f[1]}</dd></div>`).join('')}
+                ${facts.map((f) => `<div><dt>${f[0]}</dt><dd>${f[1]}</dd></div>`).join('')}
               </dl>`;
+      }
+
+      function exTiersHtml(){
+        const cols = ['Registered', 'Value / Preferred', 'Strategic / Premier'];
+        const groups = [
+          ['Core access', [
+            ['Resell licensing', 1, 1, 1],
+            ['Access to Partner Portal', 0, 1, 1],
+            ['Listing on RecastSoftware.com', 1, 1, 1],
+            ['Self-service training', 0, 1, 1],
+          ]],
+          ['Marketing &amp; GTM support', [
+            ['Campaigns-in-a-Box', 0, 1, 1],
+            ['Quarterly roadmap updates', 0, 1, 1],
+            ['Basic lead-gen support (no funding)', 0, 1, 1],
+            ['Joint lead-gen campaigns (with MDF funds)', 0, 0, 1],
+            ['Mutual business plan &amp; GTM alignment', 0, 1, 1],
+          ]],
+          ['Sales &amp; deal support', [
+            ['Partner NFR licensing', 0, 1, 1],
+            ['Enhanced CRM access (quote-to-order)', 0, 0, 1],
+            ['Partner of Record (PoR) eligibility', 0, 1, 1],
+            ['Co-sell &amp; expansion support', 0, 1, 1],
+          ]],
+          ['Delivery enablement', [
+            ['Eligible for MSP or resell delivery model', 0, 1, 1],
+            ['Access to services delivery leads', 0, 0, 1],
+          ]],
+          ['Strategic engagement', [
+            ['Dedicated support', 0, 0, 1],
+            ['Dedicated Recast partner manager', 0, 0, 1],
+          ]],
+        ];
+        const mark = (v) => v
+          ? '<span class="ptier-y" aria-label="Included">\u2713</span>'
+          : '<span class="ptier-n" aria-label="Not included">\u00d7</span>';
+        return `
+              <table class="ptier">
+                <thead>
+                  <tr>
+                    <th style="width:43%">Benefit</th>
+                    ${cols.map((c) => `<th style="width:19%">${c}</th>`).join('')}
+                  </tr>
+                </thead>
+                <tbody>
+                  ${groups.map((g) => `
+                    <tr class="ptier-g"><td colspan="4">${g[0]}</td></tr>
+                    ${g[1].map((row) => `
+                      <tr>
+                        <td>${row[0]}</td>
+                        <td>${mark(row[1])}</td>
+                        <td>${mark(row[2])}</td>
+                        <td>${mark(row[3])}</td>
+                      </tr>`).join('')}`).join('')}
+                </tbody>
+              </table>`;
       }
 
       function exHeroHtml(m){
@@ -15967,11 +16092,17 @@
             lede: `Licence of <b>${exMoney(m.invest)}</b> a year at list against ${exMoney(m.annualValue)} of reclaimed capacity once at run rate. Payback in month ${exD1(m.payback)} on recurring value alone, month ${exD1(m.paybackFull)} counting the ${exMoney(m.oneTime)} of packaging the estate does not repeat. Capacity converts to cash only if a staffing decision follows it.`,
             body: `<div class="bi-cashhead"><span><i class="bi-sw"></i>Recurring value</span><span><i class="bi-sw bi-sw-d"></i>+ packaging not repeated</span></div>` + exChartHtml(m),
           },
-          live: {
-            icon: 'calendar-check', title: 'Getting live',
-            lede: `Five phases to go-live, ${num(m.implHrs)} hours of your effort in the model. Nothing is replaced \u2014 the platform sits above the tooling already in place.`,
-            body: exRolloutHtml(),
-          },
+          live: ent
+            ? {
+                icon: 'flask-conical', title: 'Free eight-week proof of value',
+                lede: 'Before you buy anything, we run it on your own apps for eight weeks. You watch how fast an app gets out, how long an update takes to land, and how easy the whole thing is to run.',
+                body: exPovHtml(m),
+              }
+            : {
+                icon: 'award', title: 'Partner programme overview',
+                lede: 'Three tiers. Benefits add up as you move up.',
+                body: exTiersHtml(),
+              },
         };
         const d = defs[id];
         if (!d) return '';
@@ -16046,7 +16177,7 @@
           ['time', 'clock', 'Where the time goes'],
           ['change', 'arrow-left-right', 'Before and after'],
           ['exposure', 'shield-check', 'Update exposure'],
-          ['live', 'calendar-check', 'Getting live'],
+          ent ? ['live', 'flask-conical', 'Proof of value'] : ['live', 'award', 'Partner tiers'],
         ];
 
         const railBtn = (key, icon, label) => `
@@ -16912,90 +17043,4 @@
           if (e.target?.id === 'ip-employees')    { STATE.ipCalc.employees = e.target.value; return; }
           if (e.target?.id === 'roi-employees') { const n = cleanNum(e.target.value); if (n > 0) { deriveFromEmployees(n); calculateImpact(); clearTimeout(_roiDebounce); _roiDebounce = setTimeout(() => render(), 600); } return; }
           if (e.target?.id === 'roi-users') { STATE.calcInputs.users = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'roi-endpoints') { STATE.calcInputs.endpoints = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'roi-envs') { STATE.calcInputs.envs = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'roi-apps') { STATE.calcInputs.apps = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'roi-custom') { STATE.calcInputs.customApps = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'roi-tickets') { STATE.calcInputs.monthlyTickets = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'roi-ticketmins') { STATE.calcInputs.avgTicketMins = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'roi-pkghrs') { STATE.calcInputs.pkgHours = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'roi-patchhrs') { STATE.calcInputs.patchHours = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'roi-reqs') { STATE.calcInputs.openReqs = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'roi-initiatives') { STATE.calcInputs.delayedInitiatives = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'hero-envs') { STATE.calcInputs.envs = Math.max(1, cleanNum(e.target.value)); _curRecalc(); return; }
-          if (e.target?.id === 'hero-apps') { const ci = STATE.calcInputs; const n = Math.max(1, cleanNum(e.target.value)); const k = n / Math.max(1, ci.apps); ci.apps = n; ci.appsTotal = n; ci.appsHighChurn = Math.round(n * 0.15); ci.customApps = Math.max(0, Math.round(ci.customApps * k)); ci.pkgHours = Math.max(0, Math.round(ci.pkgHours * k)); ci.patchHours = Math.max(0, Math.round(ci.patchHours * k)); _curRecalc(); return; }
-          if (e.target?.id === 'cur-apps-total') { STATE.calcInputs.appsTotal = Math.max(1, cleanNum(e.target.value)); _curRecalc(); return; }
-          if (e.target?.id === 'cur-apps-churn') { STATE.calcInputs.appsHighChurn = Math.max(0, cleanNum(e.target.value)); _curRecalc(); return; }
-          if (e.target?.id === 'cur-cycle-days') { STATE.calcInputs.cycleDaysNow = Math.max(0, cleanNum(e.target.value)); _curRecalc(); return; }
-          if (e.target?.id === 'cur-aging') { STATE.calcInputs.pctAging60Now = Math.max(0, Math.min(100, cleanNum(e.target.value))); _curRecalc(); return; }
-          if (e.target?.id === 'cov-catalog') { STATE.calcInputs.catalogCovered = String(e.target.value).trim() === '' ? null : Math.max(0, cleanNum(e.target.value)); _curRecalc(); return; }
-          if (e.target?.id === 'cov-config') { STATE.calcInputs.configCovered = String(e.target.value).trim() === '' ? null : Math.max(0, cleanNum(e.target.value)); _curRecalc(); return; }
-          if (e.target?.id === 'asn-complex-mix') { STATE.calcInputs.complexMixPct = Math.max(0, Math.min(100, cleanNum(e.target.value))); return; }
-          if (e.target?.id === 'asn-loaded-rate') { STATE.calcInputs.loadedRate = Math.max(0, cleanNum(e.target.value)); return; }
-          // Partner financial model inputs — live update, debounced re-render (focus is preserved by render()).
-          if (e.target?.id && e.target.id.indexOf('ptm-') === 0) {
-            const k = e.target.id.slice(4);
-            const m = ptModelEnsure();
-            if (k in m) {
-              m[k] = Math.max(0, cleanNum(e.target.value));
-              clearTimeout(_ptmDebounce);
-              _ptmDebounce = setTimeout(() => scrollPreserveRender(), 600);
-            }
-            return;
-          }
-          // Inline packaging-cycle levers — live update + debounced re-render so the bars and KPIs follow keystrokes.
-          if (e.target?.id === 'pkg-apps') { STATE.calcInputs.apps = Math.max(0, cleanNum(e.target.value)); calculateImpact(); clearTimeout(_roiDebounce); _roiDebounce = setTimeout(() => render(), 500); return; }
-          if (e.target?.id === 'pkg-mix')  { STATE.calcInputs.complexMixPct = Math.max(0, Math.min(100, cleanNum(e.target.value))); calculateImpact(); clearTimeout(_roiDebounce); _roiDebounce = setTimeout(() => render(), 500); return; }
-          if (e.target?.id === 'pkg-rate') { STATE.calcInputs.loadedRate = Math.max(0, cleanNum(e.target.value)); calculateImpact(); clearTimeout(_roiDebounce); _roiDebounce = setTimeout(() => render(), 500); return; }
-          const buf = e.target.closest('[data-action="edit-buffer"]');
-          if (buf) { const key = buf.getAttribute('data-key'); const sub = buf.getAttribute('data-subkey'); if (STATE.editBuffers?.[key]) STATE.editBuffers[key][sub] = e.target.value; }
-          if (STATE.modalOpen && STATE.editTab === 'chart') { STATE.editChartBuffer = readChartFieldsRaw(); }
-        });
-        const pdfInput = document.getElementById('pdf-company-input');
-        if (pdfInput) { pdfInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); const name = (pdfInput.value || '').trim() || 'Your Organization'; STATE.pdfCompanyName = name; startPdfExport(name); STATE.pdfCompanyInput = false; render(); } }); }
-      }
-
-      let accordionKeyboardBound = false;
-      function attachAccordionKeyboard(){
-        if (accordionKeyboardBound) return; accordionKeyboardBound = true;
-        document.addEventListener('keydown', (e) => {
-          const target = e.target; if (!target || !target.classList || !target.classList.contains('accordion-header')) return;
-          const headers = Array.from(document.querySelectorAll('.accordion-header')); const idx = headers.indexOf(target);
-          if (e.key === 'ArrowDown') { headers[(idx + 1) % headers.length]?.focus(); e.preventDefault(); }
-          else if (e.key === 'ArrowUp') { headers[(idx - 1 + headers.length) % headers.length]?.focus(); e.preventDefault(); }
-          else if (e.key === 'Home') { headers[0]?.focus(); e.preventDefault(); }
-          else if (e.key === 'End') { headers[headers.length - 1]?.focus(); e.preventDefault(); }
-          else if (e.key === 'Enter' || e.key === ' ') { target.click(); e.preventDefault(); }
-        });
-      }
-
-      STATE.drivers.forEach(d => d.state = 'accelerating');
-      STATE.showTippingPoint = true;
-      updateCurves();
-      STATE.currentDemandExponent = STATE.targetDemandExponent;
-      STATE.currentCapacitySlope = STATE.targetCapacitySlope;
-
-      deriveFromEmployees(STATE.calcInputs.users);
-      calculateImpact();
-      document.addEventListener('DOMContentLoaded', render);
-      document.addEventListener('keydown',(e)=>{
-        if (STATE.insightContent && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
-          const tag = (e.target && e.target.tagName) || '';
-          if (tag === 'INPUT' || tag === 'TEXTAREA' || (e.target && e.target.isContentEditable)) return;
-          const pool = (STATE.drivers || []).filter(d => d.id);
-          if (!pool.length) return;
-          const dir = e.key === 'ArrowRight' ? 1 : -1;
-          const curId = STATE.insightContent.id || STATE.highlightDriverId;
-          const curIdx = pool.findIndex(d => d.id === curId);
-          if (curIdx === -1) return;
-          const nextIdx = (curIdx + dir + pool.length) % pool.length;
-          openInsight(pool[nextIdx]);
-          e.preventDefault();
-          return;
-        }
-        if(e.key==='Escape' && STATE.openImpactModal){ STATE.openImpactModal=null; render(); return; }
-        if(e.key==='Escape' && (STATE.modalOpen || STATE.openWhyModal || STATE.insightContent || STATE.showAnalystModal || STATE.showAIAgent)){ STATE.modalOpen=false; STATE.openWhyModal=null; STATE.insightContent=null; STATE.highlightDriverId=null; STATE.showAnalystModal=false; STATE.showAIAgent=false; render(); }
-      });
-    </script>
-  </body>
-</html>
+          if (e.target?.id === 'roi-endpoints') { STATE.
