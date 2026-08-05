@@ -7779,6 +7779,31 @@
       .alm-fin b { display: block; font-size: 30px; font-weight: 800; letter-spacing: -0.028em; line-height: 1.15; color: var(--r-blue); }
       .alm-fin p { margin: 13px 0 0; max-width: 64ch; font-size: 15.5px; line-height: 1.55; color: var(--r-ink-2); text-wrap: pretty; }
 
+      /* scene 7 — the pace changed */
+      .alm-p7 { display: grid; gap: 22px; width: 100%; max-width: 740px; }
+      .alm-lane { display: grid; grid-template-columns: 142px 1fr 122px; gap: 18px; align-items: center; opacity: 0; }
+      .alm-scene.is-on .alm-lane { animation: almIn 460ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(var(--ld) - 400ms) both; }
+      .alm-lane-h b { display: block; font-size: 23px; font-weight: 800; letter-spacing: -0.025em; line-height: 1; color: var(--r-ink); }
+      .alm-lane-h u { display: block; margin-top: 3px; text-decoration: none; font-size: 11.5px; font-weight: 600; color: var(--r-ink-2); }
+      .alm-track { position: relative; height: 46px; border-radius: 6px; background: var(--r-surface-2); border: 1px solid var(--r-divider); }
+      .alm-track i { position: absolute; top: 9px; bottom: 9px; width: 2px; border-radius: 2px; background: var(--r-blue); opacity: 0; }
+      .alm-scene.is-on .alm-track i { animation: almFade 200ms ease-out calc(var(--ld) + var(--i) * var(--st)) both; }
+      .alm-lane-n { font-variant-numeric: tabular-nums; font-size: 25px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; color: var(--r-blue); }
+      .alm-lane-n em { display: block; margin-top: 4px; font-style: normal; font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--r-ink-2); }
+
+      /* scene 8 — what that does to the team */
+      .alm-p8 { display: grid; gap: 18px; width: 100%; max-width: 700px; }
+      .alm-bar { display: grid; grid-template-columns: 132px 1fr 164px; gap: 18px; align-items: center; opacity: 0; }
+      .alm-scene.is-on .alm-bar { animation: almIn 460ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(240ms + var(--i) * 700ms) both; }
+      .alm-bar-l { font-size: 14.5px; font-weight: 700; letter-spacing: -0.01em; color: var(--r-ink); }
+      .alm-bar-t { display: block; height: 28px; border-radius: 5px; background: var(--r-surface-2); overflow: hidden; }
+      .alm-bar-t b { display: block; width: 0; height: 100%; border-radius: 5px; background: var(--r-blue); }
+      .alm-scene.is-on .alm-bar-t b { animation: almGrow 1000ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(620ms + var(--i) * 700ms) both; }
+      @keyframes almGrow { from { width: 0; } to { width: var(--w); } }
+      .alm-bar-v { font-size: 13px; font-weight: 700; color: var(--r-blue); }
+      .alm-bar.flat .alm-bar-t b { background: #AABBEE; }
+      .alm-bar.flat .alm-bar-v { color: var(--r-ink-2); }
+
       /* ── controls ── */
       .alm-ctl { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--r-divider); }
       .alm-nav { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 999px; border: 1px solid var(--r-divider); background: #fff; color: var(--r-ink-2); transition: border-color 150ms ease, color 150ms ease; }
@@ -7802,7 +7827,9 @@
         .alm-scene.is-on .alm-sh, .alm-scene.is-on .alm-link, .alm-scene.is-on .alm-chev,
         .alm-scene.is-on .alm-big, .alm-scene.is-on .alm-field i, .alm-scene.is-on .alm-role,
         .alm-scene.is-on .alm-card5, .alm-scene.is-on .alm-lands,
+        .alm-scene.is-on .alm-lane, .alm-scene.is-on .alm-track i, .alm-scene.is-on .alm-bar,
         .alm-scene.is-on .alm-fin, .alm-dot.now > span { animation: none !important; opacity: 1 !important; transform: none !important; }
+        .alm-scene.is-on .alm-bar-t b { animation: none !important; width: var(--w) !important; }
         .alm-scene.is-on .alm-pgrid i.hero, .alm-scene.is-on .alm-ver u.b { animation: none !important; opacity: 1 !important; }
         .alm-scene.is-on .alm-ver u.a { display: none; }
         .alm-scene.is-on .alm-beat { animation: none !important; opacity: 1 !important; }
@@ -7810,6 +7837,8 @@
       @media (max-width: 900px) {
         .alm-scene.is-on { height: auto; }
         .alm-p1, .alm-p3, .alm-p5 { grid-template-columns: 1fr; gap: 22px; justify-items: center; }
+        .alm-lane, .alm-bar { grid-template-columns: 96px 1fr; }
+        .alm-lane-n, .alm-bar-v { grid-column: 2; }
         .alm-chain { flex-direction: column; }
         .alm-roles2 { grid-template-columns: 1fr; }
         .alm-sh h3 { font-size: 24px; }
@@ -10295,7 +10324,7 @@
       // Six scenes, one idea each, auto-advancing with manual control. Scene
       // switching is direct DOM (class toggle) rather than a full app render,
       // so per-scene entrance animations restart and nothing else re-paints.
-      const ALM_DUR = [8600, 6400, 6600, 6400, 7000, 0];
+      const ALM_DUR = [8600, 6400, 6600, 6400, 7000, 6200, 6800, 0];
       let ALM = { i: 0, t: null, playing: true };
 
       function almStop(){ if (ALM.t) { clearTimeout(ALM.t); ALM.t = null; } }
@@ -10335,6 +10364,7 @@
 
       function renderALMModal(){
         if (!STATE.showALM) return '';
+        const ticks = (n, ld, st) => Array.from({ length: n }, (_, i) => '<i style="--i:' + i + ';left:calc(' + ((i + 0.5) / n * 100).toFixed(3) + '% - 1px)"></i>').join('');
         const field = Array.from({ length: 80 }, (_, i) => '<i style="--i:' + i + '"></i>').join('');
         const tiles = (n, c) => Array.from({ length: n }, () => '<i style="background:' + c + '"></i>').join('');
         const stages = [
@@ -10447,6 +10477,42 @@
                     </div>
                   </section>
 
+                  <section class="alm-scene">
+                    <div class="alm-sh"><h3>An app that updated twice a year in 2018 now updates twice a week.</h3></div>
+                    <div class="alm-vis">
+                      <div class="alm-p7">
+                        <div class="alm-lane" style="--ld:0.6s;--st:420ms">
+                          <div class="alm-lane-h"><b>2018</b><u>once every six months</u></div>
+                          <div class="alm-track">${ticks(2)}</div>
+                          <div class="alm-lane-n">2<em>a year</em></div>
+                        </div>
+                        <div class="alm-lane" style="--ld:2.2s;--st:20ms">
+                          <div class="alm-lane-h"><b>2026</b><u>twice a week</u></div>
+                          <div class="alm-track">${ticks(104)}</div>
+                          <div class="alm-lane-n">104<em>a year</em></div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="alm-scene">
+                    <div class="alm-sh"><h3>Now imagine that landing on a team that was already under-resourced.</h3></div>
+                    <div class="alm-vis">
+                      <div class="alm-p8">
+                        <div class="alm-bar" style="--i:0">
+                          <span class="alm-bar-l">The work</span>
+                          <span class="alm-bar-t"><b style="--w:100%"></b></span>
+                          <span class="alm-bar-v">52&times; since 2018</span>
+                        </div>
+                        <div class="alm-bar flat" style="--i:1">
+                          <span class="alm-bar-l">The team</span>
+                          <span class="alm-bar-t"><b style="--w:11%"></b></span>
+                          <span class="alm-bar-v">no bigger than it was</span>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
                 </div>
                 <div class="alm-ctl" data-playing="1">
                   <button type="button" class="alm-nav alm-prev focus-ring" onclick="almPrev()" aria-label="Previous"><i data-lucide="chevron-left"></i></button>
@@ -10455,7 +10521,7 @@
                   <button type="button" class="alm-nav focus-ring" onclick="almToggle()" aria-label="Play or pause">
                     <i data-lucide="pause" class="alm-ico-pause"></i><i data-lucide="play" class="alm-ico-play"></i>
                   </button>
-                  <span class="alm-count">1 / 6</span>
+                  <span class="alm-count">1 / 8</span>
                 </div>
               </div>
             </div>
