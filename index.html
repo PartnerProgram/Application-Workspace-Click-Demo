@@ -7876,14 +7876,17 @@
         progress: { apps: 0, time: 0, tickets: 0 },
         envProgress: { appsProcessed: 0 },
         calcInputs: {
-          users: 5000, endpoints: 6000, envs: 3, apps: 150, customApps: 30,
+          users: 5000, endpoints: 6000, envs: 3, apps: 150, customApps: 25,
           monthlyTickets: 600, avgTicketMins: 18, pkgHours: 80, patchHours: 60,
           openReqs: 0, delayedInitiatives: 0, regulated: false,
           complexMixPct: 20, loadedRate: 95,
           /* Currency mode (W2/W3). catalogCovered / configCovered stay null
              until the AE enters a real Setup Store cross-reference. */
           appsTotal: 150, appsHighChurn: 23, cycleDaysNow: 14, pctAging60Now: 35,
-          catalogCovered: null, configCovered: null
+          catalogCovered: null, configCovered: null,
+          /* Invariant rates. Hours and custom-app counts are always derived
+             from these × the current estate, never scaled incrementally. */
+          pkgHrsPerApp: 80 / 150, patchHrsPerApp: 60 / 150, customSharePct: 25 / 150
         },
         impactMode: 'effort',
         exOpen: {},
@@ -13903,27 +13906,9 @@
                     </div>
                     ${idx < arr.length - 1 ? '<div class="lifecycle-connector ' + connClass + '"></div>' : ''}
                   `;}).join('')}
-                  <!-- Flow controls (icon-only) -->
-                  ${(STATE.solutionViewUser || STATE.solutionViewAdmin || STATE.solutionViewSetupStore || STATE.solutionViewMultiTenant || STATE.solutionViewDashboard || STATE.solutionViewAi || STATE.solutionViewOnboarding || STATE.solutionViewUpdate) ? (() => {
-                    const _running =
-                      (STATE.solutionViewSetupStore && STATE.ssRunning && !STATE.ssPaused) ||
-                      (STATE.solutionViewMultiTenant && STATE.mtRunning && !STATE.mtPaused) ||
-                      (STATE.solutionViewDashboard && STATE.drRunning && !STATE.drPaused) ||
-                      (STATE.solutionViewUpdate && STATE.updRunning && !STATE.updPaused) ||
-                      (STATE.solutionViewAi && STATE.aiRunning && !STATE.aiPaused) ||
-                      (STATE.solutionViewOnboarding && STATE.obRunning && !STATE.obPaused) ||
-                      (STATE.solutionViewAdmin && STATE.adminPane === 'ship' && STATE.updRunning && !STATE.updPaused) ||
-                      ((STATE.solutionViewUser || (STATE.solutionViewAdmin && STATE.adminPane !== 'ship')) && STATE.flowRunning && !STATE.flowPaused);
-                    const _label = _running ? 'Pause' : 'Play';
-                    const _icon  = _running ? 'pause' : 'play';
-                    return `
-                  <div class="flex items-center gap-1.5 ml-auto pl-2">
-                    <button type="button" data-action="toggle-flow" title="${_label}" aria-label="${_label}" class="bg-[#0000CC] text-white w-8 h-8 rounded-full hover:bg-[#0000A8] inline-flex items-center justify-center transition shadow-sm"><i data-lucide="${_icon}" class="w-3.5 h-3.5"></i></button>
-                    <button type="button" data-action="step-flow" title="Step" aria-label="Step" class="bg-white text-[#0000CC] border border-[#0000CC] w-8 h-8 rounded-full hover:bg-[#F6F8FF] inline-flex items-center justify-center transition"><i data-lucide="step-forward" class="w-3.5 h-3.5"></i></button>
-                    <button type="button" data-action="reset-flow" title="Reset" aria-label="Reset" class="bg-white text-[#1A1A2E] border border-[#1A1A2E]/30 w-8 h-8 rounded-full hover:bg-slate-50 hover:border-[#1A1A2E] inline-flex items-center justify-center transition"><i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i></button>
-                  </div>
-                    `;
-                  })() : ''}
+                  <!-- Play / Step / Reset live only in the pop-out header. The rail's
+                       copy rendered under exactly the same condition as the modal, so
+                       both clusters were always on screen at once. -->
                 </div>
               </div>
             </div>
@@ -14417,6 +14402,7 @@
          a driver of every hours figure on the page. */
       const PACKAGING_BENCHMARKS = {
         envRepeatShare: 0.60,
+        cycleGateDays: PT_LADDER.speed.rows.reduce((s, r) => s + r[2], 0),
         awStdHrs: 0.21,
         awComplexHrs: 3.0,
         tradStdHrs: 4.33,
@@ -14463,6 +14449,29 @@
         else { ci.endpoints = Math.round(n * 1.3); ci.envs = 6; ci.apps = 250; ci.customApps = 50; ci.monthlyTickets = Math.round(n * 0.12); ci.avgTicketMins = 20; ci.pkgHours = 160; ci.patchHours = 110; }
         ci.appsTotal = ci.apps;
         ci.appsHighChurn = Math.round(ci.apps * 0.15);
+        /* Record the band's implied per-app rates. Editing the application
+           count then rescales hours from these, so the two inputs stay
+           consistent in either order and at any typing speed. */
+        const apps = Math.max(1, ci.apps);
+        ci.pkgHrsPerApp   = ci.pkgHours / apps;
+        ci.patchHrsPerApp = ci.patchHours / apps;
+        ci.customSharePct = ci.customApps / apps;
+      }
+
+      /* Single place that turns an application count into the dependent
+         figures. Absolute, idempotent, and safe to call on every keystroke. */
+      function applyAppCount(n){
+        const ci = STATE.calcInputs;
+        const apps = Math.max(1, Math.min(100000, Math.round(n)));
+        if (!(ci.pkgHrsPerApp > 0))   ci.pkgHrsPerApp   = (ci.pkgHours || 0) / Math.max(1, ci.apps);
+        if (!(ci.patchHrsPerApp > 0)) ci.patchHrsPerApp = (ci.patchHours || 0) / Math.max(1, ci.apps);
+        if (ci.customSharePct == null) ci.customSharePct = (ci.customApps || 0) / Math.max(1, ci.apps);
+        ci.apps        = apps;
+        ci.appsTotal   = apps;
+        ci.appsHighChurn = Math.round(apps * 0.15);
+        ci.customApps  = Math.max(0, Math.min(apps, Math.round(apps * ci.customSharePct)));
+        ci.pkgHours    = Math.round(apps * ci.pkgHrsPerApp * 10) / 10;
+        ci.patchHours  = Math.round(apps * ci.patchHrsPerApp * 10) / 10;
       }
 
       /* ═══════════════════════════════════════════════════════════════════
@@ -15699,7 +15708,8 @@
         const tAw = rows.reduce((s, x) => s + x.awR, 0);
         const monthlyReclaim = Math.max(0, tNow - tAw);
         const annualValue = monthlyReclaim * 12 * rate;
-        const fte = monthlyReclaim * 12 / 1920;
+        const fteHours = ROI_ASSUMPTIONS[STATE.calcScenario].fteHours || 1920;
+        const fte = fteHours > 0 ? monthlyReclaim * 12 / fteHours : 0;
         const oneTime = r.cycleDollarsSaved || 0;
         const invest = r.awAnnualInvestment || 0;
         /* Break-even and the three-year net are recurring-only: the one-time
@@ -16048,6 +16058,10 @@
             'Applied to packaging and update-validation hours and to the one-time rebuild figure. Discovery, rationalisation and licence review are counted once.'],
           ['Update-workload weighting', '12 updates a year for monthly-or-faster titles, 3 for the remainder',
             'Modeling convention, stated so the weighted view can be checked.'],
+          ['Application estate', num(ci.apps) + ' applications at ' + (ci.pkgHrsPerApp || 0).toFixed(2) + ' packaging and ' + (ci.patchHrsPerApp || 0).toFixed(2) + ' update-validation hours each a month, per environment',
+            'Per-application rates from the employee band. Change the application count and hours follow it; change the hours and the rate follows them.'],
+          ['Release gate', pb.cycleGateDays.toFixed(1) + ' days minimum from request to deployed',
+            'Elapsed time is not touch time. This is the delivery ladder’s full post-automation residual — intake and sourcing, packaging and detection logic, the approval queue, and publish and verify — the elapsed time that remains once the effort is automated. The modelled cycle is floored there rather than scaled to a fraction of a day.'],
           ['Exposure figures', 'Mean time to exploit \u22127 days in 2026, from +63 days in 2018; 48,185 CVEs published in 2025, up 20.6% year over year',
             'Mandiant M-Trends 2026; CVE program data 2025\u20132026. Shown in full under Current State.'],
         ];
@@ -16809,7 +16823,9 @@
         // the packaging card uses (PACKAGING_BENCHMARKS at the entered mix).
         const cycleDaysNow = Math.max(0, ci.cycleDaysNow ?? 14);
         const cycleRatio = tradCycleHours > 0 ? (awCycleHours / tradCycleHours) : 0;
-        const cycleDaysModelled = cycleDaysNow > 0 ? Math.max(0.5, Math.round(cycleDaysNow * cycleRatio * 10) / 10) : 0;
+        const cycleDaysModelled = cycleDaysNow > 0
+          ? Math.min(cycleDaysNow, Math.max(pb.cycleGateDays, Math.round(cycleDaysNow * cycleRatio * 10) / 10))
+          : 0;
         // Projected aging: automated pipelines are assumed to clear their
         // updates inside 60 days, so aging persists only in the workload that
         // stays manual. The assumption is stated on screen.
@@ -17453,17 +17469,17 @@
           if (e.target?.id === 'roi-employees') { const n = cleanNum(e.target.value); if (n > 0) { deriveFromEmployees(n); calculateImpact(); clearTimeout(_roiDebounce); _roiDebounce = setTimeout(() => render(), 600); } return; }
           if (e.target?.id === 'roi-users') { STATE.calcInputs.users = cleanNum(e.target.value); return; }
           if (e.target?.id === 'roi-endpoints') { STATE.calcInputs.endpoints = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'roi-envs') { STATE.calcInputs.envs = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'roi-apps') { STATE.calcInputs.apps = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'roi-custom') { STATE.calcInputs.customApps = cleanNum(e.target.value); return; }
+          if (e.target?.id === 'roi-envs') { STATE.calcInputs.envs = Math.max(1, Math.min(12, cleanNum(e.target.value))); return; }
+          if (e.target?.id === 'roi-apps') { applyAppCount(Math.max(1, cleanNum(e.target.value))); return; }
+          if (e.target?.id === 'roi-custom') { const ci = STATE.calcInputs; ci.customApps = Math.max(0, Math.min(ci.apps, cleanNum(e.target.value))); ci.customSharePct = ci.customApps / Math.max(1, ci.apps); return; }
           if (e.target?.id === 'roi-tickets') { STATE.calcInputs.monthlyTickets = cleanNum(e.target.value); return; }
           if (e.target?.id === 'roi-ticketmins') { STATE.calcInputs.avgTicketMins = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'roi-pkghrs') { STATE.calcInputs.pkgHours = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'roi-patchhrs') { STATE.calcInputs.patchHours = cleanNum(e.target.value); return; }
+          if (e.target?.id === 'roi-pkghrs') { const ci = STATE.calcInputs; ci.pkgHours = Math.max(0, cleanNum(e.target.value)); ci.pkgHrsPerApp = ci.pkgHours / Math.max(1, ci.apps); return; }
+          if (e.target?.id === 'roi-patchhrs') { const ci = STATE.calcInputs; ci.patchHours = Math.max(0, cleanNum(e.target.value)); ci.patchHrsPerApp = ci.patchHours / Math.max(1, ci.apps); return; }
           if (e.target?.id === 'roi-reqs') { STATE.calcInputs.openReqs = cleanNum(e.target.value); return; }
           if (e.target?.id === 'roi-initiatives') { STATE.calcInputs.delayedInitiatives = cleanNum(e.target.value); return; }
-          if (e.target?.id === 'hero-envs') { STATE.calcInputs.envs = Math.max(1, cleanNum(e.target.value)); _curRecalc(); return; }
-          if (e.target?.id === 'hero-apps') { const ci = STATE.calcInputs; const n = Math.max(1, cleanNum(e.target.value)); const k = n / Math.max(1, ci.apps); ci.apps = n; ci.appsTotal = n; ci.appsHighChurn = Math.round(n * 0.15); ci.customApps = Math.max(0, Math.round(ci.customApps * k)); ci.pkgHours = Math.max(0, Math.round(ci.pkgHours * k)); ci.patchHours = Math.max(0, Math.round(ci.patchHours * k)); _curRecalc(); return; }
+          if (e.target?.id === 'hero-envs') { STATE.calcInputs.envs = Math.max(1, Math.min(12, cleanNum(e.target.value))); _curRecalc(); return; }
+          if (e.target?.id === 'hero-apps') { applyAppCount(Math.max(1, cleanNum(e.target.value))); _curRecalc(); return; }
           if (e.target?.id === 'cur-apps-total') { STATE.calcInputs.appsTotal = Math.max(1, cleanNum(e.target.value)); _curRecalc(); return; }
           if (e.target?.id === 'cur-apps-churn') { STATE.calcInputs.appsHighChurn = Math.max(0, cleanNum(e.target.value)); _curRecalc(); return; }
           if (e.target?.id === 'cur-cycle-days') { STATE.calcInputs.cycleDaysNow = Math.max(0, cleanNum(e.target.value)); _curRecalc(); return; }
