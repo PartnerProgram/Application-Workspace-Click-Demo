@@ -3056,7 +3056,7 @@
       .rws-pills { display: flex; flex-direction: column; gap: 7px; }
       .rws-pill { display: flex; align-items: center; gap: 8px; padding: 8px 11px; border-radius: 10px; background: rgba(255,255,255,0.13); border: 1px solid rgba(255,255,255,0.26); font-size: 11.5px; font-weight: 600; line-height: 1.3; color: #fff; }
       .rws-pill i, .rws-pill svg { width: 15px; height: 15px; flex: 0 0 15px; color: #CCEFFF; }
-      .rws-stages { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding-top: 21px; }
+      .rws-stages { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding-top: 21px; }
       .rws-stage { border-radius: 11px; background: rgba(255,255,255,0.13); border: 1px solid rgba(255,255,255,0.24); padding: 10px 9px 11px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 5px; }
       .rws-stage-ic { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; background: rgba(255,255,255,0.18); }
       .rws-stage-ic i, .rws-stage-ic svg { width: 14px; height: 14px; color: #fff; }
@@ -3071,11 +3071,14 @@
       .rws-diffc span { font-size: 11px; line-height: 1.4; color: rgba(255,255,255,0.87); text-wrap: pretty; }
       @media (max-width: 1180px) {
         .rws-io { grid-template-columns: 1fr; }
-        .rws-stages { padding-top: 0; grid-template-columns: repeat(3, 1fr); }
+        .rws-stages { padding-top: 0; grid-template-columns: repeat(2, 1fr); }
         .rws-diff { grid-template-columns: 1fr; }
       }
       @media (max-height: 900px) {
         .rws-slab { padding: 12px 14px 13px; }
+        .rws-slab.rws-quiet { padding: 0 0 13px; }
+        .rws-quiet .rws-head { padding: 11px 14px 12px; }
+        .rws-quiet .rws-io { padding: 0 14px; margin-top: 12px; }
         .rws-slab-t { font-size: 15.5px; }
         .rws-slab-s { font-size: 11px; }
         .rws-io { margin-top: 10px; gap: 10px; }
@@ -3092,16 +3095,19 @@
         .rws-chip { padding: 5px 11px; font-size: 11.5px; }
       }
       /* ── Quiet treatment of the workspace slab (blue as accent, not field) ── */
-      .rws-slab.rws-quiet { background: #F6F8FF; border: 1px solid #DDE0F7; box-shadow: 0 10px 26px -18px rgba(0, 0, 204,0.32); color: #1A1A2E; }
-      .rws-quiet .rws-slab-t { color: #1A1A2E; }
+      .rws-slab.rws-quiet { background: #FFFFFF; border: 1px solid #DDDDEE; box-shadow: 0 1px 2px rgba(26, 26, 46,0.06); color: #1A1A2E; padding: 0 0 16px; }
+      .rws-quiet .rws-head { background: #0000CC; padding: 13px 17px 14px; }
+      .rws-quiet .rws-slab-t { color: #FFFFFF; }
+      .rws-quiet .rws-slab-s { color: #AABBEE; }
+      .rws-quiet .rws-io { padding: 0 17px; margin-top: 15px; }
       .rws-quiet .rws-lab { color: #8A8A9A; }
-      .rws-quiet .rws-pill { background: #fff; border-color: #DDDDEE; color: #1A1A2E; box-shadow: 0 1px 2px rgba(26, 26, 46,0.035); }
+      .rws-quiet .rws-pill { background: #FAFAFE; border-color: #DDDDEE; color: #1A1A2E; box-shadow: 0 1px 2px rgba(26, 26, 46,0.035); }
       .rws-quiet .rws-pill i, .rws-quiet .rws-pill svg { color: #8A8A9A; }
-      .rws-quiet .rws-col:last-child .rws-pill i, .rws-quiet .rws-col:last-child .rws-pill svg { color: #0086B3; }
-      .rws-quiet .rws-stage { position: relative; background: #fff; border-color: #DDDDEE; box-shadow: 0 1px 2px rgba(26, 26, 46,0.04); }
+      .rws-quiet .rws-col:last-child .rws-pill i, .rws-quiet .rws-col:last-child .rws-pill svg { color: #0000CC; }
+      .rws-quiet .rws-stage { position: relative; background: #FAFAFE; border-color: #C9C9DA; box-shadow: 0 1px 2px rgba(26, 26, 46,0.04); }
       .rws-quiet .rws-stage + .rws-stage::before { content: ""; position: absolute; left: -8px; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-left: 5px solid #AABBEE; border-top: 4px solid transparent; border-bottom: 4px solid transparent; }
-      .rws-quiet .rws-stage-ic { background: #F6F8FF; }
-      .rws-quiet .rws-stage-ic i, .rws-quiet .rws-stage-ic svg { color: #0000CC; }
+      .rws-quiet .rws-stage-ic { background: #0000CC; }
+      .rws-quiet .rws-stage-ic i, .rws-quiet .rws-stage-ic svg { color: #FFFFFF; }
       .rws-quiet .rws-stage span { color: #6A6A7A; }
       .rws-quiet .rws-div { background: #DDDDEE; }
       .rws-quiet .rws-diffc { background: #fff; border-color: #DDDDEE; box-shadow: 0 1px 2px rgba(26, 26, 46,0.04); }
@@ -3109,10 +3115,113 @@
       .rws-quiet .rws-diffc-ic i, .rws-quiet .rws-diffc-ic svg { color: #0086B3; }
       .rws-quiet .rws-diffc span { color: #4A4A5A; }
       @media (max-width: 1180px) { .rws-quiet .rws-stage + .rws-stage::before { display: none; } }
+      /* ── Deploy & Update: one spine, run twice ── */
+      .udx-runs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+      .udx-run { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border: 1px solid #DDDDEE; border-radius: 8px; background: #FFFFFF; transition: border-color 260ms cubic-bezier(0.2, 0.8, 0.2, 1), background 260ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+      .udx-run-n { flex: none; width: 18px; height: 18px; border-radius: 999px; display: grid; place-items: center; background: #F0F0F6; color: #8A8A9A; font-size: 10px; font-weight: 800; transition: background 260ms, color 260ms; }
+      .udx-run b { display: block; font-size: 11px; font-weight: 700; color: #1A1A2E; line-height: 1.25; }
+      .udx-run i { display: block; font-style: normal; font-size: 9.5px; color: #8A8A9A; line-height: 1.3; }
+      .udx-run-on { border-color: #0000CC; background: #F6F8FF; }
+      .udx-run-on .udx-run-n { background: #0000CC; color: #FFFFFF; }
+      .udx-run-done .udx-run-n { background: #0F7A3F; color: #FFFFFF; }
+      .udx-spine { display: grid; grid-template-columns: 1fr 14px 1fr 14px 1fr; align-items: stretch; gap: 6px; }
+      .udx-node { border: 1px solid #DDDDEE; border-radius: 9px; background: #FFFFFF; padding: 9px 10px 10px; opacity: 0.5; transition: opacity 300ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 300ms, box-shadow 300ms; }
+      .udx-node.udx-lit { opacity: 1; border-color: #0000CC; box-shadow: 0 1px 2px rgba(0, 0, 204,0.12); }
+      .udx-node-ic { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: #F0F0F6; margin-bottom: 5px; transition: background 300ms; }
+      .udx-node-ic i, .udx-node-ic svg { width: 12px; height: 12px; color: #8A8A9A; transition: color 300ms; }
+      .udx-lit .udx-node-ic { background: #0000CC; }
+      .udx-lit .udx-node-ic i, .udx-lit .udx-node-ic svg { color: #FFFFFF; }
+      .udx-node b { display: block; font-size: 11px; font-weight: 700; color: #1A1A2E; line-height: 1.25; }
+      .udx-node > span:last-child { display: block; font-size: 9.5px; line-height: 1.35; color: #6A6A7A; margin-top: 2px; text-wrap: pretty; }
+      .udx-arrow { align-self: center; width: 0; height: 0; border-left: 6px solid #DDDDEE; border-top: 4.5px solid transparent; border-bottom: 4.5px solid transparent; transition: border-left-color 300ms; }
+      .udx-arrow-on { border-left-color: #0000CC; }
+      .udx-envs { display: flex; flex-wrap: wrap; gap: 5px; }
+      .udx-say { display: flex; align-items: center; gap: 7px; margin-top: 10px; padding: 8px 11px; border: 1px solid #DDDDEE; border-radius: 8px; background: #F6F8FF; font-size: 11px; font-weight: 600; line-height: 1.4; color: #1A1A2E; opacity: 0; transition: opacity 320ms cubic-bezier(0.2, 0.8, 0.2, 1); text-wrap: pretty; }
+      .udx-say-on { opacity: 1; }
+      .udx-say i, .udx-say svg { flex: none; color: #0000CC; }
+      /* ── The automation hub ──────────────────────────────────────────
+         The console's story is not "here is our UI", it is "you set a rule
+         once and it fires forever". So the visual is a ledger of real events
+         arriving and being handled with nobody in the loop, not a walkthrough
+         of a form being filled in. Rows land one per beat, which also makes
+         the whole thing readable in about four seconds. */
+      .ahub-cfg { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 11px; }
+      .ahub-cfg-lab { font-size: 9px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #8A8A9A; }
+      .ahub-chips { display: flex; gap: 5px; flex-wrap: wrap; }
+      .ahub-chip { display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border: 1px solid #DDDDEE; border-radius: 6px; background: #FFFFFF; font-size: 10.5px; font-weight: 700; color: #6A6A7A; transition: border-color 200ms cubic-bezier(0.2, 0.8, 0.2, 1), background 200ms cubic-bezier(0.2, 0.8, 0.2, 1), color 200ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+      .ahub-chip i, .ahub-chip svg { width: 11px; height: 11px; color: #B5B5C6; transition: color 200ms; }
+      .ahub-chip.is-hit { border-color: #0000CC; background: #F6F8FF; color: #0000CC; }
+      .ahub-chip.is-hit i, .ahub-chip.is-hit svg { color: #0000CC; }
+
+      .ahub-ledger { border: 1px solid #DDDDEE; border-radius: 8px; background: #FFFFFF; overflow: hidden; }
+      .ahub-head, .ahub-row { display: grid; grid-template-columns: 1.05fr 1fr 1.15fr; align-items: center; }
+      .ahub-head { background: #FAFAFE; border-bottom: 1px solid #DDDDEE; }
+      .ahub-head > span { padding: 6px 12px; font-size: 8.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #8A8A9A; line-height: 1.3; }
+      .ahub-head > span + span { box-shadow: inset 1px 0 0 #F0F0F6; }
+      .ahub-row { opacity: 0; transform: translateY(6px); transition: opacity 260ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+      .ahub-row.is-in { opacity: 1; transform: none; }
+      .ahub-row + .ahub-row { border-top: 1px solid #F0F0F6; }
+      .ahub-cell { padding: 9px 12px; font-size: 11.5px; line-height: 1.35; color: #1A1A2E; display: flex; align-items: flex-start; gap: 7px; min-width: 0; }
+      .ahub-cell + .ahub-cell { box-shadow: inset 1px 0 0 #F0F0F6; }
+      .ahub-cell i, .ahub-cell svg { width: 13px; height: 13px; flex: none; margin-top: 1px; color: #8A8A9A; }
+      .ahub-rule { font-size: 10.5px; font-weight: 600; color: #4A4A5A; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .ahub-out { font-weight: 600; }
+      .ahub-out i, .ahub-out svg { color: #0F7A3F; }
+
+      .ahub-tally { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 11px; padding: 10px 13px; border: 1px solid #DDDDEE; border-radius: 8px; background: #F6F8FF; opacity: 0; transition: opacity 300ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+      .ahub-tally.is-in { opacity: 1; }
+      .ahub-fig { display: flex; align-items: baseline; gap: 6px; }
+      .ahub-fig b { font-size: 17px; font-weight: 800; color: #0000CC; line-height: 1; font-variant-numeric: tabular-nums; }
+      .ahub-fig span { font-size: 10.5px; font-weight: 600; color: #4A4A5A; }
+      .ahub-tally-note { margin-left: auto; font-size: 11px; font-weight: 600; color: #1A1A2E; }
+      @media (max-width: 700px) {
+        .ahub-head { display: none; }
+        .ahub-row { grid-template-columns: 1fr; }
+        .ahub-cell + .ahub-cell { box-shadow: inset 0 1px 0 #F0F0F6; }
+      }
+      @media (max-height: 780px) {
+        .ahub-cell { padding: 7px 11px; font-size: 11px; }
+        .ahub-rule { font-size: 10px; }
+        .ahub-tally { margin-top: 9px; padding: 8px 11px; }
+        .ahub-fig b { font-size: 15px; }
+      }
+      @media (max-height: 660px) {
+        .ahub-cfg { margin-bottom: 8px; }
+        .ahub-cell { padding: 6px 10px; font-size: 10.5px; line-height: 1.3; }
+        .ahub-chip { font-size: 10px; padding: 3px 8px; }
+        .ahub-tally { gap: 10px; }
+      }
+
+      .adm-seg { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+      .adm-seg-b { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid #DDDDEE; border-radius: 6px; background: #FFFFFF; font-size: 11px; font-weight: 700; color: #4A4A5A; cursor: pointer; transition: border-color 200ms cubic-bezier(0.2, 0.8, 0.2, 1), background 200ms cubic-bezier(0.2, 0.8, 0.2, 1), color 200ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+      .adm-seg-b:hover { border-color: #C3C3D2; background: #F6F8FF; }
+      .adm-seg-b i, .adm-seg-b svg { color: #8A8A9A; transition: color 200ms; }
+      .adm-seg-b.is-on { background: #0000CC; border-color: #0000CC; color: #FFFFFF; }
+      .adm-seg-b.is-on i, .adm-seg-b.is-on svg { color: #FFFFFF; }
+      .udx-card { container-type: inline-size; container-name: udx; }
+      .udx-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      /* In the console's two-column stage this card is roughly half width, so
+         the spine turns into a vertical list rather than three squeezed
+         columns. Height is free there — the console panel beside it is taller. */
+      @container udx (max-width: 560px) {
+        .udx-runs { grid-template-columns: 1fr; gap: 6px; }
+        .udx-spine { grid-template-columns: 1fr; gap: 5px; }
+        .udx-arrow { display: none; }
+        .udx-node { display: grid; grid-template-columns: 22px 1fr; column-gap: 8px; padding: 7px 9px 8px; }
+        .udx-node-ic { grid-row: 1 / span 2; margin-bottom: 0; align-self: start; }
+        .udx-tiles { grid-template-columns: 1fr; gap: 6px; }
+        .dtap-bar { flex-wrap: wrap; }
+      }
+      @media (max-width: 720px) {
+        .udx-spine { grid-template-columns: 1fr; }
+        .udx-arrow { display: none; }
+        .udx-runs { grid-template-columns: 1fr; }
+      }
+
       /* ── Flow: one pale current sweeping the slab, chevrons firing in order ── */
       .rws-slab.rws-quiet { position: relative; overflow: hidden; }
       .rws-quiet > * { position: relative; z-index: 1; }
-      .rws-quiet::before { content: ""; position: absolute; z-index: 0; top: 0; bottom: 0; left: 0; width: 42%; pointer-events: none;
+      .rws-quiet::before { content: ""; position: absolute; z-index: 0; top: 56px; bottom: 0; left: 0; width: 42%; pointer-events: none;
         background: linear-gradient(100deg, rgba(0, 0, 204,0) 0%, rgba(0, 0, 204,0.085) 45%, rgba(0, 0, 204,0) 100%);
         animation: rwsCurrent 9s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
       @keyframes rwsCurrent { 0% { transform: translateX(-105%); } 100% { transform: translateX(345%); } }
@@ -3473,12 +3582,16 @@
       .logo-ticker-wrap::before, .logo-ticker-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 48px; z-index: 1; pointer-events: none; }
       .logo-ticker-wrap::before { left: 0; background: linear-gradient(90deg, white 0%, transparent 100%); }
       .logo-ticker-wrap::after { right: 0; background: linear-gradient(270deg, white 0%, transparent 100%); }
-      .logo-ticker { display: flex; align-items: center; gap: 40px; animation: tickerScroll 90s linear infinite; width: max-content; }
+      .logo-ticker { display: flex; align-items: center; gap: 10px; animation: tickerScroll 90s linear infinite; width: max-content; }
+      .logo-mark { display: inline-flex; align-items: center; justify-content: center; height: 34px; padding: 0 15px; border: 1px solid #DDDDEE; border-radius: 6px; background: #FFFFFF; flex-shrink: 0; transition: border-color 200ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+      .logo-mark:hover { border-color: #C3C3D2; }
+      .logo-mark img { height: 18px; width: auto; max-width: 118px; object-fit: contain; filter: grayscale(1); opacity: 0.72; }
+      .logo-mark:hover img { opacity: 1; }
       .logo-ticker:hover { animation-play-state: paused; }
       @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-      .logo-name { font-size: 13px; font-weight: 700; color: #3A3A4C; white-space: nowrap; flex-shrink: 0; letter-spacing: -0.02em; opacity: 0.7; }
-      .logo-name:hover { opacity: 1; }
-      .logo-divider { width: 1px; height: 16px; background: #DDDDEE; flex-shrink: 0; }
+      .logo-mark .logo-name { opacity: 1; transform: none; font-size: 10.5px; font-weight: 800; color: #6A6A7A; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.07em; text-transform: uppercase; }
+      .logo-mark:hover .logo-name { color: #1A1A2E; }
+      .logo-divider { display: none; }
 
       /* ══════════════════════════════════════════════════════════════
          RECAST SOFTWARE BRAND OVERRIDE — applied on top of legacy styles
@@ -4295,10 +4408,10 @@
       .demo-modal-progress-dot.is-active:hover { background: #0000CC; }
       .demo-modal-controls {
         margin-left: auto;
-        display: inline-flex; align-items: center; gap: 8px;
+        display: inline-flex; align-items: center; gap: 6px;
       }
       .demo-modal-btn {
-        width: 34px; height: 34px; border-radius: 9999px;
+        width: 26px; height: 26px; border-radius: 9999px;
         display: inline-flex; align-items: center; justify-content: center;
         border: 1px solid #C3C3D2; background: #ffffff; color: #1A1A2E;
         cursor: pointer; transition: all 0.18s ease;
@@ -4311,13 +4424,15 @@
         font-size: 12px; font-weight: 700;
       }
       .demo-modal-btn-next:hover { background: #0000A8; border-color: #0000A8; }
-      .demo-modal-btn-next i { width: 14px; height: 14px; }
+      .demo-modal-btn-next i { width: 12px; height: 12px; }
+      .demo-modal-btn i, .demo-modal-btn svg { width: 12px; height: 12px; }
       .demo-modal-btn-close { color: #6A6A7A; }
       .demo-modal-btn-close i { width: 16px; height: 16px; }
       .demo-modal-body {
         padding: 16px 18px 18px;
         max-height: calc(92vh - 70px);
         overflow: hidden;
+        overflow-y: auto;
       }
       .demo-modal-panel { max-height: 92vh; display: flex; flex-direction: column; }
       .demo-modal-body > #demo-stage { height: 100%; }
@@ -4899,7 +5014,7 @@
         gap: 14px;
       }
       .ss-synth-header {
-        text-align: center;
+        text-align: left;
         display: flex;
         flex-direction: column;
         gap: 4px;
@@ -5140,6 +5255,47 @@
       }
       .ss-synth-handoff-label [data-lucide] {
         color: var(--r-blue);
+      }
+
+      /* The synthesis card is the tallest thing in the Setup Store module and
+         the pop-out does not scroll, so it compacts instead of clipping. Same
+         approach as .udx-card: trim type, padding and gaps in tiers, never the
+         content itself. */
+      @media (max-height: 860px) {
+        .ss-synth { gap: 10px; }
+        .ss-synth-headline { font-size: 16px; }
+        .ss-synth-sub { font-size: 11.5px; }
+        .ss-synth-payload { gap: 6px; min-height: 0; }
+        .ss-synth-num { font-size: 30px; }
+        .ss-synth-cols { gap: 10px; }
+        .ss-synth-col { padding: 10px 11px 11px; }
+        .ss-synth-spine { gap: 3px 10px; padding-top: 6px; }
+        .ss-synth-step { font-size: 10.5px; }
+        .ss-synth-foot { font-size: 10.5px; padding-top: 6px; }
+      }
+      @media (max-height: 760px) {
+        .ss-synth { gap: 8px; }
+        .ss-synth-headline { font-size: 15px; }
+        .ss-synth-sub { font-size: 11px; line-height: 1.4; }
+        .ss-synth-num { font-size: 26px; }
+        .ss-synth-vendors { gap: 4px; margin-top: 2px; }
+        .ss-synth-custom-card { padding: 8px; gap: 8px; }
+        .ss-synth-custom-icon { width: 30px; height: 30px; }
+        .ss-synth-custom-name { font-size: 12px; }
+        .ss-synth-custom-note { font-size: 10.5px; }
+        .ss-synth-col { padding: 9px 10px 10px; }
+        .ss-synth-col-head { padding-bottom: 6px; }
+        .ss-synth-step { font-size: 10px; gap: 5px; }
+        .ss-synth-handoff { padding-top: 0; }
+        .ss-synth-handoff-label { font-size: 11px; }
+      }
+      @media (max-height: 660px) {
+        .ss-synth-headline { font-size: 14px; }
+        .ss-synth-num { font-size: 22px; }
+        .ss-synth-vendor, .ss-synth-vendor .ss-v-name, .ss-synth-vendor-more { font-size: 9.5px; }
+        .ss-synth-col { padding: 8px 9px 9px; }
+        .ss-synth-step { font-size: 9.5px; }
+        .ss-synth-foot { font-size: 10px; padding-top: 5px; }
       }
 
       /* Act progress bar (replaces "(1 of 4)" pill in header) */
@@ -7488,6 +7644,7 @@
         proofDetailsOpen: false,
         solutionViewUser: false,
         solutionViewAdmin: false,
+        adminPane: 'console',
         solutionViewMultiTenant: false,
         lifecyclePlaying: false,
         lcStep: -1,
@@ -7607,7 +7764,7 @@
             analyst: "The teams that solve this in 2026 will spend the next three years building. The teams that don't will spend them catching up."
           },
           recast: {
-            intro: "Application Workspace doesn't replace your tools - it's the layer that makes them work together.",
+            intro: "",
             bullets: [
               "Define once, deliver everywhere = One definition deploys to Intune, SCCM, Citrix, AVD, and macOS automatically.",
               "8,000+ apps ready to go = A curated catalog with verified sources, tested silent switches, vulnerability data, and virus scan scores — updated daily. Your team only packages what's genuinely unique to your business.",
@@ -7640,7 +7797,7 @@
               analyst: "The teams that solve this in 2026 will spend the next three years building. The teams that don't will spend them catching up."
             },
             recast: {
-              intro: "Application Workspace doesn't replace your tools - it's the layer that makes them work together.",
+              intro: "",
               bullets: [
                 "Define once, deliver everywhere = One definition deploys to Intune, SCCM, Citrix, AVD, and macOS automatically.",
                 "8,000+ apps ready to go = A curated catalog with verified sources, tested silent switches, vulnerability data, and virus scan scores — updated daily. Your team only packages what's genuinely unique to your business.",
@@ -7739,7 +7896,7 @@
         },
         {
           id: 'trust', icon: 'shield-check', title: 'Who trusts it.',
-          bullets: ['60M+ endpoints across 130+ countries.','70k+ Customers & Trusted by global organizations| Citibank, McKinsey & Company, U.S. Air Force, FEMA, Hitachi, Johns Hopkins, Costco, Government of Canada.','87 CSAT Score | Most trusted in the industry','Proven scalability from small pilots to global deployments.','Backed by enterprise-grade support and compliance alignment (SOC 2, ISO 27001).'],
+          bullets: ['60M+ endpoints across 130+ countries.','2,000+ Customers & Trusted by global organizations| Citibank, McKinsey & Company, U.S. Air Force, FEMA, Hitachi, Johns Hopkins, Costco, Government of Canada.','87 CSAT Score | Most trusted in the industry','Proven scalability from small pilots to global deployments.','Backed by enterprise-grade support and compliance alignment (SOC 2, ISO 27001).'],
           closer: "Trusted by organizations that can't afford downtime.", timeline: false, bgHeader: 'bg-[#F0F0F6]', bgContent: 'bg-[#F0F0F6]'
         },
         {
@@ -7825,11 +7982,10 @@
       // pop-out modal's Next button (which advances to the adjacent module).
       /* Dwell per lifecycle step (ms) — the tour timer and the rail's progress
          bar read the same array, so the bar can never disagree with the tour. */
-      const LC_DWELL = [14700, 12000, 10600, 11200, 12000, 8900, 8600, 8900];
+      const LC_DWELL = [14700, 11800, 11200, 12000, 8900, 8600, 8900];
       const LIFECYCLE_MODULES = [
         {view:'setupstore', stage:'PACKAGE',   name:'Setup Store',           icon:'library'},
         {view:'admin',      stage:'DEPLOY',    name:'Admin Console',         icon:'settings-2'},
-        {view:'update',     stage:'UPDATE',    name:'Update Pipeline',       icon:'refresh-cw'},
         {view:'onboarding', stage:'ONBOARD',   name:'Onboarding',            icon:'user-plus'},
         {view:'user',       stage:'RUN',       name:'User Experience',       icon:'monitor-smartphone'},
         {view:'dashboard',  stage:'GOVERN',    name:'Dashboard & Reporting', icon:'bar-chart-3'},
@@ -7863,22 +8019,23 @@
                 <div class="rws-brk rws-brk-t" aria-hidden="true"></div>
 
                 <div class="rws-slab rws-quiet">
-                  <div class="rws-slab-t">Recast Application Workspace</div>
-                  <div class="rws-slab-s">One packaged definition is what makes staying current automatic.</div>
+                  <div class="rws-head">
+                    <div class="rws-slab-t">Recast Application Workspace</div>
+                    <div class="rws-slab-s">One packaged definition is what makes staying current automatic.</div>
+                  </div>
 
                   <div class="rws-io">
                     <div class="rws-col">
                       <span class="rws-lab">What goes in</span>
                       <div class="rws-pills">
+                        <div class="rws-pill"><i data-lucide="users"></i>Users and groups <span style="color:#6A6A7A;font-weight:500">&middot; Entra ID, LDAP</span></div>
                         <div class="rws-pill"><i data-lucide="package"></i>8,000+ ready made apps</div>
                         <div class="rws-pill"><i data-lucide="wrench"></i>Your own apps</div>
-                        <div class="rws-pill"><i data-lucide="inbox"></i>Requests from your people</div>
                       </div>
                     </div>
                     <div class="rws-stages">
                       <div class="rws-stage"><span class="rws-stage-ic"><i data-lucide="box"></i></span><b>Package</b><span>Ready made, or built from your installer</span></div>
-                      <div class="rws-stage"><span class="rws-stage-ic"><i data-lucide="send"></i></span><b>Deploy</b><span>To the right person, team, and device</span></div>
-                      <div class="rws-stage"><span class="rws-stage-ic"><i data-lucide="shield-check"></i></span><b>Update</b><span>New versions ship on their own</span></div>
+                      <div class="rws-stage"><span class="rws-stage-ic"><i data-lucide="send"></i></span><b>Deploy / Update</b><span>To the right person and device &mdash; new versions ship the same way</span></div>
                       <div class="rws-stage"><span class="rws-stage-ic"><i data-lucide="clipboard-check"></i></span><b>Govern</b><span>Entitlements, compliance, audit trail</span></div>
                       <div class="rws-stage"><span class="rws-stage-ic"><i data-lucide="archive"></i></span><b>Retire</b><span>Removed cleanly, everywhere it landed</span></div>
                     </div>
@@ -8416,17 +8573,17 @@
           ? STATE.uxScenarioIdx : 0;
         const isCatalog = SCENARIOS[idx] && SCENARIOS[idx].id === 'catalog';
         // Launch phase: user opens Application Workspace on their device
-        queue.push({ delay: 600, fn(){ STATE.flowScenarioIdx = idx; STATE.flowPhase = 'launch'; STATE.flowAppOpened = false; updateFlowDOM(); } });
+        queue.push({ delay: 350, fn(){ STATE.flowScenarioIdx = idx; STATE.flowPhase = 'launch'; STATE.flowAppOpened = false; updateFlowDOM(); } });
         // Catalog phase: workspace opens, user sees all their apps
-        queue.push({ delay: 1200, fn(){ STATE.flowPhase = 'catalog'; updateFlowDOM(); } });
+        queue.push({ delay: 600, fn(){ STATE.flowPhase = 'catalog'; updateFlowDOM(); } });
         // Clicking phase: user selects an app from the catalog
-        queue.push({ delay: 1200, fn(){ STATE.flowPhase = 'clicking'; updateFlowDOM(); } });
-        queue.push({ delay: 1200, fn(){ STATE.flowPhase = 'checking'; updateFlowDOM(); animateChecks(); } });
-        queue.push({ delay: 1800, fn(){ STATE.flowPhase = 'routing'; updateFlowDOM(); } });
-        queue.push({ delay: 1300, fn(){ STATE.flowPhase = 'config'; updateFlowDOM(); } });
-        queue.push({ delay: 1500, fn(){ STATE.flowPhase = 'done'; if (isCatalog) { STATE._firstOpenDone = false; STATE.flowAppOpened = true; } updateFlowDOM(); } });
-        queue.push({ delay: 2000, fn(){ STATE.flowPhase = 'final'; updateFlowDOM(); } });
-        queue.push({ delay: 1600, fn(){ STATE.flowRunning = false; STATE.flowPaused = false; refreshDemoControls(); } });
+        queue.push({ delay: 600, fn(){ STATE.flowPhase = 'clicking'; updateFlowDOM(); } });
+        queue.push({ delay: 600, fn(){ STATE.flowPhase = 'checking'; updateFlowDOM(); animateChecks(); } });
+        queue.push({ delay: 750, fn(){ STATE.flowPhase = 'routing'; updateFlowDOM(); } });
+        queue.push({ delay: 650, fn(){ STATE.flowPhase = 'config'; updateFlowDOM(); } });
+        queue.push({ delay: 700, fn(){ STATE.flowPhase = 'done'; if (isCatalog) { STATE._firstOpenDone = false; STATE.flowAppOpened = true; } updateFlowDOM(); } });
+        queue.push({ delay: 800, fn(){ STATE.flowPhase = 'final'; updateFlowDOM(); } });
+        queue.push({ delay: 700, fn(){ STATE.flowRunning = false; STATE.flowPaused = false; refreshDemoControls(); } });
         return queue;
       }
 
@@ -8467,6 +8624,8 @@
          ══════════════════════════════════════════════════════════════ */
       const DEMO_REVEALS = [
         // [revealClass, stable base selector — identity is index within base]
+        ['is-in', '.ahub-row'],
+        ['is-in', '.ahub-tally'],
         ['ob-visible', '.ob-device, .ob-laptop'],
         ['dr-visible', '.dr-zone'],
         ['dr-drawn',   '.dr-feed-line, .dr-arrow-line'],
@@ -8684,7 +8843,7 @@
       }
 
       function stepFlow(){
-        if (STATE.flowRunning) return;
+        if (STATE.flowRunning && !STATE.flowPaused) return;
         if (!STATE.flowDevice) STATE.flowDevice = 'multi';
         if (!STATE.flowQueue || STATE.flowQueue.length === 0) {
           STATE.flowQueue = buildFlowQueue();
@@ -8751,7 +8910,7 @@
                   STATE.activeTab==='problems'
                     ? 'One package for every workspace: laptop, Cloud PC, or VDI.'
                     : STATE.activeTab==='solution'
-                      ? 'Application lifecycle management: package, deploy, update, govern, and retire applications. One packaged definition is what makes staying current automatic.'
+                      ? 'Application lifecycle management: package, deploy, update, govern, and retire applications.'
                       : STATE.activeTab==='partner'
                         ? (STATE.audience === 'enterprise' ? 'One operating model across every platform you run.' : 'One operating model across every customer you manage.')
                         : 'Keep applications running smoothly as platforms change.'
@@ -9891,7 +10050,7 @@
         if (!STATE.showAnalystModal) return '';
         return `
           <div class="fixed inset-0 z-50 flex items-center justify-center modal-overlay" data-action="close-analyst-modal">
-            <div class="w-full max-w-2xl mx-4 rounded-2xl overflow-hidden modal-content glass" onclick="if(!event.target.closest('[data-action]'))event.stopPropagation()">
+            <div class="w-full max-w-2xl mx-4 rounded-2xl overflow-hidden modal-content glass" onclick="var a=event.target.closest('[data-action]');if(!a||!this.contains(a))event.stopPropagation()">
               <div class="bg-white/40 backdrop-blur-lg px-6 py-4 flex items-center justify-between" style="border-bottom:1px solid var(--border-subtle)">
                 <div class="flex items-center gap-3"><i data-lucide="quote" class="w-6 h-6 text-[#0000CC]"></i><h2 class="text-xl font-bold tracking-tight text-[#1A1A2E]">What the analysts are saying</h2></div>
                 <button type="button" class="text-slate-500 hover:text-slate-700 focus-ring p-2" data-action="close-analyst-modal"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -9912,7 +10071,7 @@
         if (!STATE.showAIAgent) return '';
         return `
           <div class="fixed inset-0 z-50 flex items-center justify-center modal-overlay" data-action="close-ai-agent">
-            <div class="w-full max-w-5xl mx-4 rounded-2xl overflow-hidden modal-content glass" style="height:85vh;display:flex;flex-direction:column" onclick="if(!event.target.closest('[data-action]'))event.stopPropagation()">
+            <div class="w-full max-w-5xl mx-4 rounded-2xl overflow-hidden modal-content glass" style="height:85vh;display:flex;flex-direction:column" onclick="var a=event.target.closest('[data-action]');if(!a||!this.contains(a))event.stopPropagation()">
               <div class="bg-white/40 backdrop-blur-lg px-6 py-4 flex items-center justify-between flex-shrink-0" style="border-bottom:1px solid var(--border-subtle)">
                 <div class="flex items-center gap-3">
                   <div class="h-8 w-8 rounded-lg grid place-items-center" style="background:#0000CC"><i data-lucide="message-circle-question" class="w-4 h-4 text-white"></i></div>
@@ -9962,7 +10121,7 @@
 
                     <div class="why-r-split">
                       <div class="why-r-msg">
-                        <p class="why-r-intro">${data.intro}</p>
+                        ${data.intro ? `<p class="why-r-intro">${data.intro}</p>` : ''}
                         <div class="why-r-list">
                           ${data.bullets.map(b => { const parts = b.split(' = '); const hasTitle = parts.length > 1; return '<div class="why-r-item"><i data-lucide="check-circle" class="why-r-tick"></i><div>' + (hasTitle ? '<b>' + parts[0] + '</b>' : '') + '<span>' + (hasTitle ? parts.slice(1).join(' = ') : b) + '</span></div></div>'; }).join('')}
                         </div>
@@ -10276,12 +10435,6 @@
                 <span class="ux-thread-dot ux-thread-dot-2"></span>
                 <span class="ux-thread-dot ux-thread-dot-3"></span>
               </div>
-            </div>
-
-            <!-- Closer: Challenger structure — tension first, then resolution. -->
-            <div class="ux-closer ${showThread ? 'show' : ''}">
-              <span class="ux-closer-tension">Different OS. Different network. Different delivery method.</span>
-              <span class="ux-closer-payoff">One click. Same result.</span>
             </div>
 
             ${scenario && live && !['idle','launch','catalog','clicking'].includes(phase) ? `
@@ -10951,8 +11104,8 @@
             <div class="ss-act-panel ${showFinal ? 'ss-act-show' : 'ss-act-hide'}" style="${showFinal ? '' : 'display:none'}">
               <div class="ss-synth">
                 <div class="ss-synth-header">
-                  <div class="ss-synth-headline">One packaging engine. Two sources of apps.</div>
-                  <div class="ss-synth-sub">Everything Recast builds. Everything you build. Same eight steps, same quality bar.</div>
+                  <div class="ss-synth-headline">Applications you never have to package or patch</div>
+                  <div class="ss-synth-sub">Packaging and patching stop being your team's work — Recast builds them, and rebuilds them as each new version ships. The only apps you package are the ones unique to your business, and they run through the same eight steps.</div>
                 </div>
 
                 <div class="ss-synth-cols">
@@ -11396,105 +11549,101 @@
          not asserted. */
       function renderUpdateView(){
         const p = STATE.updPhase;
-        const past = (target) => {
-          const order = ['idle','detect','dev','test','acc','promote','prove','done'];
-          return order.indexOf(p) >= order.indexOf(target);
-        };
+        /* One pipeline, run twice. Act 1 is the first release, act 2 is the
+           vendor's next version through the identical track — the only
+           difference between them is that nobody had to do anything the
+           second time. Merging deploy and update into one demo IS the point,
+           so the spine never redraws; only the source and the version move. */
+        const ORDER = ['idle','r1def','r1stage','r1land','r2detect','r2stage','r2land','prove','done'];
+        const at = (t) => ORDER.indexOf(p) >= ORDER.indexOf(t);
+        const run2 = at('r2detect');
+        const run = run2 ? 2 : 1;
         const rolled = STATE.updRolledBack;
+        const ver = run2 ? 'v2.2' : 'v2.1';
         const DTAP = ['Development','Test','Acceptance','Production'];
-        const dtapIdx = past('prove') ? 4 : past('promote') ? 3 : past('acc') ? 2 : past('test') ? 1 : past('dev') ? 0 : -1;
         const ENVS = ['Intune','ConfigMgr','Citrix','AVD / W365','macOS'];
+        const staged = run2 ? at('r2stage') : at('r1stage');
+        const landed = run2 ? at('r2land') : at('r1land');
+        const sourced = run2 ? at('r2detect') : at('r1def');
+        const dtapIdx = landed ? 4 : staged ? 2 : -1;
+        const runChip = (n, label, sub) => `
+          <div class="udx-run ${run === n ? 'udx-run-on' : ''} ${run > n ? 'udx-run-done' : ''}">
+            <span class="udx-run-n">${run > n ? '\u2713' : n}</span>
+            <span><b>${label}</b><i>${sub}</i></span>
+          </div>`;
 
         return `
-          <div class="section-card p-4">
-            <div class="flex items-center justify-between mb-3">
-              <div class="bts-label bts-label-platform"><i data-lucide="refresh-cw" class="w-3 h-3"></i> Update Pipeline</div>
+          <div class="section-card p-4 udx-card">
+            <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+              <div class="bts-label bts-label-platform"><i data-lucide="send" class="w-3 h-3"></i> What the console ships &mdash; deploy and update</div>
+              <span class="text-[10px] font-semibold text-[#6A6A7A]">One pipeline, run twice</span>
             </div>
 
-            ${!past('detect') ? `
+            ${!sourced ? `
               <div class="text-center py-6 text-sm text-slate-400">
-                <i data-lucide="refresh-cw" class="w-8 h-8 mx-auto mb-2 text-slate-300"></i>
-                <div>Press <strong>Auto</strong> or <strong>Step</strong> to see an update ship itself</div>
-                <div class="text-[10px] text-slate-300 mt-1">Vendor release to production — detected, staged, promoted, proven</div>
+                <i data-lucide="send" class="w-8 h-8 mx-auto mb-2 text-slate-300"></i>
+                <div>Press <strong>Auto</strong> or <strong>Step</strong> to ship an app, then ship its next version</div>
+                <div class="text-[10px] text-slate-300 mt-1">One definition, staged, promoted everywhere &mdash; then the vendor's update through the same track</div>
               </div>
             ` : `
+              <div class="udx-runs">
+                ${runChip(1, 'First release', 'you define the app once')}
+                ${runChip(2, 'Vendor ships v2.2', 'nobody touches it')}
+              </div>
 
-              <!-- BEAT 1 · DETECT -->
-              <div class="dr-zone dr-panel ${past('detect') ? 'dr-visible' : 'dr-hidden'} mb-2">
-                <div class="flex items-center justify-between mb-2">
-                  <div class="flex items-center gap-1.5">
-                    <i data-lucide="library" class="w-3.5 h-3.5 text-[#0000CC]"></i>
-                    <span class="text-[11px] font-bold text-[#1A1A2E]">1 &middot; Detect &mdash; Setup Store flags the release</span>
-                  </div>
-                  <span class="dr-callout ${past('dev') ? 'dr-show' : ''} text-[9px] text-emerald-700 font-semibold flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3 h-3"></i> No human action</span>
+              <div class="udx-spine">
+                <div class="udx-node ${sourced ? 'udx-lit' : ''}">
+                  <span class="udx-node-ic"><i data-lucide="${run2 ? 'bell' : 'file-plus-2'}"></i></span>
+                  <b>${run2 ? 'Setup Store flags v2.2' : 'One definition'}</b>
+                  <span>${run2 ? 'Picked up and packaged automatically' : 'Built once, not once per platform'}</span>
                 </div>
-                <div class="flex items-center gap-2 flex-wrap">
-                  <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border border-[#DDDDEE] bg-white text-[10px] font-semibold text-[#1A1A2E]"><span class="w-4 h-4 rounded grid place-items-center text-white text-[8px] font-extrabold" style="background:#ED2224">A</span> Acrobat &middot; managed package</span>
-                  <div class="dr-metric ${past('detect') ? 'dr-lit' : ''}"><i data-lucide="bell" class="w-2.5 h-2.5"></i> Vendor released v2.2</div>
-                  <span class="dtap-arrow">→</span>
-                  <div class="dr-metric ${past('dev') ? 'dr-lit' : ''}" style="transition-delay:0.15s"><i data-lucide="package-check" class="w-2.5 h-2.5"></i> Package picked up v2.2 automatically</div>
+                <i class="udx-arrow ${staged ? 'udx-arrow-on' : ''}" aria-hidden="true"></i>
+                <div class="udx-node ${staged ? 'udx-lit' : ''}">
+                  <span class="udx-node-ic"><i data-lucide="git-merge"></i></span>
+                  <b>Staged</b>
+                  <span>Dev, Test, Acceptance &mdash; then release</span>
+                </div>
+                <i class="udx-arrow ${landed ? 'udx-arrow-on' : ''}" aria-hidden="true"></i>
+                <div class="udx-node ${landed ? 'udx-lit' : ''}">
+                  <span class="udx-node-ic"><i data-lucide="send"></i></span>
+                  <b>Promoted ${ver}</b>
+                  <span>Every environment at once</span>
                 </div>
               </div>
 
-              <!-- BEAT 2 · STAGE (DTAP) -->
-              <div class="dr-zone dr-panel ${past('dev') ? 'dr-visible' : 'dr-hidden'} mb-2">
-                <div class="flex items-center justify-between mb-1">
-                  <div class="flex items-center gap-1.5">
-                    <i data-lucide="git-merge" class="w-3.5 h-3.5 text-[#0000CC]"></i>
-                    <span class="text-[11px] font-bold text-[#1A1A2E]">2 &middot; Stage &mdash; validated before production</span>
+              <div class="dtap-bar" style="margin:9px 0 10px">
+                ${DTAP.map((s, i) => `
+                  ${i > 0 ? '<span class="dtap-arrow">\u2192</span>' : ''}
+                  <div class="dtap-stage ${i < dtapIdx ? 'dtap-done' : i === dtapIdx ? 'dtap-current' : ''}">
+                    ${s}
+                    <div class="text-[7px]">${i < dtapIdx ? '\u2713 ' + ver : i === dtapIdx ? ver : (run2 ? 'v2.1' : '\u2014')}</div>
                   </div>
-                  <span class="dr-callout ${past('acc') ? 'dr-show' : ''} text-[9px] text-[#0000CC] font-semibold">Dev, Test, Acceptance — then release</span>
-                </div>
-                <div class="dtap-bar">
-                  ${DTAP.map((s, i) => `
-                    ${i > 0 ? '<span class="dtap-arrow">\u2192</span>' : ''}
-                    <div class="dtap-stage ${i < dtapIdx ? 'dtap-done' : i === dtapIdx ? 'dtap-current' : ''}">
-                      ${s}
-                      <div class="text-[7px]">${i < dtapIdx ? '\u2713 v2.2' : i === dtapIdx ? 'v2.2' : 'v2.1'}</div>
-                    </div>
-                  `).join('')}
-                </div>
+                `).join('')}
               </div>
 
-              <!-- BEAT 3 · PROMOTE -->
-              ${past('promote') ? `
-              <div class="dr-zone dr-panel dr-visible mb-2">
-                <div class="flex items-center justify-between mb-1">
-                  <div class="flex items-center gap-1.5">
-                    <i data-lucide="send" class="w-3.5 h-3.5 text-[#0000CC]"></i>
-                    <span class="text-[11px] font-bold text-[#1A1A2E]">3 &middot; Promote &mdash; every environment at once</span>
-                  </div>
-                  <div class="flex items-center gap-2" style="min-width:140px">
-                    <span class="px-1.5 py-0.5 rounded bg-red-50 border border-red-200 text-red-600 text-[10px]">v2.1</span>
-                    <div class="flex-1"><div class="upd-bar ${past('promote') ? 'filling' : ''}"></div></div>
-                    <span class="px-1.5 py-0.5 rounded ${past('prove') ? 'bg-green-50 border border-green-200 text-green-600' : 'bg-slate-50 border border-slate-200 text-slate-400'} text-[10px] border">v2.2</span>
-                  </div>
-                </div>
-                <div class="ss-fanout" style="margin-top:4px">
-                  <div class="ss-fanout-source">Production release &middot; v2.2</div>
-                  <div class="ss-fanout-lines">
-                    ${ENVS.map((_, i) => `<div class="mt-sync-line ${past('promote') ? 'mt-drawn' : ''}" style="transition-delay:${i * 0.12}s"></div>`).join('')}
-                  </div>
-                  <div class="ss-fanout-targets">
-                    ${ENVS.map((t, i) => `<div class="dr-metric ${past('prove') ? 'dr-lit' : ''}" style="transition-delay:${i * 0.1}s"><i data-lucide="check" class="w-2.5 h-2.5"></i> ${t}</div>`).join('')}
-                  </div>
-                </div>
+              <div class="udx-envs">
+                ${ENVS.map((t, i) => `<div class="dr-metric ${landed ? 'dr-lit' : ''}" style="transition-delay:${i * 0.07}s"><i data-lucide="check" class="w-2.5 h-2.5"></i> ${t}</div>`).join('')}
               </div>
-              ` : ''}
 
-              <!-- BEAT 4 · PROVE -->
-              ${past('prove') ? `
-              <div class="dr-zone dr-panel dr-visible">
+              <div class="udx-say ${landed ? 'udx-say-on' : ''}">
+                <i data-lucide="${run2 ? 'shield-check' : 'layers'}" class="w-3.5 h-3.5"></i>
+                ${run2
+                  ? 'The update ran the same track as the first release. No repackaging, no per-platform rebuild, no ticket.'
+                  : 'One definition reached every environment. The next version will take this exact path.'}
+              </div>
+
+              ${at('prove') ? `
+              <div class="dr-zone dr-panel dr-visible" style="margin-top:10px">
                 <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
                   <div class="flex items-center gap-1.5">
                     <i data-lucide="bar-chart-3" class="w-3.5 h-3.5 text-[#0000CC]"></i>
-                    <span class="text-[11px] font-bold text-[#1A1A2E]">4 &middot; Prove &mdash; currency roll-up</span>
+                    <span class="text-[11px] font-bold text-[#1A1A2E]">Where the estate landed</span>
                   </div>
                   <button type="button" data-action="upd-rollback" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-[10px] font-bold transition focus-ring ${rolled ? 'border-[#0000CC] bg-[#F6F8FF] text-[#0000CC]' : 'border-[#CC2222]/40 bg-white text-[#CC2222] hover:bg-red-50'}" title="The previous version stays staged. Rollback restores it everywhere the release landed — one click, audit trail intact.">
                     <i data-lucide="${rolled ? 'redo-2' : 'undo-2'}" class="w-3 h-3"></i> ${rolled ? 'Re-apply v2.2' : 'Roll back to v2.1'}
                   </button>
                 </div>
-                <div class="grid grid-cols-3 gap-2">
+                <div class="udx-tiles">
                   <div class="rounded-lg border border-[#DDDDEE] bg-[#FAFAFE] p-2">
                     <div class="text-[9px] font-semibold text-[#6A6A7A] uppercase tracking-wide">On current version</div>
                     <div class="text-[15px] font-extrabold text-[#0F7A3F] tabular-nums">${rolled ? '100%' : '96%'}</div>
@@ -11506,25 +11655,18 @@
                     <div class="text-[9px] text-[#8A8A9A]">${rolled ? 'rollback applied everywhere' : 'offline devices — update at next access'}</div>
                   </div>
                   <div class="rounded-lg border border-[#DDDDEE] bg-[#FAFAFE] p-2">
-                    <div class="text-[9px] font-semibold text-[#6A6A7A] uppercase tracking-wide">Oldest outstanding</div>
-                    <div class="text-[15px] font-extrabold text-[#1A1A2E] tabular-nums">${rolled ? '—' : '3 days'}</div>
-                    <div class="text-[9px] text-[#8A8A9A]">${rolled ? 'no outstanding updates' : 'no update older than one week'}</div>
+                    <div class="text-[9px] font-semibold text-[#6A6A7A] uppercase tracking-wide">Human steps in run 2</div>
+                    <div class="text-[15px] font-extrabold text-[#0000CC] tabular-nums">0</div>
+                    <div class="text-[9px] text-[#8A8A9A]">approval gates stay yours to set</div>
                   </div>
                 </div>
                 <div class="flex flex-wrap gap-1.5 mt-2">
-                  <div class="dr-metric ${past('done') ? 'dr-lit' : ''}"><i data-lucide="file-check-2" class="w-2.5 h-2.5"></i> Audit trail automatic</div>
-                  <div class="dr-metric ${past('done') ? 'dr-lit' : ''}" style="transition-delay:0.1s"><i data-lucide="history" class="w-2.5 h-2.5"></i> Previous version stays staged</div>
-                  <div class="dr-metric ${past('done') ? 'dr-lit' : ''}" style="transition-delay:0.2s"><i data-lucide="shield-check" class="w-2.5 h-2.5"></i> Rollback is one click</div>
+                  <div class="dr-metric ${at('done') ? 'dr-lit' : ''}"><i data-lucide="file-check-2" class="w-2.5 h-2.5"></i> Audit trail automatic</div>
+                  <div class="dr-metric ${at('done') ? 'dr-lit' : ''}" style="transition-delay:0.08s"><i data-lucide="history" class="w-2.5 h-2.5"></i> Previous version stays staged</div>
+                  <div class="dr-metric ${at('done') ? 'dr-lit' : ''}" style="transition-delay:0.16s"><i data-lucide="shield-check" class="w-2.5 h-2.5"></i> Rollback is one click</div>
                 </div>
-                ${past('done') ? `
-                <div class="flex flex-wrap justify-center gap-4 mt-3">
-                  <div class="dr-callout dr-show text-[#0000CC] flex items-center gap-1.5"><i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> ${rolled ? 'v2.1 restored across every environment — one click' : 'One pipeline: sync, test, stage, deploy, monitor'}</div>
-                  <div class="dr-callout dr-show text-emerald-600 flex items-center gap-1.5"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Applications stay on the version you approved</div>
-                </div>
-                ` : ''}
               </div>
               ` : ''}
-
             `}
           </div>
         `;
@@ -13061,7 +13203,7 @@
       }
 
       function stepOb(){
-        if (STATE.obRunning) return;
+        if (STATE.obRunning && !STATE.obPaused) return;
         if (!STATE.obQueue || STATE.obQueue.length === 0) {
           STATE.obQueue = buildObQueue();
           STATE.obQueueIdx = 0;
@@ -13122,7 +13264,7 @@
       }
 
       function stepDr(){
-        if (STATE.drRunning) return;
+        if (STATE.drRunning && !STATE.drPaused) return;
         if (!STATE.drQueue || STATE.drQueue.length === 0) {
           STATE.drQueue = buildDrQueue();
           STATE.drQueueIdx = 0;
@@ -13151,8 +13293,8 @@
          outdated / Auto-patched at access"): v2.1 → v2.2, validated through
          Dev, Test, Acceptance before production. */
       function buildUpdQueue(){
-        const phases = ['detect','dev','test','acc','promote','prove','done'];
-        const delays = [800, 1400, 1000, 1000, 1400, 1700, 1500];
+        const phases = ['r1def','r1stage','r1land','r2detect','r2stage','r2land','prove','done'];
+        const delays = [500, 620, 620, 760, 620, 620, 780, 700];
         const queue = [];
         phases.forEach((phase, i) => {
           queue.push({ delay: delays[i], fn(){ STATE.updPhase = phase; demoPhaseRender(); } });
@@ -13188,7 +13330,7 @@
       }
 
       function stepUpd(){
-        if (STATE.updRunning) return;
+        if (STATE.updRunning && !STATE.updPaused) return;
         if (!STATE.updQueue || STATE.updQueue.length === 0) {
           STATE.updQueue = buildUpdQueue();
           STATE.updQueueIdx = 0;
@@ -13297,7 +13439,7 @@
       }
 
       function stepAi(){
-        if (STATE.aiRunning) return;
+        if (STATE.aiRunning && !STATE.aiPaused) return;
         if (!STATE.aiQueue || STATE.aiQueue.length === 0 || STATE.aiPhase === 'done') {
           STATE.aiQueue = buildAiQueue();
           STATE.aiQueueIdx = 0;
@@ -13360,7 +13502,7 @@
       }
 
       function stepMt(){
-        if (STATE.mtRunning) return;
+        if (STATE.mtRunning && !STATE.mtPaused) return;
         if (!STATE.mtQueue || STATE.mtQueue.length === 0) {
           STATE.mtQueue = buildMtQueue();
           STATE.mtQueueIdx = 0;
@@ -13658,7 +13800,7 @@
       }
 
       function stepSs(){
-        if (STATE.ssRunning) return;
+        if (STATE.ssRunning && !STATE.ssPaused) return;
         if (!STATE.ssQueue || STATE.ssQueue.length === 0) {
           STATE.ssQueue = buildSsQueue();
           STATE.ssQueueIdx = 0;
@@ -13744,7 +13886,8 @@
                       (STATE.solutionViewUpdate && STATE.updRunning && !STATE.updPaused) ||
                       (STATE.solutionViewAi && STATE.aiRunning && !STATE.aiPaused) ||
                       (STATE.solutionViewOnboarding && STATE.obRunning && !STATE.obPaused) ||
-                      ((STATE.solutionViewUser || STATE.solutionViewAdmin) && STATE.flowRunning && !STATE.flowPaused);
+                      (STATE.solutionViewAdmin && STATE.adminPane === 'ship' && STATE.updRunning && !STATE.updPaused) ||
+                      ((STATE.solutionViewUser || (STATE.solutionViewAdmin && STATE.adminPane !== 'ship')) && STATE.flowRunning && !STATE.flowPaused);
                     const _label = _running ? 'Pause' : 'Play';
                     const _icon  = _running ? 'pause' : 'play';
                     return `
@@ -13772,7 +13915,7 @@
               const nextMod = idx < LIFECYCLE_MODULES.length - 1 ? LIFECYCLE_MODULES[idx + 1] : null;
               return `
               <div class="demo-modal-backdrop ${STATE._modalFresh ? 'is-fresh' : ''}" data-action="close-demo-modal">
-                <div class="demo-modal-panel" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title" onclick="if(!event.target.closest('[data-action]'))event.stopPropagation()">
+                <div class="demo-modal-panel" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title" onclick="var a=event.target.closest('[data-action]');if(!a||!this.contains(a))event.stopPropagation()">
                   <div class="demo-modal-header">
                     <span class="demo-modal-stage-label">${mod.stage}</span>
                     <span class="demo-modal-title" id="demo-modal-title">
@@ -13783,6 +13926,23 @@
                       ${LIFECYCLE_MODULES.map((m, i) => `<button type="button" class="demo-modal-progress-dot ${i === idx ? 'is-active' : ''}" data-action="next-demo-module" data-view="${m.view}" title="${m.name}" aria-label="Jump to ${m.name}"></button>`).join('')}
                     </span>
                     <span class="demo-modal-controls">
+                      ${(() => {
+                        /* Play / Step / Reset also live in the lifecycle strip, but that
+                           strip sits behind this modal, so the pop-out needs its own copy
+                           or the viewer cannot replay what they just watched. */
+                        const _run = (STATE.solutionViewSetupStore && STATE.ssRunning && !STATE.ssPaused) ||
+                          (STATE.solutionViewDashboard && STATE.drRunning && !STATE.drPaused) ||
+                          (STATE.solutionViewMultiTenant && STATE.mtRunning && !STATE.mtPaused) ||
+                          (STATE.solutionViewAi && STATE.aiRunning && !STATE.aiPaused) ||
+                          (STATE.solutionViewOnboarding && STATE.obRunning && !STATE.obPaused) ||
+                          (STATE.solutionViewAdmin && STATE.adminPane === 'ship' && STATE.updRunning && !STATE.updPaused) ||
+                          (STATE.solutionViewUpdate && STATE.updRunning && !STATE.updPaused) ||
+                          ((STATE.solutionViewUser || (STATE.solutionViewAdmin && STATE.adminPane !== 'ship')) && STATE.flowRunning && !STATE.flowPaused);
+                        return `
+                        <button type="button" class="demo-modal-btn" data-action="toggle-flow" title="${_run ? 'Pause' : 'Play'}" aria-label="${_run ? 'Pause' : 'Play'}"><i data-lucide="${_run ? 'pause' : 'play'}"></i></button>
+                        <button type="button" class="demo-modal-btn" data-action="step-flow" title="Step" aria-label="Step"><i data-lucide="chevrons-right"></i></button>
+                        <button type="button" class="demo-modal-btn" data-action="reset-flow" title="Reset" aria-label="Reset"><i data-lucide="rotate-ccw"></i></button>`;
+                      })()}
                       ${nextMod ? `
                         <button type="button" class="demo-modal-btn demo-modal-btn-next" data-action="next-demo-module" data-view="${nextMod.view}" title="Next: ${nextMod.name}" aria-label="Next: ${nextMod.name}">
                           <i data-lucide="arrow-right"></i>
@@ -13796,7 +13956,7 @@
                   <div class="demo-modal-body" data-modal-body>
                     <div id="demo-stage" class="grid grid-cols-1 ${multiCol ? 'lg:grid-cols-2' : ''} gap-3">
                       ${STATE.solutionViewSetupStore ? renderSetupStoreView() : ''}
-                      ${STATE.solutionViewAdmin ? renderAdminConsole() : ''}
+                      ${STATE.solutionViewAdmin ? renderConsoleModule() : ''}
                       ${STATE.solutionViewUpdate ? renderUpdateView() : ''}
                       ${STATE.solutionViewOnboarding ? renderOnboardingView() : ''}
                       ${STATE.solutionViewUser ? renderUserView() : ''}
@@ -13813,6 +13973,86 @@
             ${STATE.activeCard === 'onboarding' ? renderOnboardingPanel() : ''}
           </section>
         `;
+      }
+
+      /* The console and the pipeline are one story but two screenfuls, and
+         the pop-out is a fixed no-scroll box. So they share the module as two
+         panes with a switch: "Set it up" and "What it ships". The tour walks
+         both; a viewer can click either. */
+      function renderAutomationHub(){
+        const PHASE_ORDER = ['idle','launch','catalog','clicking','checking','routing','config','done','final'];
+        const i = Math.max(0, PHASE_ORDER.indexOf(STATE.flowPhase));
+        const started = i >= PHASE_ORDER.indexOf('launch');
+        const shown = Math.max(0, Math.min(4, i - 1));
+        const tally = i >= PHASE_ORDER.indexOf('done');
+        /* The four objects named here are the real AUTOMATION group in the
+           Application Workspace console nav, so the chips are not invented. */
+        const CFG = [
+          ['git-compare', 'Condition Sets'],
+          ['plug', 'Connectors'],
+          ['send', 'Deployments'],
+          ['calendar-clock', 'Schedules'],
+        ];
+        const ROWS = [
+          ['package-2',  'Adobe ships a new version',      'version < current',        'Rebuilt, tested, and staged to production'],
+          ['user-plus',  'A new hire starts Monday',        'group = Engineering',      'Their apps are installed before they log in'],
+          ['inbox',      'Someone asks for an app',         'approved for their group',  'Installed in minutes \u2014 no ticket raised'],
+          ['clock',      'A licence sits unused 60 days',   'reclaim after 60 days',    'Removed from the device, seat returned'],
+        ];
+        return `
+          <div class="section-card p-4 ahub-card">
+            <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+              <div class="bts-label bts-label-platform"><i data-lucide="workflow" class="w-3 h-3"></i> The automation hub</div>
+              <span class="text-[10px] font-semibold text-[#6A6A7A]">Set the rule once \u00b7 it fires every time after</span>
+            </div>
+            ${!started ? `
+              <div class="text-center py-6 text-sm text-slate-400">
+                <i data-lucide="workflow" class="w-8 h-8 mx-auto mb-2 text-slate-300"></i>
+                <div>Press <strong>Play</strong> or <strong>Step</strong> to watch four events arrive and get handled</div>
+                <div class="text-[10px] text-slate-300 mt-1">Nobody opens the console again once the rules are in place</div>
+              </div>
+            ` : `
+              <div class="ahub-cfg">
+                <span class="ahub-cfg-lab">What you configure, once</span>
+                <div class="ahub-chips">
+                  ${CFG.map((c, n) => `<span class="ahub-chip ${shown > n ? 'is-hit' : ''}"><i data-lucide="${c[0]}"></i>${c[1]}</span>`).join('')}
+                </div>
+              </div>
+              <div class="ahub-ledger">
+                <div class="ahub-head">
+                  <span>When this happens</span>
+                  <span>The rule that matches</span>
+                  <span>What happens, with nobody touching it</span>
+                </div>
+                ${ROWS.map((r, n) => `
+                  <div class="ahub-row ${shown > n ? 'is-in' : ''}" style="transition-delay:${shown > n ? 0 : 0}ms">
+                    <div class="ahub-cell"><i data-lucide="${r[0]}"></i>${r[1]}</div>
+                    <div class="ahub-cell"><span class="ahub-rule">${r[2]}</span></div>
+                    <div class="ahub-cell ahub-out"><i data-lucide="check-circle"></i>${r[3]}</div>
+                  </div>`).join('')}
+              </div>
+              <div class="ahub-tally ${tally ? 'is-in' : ''}">
+                <span class="ahub-fig"><b>4</b><span>events handled</span></span>
+                <span class="ahub-fig"><b>0</b><span>tickets raised</span></span>
+                <span class="ahub-fig"><b>0</b><span>engineer hours</span></span>
+                <span class="ahub-tally-note">The console is where the rules live, not where the work happens.</span>
+              </div>
+            `}
+          </div>`;
+      }
+
+      function renderConsoleModule(){
+        const pane = STATE.adminPane === 'ship' ? 'ship' : 'console';
+        const seg = (id, icon, label) => `
+          <button type="button" class="adm-seg-b ${pane === id ? 'is-on' : ''}" data-action="set-admin-pane" data-pane="${id}" aria-pressed="${pane === id}">
+            <i data-lucide="${icon}" class="w-3.5 h-3.5"></i>${label}
+          </button>`;
+        return `
+          <div class="adm-seg">
+            ${seg('console', 'settings-2', 'Set it up')}
+            ${seg('ship', 'send', 'What it ships \u2014 deploy and update')}
+          </div>
+          ${pane === 'ship' ? renderUpdateView() : renderAdminConsole()}`;
       }
 
       function renderAdminPanel(){
@@ -14024,10 +14264,21 @@
         `;
       }
 
+      /* Drop real artwork into assets/logos/ and add "Name": "assets/logos/file.svg"
+         here — the tile switches from the wordmark to the image with no other
+         change. Names with no entry render as a monochrome wordmark, so nothing
+         404s while the set is incomplete. */
+      const TRUST_LOGO_FILES = {};
+
       function renderLogoTicker(){
         const allNames = TRUST_LOGOS.flatMap(s => s.names);
-        const items = allNames.map(n => '<span class="logo-name">'+n+'</span>').join('<span class="logo-divider"></span>');
-        return '<div class="mt-4 pt-3 border-t border-slate-100"><div class="text-[9px] font-semibold text-[#8A8A9A] uppercase tracking-wider mb-2">Trusted across industries</div><div class="logo-ticker-wrap"><div class="logo-ticker">'+items+'<span class="logo-divider"></span>'+items+'</div></div></div>';
+        const items = allNames.map(n => {
+          const src = TRUST_LOGO_FILES[n];
+          return '<span class="logo-mark" title="' + n + '">'
+            + (src ? '<img src="' + src + '" alt="' + n + '">' : '<span class="logo-name">' + n + '</span>')
+            + '</span>';
+        }).join('');
+        return '<div class="mt-4 pt-3 border-t border-slate-100"><div class="text-[9px] font-semibold text-[#8A8A9A] uppercase tracking-wider mb-2">Trusted across industries</div><div class="logo-ticker-wrap"><div class="logo-ticker">'+items+items+'</div></div></div>';
       }
 
       function compactCard(card){
@@ -16206,7 +16457,7 @@
         if (!d) return '';
         return `
           <div class="fixed inset-0 z-50 flex items-center justify-center modal-overlay" role="dialog" aria-modal="true" aria-labelledby="bi-modal-t" data-action="close-impact-modal">
-            <div class="w-full max-w-5xl mx-4 rounded-2xl overflow-hidden modal-content glass" style="max-height:90vh;display:flex;flex-direction:column" onclick="if(!event.target.closest('[data-action]'))event.stopPropagation()">
+            <div class="w-full max-w-5xl mx-4 rounded-2xl overflow-hidden modal-content glass" style="max-height:90vh;display:flex;flex-direction:column" onclick="var a=event.target.closest('[data-action]');if(!a||!this.contains(a))event.stopPropagation()">
               <div class="bg-white/40 backdrop-blur-lg px-6 py-4 flex items-center justify-between flex-shrink-0" style="border-bottom:1px solid var(--border-subtle)">
                 <div class="flex items-center gap-3">
                   <i data-lucide="${d.icon}" class="w-6 h-6 text-[#0000CC]" aria-hidden="true"></i>
@@ -16733,7 +16984,9 @@
             if (wasActive) { scrollPreserveRender(); return; }   // toggle off → close
 
             if (view === 'user') STATE.solutionViewUser = true;
-            else if (view === 'admin') STATE.solutionViewAdmin = true;
+            /* Deploy and update are one story, so the console module carries the
+               pipeline panel with it rather than owning a tile of its own. */
+            else if (view === 'admin') { STATE.solutionViewAdmin = true; STATE.adminPane = 'console'; }
             else if (view === 'update') STATE.solutionViewUpdate = true;
             else if (view === 'setupstore') STATE.solutionViewSetupStore = true;
             else if (view === 'multitenant') STATE.solutionViewMultiTenant = true;
@@ -16748,9 +17001,13 @@
             scrollPreserveRender();
             STATE._modalFresh = false;
 
-            // Auto-start the chosen demo on the next frame so layout has
-            // settled before the timeline begins.
-            requestAnimationFrame(() => requestAnimationFrame(() => {
+            /* Auto-start the chosen demo once layout has settled. This used to
+               hang off a double requestAnimationFrame, but frame callbacks are
+               throttled whenever the page is not the visibly-active document
+               (embedded preview, background tab), so the timeline never began
+               and the module sat on its idle placeholder. A timeout always
+               fires. */
+            setTimeout(() => {
               if (view === 'setupstore' && !STATE.ssRunning) startSs();
               else if (view === 'admin' && !STATE.flowRunning) startFlow();
               else if (view === 'update' && !STATE.updRunning) startUpd();
@@ -16759,7 +17016,7 @@
               else if (view === 'dashboard' && !STATE.drRunning) startDr();
               else if (view === 'ai' && !STATE.aiRunning) startAi();
               else if (view === 'multitenant' && !STATE.mtRunning) startMt();
-            }));
+            }, 60);
             return;
           }
           if (action === 'close-demo-modal') {
@@ -16815,13 +17072,19 @@
             // SS ~13.2s · flow (admin/user) ~10.8s · UPD ~9s · OB ~9.6s · DR/MT ~7.4s · AI ~6s
             const lcSteps = [
               { key: 'solutionViewSetupStore', start: () => startSs(),   dwell: LC_DWELL[0] },
-              { key: 'solutionViewAdmin',       start: () => startFlow(), dwell: LC_DWELL[1] },
-              { key: 'solutionViewUpdate',      start: () => startUpd(),  dwell: LC_DWELL[2] },
-              { key: 'solutionViewOnboarding',  start: () => startOb(),   dwell: LC_DWELL[3] },
-              { key: 'solutionViewUser',        start: () => startFlow(), dwell: LC_DWELL[4] },
-              { key: 'solutionViewDashboard',   start: () => startDr(),   dwell: LC_DWELL[5] },
-              { key: 'solutionViewAi',          start: () => startAi(),   dwell: LC_DWELL[6] },
-              { key: 'solutionViewMultiTenant', start: () => startMt(),   dwell: LC_DWELL[7] },
+              { key: 'solutionViewAdmin',       start: () => {
+                  STATE.adminPane = 'console'; startFlow();
+                  const t = setTimeout(() => {
+                    if (!STATE.lifecyclePlaying) return;
+                    STATE.adminPane = 'ship'; scrollPreserveRender(); startUpd();
+                  }, 5600);
+                  STATE.lcTimers.push(t);
+                }, dwell: LC_DWELL[1] },
+              { key: 'solutionViewOnboarding',  start: () => startOb(),   dwell: LC_DWELL[2] },
+              { key: 'solutionViewUser',        start: () => startFlow(), dwell: LC_DWELL[3] },
+              { key: 'solutionViewDashboard',   start: () => startDr(),   dwell: LC_DWELL[4] },
+              { key: 'solutionViewAi',          start: () => startAi(),   dwell: LC_DWELL[5] },
+              { key: 'solutionViewMultiTenant', start: () => startMt(),   dwell: LC_DWELL[6] },
             ];
 
             let elapsed = 0;
@@ -16995,11 +17258,12 @@
             // Fan out to every selected view's animation. Admin Console + User Experience
             // share the same per-click flow, so we coalesce them.
             const targets = [];
-            if (STATE.solutionViewUser || STATE.solutionViewAdmin) targets.push('flow');
+            if (STATE.solutionViewUser || (STATE.solutionViewAdmin && STATE.adminPane !== 'ship')) targets.push('flow');
+            if (STATE.solutionViewAdmin && STATE.adminPane === 'ship') targets.push('upd');
             if (STATE.solutionViewSetupStore) targets.push('ss');
             if (STATE.solutionViewMultiTenant) targets.push('mt');
             if (STATE.solutionViewDashboard) targets.push('dr');
-            if (STATE.solutionViewUpdate) targets.push('upd');
+            if (STATE.solutionViewUpdate && !targets.includes('upd')) targets.push('upd');
             if (STATE.solutionViewAi) targets.push('ai');
             if (STATE.solutionViewOnboarding) targets.push('ob');
             if (targets.length === 0) targets.push('flow'); // safe default
@@ -17016,6 +17280,17 @@
             );
 
             const clearTimers = () => { STATE.flowTimers.timeouts.forEach(id => clearTimeout(id)); STATE.flowTimers.timeouts = []; };
+
+            /* Every demo auto-plays the moment its module opens, so Step used to
+               be a dead button — each stepX() bails while its engine is running.
+               Freeze the targeted timelines into a paused state first; stepping
+               then advances one beat and Play resumes from there. */
+            if (action === 'step-flow') {
+              clearTimers();
+              targets.forEach(t => {
+                if (STATE[t + 'Running']) STATE[t + 'Paused'] = true;
+              });
+            }
 
             targets.forEach(t => {
               if (t === 'flow') {
@@ -17071,6 +17346,15 @@
             });
 
             scrollPreserveRender();
+            return;
+          }
+          if (action === 'set-admin-pane') {
+            const pane = act.getAttribute('data-pane') === 'ship' ? 'ship' : 'console';
+            if (pane === STATE.adminPane) return;
+            STATE.adminPane = pane;
+            scrollPreserveRender();
+            if (pane === 'ship') { if (!STATE.updRunning) startUpd(); }
+            else if (!STATE.flowRunning) { if (!STATE.flowDevice) STATE.flowDevice = 'multi'; startFlow(); }
             return;
           }
           if (action === 'toggle-admin-view') { STATE.showAdminView = !STATE.showAdminView; scrollPreserveRender(); return; }
