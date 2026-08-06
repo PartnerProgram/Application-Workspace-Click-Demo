@@ -7714,27 +7714,26 @@
       /* (Removed viewFadeIn — re-rendering during sub-animations caused the cards to flicker
          because the keyframe animation restarted on every render. Crisp swap is smoother.) */
     
-      /* Outcome cards (Enterprise). Four fixed claims rather than four model
-         outputs, so the front is built around a before -> after transition:
-         the "from" recedes, the arrow carries direction, the "after" is the
-         only large thing on the card. Claim height is pinned so the four
-         notes sit on one line across the row. */
+      /* Outcome cards (Enterprise). The card names its subject first, then
+         states the change as ONE left-to-right line, then one plain caption.
+         The earlier version led with a 29px figure above the thing it measured
+         and stacked five text layers, so the number arrived before its subject
+         and nothing was clearly the entry point. Sized to the app's standard
+         card rhythm rather than to be the biggest object on the tab. */
       .flip-card.oc-card { height: auto !important; min-height: 0 !important; }
       .flip-card.oc-card .flip-card-inner { height: 100%; min-height: 100%; }
       .flip-card.oc-card:not(.flipped) .oc { position: relative; min-height: 100%; }
       .flip-card.oc-card.flipped { min-height: 250px !important; }
-      .oc { gap: 0 !important; padding: 13px 15px 14px !important; display: flex !important; flex-direction: column !important; }
-      .oc-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-      .oc-top i[data-lucide], .oc-top svg { width: 15px !important; height: 15px !important; color: var(--r-blue); flex-shrink: 0; }
-      .oc-top span { font-size: 9px; font-weight: 800; letter-spacing: 0.12em; color: #C2C2D2; font-variant-numeric: tabular-nums; }
-      .oc-from { display: flex; align-items: center; gap: 5px; margin-top: 12px; }
-      .oc-from s { text-decoration: none; font-size: 11.5px; font-weight: 600; color: #6A6A7A; letter-spacing: -0.005em; }
-      .oc-from i[data-lucide], .oc-from svg { width: 12px !important; height: 12px !important; color: #C6CCF2; flex-shrink: 0; }
-      .oc-fig { display: flex; align-items: baseline; gap: 0 6px; margin-top: 3px; }
-      .oc-fig b { font-size: 29px; font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: var(--r-blue); font-variant-numeric: tabular-nums; }
-      .oc-fig u { text-decoration: none; font-size: 13.5px; font-weight: 700; color: var(--r-blue); }
-      .oc-claim { margin-top: 11px; padding-top: 10px; border-top: 1px solid var(--r-divider); font-size: 12px; font-weight: 700; line-height: 1.35; color: var(--r-ink); text-wrap: pretty; min-height: 41px; }
-      .oc-note { margin-top: 5px; font-size: 10.5px; font-weight: 500; line-height: 1.4; color: #6A6A7A; text-wrap: pretty; }
+      .oc { gap: 0 !important; padding: 11px 14px 12px !important; display: flex !important; flex-direction: column !important; }
+      .oc-top { display: flex; align-items: center; gap: 6px; }
+      .oc-top i[data-lucide], .oc-top svg { width: 13px !important; height: 13px !important; color: var(--r-blue); flex-shrink: 0; }
+      .oc-top span { font-size: 9.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #6A6A7A; }
+      .oc-chg { display: flex; align-items: baseline; gap: 0 6px; margin-top: 9px; }
+      .oc-chg s { text-decoration: none; font-size: 12.5px; font-weight: 600; color: #8A8A9A; letter-spacing: -0.005em; }
+      .oc-chg i[data-lucide], .oc-chg svg { width: 11px !important; height: 11px !important; color: #9AA3D8; flex-shrink: 0; align-self: center; }
+      .oc-chg b { font-size: 19px; font-weight: 800; line-height: 1.1; letter-spacing: -0.025em; color: var(--r-blue); font-variant-numeric: tabular-nums; }
+      .oc-chg u { text-decoration: none; font-size: 11.5px; font-weight: 700; color: var(--r-blue); margin-left: -2px; }
+      .oc-claim { margin-top: 8px; padding-top: 8px; border-top: 1px solid #F0F0F6; font-size: 11px; font-weight: 500; line-height: 1.4; color: #4A4A5A; text-wrap: pretty; min-height: 31px; }
       @media (max-width: 640px) {
         .oc-claim { min-height: 0; }
       }
@@ -17598,7 +17597,7 @@
             body2: 'This is elapsed time, not touch time. The wait disappears because nobody has to schedule the install.',
             source: 'Self-service delivery with approval workflow' },
           { id: 'bi-oc4', icon: 'store', seq: '04', oc: true,
-            from: 'Package each one', to: '8,000+', unit: 'titles',
+            from: 'By hand', to: '8,000+', unit: 'titles',
             claim: 'You never package a commercial app again',
             note: 'Sourced, packaged, tested and patched by Recast.',
             title: 'Setup Store',
@@ -17686,11 +17685,9 @@
                   <div class="flip-card-inner">
                     <div class="flip-card-front section-card${card.oc ? ' oc' : ''}">
                       ${card.oc ? `
-                      <div class="oc-top"><i data-lucide="${card.icon}"></i><span>${card.seq}</span></div>
-                      <div class="oc-from"><s>${card.from}</s><i data-lucide="arrow-right"></i></div>
-                      <div class="oc-fig"><b>${card.to}</b>${card.unit ? `<u>${card.unit}</u>` : ''}</div>
+                      <div class="oc-top"><i data-lucide="${card.icon}"></i><span>${card.title}</span></div>
+                      <div class="oc-chg"><s>${card.from}</s><i data-lucide="arrow-right"></i><b>${card.to}</b>${card.unit ? `<u>${card.unit}</u>` : ''}</div>
                       <div class="oc-claim">${card.claim}</div>
-                      <div class="oc-note">${card.note}</div>
                       ` : `
                       <div class="flip-card-eye"><i data-lucide="${card.icon}"></i><span>${card.seq || ''}</span><b>${card.kind || ''}</b></div>
                       <div class="flip-card-txt">
