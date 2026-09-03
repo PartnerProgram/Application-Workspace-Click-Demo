@@ -3917,6 +3917,108 @@
       .us-cmp-row.is-lit b { background: #0000CC; color: #fff; }
       .us-cmp-row.is-lit i, .us-cmp-row.is-lit svg { color: #0000CC; }
       .us-webchip i, .us-webchip svg { width: 9px; height: 9px; vertical-align: -1px; margin-right: 3px; color: #0F7A3F; }
+      /* ── Driver stories (Current State pop-outs) ── */
+      .dv-modal { background: #fff; box-shadow: 0 2px 6px rgba(26, 26, 46, 0.08), 0 24px 60px rgba(26, 26, 46, 0.22); }
+      .dv-modal-head { background: #0000CC; position: relative; overflow: hidden; }
+      .dv-modal-head::before, .dv-modal-head::after { content: '+'; position: absolute; color: #2222DD; font-size: 20px; font-weight: 700; pointer-events: none; }
+      .dv-modal-head::before { left: 38%; top: 6px; } .dv-modal-head::after { right: 22%; bottom: 4px; }
+      .dv-head-n { width: 30px; height: 30px; border-radius: 50%; background: #00BFFF; color: #0B2530; font-size: 13px; font-weight: 800; display: grid; place-items: center; flex-shrink: 0; }
+      .dv-head-sub { font-size: 12px; color: #AABBEE; font-weight: 500; margin-top: 1px; }
+      .dv-nav { color: #fff !important; border-color: rgba(255, 255, 255, 0.35) !important; background: rgba(255, 255, 255, 0.1) !important; }
+      .dv-stage { display: flex; flex-direction: column; gap: 12px; }
+      .dv-in { opacity: 0; animation: dvIn 420ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms) forwards; }
+      .dv-pop { opacity: 0; animation: dvPop 360ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms) forwards; }
+      @keyframes dvIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+      @keyframes dvPop { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
+      .dv-duo { display: grid; grid-template-columns: 1fr 240px; gap: 14px; align-items: start; }
+      @media (max-width: 820px) { .dv-duo { grid-template-columns: 1fr; } }
+      .dv-side { display: flex; flex-direction: column; gap: 6px; }
+      .dv-side-t { font-size: 9.5px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: #8A8A9A; margin-bottom: 2px; }
+      .dv-years { display: flex; justify-content: space-between; gap: 6px; padding: 0 4px; }
+      .dv-year { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+      .dv-year b { font-size: 12px; color: #1A1A2E; }
+      .dv-year em { font-size: 9.5px; font-style: normal; color: #0000CC; font-weight: 700; }
+      .dv-win { border: 1px solid #DDDDEE; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 2px 6px rgba(26, 26, 46, 0.06); }
+      .dv-win-head { display: flex; align-items: center; gap: 8px; background: #0F7A3F; color: #fff; padding: 8px 12px; font-size: 12px; font-weight: 800; white-space: nowrap; }
+      .dv-win-mark { width: 18px; height: 18px; border-radius: 5px; background: rgba(255, 255, 255, 0.92); color: #1A1A2E; font-size: 11px; display: grid; place-items: center; }
+      .dv-win-count { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; font-size: 11px; background: rgba(255, 255, 255, 0.2); border-radius: 999px; padding: 2px 10px; }
+      .dv-win-count > span { font-weight: 600; }
+      .dv-cnt { position: absolute; opacity: 0; animation: dvCnt 1400ms linear var(--d, 0ms) forwards; font-variant-numeric: tabular-nums; }
+      .dv-cnt:last-of-type { animation: dvIn 300ms ease var(--d, 0ms) forwards; }
+      .dv-comp-n .dv-cnt { animation-duration: 950ms; }
+      .dv-tally-n .dv-cnt { animation-duration: 2200ms; }
+      .dv-comp-n .dv-cnt:last-of-type, .dv-tally-n .dv-cnt:last-of-type { animation: dvIn 300ms ease var(--d, 0ms) forwards; }
+      .dv-win-count, .dv-tally-n, .dv-comp-n { position: relative; }
+      .dv-win-count .dv-cnt { position: relative; display: none; }
+      .dv-win-count .dv-cnt, .dv-tally-n .dv-cnt, .dv-comp-n .dv-cnt { display: inline-block; position: absolute; left: 0; top: 0; }
+      .dv-win-count { min-width: 84px; height: 20px; }
+      .dv-win-count .dv-cnt { left: 10px; top: 2px; }
+      .dv-win-count > span { position: absolute; right: 10px; top: 2px; }
+      @keyframes dvCnt { 0% { opacity: 0; } 4%, 96% { opacity: 1; } 100% { opacity: 0; } }
+      .dv-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 7px; padding: 12px; min-height: 176px; align-content: start; }
+      .dv-tile { position: relative; aspect-ratio: 1; border-radius: 8px; display: grid; place-items: center; color: #fff; font-size: 9px; font-weight: 800; overflow: hidden; box-shadow: 0 1px 2px rgba(26, 26, 46, 0.1), 0 3px 8px rgba(26, 26, 46, 0.12); }
+      .dv-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 3px; background: #fff; }
+      .dv-more { grid-column: span 4; align-self: center; font-size: 10px; font-weight: 700; color: #8A8A9A; padding-left: 4px; }
+      .dv-plats { display: flex; flex-wrap: wrap; gap: 5px; }
+      .dv-plat { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; color: #1A1A2E; border: 1px solid #DDDDEE; border-radius: 999px; padding: 4px 10px; background: #FAFAFE; }
+      .dv-plat i, .dv-plat svg { width: 11px; height: 11px; color: #0000CC; }
+      .dv-team { display: flex; align-items: center; gap: 4px; }
+      .dv-person { width: 26px; height: 26px; border-radius: 50%; background: #F0F0F6; border: 1px solid #DDDDEE; display: grid; place-items: center; }
+      .dv-person i, .dv-person svg { width: 13px; height: 13px; color: #4A4A5A; }
+      .dv-team em { font-size: 10px; font-style: normal; color: #6A6A7A; font-weight: 600; margin-left: 6px; }
+      .dv-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+      .dv-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: #1A1A2E; background: #F6F8FF; border: 1px solid #D5DAF5; border-radius: 999px; padding: 6px 12px; white-space: nowrap; }
+      .dv-chip i, .dv-chip svg { width: 13px; height: 13px; color: #0000CC; flex-shrink: 0; }
+      .dv-chip.is-warn { background: #FCF6EA; border-color: #F2DCB0; color: #855700; } .dv-chip.is-warn i, .dv-chip.is-warn svg { color: #CC8800; }
+      .dv-chip.is-red { background: #FDF0F0; border-color: #FBDCDC; color: #9B1C1C; } .dv-chip.is-red i, .dv-chip.is-red svg { color: #CC2222; }
+      .dv-side .dv-chip { justify-content: flex-start; border-radius: 8px; white-space: normal; }
+      .dv-modal-head h2 { line-height: 1.15; white-space: nowrap; }
+      .dv-head-sub { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60vw; }
+      .dv-tally span:last-child { white-space: nowrap; }
+      .dv-plat { white-space: nowrap; }
+      .dv-rw { display: grid; grid-template-columns: 200px 90px 1fr; gap: 10px; align-items: start; }
+      @media (max-width: 820px) { .dv-rw { grid-template-columns: 1fr; } .dv-rw-arrow { transform: rotate(90deg); } }
+      .dv-rels { display: flex; flex-direction: column; gap: 6px; }
+      .dv-rel { display: flex; align-items: center; gap: 8px; border: 1px solid #DDDDEE; border-radius: 8px; padding: 6px 9px; background: #FAFAFE; font-size: 11px; color: #1A1A2E; }
+      .dv-rel .dv-tile { width: 24px; height: 24px; flex-shrink: 0; }
+      .dv-rw-arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding-top: 36px; color: #CC2222; }
+      .dv-rw-arrow i, .dv-rw-arrow svg { width: 22px; height: 22px; }
+      .dv-rw-arrow em { font-size: 9px; font-style: normal; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+      .dv-pile { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+      .dv-pkg { display: flex; flex-direction: column; border-left: 3px solid var(--c, #0000CC); background: #FAFAFE; border-radius: 4px 6px 6px 4px; padding: 4px 7px; border-top: 1px solid #DDDDEE; border-right: 1px solid #DDDDEE; border-bottom: 1px solid #DDDDEE; }
+      .dv-pkg b { font-size: 9.5px; color: #1A1A2E; }
+      .dv-pkg i { font-size: 8px; font-style: normal; color: #6A6A7A; white-space: nowrap; }
+      .dv-tally { display: flex; align-items: center; gap: 10px; font-size: 12px; color: #4A4A5A; background: #FDF0F0; border: 1px solid #FBDCDC; border-radius: 8px; padding: 8px 14px; }
+      .dv-tally-n { display: inline-block; width: 34px; height: 24px; font-size: 22px; font-weight: 800; color: #CC2222; }
+      .dv-tally b { color: #1A1A2E; }
+      .dv-fleet { display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; }
+      .dv-dev { aspect-ratio: 1; border-radius: 6px; background: #EAF5EE; border: 1px solid #C7E4D2; display: grid; place-items: center; }
+      .dv-dev i, .dv-dev svg { width: 13px; height: 13px; color: #0F7A3F; }
+      .dv-dev.is-red { animation: dvRed 360ms ease var(--d, 0ms) forwards; }
+      @keyframes dvRed { to { background: #FDF0F0; border-color: #F5B5B5; } }
+      .dv-dev.is-red i, .dv-dev.is-red svg { animation: dvRedIco 360ms ease var(--d, 0ms) forwards; }
+      @keyframes dvRedIco { to { color: #CC2222; } }
+      .dv-legend { display: flex; gap: 14px; margin-top: 8px; font-size: 10px; color: #6A6A7A; font-weight: 600; }
+      .dv-legend span { display: inline-flex; align-items: center; gap: 5px; }
+      .dv-legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+      .dv-legend i.is-ok { background: #EAF5EE; border: 1px solid #C7E4D2; } .dv-legend i.is-red { background: #FDF0F0; border: 1px solid #F5B5B5; }
+      .dv-comp { display: flex; align-items: center; gap: 10px; }
+      .dv-comp-bar { flex: 1; height: 8px; border-radius: 999px; background: #F0F0F6; overflow: hidden; }
+      .dv-comp-bar i { display: block; height: 100%; width: 98%; background: #0F7A3F; border-radius: 999px; animation: dvCompDrop 4000ms cubic-bezier(0.4, 0, 0.6, 1) 1200ms forwards; }
+      @keyframes dvCompDrop { 40% { background: #CC8800; } 100% { width: 64%; background: #CC2222; } }
+      .dv-comp-n { display: inline-block; width: 40px; height: 18px; font-size: 14px; font-weight: 800; color: #1A1A2E; }
+      .dv-stat { display: flex; flex-direction: column; border: 1px solid #DDDDEE; border-radius: 8px; padding: 8px 12px; background: #FAFAFE; }
+      .dv-stat b { font-size: 20px; font-weight: 800; color: #1A1A2E; letter-spacing: -0.02em; line-height: 1.1; }
+      .dv-stat span { font-size: 10px; color: #6A6A7A; font-weight: 600; }
+      .dv-stat-red { border-color: #FBDCDC; background: #FDF0F0; } .dv-stat-red b { color: #CC2222; }
+      .ew-grid-clean { grid-template-columns: 1fr 240px; align-items: start; }
+      .ew-anim .ew-line-attack { stroke-dasharray: 1; stroke-dashoffset: 1; animation: ewDraw 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) 400ms forwards; }
+      .ew-anim .ew-line-deploy { opacity: 0; animation: dvIn 600ms ease 300ms forwards; }
+      .ew-anim .ew-band { opacity: 0; animation: ewBand 800ms ease 2400ms forwards; }
+      .ew-anim .ew-cross { opacity: 0; animation: dvIn 400ms ease 1500ms forwards; }
+      .ew-anim .ew-labels { opacity: 0; animation: dvIn 400ms ease 2600ms forwards; }
+      @keyframes ewDraw { to { stroke-dashoffset: 0; } }
+      @keyframes ewBand { to { opacity: 0.09; } }
       /* Paused demo: freeze every CSS beat exactly where it is */
       #demo-stage.is-frozen *, #demo-stage.is-frozen *::before, #demo-stage.is-frozen *::after { animation-play-state: paused !important; transition: none !important; }
       .us-openwrap-flow { gap: 10px; }
@@ -11395,6 +11497,114 @@
           <p class="text-[13px] text-[#4A4A5A] mt-2.5 leading-snug">${msg} <span class="text-[#8A8A9A] italic">Directional model — assumptions are tunable.</span></p>`;
       }
 
+      /* Driver stories — the Current State pop-outs, restyled to match the Recast
+         Approach animations: white card, Recast blue, cyan accents, real logos,
+         one idea per beat, minimal text. Each returns a self-contained visual. */
+      const DV_LOGO = (slug) => `https://img.icons8.com/color/96/${slug}.png`;
+      const DV_APPS = [
+        ['microsoft-excel-2019','#107C41','X'],['microsoft-word-2019','#185ABD','W'],['microsoft-outlook-2019','#0F6CBD','O'],['microsoft-teams','#5B53D6','T'],
+        ['zoom','#2D8CFF','Z'],['slack-new','#4A154B','S'],['chrome','#4285F4','C'],['adobe-photoshop','#001E36','Ps'],
+        ['salesforce','#00A1E0','SF'],['sap','#0FAAFF','SAP'],['dropbox','#0061FF','Db'],['ms-onedrive','#0364B8','OD'],
+        ['power-bi','#F2C811','PB'],['notion','#1A1A2E','N'],['figma','#F24E1E','F'],['jira','#0052CC','J'],
+        ['trello','#0079BF','Tr'],['ms-edge-new','#0C8EC5','E'],['linkedin','#0A66C2','in'],['visual-studio-code-2019','#007ACC','VS'],
+        ['docker','#2496ED','Dk'],['tableau-software','#E97627','Tb'],['github','#1A1A2E','GH'],['autodesk','#0696D7','AD'],
+      ];
+      const dvTile = (i, d, cls) => { const a = DV_APPS[i % DV_APPS.length]; return `<span class="dv-tile ${cls || ''}" style="--d:${d}ms;background:${a[1]}">${a[2]}<img src="${DV_LOGO(a[0])}" alt="" loading="lazy" onerror="this.remove()"></span>`; };
+      const dvChip = (icon, txt, d, tone) => `<div class="dv-chip ${tone || ''} dv-in" style="--d:${d}ms"><i data-lucide="${icon}"></i><span>${txt}</span></div>`;
+      const dvNotes = (items) => `<div class="dv-notes">${items.map((t, i) => `<div class="dv-note dv-in" style="--d:${(i + 1) * 260}ms"><span class="dv-note-n">${i + 1}</span><span>${t}</span></div>`).join('')}</div>`;
+
+      function renderDriverStory(c){
+        const id = c.id;
+        if (id === 'more_apps') {
+          // The portfolio fills a workspace faster every year while the team stays the same size.
+          const YEARS = [2016, 2018, 2020, 2022, 2024, 2026];
+          const COUNTS = [40, 70, 120, 190, 290, 420];
+          const PLATS = [['monitor','Windows',0],['laptop','macOS',1],['cloud','VDI',2],['globe','Web / SaaS',3],['smartphone','Mobile',4]];
+          let tiles = ''; let n = 0;
+          YEARS.forEach((y, yi) => { const add = yi === 0 ? 6 : [4, 6, 8, 10, 14][yi - 1]; for (let k = 0; k < add; k++) { tiles += dvTile(n, 600 + yi * 1400 + k * (260 - yi * 38), 'dv-pop'); n++; } });
+          return `
+            <div class="dv-stage">
+              <div class="dv-years">${YEARS.map((y, i) => `<span class="dv-year dv-in" style="--d:${600 + i * 1400}ms"><b>${y}</b><em>${COUNTS[i]} apps</em></span>`).join('')}</div>
+              <div class="dv-duo">
+                <div class="dv-win">
+                  <div class="dv-win-head"><span class="dv-win-mark">A</span>Acme Workspace<span class="dv-win-count">${COUNTS.map((cn, i) => `<b class="dv-cnt" style="--d:${600 + i * 1400}ms">${cn}</b>`).join('')}<span>apps</span></span></div>
+                  <div class="dv-grid">${tiles}<span class="dv-more dv-in" style="--d:${600 + 5 * 1400 + 900}ms">+ 370 more</span></div>
+                </div>
+                <div class="dv-side">
+                  <div class="dv-side-t">Delivery platforms</div>
+                  <div class="dv-plats">${PLATS.map(([ic, nm, k]) => `<span class="dv-plat dv-in" style="--d:${1200 + k * 1500}ms"><i data-lucide="${ic}"></i>${nm}</span>`).join('')}</div>
+                  <div class="dv-side-t" style="margin-top:12px">Application team</div>
+                  <div class="dv-team">${[0,1,2,3].map(k => `<span class="dv-person"><i data-lucide="user"></i></span>`).join('')}<em>4 people \u00b7 every year</em></div>
+                </div>
+              </div>
+              <div class="dv-chips">
+                ${dvChip('trending-up', '10\u00d7 more apps in ten years', 7600, 'is-warn')}
+                ${dvChip('layers', 'Each app: package \u00b7 test \u00b7 update \u00b7 support', 8100)}
+                ${dvChip('users', 'Same team', 8600, 'is-red')}
+              </div>
+            </div>`;
+        }
+        if (id === 'manual_rework') {
+          // One vendor release becomes five hand-built packages — every time.
+          const RELS = ['v118', 'v119', 'v120', 'v121'];
+          const TARGETS = [['Intune','.intunewin','#5B53D6'],['ConfigMgr','.msi','#E84D1A'],['Citrix','App-V','#3A3A4C'],['AVD','MSIX','#0000CC'],['Jamf','.pkg','#6A6A7A']];
+          return `
+            <div class="dv-stage">
+              <div class="dv-rw">
+                <div class="dv-rw-src">
+                  <div class="dv-side-t">Vendor releases</div>
+                  <div class="dv-rels">${RELS.map((r, i) => `<span class="dv-rel dv-in" style="--d:${400 + i * 2200}ms">${dvTile(6, 0)}<b>Chrome ${r}</b></span>`).join('')}</div>
+                </div>
+                <div class="dv-rw-arrow"><i data-lucide="arrow-right"></i><em>rebuilt by hand</em></div>
+                <div class="dv-rw-out">
+                  <div class="dv-side-t">Packages your team builds</div>
+                  <div class="dv-pile">${RELS.map((r, ri) => TARGETS.map((t, ti) => `<span class="dv-pkg dv-in" style="--d:${800 + ri * 2200 + ti * 220}ms;--c:${t[2]}"><b>${t[0]}</b><i>${r} \u00b7 ${t[1]}</i></span>`).join('')).join('')}</div>
+                </div>
+              </div>
+              <div class="dv-tally">
+                <span class="dv-tally-n">${RELS.map((r, i) => `<b class="dv-cnt" style="--d:${1900 + i * 2200}ms">${(i + 1) * 5}</b>`).join('')}</span>
+                <span>packages built for ${RELS.length} releases of one app \u00b7 <b>~6 hrs each</b></span>
+              </div>
+              <div class="dv-chips">
+                ${dvChip('copy', 'Same app, five rebuilds', 9400, 'is-warn')}
+                ${dvChip('alert-triangle', 'Each rebuild drifts a little \u2014 exceptions pile up', 9900, 'is-red')}
+                ${dvChip('clock', 'Backlog grows faster than it clears', 10400)}
+              </div>
+            </div>`;
+        }
+        if (id === 'security_compliance') {
+          // A fleet of devices; one CVE turns a spreading share red while the audit clock runs.
+          const N = 48;
+          const order = [5,6,13,14,21,22,29,4,12,20,28,7,15,23,30,3,11,19,27,36,37,38,2,10,18,26,35,44,45,1,9,17,25,34,43,46];
+          const RED = order.slice(0, 31);
+          return `
+            <div class="dv-stage">
+              <div class="dv-duo">
+                <div class="dv-fleet-wrap">
+                  <div class="dv-side-t">4,000 devices \u00b7 one published fix</div>
+                  <div class="dv-fleet">${Array.from({ length: N }, (_, i) => { const k = RED.indexOf(i); return `<span class="dv-dev ${k >= 0 ? 'is-red' : ''}" style="--d:${k >= 0 ? 1400 + k * 140 : 0}ms"><i data-lucide="monitor"></i></span>`; }).join('')}</div>
+                  <div class="dv-legend"><span><i class="is-ok"></i>Patched</span><span><i class="is-red"></i>Exposed \u2014 fix published, not installed</span></div>
+                </div>
+                <div class="dv-side">
+                  <div class="dv-side-t">What arrives</div>
+                  ${dvChip('shield-alert', 'CVE published \u00b7 severity 9.1', 900, 'is-red')}
+                  ${dvChip('calendar-clock', 'Audit in 30 days', 2600, 'is-warn')}
+                  ${dvChip('landmark', 'Cyber insurer asks for patch SLA', 4300)}
+                  ${dvChip('mail', 'Board: \u201cAre we exposed?\u201d', 5600, 'is-red')}
+                  <div class="dv-side-t" style="margin-top:12px">Compliance</div>
+                  <div class="dv-comp"><span class="dv-comp-bar"><i></i></span><span class="dv-comp-n">${[98, 91, 82, 71, 64].map((v, i) => `<b class="dv-cnt" style="--d:${1200 + i * 950}ms">${v}%</b>`).join('')}</span></div>
+                </div>
+              </div>
+              <div class="dv-chips">
+                ${dvChip('timer', 'Attack exists in hours \u00b7 install takes 43 days', 6400, 'is-red')}
+                ${dvChip('file-warning', 'Every unpatched device is an audit finding', 6900, 'is-warn')}
+                ${dvChip('user-x', 'Manual patching cannot close the gap', 7400)}
+              </div>
+            </div>`;
+        }
+        return '';
+      }
+
       function renderInsightModal(){
         if (!STATE.insightContent) return '';
         const c = STATE.insightContent;
@@ -11406,7 +11616,8 @@
         const isTippingPoint = c.title === 'Inflection Point';
         const isChangeVelocity = c.id === 'constant_updates';
         const isExploitWindow = c.id === 'exploit_window';
-        const modalWidth = (isPlatformMult || isExploitWindow) ? 'max-w-6xl' : isChangeVelocity ? 'max-w-5xl' : 'max-w-4xl';
+        const isStory = ['more_apps', 'manual_rework', 'security_compliance'].includes(c.id);
+        const modalWidth = (isPlatformMult || isExploitWindow) ? 'max-w-6xl' : (isChangeVelocity || isStory) ? 'max-w-5xl' : 'max-w-4xl';
         const modalStyle = (isPlatformMult || isTippingPoint || isExploitWindow) ? 'max-height:94vh;display:flex;flex-direction:column' : '';
         const bodyStyle = (isPlatformMult || isTippingPoint || isExploitWindow) ? 'flex:1;min-height:0;overflow-y:auto' : '';
         // Driver navigation: show prev/next arrows when this is a driver insight (has an id from drivers list)
@@ -11417,21 +11628,21 @@
         const nextLabel = showNav ? pool[(curIdx + 1) % pool.length].label : '';
         return `
           <div class="fixed inset-0 z-50 flex items-center justify-center modal-overlay" role="dialog" aria-modal="true" aria-labelledby="insight-modal-title">
-            <div class="w-full ${modalWidth} mx-4 rounded-2xl overflow-hidden transform modal-content glass" style="${modalStyle}">
-              <div class="bg-white/40 backdrop-blur-lg ${isExploitWindow ? 'px-6 py-4' : 'px-8 py-6'} flex items-center justify-between flex-shrink-0" style="border-bottom:1px solid var(--border-subtle)">
-                <div class="flex items-center gap-3"><i data-lucide="lightbulb" class="${isExploitWindow ? 'w-6 h-6' : 'w-8 h-8'} text-[#1A1A2E]" aria-hidden="true"></i><h2 id="insight-modal-title" class="${isExploitWindow ? 'text-2xl' : 'text-3xl'} font-bold tracking-tight text-[#1A1A2E]">${title}</h2></div>
+            <div class="w-full ${modalWidth} mx-4 rounded-2xl overflow-hidden transform modal-content ${isTippingPoint ? 'glass' : 'dv-modal'}" style="${modalStyle}">
+              <div class="${isTippingPoint ? 'bg-white/40 backdrop-blur-lg' : 'dv-modal-head'} ${(isExploitWindow || isStory) ? 'px-6 py-4' : 'px-8 py-6'} flex items-center justify-between flex-shrink-0" style="border-bottom:1px solid var(--border-subtle)">
+                <div class="flex items-center gap-3">${isTippingPoint ? '<i data-lucide="lightbulb" class="w-8 h-8 text-[#1A1A2E]" aria-hidden="true"></i>' : `<span class="dv-head-n">${curIdx + 1}</span>`}<div><h2 id="insight-modal-title" class="${(isExploitWindow || isStory) ? 'text-2xl' : 'text-3xl'} font-bold tracking-tight ${isTippingPoint ? 'text-[#1A1A2E]' : 'text-white'}">${title}</h2>${!isTippingPoint && c.subtext ? `<div class="dv-head-sub">${c.subtext}</div>` : ''}</div></div>
                 <div class="flex items-center gap-2">
                   ${showNav ? `
-                    <button type="button" class="insight-nav-arrow" data-action="step-driver" data-dir="-1" aria-label="Previous: ${prevLabel}" title="Previous: ${prevLabel}"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
-                    <span class="text-xs font-semibold text-slate-400 px-1 tabular-nums">${curIdx + 1} / ${pool.length}</span>
-                    <button type="button" class="insight-nav-arrow" data-action="step-driver" data-dir="1" aria-label="Next: ${nextLabel}" title="Next: ${nextLabel}"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
-                    <span class="w-px h-6 bg-slate-200 mx-1"></span>
+                    <button type="button" class="insight-nav-arrow ${isTippingPoint ? '' : 'dv-nav'}" data-action="step-driver" data-dir="-1" aria-label="Previous: ${prevLabel}" title="Previous: ${prevLabel}"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+                    <span class="text-xs font-semibold ${isTippingPoint ? 'text-slate-400' : 'text-white/70'} px-1 tabular-nums">${curIdx + 1} / ${pool.length}</span>
+                    <button type="button" class="insight-nav-arrow ${isTippingPoint ? '' : 'dv-nav'}" data-action="step-driver" data-dir="1" aria-label="Next: ${nextLabel}" title="Next: ${nextLabel}"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+                    <span class="w-px h-6 ${isTippingPoint ? 'bg-slate-200' : 'bg-white/25'} mx-1"></span>
                   ` : ''}
-                  <button type="button" class="text-slate-500 hover:text-slate-700 focus-ring p-2" data-action="close-insight-modal" aria-label="Close"><i data-lucide="x" class="w-6 h-6"></i></button>
+                  <button type="button" class="${isTippingPoint ? 'text-slate-500 hover:text-slate-700' : 'text-white/80 hover:text-white'} focus-ring p-2" data-action="close-insight-modal" aria-label="Close"><i data-lucide="x" class="w-6 h-6"></i></button>
                 </div>
               </div>
-              <div class="${(isPlatformMult || isExploitWindow) ? 'px-6 py-4' : 'p-8'} bg-white/35 backdrop-blur-lg" style="${bodyStyle}">
-                ${isExploitWindow ? renderExploitWindowChart(intro, bullets) : isPlatformMult ? renderPlatformSiloDiagram(intro) : isChangeVelocity ? renderChangeVelocityChart() : isTippingPoint ? `
+              <div class="${(isPlatformMult || isExploitWindow || isStory) ? 'px-6 py-4' : 'p-8'} ${isTippingPoint ? 'bg-white/35 backdrop-blur-lg' : 'bg-white'}" style="${bodyStyle}">
+                ${isStory ? renderDriverStory(c) : isExploitWindow ? renderExploitWindowChart(intro, bullets) : isPlatformMult ? renderPlatformSiloDiagram(intro) : isChangeVelocity ? renderChangeVelocityChart() : isTippingPoint ? `
                 <div class="flex items-center gap-2 mb-4"><i data-lucide="quote" class="w-5 h-5 text-slate-400"></i><span class="text-sm font-bold text-[#1A1A2E]">What Analysts Are Saying</span></div>
                 <div class="space-y-3">
                   <div class="flex items-start gap-4 p-4 rounded-xl bg-white/70 backdrop-blur-lg shadow-sm hover:shadow-md transition-shadow"><div class="text-sm font-bold min-w-[120px] flex-shrink-0" style="color:#0000CC">Gartner, 2025</div><div class="text-sm text-[#4A4A5A] italic">"By 2027, organizations that fail to modernize application delivery will spend 40% more on operational overhead than those that do."</div></div>
@@ -11627,31 +11838,26 @@
         band += ' Z';
         const ticks = [[756, '2 years'], [90, '3 months'], [10, '10 days'], [1, '1 day'], [0.0417, '1 hour']];
         const FF = 'Inter, system-ui, sans-serif';
-        const parts = String(intro || '').split(/Worth asking your team:\s*/);
-        const lede = parts[0].trim();
-        const ask = parts.length > 1 ? parts[1].trim() : '';
-        const list = bullets || [];
         return `
-          <p class="ew-lede">${lede}</p>
-          <div class="ew-grid">
-            <div class="ew-chart">
+          <div class="dv-stage">
+          <div class="ew-grid ew-grid-clean">
+            <div class="ew-chart ew-anim">
               <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Chart: the time from a published fix to a working attack has fallen from about two years in 2018 to about ten hours in 2026, while the average organization still takes 43 days to install it.">
                 <rect x="${ml}" y="${mt}" width="${cw}" height="${ch}" fill="#FAFAFE"/>
                 ${ticks.map(([v, lbl]) => `<g><line x1="${ml}" y1="${yP(v)}" x2="${ml + cw}" y2="${yP(v)}" stroke="#DDDDEE" stroke-width="1"/><text x="${ml - 8}" y="${yP(v) + 4}" text-anchor="end" font-size="11" font-weight="600" fill="#8A8A9A" font-family="${FF}">${lbl}</text></g>`).join('')}
-                <path d="${band}" fill="#CC2222" opacity="0.09"/>
-                <path d="${line(deploy)}" fill="none" stroke="#6A6A7A" stroke-width="2.5" stroke-dasharray="7 4" stroke-linecap="round"/>
-                <path d="${line(attack)}" fill="none" stroke="#CC2222" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                ${attack.map((v, i) => `<circle cx="${X[i]}" cy="${yP(v)}" r="2.6" fill="#CC2222"/>`).join('')}
-                <g>
+                <path class="ew-band" d="${band}" fill="#CC2222"/>
+                <path class="ew-line ew-line-deploy" d="${line(deploy)}" fill="none" stroke="#6A6A7A" stroke-width="2.5" stroke-dasharray="7 4" stroke-linecap="round"/>
+                <path class="ew-line ew-line-attack" d="${line(attack)}" fill="none" stroke="#CC2222" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/>
+                <g class="ew-cross">
                   <line x1="${cx}" y1="${mt}" x2="${cx}" y2="${mt + ch}" stroke="#1A1A2E" stroke-width="1" stroke-dasharray="3 3" opacity="0.35"/>
                   <circle cx="${cx}" cy="${cy}" r="5" fill="#FFFFFF" stroke="#1A1A2E" stroke-width="2"/>
-                  <text x="${cx + 9}" y="${mt + 13}" font-size="11.5" font-weight="800" fill="#1A1A2E" font-family="${FF}">The lines cross</text>
-                  <text x="${cx + 9}" y="${mt + 26}" font-size="10.5" font-weight="500" fill="#6A6A7A" font-family="${FF}">attacks start arriving first</text>
+                  <text x="${cx + 9}" y="${mt + 13}" font-size="11.5" font-weight="800" fill="#1A1A2E" font-family="${FF}">2021: attacks arrive first</text>
                 </g>
-                <text x="${X[8] + 7}" y="${yP(attack[8]) + 4}" font-size="12" font-weight="800" fill="#CC2222" font-family="${FF}">10 hrs</text>
-                <text x="${X[8] + 7}" y="${yP(deploy[8]) + 4}" font-size="12" font-weight="800" fill="#4A4A5A" font-family="${FF}">43 days</text>
-                <text x="${X[0] + 7}" y="${yP(attack[0]) - 9}" font-size="11" font-weight="700" fill="#CC2222" font-family="${FF}">756 days</text>
-                <text x="${X[4]}" y="${mt + ch - 11}" text-anchor="middle" font-size="10.5" font-weight="700" fill="#CC2222" font-family="${FF}" opacity="0.85">AI-assisted discovery and exploit writing</text>
+                <g class="ew-labels">
+                  <text x="${X[8] + 7}" y="${yP(attack[8]) + 4}" font-size="12" font-weight="800" fill="#CC2222" font-family="${FF}">10 hrs</text>
+                  <text x="${X[8] + 7}" y="${yP(deploy[8]) + 4}" font-size="12" font-weight="800" fill="#4A4A5A" font-family="${FF}">43 days</text>
+                  <text x="${X[0] + 7}" y="${yP(attack[0]) - 9}" font-size="11" font-weight="700" fill="#CC2222" font-family="${FF}">756 days</text>
+                </g>
                 <line x1="${ml}" y1="${mt + ch}" x2="${ml + cw}" y2="${mt + ch}" stroke="#C9C9DA" stroke-width="1"/>
                 ${years.map((y, i) => (i % 2 === 0 ? `<text x="${X[i]}" y="${mt + ch + 18}" text-anchor="middle" font-size="11" font-weight="600" fill="#8A8A9A" font-family="${FF}">${y}</text>` : '')).join('')}
               </svg>
@@ -11659,14 +11865,20 @@
                 <span><i class="ew-swatch" style="border-top-color:#CC2222"></i>Fix published \u2192 working attack</span>
                 <span><i class="ew-swatch" style="border-top-color:#6A6A7A;border-top-style:dashed"></i>Fix published \u2192 installed on your machines</span>
               </div>
-              <p class="ew-note">Log scale. Shaded area is the window where an attack exists and the fix is not yet installed.</p>
             </div>
-            <div>
-              <div class="ew-bul">
-                ${list.map((b, i) => `<div class="ew-bul-i"><span class="ew-bul-n">${i + 1}</span><p>${b}</p></div>`).join('')}
-              </div>
-              ${ask ? `<div class="ew-ask"><i data-lucide="message-circle" class="w-4 h-4 flex-shrink-0" style="color:#0000CC;margin-top:1px"></i><p>Worth asking your team: ${ask}</p></div>` : ''}
+            <div class="dv-side">
+              <div class="dv-side-t">Time from a published fix to a working attack</div>
+              <div class="dv-stat dv-in" style="--d:600ms"><b>756 days</b><span>2018</span></div>
+              <div class="dv-stat dv-stat-red dv-in" style="--d:1800ms"><b>10 hours</b><span>2026 \u00b7 AI writes the exploit</span></div>
+              <div class="dv-side-t" style="margin-top:12px">Time to install it</div>
+              <div class="dv-stat dv-in" style="--d:3000ms"><b>43 days</b><span>average company \u00b7 people repackage, test, schedule</span></div>
             </div>
+          </div>
+          <div class="dv-chips">
+            ${dvChip('bot', 'AI found 10,000+ serious flaws in one month', 3800, 'is-red')}
+            ${dvChip('users', 'Manual updates are capped by headcount', 4300, 'is-warn')}
+            ${dvChip('zap', 'Routine updates must ship on their own', 4800)}
+          </div>
           </div>`;
       }
 
