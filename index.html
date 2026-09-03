@@ -3925,6 +3925,37 @@
       .dv-head-n { width: 30px; height: 30px; border-radius: 50%; background: #00BFFF; color: #0B2530; font-size: 13px; font-weight: 800; display: grid; place-items: center; flex-shrink: 0; }
       .dv-head-sub { font-size: 12px; color: #AABBEE; font-weight: 500; margin-top: 1px; }
       .dv-nav { color: #fff !important; border-color: rgba(255, 255, 255, 0.35) !important; background: rgba(255, 255, 255, 0.1) !important; }
+      .dv-load { display: flex; align-items: center; gap: 10px; padding: 8px 12px 10px; border-top: 1px solid #EDEDF4; font-size: 9.5px; font-weight: 700; color: #6A6A7A; }
+      .dv-load-l { white-space: nowrap; }
+      .dv-load-bar { position: relative; flex: 1; height: 8px; border-radius: 999px; background: #F0F0F6; overflow: visible; }
+      .dv-load-cap { position: absolute; left: 34%; top: -4px; bottom: -4px; width: 2px; background: #0000CC; border-radius: 1px; z-index: 2; }
+      .dv-load-cap::after { content: 'capacity'; position: absolute; left: 5px; top: -3px; font-size: 8px; color: #0000CC; font-weight: 800; white-space: nowrap; }
+      .dv-load-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 8%; border-radius: 999px; background: #00BFFF; animation: dvLoad 7000ms cubic-bezier(0.5, 0, 0.7, 0.3) 600ms forwards; }
+      @keyframes dvLoad { 45% { width: 34%; background: #00BFFF; } 60% { background: #CC8800; } 100% { width: 100%; background: #CC2222; } }
+      .dv-load-r { color: #CC2222; white-space: nowrap; }
+      .dv-loop { display: flex; align-items: center; gap: 3px; flex-wrap: wrap; }
+      .dv-loop-s { display: inline-flex; align-items: center; gap: 4px; font-size: 9.5px; font-weight: 700; color: #1A1A2E; background: #F6F8FF; border: 1px solid #D5DAF5; border-radius: 6px; padding: 3px 7px; white-space: nowrap; }
+      .dv-loop-s i, .dv-loop-s svg { width: 10px; height: 10px; color: #0000CC; }
+      .dv-loop-a { width: 10px; height: 10px; color: #AABBEE; flex-shrink: 0; }
+      .dv-rel em { margin-left: auto; font-size: 9px; font-style: normal; color: #8A8A9A; font-weight: 600; }
+      .dv-cadence { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; font-size: 9.5px; font-weight: 700; color: #855700; background: #FCF6EA; border: 1px solid #F2DCB0; border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
+      .dv-cadence i, .dv-cadence svg { width: 10px; height: 10px; color: #CC8800; }
+      .dv-pkg { position: relative; }
+      .dv-pkg.is-bad { border-color: #F5B5B5; background: #FDF0F0; animation: dvIn 420ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms) forwards, dvShake 500ms ease calc(var(--d, 0ms) + 500ms); }
+      .dv-pkg u { position: absolute; right: -4px; top: -7px; font-size: 7.5px; font-weight: 800; text-decoration: none; color: #fff; background: #CC2222; border-radius: 999px; padding: 1px 6px; white-space: nowrap; }
+      @keyframes dvShake { 0%, 100% { transform: none; } 25% { transform: translateX(-2px); } 75% { transform: translateX(2px); } }
+      .dv-tally-hrs { margin-left: auto; position: relative; display: inline-block; width: 64px; height: 24px; text-align: right; }
+      .dv-tally-hrs .dv-cnt { left: auto; right: 0; font-size: 15px; font-weight: 800; color: #CC2222; animation-duration: 2200ms; }
+      .dv-tally-hrs .dv-cnt:last-of-type { animation: dvIn 300ms ease var(--d, 0ms) forwards; }
+      .dv-fleet-hd { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+      .dv-cve { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 800; color: #9B1C1C; background: #FDF0F0; border: 1px solid #FBDCDC; border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+      .dv-cve i, .dv-cve svg { width: 11px; height: 11px; color: #CC2222; }
+      .dv-clock { position: relative; display: inline-block; width: 52px; height: 16px; font-size: 11px; font-weight: 800; color: #1A1A2E; text-align: right; }
+      .dv-clock .dv-cnt { left: auto; right: 0; animation-duration: 1150ms; }
+      .dv-clock .dv-cnt:last-of-type { animation: dvIn 300ms ease var(--d, 0ms) forwards; }
+      .dv-dev.is-red::after { content: ''; position: absolute; inset: -3px; border-radius: 8px; border: 2px solid #CC2222; opacity: 0; animation: dvPing 700ms ease-out var(--d, 0ms); }
+      .dv-dev { position: relative; }
+      @keyframes dvPing { 0% { opacity: 0.8; transform: scale(0.85); } 100% { opacity: 0; transform: scale(1.25); } }
       .dv-stage { display: flex; flex-direction: column; gap: 12px; }
       .dv-in { opacity: 0; animation: dvIn 420ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms) forwards; }
       .dv-pop { opacity: 0; animation: dvPop 360ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms) forwards; }
@@ -4019,6 +4050,55 @@
       .ew-anim .ew-labels { opacity: 0; animation: dvIn 400ms ease 2600ms forwards; }
       @keyframes ewDraw { to { stroke-dashoffset: 0; } }
       @keyframes ewBand { to { opacity: 0.09; } }
+      /* ── Business Impact v2: one clear read — what changes, by how much, why ── */
+      .bi2 { display: flex; flex-direction: column; gap: 10px; }
+      .bi2-hero { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; background: #0000CC; border-radius: 10px; padding: 12px 18px; position: relative; overflow: hidden; align-items: center; }
+      .bi2-hero::before, .bi2-hero::after { content: '+'; position: absolute; color: #2222DD; font-size: 22px; font-weight: 700; pointer-events: none; }
+      .bi2-hero::before { left: 46%; top: 8px; } .bi2-hero::after { right: 6%; bottom: 6px; }
+      @media (max-width: 860px) { .bi2-hero { grid-template-columns: 1fr; } }
+      .bi2-eyebrow { font-size: 9.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #00BFFF; margin-bottom: 2px; }
+      .bi2-h { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: -0.02em; line-height: 1.15; }
+      .bi2-sub { font-size: 11.5px; color: #AABBEE; margin-top: 3px; line-height: 1.4; max-width: 60ch; }
+      .bi2-hero-r { display: flex; align-items: center; justify-content: flex-end; }
+      .bi2-big { display: flex; flex-direction: column; gap: 2px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 8px; padding: 8px 14px; min-width: 240px; }
+      .bi2-big-l { font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #AABBEE; }
+      .bi2-big-v { display: flex; align-items: baseline; gap: 10px; color: #fff; }
+      .bi2-big-v s { font-size: 18px; font-weight: 700; color: #AABBEE; text-decoration-color: #CC2222; text-decoration-thickness: 2px; }
+      .bi2-big-v i, .bi2-big-v svg { width: 16px; height: 16px; color: #00BFFF; align-self: center; }
+      .bi2-big-v b { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+      .bi2-big-m { font-size: 11px; font-weight: 700; color: #00BFFF; }
+      .bi2-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+      @media (max-width: 900px) { .bi2-tiles { grid-template-columns: repeat(2, 1fr); } }
+      .bi2-tile { background: #fff; border: 1px solid #DDDDEE; border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 1px 2px rgba(26, 26, 46, 0.06); transition: box-shadow 200ms ease, transform 200ms ease; }
+      .bi2-tile:hover { box-shadow: 0 2px 8px rgba(26, 26, 46, 0.1); transform: translateY(-2px); }
+      .bi2-tile-top { display: flex; align-items: center; gap: 7px; font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #6A6A7A; }
+      .bi2-tile-n { font-size: 10px; font-weight: 800; color: #0000CC; background: #F6F8FF; border: 1px solid #D5DAF5; border-radius: 999px; padding: 1px 7px; }
+      .bi2-tile-top i, .bi2-tile-top svg { width: 13px; height: 13px; color: #0000CC; }
+      .bi2-chg { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+      .bi2-chg s { font-size: 15px; font-weight: 700; color: #8A8A9A; text-decoration-color: #CC2222; text-decoration-thickness: 2px; }
+      .bi2-chg i, .bi2-chg svg { width: 14px; height: 14px; color: #00BFFF; align-self: center; }
+      .bi2-chg b { font-size: 26px; font-weight: 800; color: #0000CC; letter-spacing: -0.03em; line-height: 1; }
+      .bi2-chg u { font-size: 11px; font-weight: 700; color: #0000CC; text-decoration: none; }
+      .bi2-claim { font-size: 13px; font-weight: 700; color: #1A1A2E; line-height: 1.3; }
+      .bi2-note { font-size: 11px; color: #6A6A7A; line-height: 1.45; }
+      .bi2-row { display: grid; grid-template-columns: 1.6fr 1fr; gap: 10px; align-items: stretch; }
+      @media (max-width: 860px) { .bi2-row { grid-template-columns: 1fr; } }
+      .bi2-chart { padding: 14px 16px; }
+      .bi2-case { padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+      .bi2-case-h { font-size: 10.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #6A6A7A; }
+      .bi2-case-list { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+      .bi2-case-btn { display: flex; align-items: center; gap: 9px; width: 100%; text-align: left; background: #FAFAFE; border: 1px solid #DDDDEE; border-radius: 6px; padding: 9px 12px; font-size: 12.5px; font-weight: 700; color: #1A1A2E; cursor: pointer; transition: background 160ms ease, border-color 160ms ease; }
+      .bi2-case-btn:hover { background: #F6F8FF; border-color: #AABBEE; }
+      .bi2-case-btn > i:first-child, .bi2-case-btn > svg:first-child { width: 15px; height: 15px; color: #0000CC; flex-shrink: 0; }
+      .bi2-case-btn span { flex: 1; }
+      .bi2-case-arr { width: 14px; height: 14px; color: #8A8A9A; }
+      .bi2-case-sub { font-size: 9.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #8A8A9A; margin-top: 4px; }
+      .bi2-case-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+      .bi2-pdf { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: #00BFFF; color: #0B2530; border: 0; border-radius: 6px; padding: 11px 14px; font-size: 13px; font-weight: 800; cursor: pointer; transition: background 160ms ease; margin-top: 4px; }
+      .bi2-pdf:hover { background: #33CCFF; }
+      .bi2-pdf:active { transform: translateY(1px); }
+      .bi2-pdf i, .bi2-pdf svg { width: 15px; height: 15px; }
+      .bi2-pdf-tag { font-size: 9px; font-weight: 800; letter-spacing: 0.08em; background: rgba(11, 37, 48, 0.14); border-radius: 999px; padding: 2px 7px; }
       /* Paused demo: freeze every CSS beat exactly where it is */
       #demo-stage.is-frozen *, #demo-stage.is-frozen *::before, #demo-stage.is-frozen *::after { animation-play-state: paused !important; transition: none !important; }
       .us-openwrap-flow { gap: 10px; }
@@ -11529,12 +11609,15 @@
                 <div class="dv-win">
                   <div class="dv-win-head"><span class="dv-win-mark">A</span>Acme Workspace<span class="dv-win-count">${COUNTS.map((cn, i) => `<b class="dv-cnt" style="--d:${600 + i * 1400}ms">${cn}</b>`).join('')}<span>apps</span></span></div>
                   <div class="dv-grid">${tiles}<span class="dv-more dv-in" style="--d:${600 + 5 * 1400 + 900}ms">+ 370 more</span></div>
+                  <div class="dv-load"><span class="dv-load-l">Team capacity</span><span class="dv-load-bar"><i class="dv-load-cap"></i><i class="dv-load-fill"></i></span><span class="dv-load-r dv-in" style="--d:7400ms">work exceeds people</span></div>
                 </div>
                 <div class="dv-side">
                   <div class="dv-side-t">Delivery platforms</div>
                   <div class="dv-plats">${PLATS.map(([ic, nm, k]) => `<span class="dv-plat dv-in" style="--d:${1200 + k * 1500}ms"><i data-lucide="${ic}"></i>${nm}</span>`).join('')}</div>
                   <div class="dv-side-t" style="margin-top:12px">Application team</div>
                   <div class="dv-team">${[0,1,2,3].map(k => `<span class="dv-person"><i data-lucide="user"></i></span>`).join('')}<em>4 people \u00b7 every year</em></div>
+                  <div class="dv-side-t" style="margin-top:12px">Work per app, forever</div>
+                  <div class="dv-loop">${[['package','Package'],['flask-conical','Test'],['refresh-cw','Update'],['life-buoy','Support']].map(([ic, t], k) => `<span class="dv-loop-s dv-in" style="--d:${2000 + k * 900}ms"><i data-lucide="${ic}"></i>${t}</span>${k < 3 ? '<i data-lucide="chevron-right" class="dv-loop-a"></i>' : ''}`).join('')}</div>
                 </div>
               </div>
               <div class="dv-chips">
@@ -11553,17 +11636,19 @@
               <div class="dv-rw">
                 <div class="dv-rw-src">
                   <div class="dv-side-t">Vendor releases</div>
-                  <div class="dv-rels">${RELS.map((r, i) => `<span class="dv-rel dv-in" style="--d:${400 + i * 2200}ms">${dvTile(6, 0)}<b>Chrome ${r}</b></span>`).join('')}</div>
+                  <div class="dv-rels">${RELS.map((r, i) => `<span class="dv-rel dv-in" style="--d:${400 + i * 2200}ms">${dvTile(6, 0)}<b>Chrome ${r}</b><em>${['Tue','Thu','Mon','Fri'][i]}</em></span>`).join('')}</div>
+                  <div class="dv-cadence dv-in" style="--d:7200ms"><i data-lucide="calendar"></i>A new release roughly every week</div>
                 </div>
                 <div class="dv-rw-arrow"><i data-lucide="arrow-right"></i><em>rebuilt by hand</em></div>
                 <div class="dv-rw-out">
                   <div class="dv-side-t">Packages your team builds</div>
-                  <div class="dv-pile">${RELS.map((r, ri) => TARGETS.map((t, ti) => `<span class="dv-pkg dv-in" style="--d:${800 + ri * 2200 + ti * 220}ms;--c:${t[2]}"><b>${t[0]}</b><i>${r} \u00b7 ${t[1]}</i></span>`).join('')).join('')}</div>
+                  <div class="dv-pile">${RELS.map((r, ri) => TARGETS.map((t, ti) => `<span class="dv-pkg dv-in ${ri === 2 && ti === 2 ? 'is-bad' : ''}" style="--d:${800 + ri * 2200 + ti * 220}ms;--c:${t[2]}"><b>${t[0]}</b><i>${r} \u00b7 ${t[1]}</i>${ri === 2 && ti === 2 ? '<u>manual fix</u>' : ''}</span>`).join('')).join('')}</div>
                 </div>
               </div>
               <div class="dv-tally">
                 <span class="dv-tally-n">${RELS.map((r, i) => `<b class="dv-cnt" style="--d:${1900 + i * 2200}ms">${(i + 1) * 5}</b>`).join('')}</span>
                 <span>packages built for ${RELS.length} releases of one app \u00b7 <b>~6 hrs each</b></span>
+                <span class="dv-tally-hrs">${RELS.map((r, i) => `<b class="dv-cnt" style="--d:${1900 + i * 2200}ms">${(i + 1) * 30} hrs</b>`).join('')}</span>
               </div>
               <div class="dv-chips">
                 ${dvChip('copy', 'Same app, five rebuilds', 9400, 'is-warn')}
@@ -11582,6 +11667,7 @@
               <div class="dv-duo">
                 <div class="dv-fleet-wrap">
                   <div class="dv-side-t">4,000 devices \u00b7 one published fix</div>
+                  <div class="dv-fleet-hd"><span class="dv-cve dv-in" style="--d:900ms"><i data-lucide="shield-alert"></i>CVE-2026-1183 \u00b7 Adobe Reader</span><span class="dv-clock">${['Day 0','Day 7','Day 14','Day 30','Day 43'].map((t, i) => `<b class="dv-cnt" style="--d:${900 + i * 1150}ms">${t}</b>`).join('')}</span></div>
                   <div class="dv-fleet">${Array.from({ length: N }, (_, i) => { const k = RED.indexOf(i); return `<span class="dv-dev ${k >= 0 ? 'is-red' : ''}" style="--d:${k >= 0 ? 1400 + k * 140 : 0}ms"><i data-lucide="monitor"></i></span>`; }).join('')}</div>
                   <div class="dv-legend"><span><i class="is-ok"></i>Patched</span><span><i class="is-red"></i>Exposed \u2014 fix published, not installed</span></div>
                 </div>
@@ -19220,7 +19306,6 @@
 
         const rail = [
           ['fronts', 'gauge', 'Why teams change'],
-          ['time', 'clock', 'Where the time goes'],
           ['change', 'arrow-left-right', 'Before and after'],
           ['exposure', 'shield-check', 'Update exposure'],
           ent ? ['live', 'flask-conical', 'Proof of value'] : ['live', 'award', 'Partner tiers'],
@@ -19259,56 +19344,43 @@
                 </div>
               </div>
             ` : `
-            <div class="grid grid-cols-2 gap-2 sm:grid-cols-4 cs-stats">
-              ${cards.map((card) => {
-                const f = STATE.flippedCards[card.id];
-                return `<div class="flip-card ${card.oc ? 'oc-card ' : ''}${f ? 'flipped' : ''}" data-action="flip-card" data-card-id="${card.id}" role="button" tabindex="0" aria-label="${exAttr(card.title)}">
-                  <div class="flip-card-inner">
-                    <div class="flip-card-front section-card${card.oc ? ' oc' : ''}">
-                      ${card.oc ? `
-                      <div class="oc-top"><i data-lucide="${card.icon}"></i><span>${card.title}</span></div>
-                      <div class="oc-chg"><s>${card.from}</s><i data-lucide="arrow-right"></i><b>${card.to}</b>${card.unit ? `<u>${card.unit}</u>` : ''}</div>
-                      <div class="oc-claim">${card.claim}</div>
-                      ` : `
-                      <div class="flip-card-eye"><i data-lucide="${card.icon}"></i><span>${card.seq || ''}</span><b>${card.kind || ''}</b></div>
-                      <div class="flip-card-txt">
-                        <div class="flip-card-stat">${card.stat}</div>
-                        <div class="flip-card-label">${card.label}</div>
-                      </div>`}
-                    </div>
-                    <div class="flip-card-back">
-                      <div>
-                        <div class="text-[10px] font-bold uppercase tracking-wide text-[#0000CC] mb-1.5">${card.title}</div>
-                        <p class="text-[10px] leading-snug text-[#4A4A5A] mb-1.5">${card.body}</p>
-                        <p class="text-[10px] leading-snug text-[#4A4A5A]">${card.body2}</p>
-                      </div>
-                      <div class="text-[8px] text-[#8A8A9A] italic">${card.source}</div>
-                    </div>
-                  </div>
-                </div>`;
-              }).join('')}
-            </div>
-
-            <div class="section-card cs-chart-card">
-              <div class="bi-grid">
-                <div class="bi-chart-col">
+            <div class="bi2">
+              <div class="bi2-hero">
+                <div class="bi2-hero-l">
+                  <div class="bi2-eyebrow">What changes</div>
+                  <div class="bi2-h">${ent ? 'Four things your team stops doing by hand.' : 'Same contract. Fewer hours. Better margin.'}</div>
+                  <div class="bi2-sub">${ent ? 'Each one is a repeatable saving \u2014 it happens on every release, every platform, every request.' : 'Delivery and support hours drop; revenue does not.'}</div>
+                </div>
+                <div class="bi2-hero-r">
+                  <div class="bi2-big"><span class="bi2-big-l">Application hours a month</span><span class="bi2-big-v"><s>${num(m.tNow)}</s><i data-lucide="arrow-right"></i><b>${num(m.tAw)}</b></span><span class="bi2-big-m">${multHead} the load with the same team</span></div>
+                </div>
+              </div>
+              <div class="bi2-tiles">
+                ${cards.map((card, i) => `
+                  <div class="bi2-tile dv-in" style="--d:${200 + i * 160}ms">
+                    <div class="bi2-tile-top"><span class="bi2-tile-n">${String(i + 1).padStart(2, '0')}</span><i data-lucide="${card.icon}"></i><span>${card.title}</span></div>
+                    ${card.oc
+                      ? `<div class="bi2-chg"><s>${card.from}</s><i data-lucide="arrow-right"></i><b>${card.to}</b>${card.unit ? `<u>${card.unit}</u>` : ''}</div>`
+                      : `<div class="bi2-chg"><b>${card.stat}</b></div>`}
+                    <div class="bi2-claim">${card.claim || card.label}</div>
+                    <div class="bi2-note">${card.note || card.body2 || ''}</div>
+                  </div>`).join('')}
+              </div>
+              <div class="bi2-row">
+                <div class="section-card bi2-chart">
                   <div class="bi-head">
-                    <div class="bi-col-h">Application hours a month</div>
-                    <div class="bi-leg bi-leg-b">
-                      <span><i class="bi-sw bi-sw-g"></i>Today</span>
-                      <span><i class="bi-sw"></i>After</span>
-                    </div>
+                    <div class="bi-col-h">Where the hours go</div>
+                    <div class="bi-leg bi-leg-b"><span><i class="bi-sw bi-sw-g"></i>Today</span><span><i class="bi-sw"></i>After</span></div>
                   </div>
                   ${exGainChartHtml(m)}
                 </div>
-                <div class="w-full bg-white/70 backdrop-blur-lg rounded-xl shadow-sm p-3 border border-slate-200 flex flex-col gap-2">
-                  <div class="bi-rail-h">The case behind it</div>
-                  <div class="grid grid-cols-1 gap-1.5">${rail.map((x) => railBtn(x[0], x[1], x[2])).join('')}</div>
-                  ${ent ? '' : `<div class="bi-rail-sub">By partner type</div>
-                  <div class="grid grid-cols-2 gap-1.5">${railBtn2('msp', 'building-2', 'MSP')}${railBtn2('si', 'handshake', 'SI partner')}</div>`}
-                  <div class="bi-acts">
-                    <button type="button" class="ex-btn" data-action="download-exec-pdf"><i data-lucide="file-text" class="w-3.5 h-3.5" aria-hidden="true"></i>Executive summary</button>
+                <div class="section-card bi2-case">
+                  <div class="bi2-case-h">The case behind it</div>
+                  <div class="bi2-case-list">
+                    ${rail.map((x) => `<button type="button" class="bi2-case-btn focus-ring" data-action="open-impact-modal" data-imp="${x[0]}"><i data-lucide="${x[1]}"></i><span>${x[2]}</span><i data-lucide="chevron-right" class="bi2-case-arr"></i></button>`).join('')}
+                    ${ent ? '' : `<div class="bi2-case-sub">By partner type</div><div class="bi2-case-2"><button type="button" class="bi2-case-btn focus-ring" data-action="open-impact-modal" data-imp="msp"><i data-lucide="building-2"></i><span>MSP</span></button><button type="button" class="bi2-case-btn focus-ring" data-action="open-impact-modal" data-imp="si"><i data-lucide="handshake"></i><span>SI partner</span></button></div>`}
                   </div>
+                  <button type="button" class="bi2-pdf focus-ring" data-action="download-exec-pdf"><i data-lucide="file-text"></i>Executive summary <span class="bi2-pdf-tag">PDF</span></button>
                 </div>
               </div>
             </div>
