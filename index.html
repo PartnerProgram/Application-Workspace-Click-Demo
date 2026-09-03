@@ -3902,7 +3902,37 @@
       .us-bootrow i, .us-bootrow svg { width: 10px; height: 10px; color: #0F7A3F; flex-shrink: 0; }
       .us-boot-sum { margin-top: 3px; font-size: 8.5px; font-weight: 800; color: #fff; background: #0F7A3F; border-radius: 999px; padding: 3px 10px; text-align: center; white-space: nowrap; }
       .us-samline.is-gray, .us-samline.is-gray i, .us-samline.is-gray svg { color: #8A8A9A; }
+      .us-substeps { display: flex; gap: 4px; margin-top: 6px; flex-wrap: wrap; }
+      .us-substeps i { font-style: normal; font-size: 8px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #F0F0F6; color: #8A8A9A; white-space: nowrap; transition: all 200ms ease; }
+      .us-substeps i.is-on { background: #0000CC; color: #fff; }
+      .us-substeps i.is-done { background: #EAF5EE; color: #0F7A3F; }
+      .us-webchip-top { display: inline-flex; align-items: center; gap: 5px; background: #0000CC; color: #fff; border-color: #0000CC; box-shadow: 0 8px 24px rgba(0, 0, 204, 0.15); font-size: 9px; padding: 4px 12px; margin-top: 46px; }
+      .us-webchip-top i, .us-webchip-top svg { width: 10px; height: 10px; }
+      .us-cmp { display: flex; flex-direction: column; gap: 4px; }
+      .us-cmp-row { display: flex; align-items: center; gap: 7px; font-size: 9.5px; font-weight: 600; color: #4A4A5A; background: #fff; border: 1px solid #D8DEE8; border-radius: 7px; padding: 6px 9px; }
+      .us-cmp-row i, .us-cmp-row svg { width: 12px; height: 12px; color: #33506B; flex-shrink: 0; }
+      .us-cmp-row span { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .us-cmp-row b { font-size: 8.5px; font-weight: 800; padding: 2px 8px; border-radius: 999px; background: #F0F0F6; color: #4A4A5A; white-space: nowrap; }
+      .us-cmp-row.is-lit { border-color: #0000CC; }
+      .us-cmp-row.is-lit b { background: #0000CC; color: #fff; }
+      .us-cmp-row.is-lit i, .us-cmp-row.is-lit svg { color: #0000CC; }
+      .us-webchip i, .us-webchip svg { width: 9px; height: 9px; vertical-align: -1px; margin-right: 3px; color: #0F7A3F; }
+      /* Paused demo: freeze every CSS beat exactly where it is */
+      #demo-stage.is-frozen *, #demo-stage.is-frozen *::before, #demo-stage.is-frozen *::after { animation-play-state: paused !important; transition: none !important; }
       .us-openwrap-flow { gap: 10px; }
+      /* CH3 device switch: title card holds, then the Mac rises under it */
+      .us-switchwrap { position: relative; width: 100%; display: flex; justify-content: center; align-items: center; min-height: 300px; }
+      .us-switch { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; animation: usSwitchHold 3.4s ease forwards; }
+      @keyframes usSwitchHold { 0% { opacity: 0; transform: translateY(8px); } 12%, 78% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-10px); visibility: hidden; } }
+      .us-switch-dev { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 800; color: #1A1A2E; background: #fff; border: 1px solid #DDDDEE; border-radius: 8px; padding: 9px 16px; box-shadow: 0 1px 2px rgba(26, 26, 46, 0.06); }
+      .us-switch-dev i, .us-switch-dev svg { width: 16px; height: 16px; color: #4A4A5A; }
+      .us-switch-dev.is-to { border-color: #0000CC; color: #0000CC; box-shadow: 0 8px 24px rgba(0, 0, 204, 0.15); }
+      .us-switch-dev.is-to i, .us-switch-dev.is-to svg { color: #0000CC; }
+      .us-switch-arrow i, .us-switch-arrow svg { width: 20px; height: 20px; color: #00BFFF; animation: usArrowNudge 1.1s ease-in-out infinite; }
+      @keyframes usArrowNudge { 50% { transform: translateX(5px); } }
+      .us-switch-cap { font-size: 11px; color: #6A6A7A; font-weight: 600; margin-top: 2px; }
+      .us-switch-mac { width: 100%; display: flex; justify-content: center; opacity: 0; animation: usIn 600ms cubic-bezier(0.2, 0.8, 0.2, 1) 3300ms forwards; }
+      .us-s1ws-late { animation-delay: 3400ms; }
       /* ── Two chairs: Maya's day + Sam's quiet panel ── */
       .us-playbtn { width: 48px; height: 48px; border-radius: 50%; background: #0000CC; color: #fff; border: 0; display: grid; place-items: center; cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 204, 0.35); transition: transform 160ms ease, background 160ms ease; animation: usPickPulse 2.2s ease-out infinite; }
       .us-playbtn:hover { transform: scale(1.08); background: #33CCFF; color: #0B2530; }
@@ -10215,22 +10245,36 @@
         const isCatalog = SCENARIOS[idx] && SCENARIOS[idx].id === 'catalog';
         // Cinematic scene holds — keynote pacing for the user-story module;
         // 'approach' is the cursor-travel beat between catalog and click.
-        const BEATS = [
+        // When the User Experience story isn't on screen (Admin Console alone,
+        // or console + others), skip the device prologue and run tight beats —
+        // the console is meant to feel quick and straightforward.
+        const uxOn = !!STATE.solutionViewUser;
+        const BEATS = uxOn ? [
           ['bare',     4600],
           ['boot',     6200],
           ['launch',   4200],
           ['catalog',  2000],
           ['approach', 2400],
-          ['clicking', 4600],
+          ['clicking', 9200],
           ['checking', 5200],
           ['routing',  3800],
           ['config',   4400],
           ['done',     4400],
           ['final',    6000],
+        ] : [
+          ['launch',   900],
+          ['catalog',  700],
+          ['approach', 600],
+          ['clicking', 1100],
+          ['checking', 1500],
+          ['routing',  1500],
+          ['config',   1400],
+          ['done',     1600],
+          ['final',    2400],
         ];
-        queue.push({ delay: 400, fn(){ STATE.flowScenarioIdx = idx; STATE.flowPhase = 'bare'; STATE.flowAppOpened = false; updateFlowDOM(); } });
+        queue.push({ delay: 400, ph: BEATS[0][0], fn(){ STATE.flowScenarioIdx = idx; STATE.flowPhase = BEATS[0][0]; STATE.flowAppOpened = false; updateFlowDOM(); } });
         BEATS.slice(1).forEach((b, i) => {
-          queue.push({ delay: BEATS[i][1], fn(){
+          queue.push({ delay: BEATS[i][1], ph: b[0], fn(){
             STATE.flowPhase = b[0];
             if (b[0] === 'done' && isCatalog) { STATE._firstOpenDone = false; STATE.flowAppOpened = true; }
             updateFlowDOM();
@@ -10446,13 +10490,41 @@
         STATE.flowPaused = true;
         STATE.flowTimers.timeouts.forEach(id => clearTimeout(id));
         STATE.flowTimers.timeouts = [];
-        scrollPreserveRender();
+        // Freeze in place: no re-render (that would replay the scene's entrance
+        // animations) — just halt CSS motion and swap the button glyph.
+        _setDemoFrozen(true);
+        refreshDemoControls();
       }
 
       function resumeFlow(){
         if (!STATE.flowRunning || !STATE.flowPaused) return;
         STATE.flowPaused = false;
-        scrollPreserveRender();
+        _setDemoFrozen(false);
+        refreshDemoControls();
+        runFlowQueue();
+      }
+
+      /* Pausing must stop what the eye sees, not just the JS timers — every
+         scene's beats are CSS animations with staggered delays. */
+      function _setDemoFrozen(on){
+        const st = document.getElementById('demo-stage');
+        if (st) st.classList.toggle('is-frozen', !!on);
+      }
+
+      /* Jump the shared flow to a phase and continue from there through the
+         normal queue, so Pause / Step / Reset all keep working afterwards. */
+      function jumpFlowTo(startPh){
+        clearFlowTimers();
+        STATE.flowRunning = true;
+        STATE.flowPaused = false;
+        if (STATE.flowScenarioIdx < 0) STATE.flowScenarioIdx = STATE.uxScenarioIdx >= 0 ? STATE.uxScenarioIdx : 0;
+        STATE.flowQueue = buildFlowQueue();
+        const qi = STATE.flowQueue.findIndex(s => s.ph === startPh);
+        if (qi < 0) return;
+        STATE.flowQueue[qi].fn();
+        STATE.flowQueueIdx = qi + 1;
+        _setDemoFrozen(false);
+        refreshDemoControls();
         runFlowQueue();
       }
 
@@ -12178,17 +12250,16 @@
         // Two chairs, eight chapters: every time the user gets something
         // effortlessly, the second chair shows WHY — and it is quiet there too.
         const CHAPTERS = [
-          ['A blank device sets itself up', 'Autopilot finishes; one script calls Recast. Trusted, agent on, apps delivered \u2014 zero touch.'],
-          [`${first} signs in on a new laptop`, `${her.charAt(0).toUpperCase() + her.slice(1)} apps are already there \u2014 no setup, no ticket.`],
+          ['A new laptop, ready before she sits down', `Autopilot enrolls it, one script calls Recast, and ${first} signs in to ${her} apps \u2014 zero touch, no ticket.`],
           [`${she} opens ${target.name}`, 'One click. Everything behind it already happened.'],
-          [`${she} switches to a Mac`, 'Same workspace. The app opens as web \u2014 the right fit for that machine.'],
+          [`${she} switches to a Mac`, `Same icon, same workspace. ${target.name} opens in the browser \u2014 the right fit for that machine.`],
           [`${she} requests two new apps`, `One approves automatically. One goes to ${her} manager. Both arrive.`],
           ['Apps stay up to date', 'Updates install silently as apps open.'],
-          ['IT changes the backend', `${her.charAt(0).toUpperCase() + her.slice(1)} app works exactly the same \u2014 ${she.toLowerCase()} never notices.`],
+          ['IT changes the backend', `Sam moves ${fin.name} from Citrix to Azure Virtual Desktop. ${first} clicks the same icon \u2014 it just opens.`],
           ['A security threat appears', `The app reroutes to a safe version. ${she} keeps working.`],
           ['What made it all work', 'Identity, policy, delivery \u2014 invisible to the user, quiet for IT.'],
         ];
-        const chap = ({ 0:-1, 1:0, 2:0, 3:1, 4:2, 5:2, 6:3, 7:4, 8:5, 9:6, 10:7, 11:8 })[scene];
+        const chap = ({ 0:-1, 1:0, 2:0, 3:0, 4:1, 5:1, 6:2, 7:3, 8:4, 9:5, 10:6, 11:7 })[scene];
 
         const plus = `<span class="us-plus" style="left:8%;top:16%">+</span><span class="us-plus" style="right:12%;top:64%">+</span><span class="us-plus" style="left:22%;bottom:10%">+</span>`;
 
@@ -12228,10 +12299,11 @@
           <div class="us-grid" style="grid-template-columns:repeat(${ids.length > 10 ? 6 : 5},1fr)">${ids.map((id, i) => {
             const isT = id === pp.target;
             const isU = id === pp.upd;
+            const isF = id === pp.fin;
             return tile(A(id), {
               pop: o.pop, d: o.pop ? (o.popBase || 100) + i * 80 : 0,
-              clicked: isT && o.clickTarget,
-              pulse: isT && o.clickTarget,
+              clicked: (isT && o.clickTarget) || (isF && o.clickFin),
+              pulse: (isT && o.clickTarget) || (isF && o.clickFin),
               vuln: isU && o.vuln,
               web: isU && o.web,
               added: (o.extra || []).includes(id),
@@ -12376,15 +12448,24 @@
         } else if (scene === 5) {
           stage = shell('win', `${win('ws', wsInner(p, {}))}${over(`${appWin(target, { cls: 'us-zoom', body: p.target === 'teams' ? teamsBody : '' })}<span class="us-gone">no ticket \u00b7 no installer \u00b7 no setup wizard \u00b7 no restart</span>`, 100)}`, 'us-frame-lg');
         } else if (scene === 6) {
-          // CH3 — follows her. Same icon on a Mac opens as web; Sam shows why.
-          stage = duo(shell('mac', `${win('ws', wsInner(p, {}))}${over(`${appWin(target, { cls: 'us-zoom', url: webUrl })}<span class="us-webchip us-in" style="--d:900ms">Opened as web \u2014 best fit for this device</span>`, 1400)}`, 'us-frame-lg'),
-            sam(`
-              <div class="us-samdef us-in" style="--d:900ms">
-                <span class="us-reqico" style="background:${target.color}">${target.letter}${target.img ? `<img src="${target.img}" alt="" onerror="this.remove()">` : ''}</span>
-                <div class="us-reqid"><b>${target.name}</b><span>one definition</span></div>
+          // CH3 — follows her. A clear "switching devices" title card first,
+          // then the MacBook, then the same icon opening as web.
+          stage = duo(`<div class="us-switchwrap">
+              <div class="us-switch">
+                <span class="us-switch-dev"><i data-lucide="monitor"></i>Windows laptop</span>
+                <span class="us-switch-arrow"><i data-lucide="arrow-right"></i></span>
+                <span class="us-switch-dev is-to"><i data-lucide="laptop"></i>MacBook Pro</span>
+                <span class="us-switch-cap">${first} walks to the meeting room and signs in again</span>
               </div>
-              <div class="us-sampaths">${['Install','Stream','Web'].map((m, i) => `<span class="us-sampath ${m === 'Web' ? 'is-lit' : ''} us-in" style="--d:${1500 + i * 220}ms">${m}</span>`).join('')}</div>
-              ${samLine('check-circle-2', 'Built once. Delivers three ways.', 2500, 'is-ok')}`, { d: 600 }));
+              <div class="us-switch-mac">${shell('mac', `${win('ws', wsInner(p, { pop: true, popBase: 3400 }), { cls: 'us-s1ws us-s1ws-late' })}${over(`<span class="us-webchip us-webchip-top us-in" style="--d:900ms"><i data-lucide="globe"></i>Same ${target.name} icon \u2014 opens in the browser on this Mac</span>${appWin(target, { cls: 'us-zoom', url: webUrl, body: p.target === 'teams' ? teamsBody : '' })}`, 5200)}`, 'us-frame-lg')}</div>
+            </div>`,
+            sam(`
+              <div class="us-cmp us-in" style="--d:5600ms">
+                <div class="us-cmp-row"><i data-lucide="monitor"></i><span>Windows laptop</span><b>Installed app</b></div>
+                <div class="us-cmp-row is-lit"><i data-lucide="laptop"></i><span>MacBook Pro</span><b>Web app</b></div>
+              </div>
+              ${samLine('mouse-pointer-click', `Same ${target.name} icon on both. Recast picks how it opens.`, 6400)}
+              ${samLine('check-circle-2', 'Nothing for Sam to configure per device.', 7200, 'is-ok')}`, { d: 5000 }));
         } else if (scene === 7) {
           // CH4 — asking. Two requests, two paths, side by side. Zero tickets.
           stage = duo(shell('win', win('cat', `
@@ -12412,16 +12493,24 @@
         } else if (scene === 8) {
           // CH5 — kept current. The version ticks over as it opens; Sam sees the rings.
           stage = duo(shell('win', `${win('ws', wsInner(p, { extra: [p.req1, p.req2] }))}${over(appWin(upd, { cls: 'us-zoom', ver: ['v2.1', 'v2.2'] }), 400)}`, 'us-frame-lg'),
-            sam(`
-              <div class="us-sampaths">${['Dev','Test','Acceptance','Production'].map((s, i) => `<span class="us-sampath is-lit us-in" style="--d:${900 + i * 260}ms">${s}</span>`).join('')}</div>
-              ${samLine('refresh-cw', `${upd.name} v2.2 \u00b7 4,000 devices \u00b7 overnight \u00b7 ring by ring`, 2100)}`, { d: 700 }));
-        } else if (scene === 9) {
-          // CH6 — the migration. Sam first at 2:00 PM; Maya at 2:05 notices nothing.
-          stage = duo(shell('win', `${win('ws', wsInner(p, { extra: [p.req1, p.req2] }))}${over(`<span class="us-stamp">2:05 PM</span>${appWin(fin, { cls: 'us-zoom' })}<span class="us-webchip us-in" style="--d:800ms">Delivery changed. Nothing changed for you.</span>`, 1800)}`, 'us-frame-lg'),
             sam(
-              samLine('clock', '2:00 PM', 200, 'is-stamp') +
-              `<div class="us-samline us-in" style="--d:600ms"><i data-lucide="git-branch"></i><span>${fin.name}: Citrix \u2192 AVD</span><span class="us-samtoggle"><i></i></span></div>` +
-              samLine('check-circle-2', 'Routing updated', 1300, 'is-ok'), { d: 0 }));
+              samLine('bell', `New ${upd.name} version available \u00b7 v2.2`, 700) +
+              samLine('package-check', 'Package prepared automatically \u00b7 tested', 1500) +
+              `<div class="us-sampaths us-in" style="--d:2300ms">${['Dev','Test','Acceptance','Production'].map((s, i) => `<span class="us-sampath is-lit us-in" style="--d:${2400 + i * 260}ms">${s}</span>`).join('')}</div>` +
+              samLine('refresh-cw', 'Rolled out ring by ring \u00b7 overnight', 3600) +
+              samLine('check-circle-2', `4,000 devices current \u00b7 0 user interruptions`, 4400, 'is-ok'), { d: 500 }));
+        } else if (scene === 9) {
+          // CH6 — the migration. Sam moves SAP's backend at 2:00; Maya clicks the same tile at 2:05.
+          stage = duo(shell('win', `${win('ws', wsInner(p, { extra: [p.req1, p.req2], clickFin: true }))}${over(`<span class="us-stamp">2:05 PM \u00b7 ${first} opens ${fin.name}</span>${appWin(fin, { cls: 'us-zoom' })}<span class="us-webchip us-in" style="--d:700ms"><i data-lucide="check"></i>Same icon. Same app. Nothing changed for ${her}.</span>`, 2600)}`, 'us-frame-lg'),
+            sam(
+              samLine('clock', '2:00 PM \u00b7 Sam moves where SAP runs', 200, 'is-stamp') +
+              `<div class="us-cmp us-in" style="--d:700ms">
+                <div class="us-cmp-row"><i data-lucide="server"></i><span>Before</span><b>Citrix</b></div>
+                <div class="us-cmp-row is-lit"><i data-lucide="cloud"></i><span>After</span><b>Azure Virtual Desktop</b></div>
+              </div>` +
+              samLine('mouse-pointer-click', 'One setting changed. No repackaging.', 1500) +
+              samLine('users', `${p.role} users: no email, no downtime`, 2100) +
+              samLine('check-circle-2', `${first} never noticed \u2014 that\u2019s the point`, 3400, 'is-ok'), { d: 0 }));
         } else if (scene === 10) {
           // CH7 — protected. Sam's amber flag first; her tile reroutes to web.
           stage = duo(shell('win', `${win('ws', wsInner(p, { extra: [p.req1, p.req2], vuln: true, web: true }))}${over(`${appWin(upd, { cls: 'us-zoom', url: `${p.upd}.acme.com` })}<span class="us-webchip us-in" style="--d:800ms">Rerouted for your protection</span>`, 2300)}`, 'us-frame-lg'),
@@ -12440,6 +12529,9 @@
                 <b>${other.name}</b><span>${other.role}</span>
                 <span class="us-alexapps">${other.apps.slice(0, 5).map(id => { const a = A(id); return `<span class="us-finico" style="background:${a.color}">${a.letter}${a.img ? `<img src="${a.img}" alt="" onerror="this.remove()">` : ''}</span>`; }).join('')}</span>
                 <em>different apps</em>
+              </div>
+              <div class="us-findevs us-in" style="--d:2500ms">
+                ${[['monitor','Windows laptop'],['laptop','MacBook Pro'],['cloud','Virtual desktop']].map(([ic, nm]) => `<span class="us-findev"><i data-lucide="${ic}"></i>${nm}</span>`).join('')}
               </div>
               <div class="us-fintitle us-in" style="--d:2900ms">One icon. It just works. Everywhere.</div>
             </div>`,
@@ -12477,9 +12569,9 @@
               <aside class="us-rail" aria-label="Journey steps">
                 <div class="us-rail-t">The journey</div>
                 ${CHAPTERS.map((c, i) => `
-                  <button type="button" class="us-step focus-ring ${chap > i ? 'is-done' : ''} ${chap === i ? 'is-on' : ''}" data-action="ux-chapter" data-ph="${['bare','launch','catalog','clicking','checking','routing','config','done','final'][i]}" title="Jump to this chapter">
+                  <button type="button" class="us-step focus-ring ${chap > i ? 'is-done' : ''} ${chap === i ? 'is-on' : ''}" data-action="ux-chapter" data-ph="${['bare','catalog','clicking','checking','routing','config','done','final'][i]}" title="Jump to this chapter">
                     <span class="us-step-n">${chap > i ? '\u2713' : i + 1}</span>
-                    <div class="us-step-tx"><b>${c[0]}</b><span>${c[1]}</span></div>
+                    <div class="us-step-tx"><b>${c[0]}</b><span>${c[1]}</span>${i === 0 && chap === 0 ? `<span class="us-substeps">${['Blank device','Recast agent','Signed in'].map((s, k) => `<i class="${scene > k + 1 ? 'is-done' : scene === k + 1 ? 'is-on' : ''}">${s}</i>`).join('')}</span>` : ''}</div>
                   </button>`).join('')}
               </aside>
             </div>
@@ -12498,7 +12590,7 @@
           : (selectedIdx >= 0 && selectedIdx < SCENARIOS.length ? SCENARIOS[selectedIdx] : null);
         const live = STATE.flowRunning && sc >= 0;
         const effectivePhase = live ? phase : 'idle';
-        const appOpen = live && scenario && !['idle','launch','catalog','clicking'].includes(effectivePhase);
+        const appOpen = live && scenario && !['idle','bare','boot','launch','catalog','approach','clicking'].includes(effectivePhase);
         const showCatalog = live && scenario && (effectivePhase === 'catalog' || effectivePhase === 'clicking');
         const showLaunch = live && scenario && effectivePhase === 'launch';
         const idle = !live || effectivePhase === 'idle';
@@ -12762,7 +12854,7 @@
               </div>
             </div>
 
-            ${scenario && live && !['idle','launch','catalog','clicking'].includes(phase) ? `
+            ${scenario && live && !['idle','bare','boot','launch','catalog','approach','clicking'].includes(phase) ? `
               <div class="text-[10px] text-center mt-2 text-slate-400">${scenario.bannerMsg}</div>
             ` : ''}
 
@@ -12777,7 +12869,7 @@
          visible, then the devices below carry the value: one setup, and the
          same package installs itself on whatever people work on. */
       function renderAdminConsole(){
-        const PHASE_ORDER = ['idle','launch','catalog','approach','clicking','checking','routing','config','done','final'];
+        const PHASE_ORDER = ['idle','bare','boot','launch','catalog','approach','clicking','checking','routing','config','done','final'];
         const at = (n) => PHASE_ORDER.indexOf(n);
         const sc = STATE.flowScenarioIdx;
         const scenario = sc >= 0 && sc < SCENARIOS.length ? SCENARIOS[sc] : null;
@@ -14422,21 +14514,7 @@
 
               <!-- Bottom callouts -->
               ${past('done') ? `
-                <div class="ob-verdict ob-show">
-                  <div class="ob-verdict-fig">15<span class="ob-verdict-pct">min</span></div>
-                  <div class="ob-verdict-copy">
-                    <div class="ob-verdict-head">to a working device, not half a day</div>
-                    <div class="ob-verdict-bars">
-                      <span class="ob-vbar-row"><i>Intune + Autopilot alone</i><span class="ob-vbar-t"><b class="ob-vbar-slow" style="--w:100%"></b></span><u>4+ hrs</u></span>
-                      <span class="ob-vbar-row"><i>With the AW agent installer</i><span class="ob-vbar-t"><b class="ob-vbar-fast" style="--w:6%"></b></span><u>15 min</u></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex flex-wrap justify-center gap-3 mt-3">
-                  <div class="ob-callout ob-show text-emerald-700 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200" style="transition-delay:0.15s"><i data-lucide="layers" class="w-3.5 h-3.5"></i> 2 apps vs 25 apps \u2014 same Autopilot</div>
-                  <div class="ob-callout ob-show text-[#0000CC] flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200" style="transition-delay:0.3s"><i data-lucide="phone-off" class="w-3.5 h-3.5"></i> Zero help desk calls</div>
-                </div>
-                <div class="ob-difference ob-show" style="transition-delay:0.45s">
+                <div class="ob-difference ob-show" style="transition-delay:0.15s">
                   <span class="ob-difference-label">The difference:</span>
                   Autopilot delivered the device. <strong>Application Workspace delivered the apps.</strong>
                 </div>
@@ -16022,7 +16100,7 @@
                     </span>
                   </div>
                   <div class="demo-modal-body" data-modal-body>
-                    <div id="demo-stage" class="grid grid-cols-1 ${multiCol ? 'lg:grid-cols-2' : ''} gap-3">
+                    <div id="demo-stage" class="grid grid-cols-1 ${multiCol ? 'lg:grid-cols-2' : ''} gap-3 ${STATE.flowPaused ? 'is-frozen' : ''}">
                       ${STATE.solutionViewSetupStore ? renderSetupStoreView() : ''}
                       ${STATE.solutionViewAdmin ? renderConsoleModule() : ''}
                       ${STATE.solutionViewUpdate ? renderUpdateView() : ''}
@@ -16048,10 +16126,10 @@
          panes with a switch: "Set it up" and "What it ships". The tour walks
          both; a viewer can click either. */
       function renderAutomationHub(){
-        const PHASE_ORDER = ['idle','launch','catalog','approach','clicking','checking','routing','config','done','final'];
+        const PHASE_ORDER = ['idle','bare','boot','launch','catalog','approach','clicking','checking','routing','config','done','final'];
         const i = Math.max(0, PHASE_ORDER.indexOf(STATE.flowPhase));
         const started = i >= PHASE_ORDER.indexOf('launch');
-        const shown = Math.max(0, Math.min(4, i - 1));
+        const shown = Math.max(0, Math.min(4, i - 3));
         const tally = i >= PHASE_ORDER.indexOf('done');
         /* The four objects named here are the real AUTOMATION group in the
            Application Workspace console nav, so the chips are not invented. */
@@ -19705,34 +19783,13 @@
           if (action === 'ux-play') { if (!STATE.flowRunning) startFlow(); return; }
           if (action === 'ux-chapter') {
             // Click a rail step → jump to that chapter and keep playing from there.
-            const SEQ = [['bare', 4600], ['boot', 6200], ['launch', 4200], ['catalog', 2000], ['approach', 2400], ['clicking', 4600], ['checking', 5200], ['routing', 3800], ['config', 4400], ['done', 4400], ['final', 6000]];
             const startPh = act.getAttribute('data-ph');
-            const si = SEQ.findIndex(s => s[0] === startPh);
-            if (si < 0) return;
-            STATE.flowTimers.timeouts.forEach(id => clearTimeout(id)); STATE.flowTimers.timeouts = [];
-            STATE.flowRunning = true;
-            if (STATE.flowScenarioIdx < 0) STATE.flowScenarioIdx = STATE.uxScenarioIdx >= 0 ? STATE.uxScenarioIdx : 0;
-            STATE.flowPhase = startPh;
-            scrollPreserveRender();
-            let at = SEQ[si][1];
-            SEQ.slice(si + 1).forEach(([phx, dwell]) => {
-              const t = setTimeout(() => { STATE.flowPhase = phx; updateFlowDOM(); }, at);
-              STATE.flowTimers.timeouts.push(t);
-              at += dwell;
-            });
+            if (startPh) jumpFlowTo(startPh);
             return;
           }
           if (action === 'ux-request') {
             // Click the Catalog tab → jump to the asking chapter.
-            STATE.flowTimers.timeouts.forEach(id => clearTimeout(id)); STATE.flowTimers.timeouts = [];
-            STATE.flowRunning = true;
-            if (STATE.flowScenarioIdx < 0) STATE.flowScenarioIdx = STATE.uxScenarioIdx >= 0 ? STATE.uxScenarioIdx : 0;
-            STATE.flowPhase = 'checking';
-            scrollPreserveRender();
-            [['routing', 5200], ['config', 9000], ['done', 13400], ['final', 17800]].forEach(([phx, at]) => {
-              const t = setTimeout(() => { STATE.flowPhase = phx; updateFlowDOM(); }, at);
-              STATE.flowTimers.timeouts.push(t);
-            });
+            jumpFlowTo('checking');
             return;
           }
           if (action === 'pick-ux-user') {
