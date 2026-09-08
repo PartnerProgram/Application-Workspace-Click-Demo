@@ -11359,7 +11359,7 @@
         _setDemoFrozen(false);
         let step = STATE.flowQueue[STATE.flowQueueIdx];
         // 'approach' shares a scene with 'catalog' in the User Experience story — skip past it.
-        while (step && step.ph === 'approach' && STATE.solutionViewUser && STATE.flowQueueIdx + 1 < STATE.flowQueue.length) {
+        while (step && (step.ph === 'approach' || step.ph === 'bare') && STATE.solutionViewUser && STATE.flowQueueIdx + 1 < STATE.flowQueue.length) {
           STATE.flowQueueIdx++; step = STATE.flowQueue[STATE.flowQueueIdx];
         }
         if (!step) return;
