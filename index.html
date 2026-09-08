@@ -4081,6 +4081,34 @@
       .bi2-chg u { font-size: 11px; font-weight: 700; color: #0000CC; text-decoration: none; }
       .bi2-claim { font-size: 13px; font-weight: 700; color: #1A1A2E; line-height: 1.3; }
       .bi2-note { font-size: 11px; color: #6A6A7A; line-height: 1.45; }
+      .bi3 { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+      .bi3-lead { font-size: 12.5px; color: #4A4A5A; line-height: 1.5; max-width: 100ch; }
+      .bi3-lead b { font-weight: 700; color: #0000CC; }
+      .bi3-ledger { display: flex; flex-direction: column; }
+      .bi3-hd, .bi3-r { display: grid; grid-template-columns: 1.2fr 1.1fr 2fr 2.2fr; gap: 18px; align-items: center; padding: 7px 0; }
+      .bi3-r { border-top: 1px solid #DDDDEE; }
+      .bi3-hd { font-size: 8.5px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: #8A8A9A; padding: 0 0 6px; }
+      .bi3-hd span:nth-child(3) { color: #0000CC; }
+      .bi3-k { font-size: 11.5px; font-weight: 600; color: #1A1A2E; }
+      .bi3-from { font-size: 10.5px; color: #4A4A5A; }
+      .bi3-to { font-size: 12px; font-weight: 700; color: #0000CC; display: flex; flex-direction: column; gap: 1px; }
+      .bi3-to em { font-style: normal; font-weight: 600; color: #1A1A2E; font-size: 11.5px; }
+      .bi3-note { font-size: 10.5px; color: #4A4A5A; line-height: 1.4; }
+      @media (max-width: 860px) { .bi3-hd { display: none; } .bi3-r { grid-template-columns: 1fr 1fr; } }
+      .bi4 { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+      .bi4-m { display: flex; flex-direction: column; }
+      .bi4-hd, .bi4-r { display: grid; grid-template-columns: 1.35fr 1.6fr 1.5fr 2.1fr; gap: 18px; align-items: start; }
+      .bi4-hd { font-size: 8.5px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: #8A8A9A; padding: 0 0 6px; }
+      .bi4-hd span:first-child { color: #0000CC; }
+      .bi4-r { padding: 9px 0; border-top: 1px solid #DDDDEE; transition: background 160ms ease; }
+      .bi4-r:hover { background: #FAFAFE; }
+      .bi4-o { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: #0000CC; }
+      .bi4-n { font-style: normal; font-size: 9.5px; font-weight: 800; color: #0000CC; background: #F6F8FF; border: 1px solid #D5DAF5; border-radius: 999px; padding: 1px 6px; flex-shrink: 0; }
+      .bi4-o > svg, .bi4-o > i[data-lucide] { width: 13px; height: 13px; color: #0000CC; flex-shrink: 0; }
+      .bi4-c { font-size: 11px; color: #4A4A5A; line-height: 1.45; }
+      .bi4-meas { display: flex; flex-wrap: wrap; gap: 4px; }
+      .bi4-meas em { font-style: normal; font-size: 10px; font-weight: 600; color: #1A1A2E; background: #F0F0F6; border-radius: 4px; padding: 2px 7px; white-space: nowrap; }
+      @media (max-width: 900px) { .bi4-hd { display: none; } .bi4-r { grid-template-columns: 1fr 1fr; gap: 8px 14px; } .bi4-o { grid-column: 1 / -1; } }
       .bi2-row { display: grid; grid-template-columns: 1.6fr 1fr; gap: 10px; align-items: stretch; }
       @media (max-width: 860px) { .bi2-row { grid-template-columns: 1fr; } }
       .bi2-chart { padding: 14px 16px; }
@@ -4101,6 +4129,8 @@
       .bi2-pdf-tag { font-size: 9px; font-weight: 800; letter-spacing: 0.08em; background: rgba(11, 37, 48, 0.14); border-radius: 999px; padding: 2px 7px; }
       /* Paused demo: freeze every CSS beat exactly where it is */
       #demo-stage.is-frozen *, #demo-stage.is-frozen *::before, #demo-stage.is-frozen *::after { animation-play-state: paused !important; transition: none !important; }
+      /* Re-rendered while paused: land every beat on its final frame instead of frame 0 */
+      #demo-stage.is-settled *, #demo-stage.is-settled *::before, #demo-stage.is-settled *::after { animation-delay: -999s !important; }
       .us-openwrap-flow { gap: 10px; }
       /* CH3 device switch: title card holds, then the Mac rises under it */
       .us-switchwrap { position: relative; width: 100%; display: flex; justify-content: center; align-items: center; min-height: 300px; }
@@ -4115,6 +4145,524 @@
       .us-switch-cap { font-size: 11px; color: #6A6A7A; font-weight: 600; margin-top: 2px; }
       .us-switch-mac { width: 100%; display: flex; justify-content: center; opacity: 0; animation: usIn 600ms cubic-bezier(0.2, 0.8, 0.2, 1) 3300ms forwards; }
       .us-s1ws-late { animation-delay: 3400ms; }
+      .us-switch-now { animation-delay: 100ms; }
+      .us-s1ws-now { animation-delay: 300ms; }
+      /* ── Acme Corp. demo storyboard ── */
+      .us-story { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
+      .us-say { text-align: center; display: flex; flex-direction: column; gap: 3px; max-width: 540px; padding: 0 8px; }
+      .us-say b { font-size: 14.5px; font-weight: 800; color: #1A1A2E; letter-spacing: -0.01em; line-height: 1.25; }
+      .us-say span { font-size: 10.5px; color: #6A6A7A; font-weight: 600; line-height: 1.4; }
+      .us-zoomin { width: 100%; display: flex; justify-content: center; animation: usZoomIn 900ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+      @keyframes usZoomIn { from { opacity: 0; transform: scale(0.88); } to { opacity: 1; transform: none; } }
+      .us-intro { display: flex; flex-direction: column; align-items: center; gap: 16px; width: 100%; padding: 8px 0; }
+      .us-acme { display: flex; align-items: center; gap: 9px; }
+      .us-acme-mark { width: 34px; height: 34px; border-radius: 8px; background: #0000CC; color: #fff; font-weight: 800; font-size: 16px; display: grid; place-items: center; flex-shrink: 0; }
+      .us-acme div { display: flex; flex-direction: column; line-height: 1.1; }
+      .us-acme div b { font-size: 13px; font-weight: 800; color: #1A1A2E; }
+      .us-acme div span { font-size: 8.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #0000CC; }
+      .us-intro-h { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; color: #1A1A2E; text-align: center; }
+      .us-intro-devs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; width: min(560px, 100%); }
+      .us-intro-dev { display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 16px 10px 14px; background: #fff; border: 1px solid #DDDDEE; border-radius: 8px; color: #1A1A2E; box-shadow: 0 1px 2px rgba(26,26,46,0.06); text-align: center; }
+      .us-intro-dev i, .us-intro-dev svg { width: 26px; height: 26px; color: #0000CC; }
+      .us-intro-dev b { font-size: 12px; font-weight: 800; line-height: 1.2; }
+      .us-intro-dev span { font-size: 9px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #8A8A9A; }
+      .us-devlab { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; color: #1A1A2E; background: #fff; border: 1px solid #DDDDEE; border-radius: 999px; padding: 4px 12px 4px 9px; }
+      .us-devlab i, .us-devlab svg { width: 14px; height: 14px; color: #0000CC; }
+      .us-devlab b { font-weight: 800; }
+      .us-devlab span { font-size: 9.5px; color: #6A6A7A; font-weight: 600; }
+      .us-trail { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; }
+      .us-trail-arrow { width: 13px; height: 13px; color: #00BFFF; }
+      .us-findev.is-lit { border-color: #0000CC; background: #F6F8FF; color: #0000CC; box-shadow: 0 8px 24px rgba(0, 0, 204, 0.15); }
+      .us-w365 { display: flex; flex-direction: column; align-items: center; gap: 6px; color: #fff; }
+      .us-w365-ico { width: 46px; height: 46px; border-radius: 10px; background: #0000CC; color: #fff; font-size: 22px; font-weight: 800; display: grid; place-items: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); }
+      .us-w365 b { font-size: 11px; font-weight: 800; }
+      .us-w365 span { font-size: 9px; font-weight: 600; opacity: 0.75; }
+      .us-ever { background: #fff; border: 1px solid #DDDDEE; border-radius: 9px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; width: min(260px, 88%); box-shadow: 0 8px 22px rgba(26, 26, 46, 0.16); animation: usZoom 460ms cubic-bezier(0.22, 1, 0.36, 1); }
+      .us-ever-app { display: flex; align-items: center; gap: 10px; }
+      .us-ever-app div { display: flex; flex-direction: column; line-height: 1.2; }
+      .us-ever-app b { font-size: 13px; font-weight: 800; color: #1A1A2E; }
+      .us-ever-app span { font-size: 9px; color: #6A6A7A; font-weight: 600; }
+      .us-ever-ico { position: relative; width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center; overflow: hidden; color: #fff; font-size: 11px; font-weight: 800; flex-shrink: 0; }
+      .us-ever-ico img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 4px; background: #fff; }
+      .us-ever-list { display: flex; flex-direction: column; gap: 6px; }
+      .us-ever-li { display: flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; color: #1A1A2E; }
+      .us-ever-li i, .us-ever-li svg { width: 15px; height: 15px; color: #0F7A3F; flex-shrink: 0; }
+      .us-pers2 { display: flex; flex-direction: column; gap: 6px; width: min(520px, 100%); }
+      .us-pers2-row { display: flex; align-items: center; gap: 8px; font-size: 10px; background: #FAFAFE; border: 1px solid #DDDDEE; border-radius: 999px; padding: 4px 12px 4px 5px; flex-wrap: wrap; }
+      .us-pers2-row .us-finava { width: 22px; height: 22px; font-size: 7.5px; }
+      .us-pers2-row b { font-size: 10px; color: #1A1A2E; white-space: nowrap; }
+      .us-pers2-row > span:not(.us-finava):not(.us-alexapps) { font-size: 9px; color: #6A6A7A; font-weight: 600; }
+      .us-pers2-row .us-alexapps { margin-left: auto; }
+      .us-findevs-mini { gap: 5px; flex-wrap: wrap; }
+      .us-catsearch { display: flex; align-items: center; gap: 6px; background: #fff; border: 1px solid #DDDDEE; border-radius: 6px; padding: 5px 9px; font-size: 10px; font-weight: 700; color: #1A1A2E; margin: 6px auto 8px; width: min(240px, 100%); }
+      .us-catsearch i, .us-catsearch svg { width: 12px; height: 12px; color: #8A8A9A; }
+      .us-catsearch .us-caret { width: 1.5px; height: 12px; background: #0000CC; margin-left: -2px; animation: ac-caret 1s steps(1) infinite; }
+      .us-reqbtn-hot { background: #00BFFF; color: #fff; border-color: #00BFFF; }
+      .us-auto { display: flex; flex-direction: column; align-items: center; gap: 3px; margin-top: 8px; }
+      .us-auto-step { display: inline-flex; align-items: center; gap: 5px; font-size: 8.5px; font-weight: 800; color: #4A4A5A; background: #F6F8FF; border: 1px solid #D5DAF5; border-radius: 999px; padding: 2.5px 9px; white-space: nowrap; }
+      .us-auto-step i, .us-auto-step svg { width: 10px; height: 10px; }
+      .us-auto-step.is-ok { color: #0F7A3F; background: #EAF5EE; border-color: #BFE5CC; }
+      .us-auto-arrow { width: 11px; height: 11px; color: #00BFFF; }
+      .us-tm { display: flex; min-height: 130px; text-align: left; }
+      .us-tm-rail { width: 54px; background: #EBEBEB; display: flex; flex-direction: column; gap: 4px; padding: 6px 3px; }
+      .us-tm-rail span { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 6.5px; font-weight: 700; color: #616161; padding: 4px 2px; border-radius: 4px; }
+      .us-tm-rail span i, .us-tm-rail span svg { width: 12px; height: 12px; }
+      .us-tm-rail span b { width: 13px; height: 13px; border-radius: 3px; background: #0000CC; color: #fff; font-size: 8px; font-weight: 800; display: grid; place-items: center; }
+      .us-tm-rail span.is-on { background: #fff; color: #5B53D6; box-shadow: 0 1px 2px rgba(26,26,46,0.08); }
+      .us-tm-main { flex: 1; min-width: 0; padding: 8px 10px; display: flex; flex-direction: column; gap: 8px; }
+      .us-tm-head { display: flex; align-items: center; gap: 6px; font-size: 10px; color: #1A1A2E; }
+      .us-tm-head b { font-weight: 800; }
+      .us-tm-head em { margin-left: auto; font-style: normal; font-size: 8px; color: #6A6A7A; font-weight: 600; }
+      .us-tm-mark { width: 16px; height: 16px; border-radius: 4px; background: #0000CC; color: #fff; font-size: 9px; font-weight: 800; display: grid; place-items: center; }
+      .us-tm-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+      .us-tm-app { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 7px; font-weight: 700; color: #4A4A5A; }
+      .us-tm-ico { position: relative; width: 24px; height: 24px; border-radius: 6px; display: grid; place-items: center; overflow: hidden; color: #fff; font-size: 8px; font-weight: 800; }
+      .us-tm-ico img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 3px; background: #fff; }
+      .us-final2 { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; padding: 6px 0; }
+      .us-eco { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center; }
+      .us-eco em { font-style: normal; font-size: 8px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #8A8A9A; margin-right: 4px; }
+      .us-eco span { display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; font-weight: 700; color: #1A1A2E; background: #F0F0F6; border-radius: 999px; padding: 3px 10px; }
+      .us-eco span i, .us-eco span svg { width: 11px; height: 11px; color: #0000CC; }
+      .us-finsub { font-size: 11px; font-weight: 700; color: #0000CC; text-align: center; letter-spacing: 0.01em; }
+      /* ── Refinement pass: restrained chrome, real icons, quiet copy ── */
+      .us-wordmark { font-size: 13px; font-weight: 800; letter-spacing: -0.045em; color: #111114; line-height: 1; }
+      .us-wordmark-lg { font-size: 22px; }
+      .us-acme { gap: 8px; align-items: baseline; }
+      .us-acme-sub { font-size: 12px; font-weight: 500; color: #8A8A9A; letter-spacing: -0.01em; }
+      .us-win { border-radius: 10px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18), 0 18px 44px rgba(0, 0, 0, 0.38); }
+      .us-win-head-lite { background: #fff; color: #111114; border-bottom: 1px solid #ECECF1; padding: 8px 12px; gap: 6px; }
+      .us-win-brand-lite { font-weight: 500; color: #8A8A9A; font-size: 11px; }
+      .us-search-lite { background: #F2F2F5; color: #8A8A9A; font-weight: 500; font-size: 8.5px; padding: 3px 10px; margin: 0 auto; min-width: 120px; justify-content: center; }
+      .us-search-lite i, .us-search-lite svg { width: 9px; height: 9px; }
+      .us-win-head-lite .us-win-user { margin-left: 0; color: #fff; }
+      .us-win-tabs { background: #fff; border-bottom: 1px solid #ECECF1; padding: 4px 12px 0; gap: 10px; }
+      .us-tab { font-weight: 600; color: #8A8A9A; padding: 4px 2px 6px; }
+      .us-tab.is-on { color: #111114; border-bottom-color: #111114; }
+      .us-win-body { background: #FAFAFB; }
+      .us-greet { font-weight: 700; color: #111114; font-size: 15px; letter-spacing: -0.015em; }
+      .us-greet-sub { color: #8A8A9A; font-weight: 500; }
+      .us-app-ico { width: 40px; height: 40px; border-radius: 10px; box-shadow: none; }
+      .us-app-ico:has(img) { background: transparent !important; box-shadow: none; }
+      .us-app-ico img { background: transparent; padding: 1px; }
+      .us-app:hover .us-app-ico { box-shadow: none; }
+      .us-app-name { font-weight: 500; color: #3A3A4C; font-size: 9.5px; }
+      .us-pulse { border-color: rgba(17, 17, 20, 0.35); border-radius: 12px; }
+      .us-appwin { border-radius: 9px; border-color: rgba(0,0,0,0.08); }
+      .us-appwin-bar-lite { background: #fff; color: #111114; border-bottom: 1px solid #ECECF1; font-weight: 600; }
+      .us-appwin-bar-lite .us-appwin-ico { background: transparent; }
+      .us-appwin-bar-lite .us-appwin-ico img { background: transparent; padding: 0; }
+      .us-appwin-bar-lite .us-appwin-dots i { background: #D9D9DE; }
+      .us-say b { font-size: 13px; font-weight: 600; color: #1A1A2E; }
+      .us-say span { font-size: 10.5px; font-weight: 500; color: #8A8A9A; }
+      .us-intro { gap: 18px; }
+      .us-intro-h { font-size: 21px; font-weight: 600; letter-spacing: -0.025em; color: #111114; }
+      .us-intro-devs { display: flex; justify-content: center; gap: 28px; width: auto; }
+      .us-intro-dev { padding: 0; border: 0; box-shadow: none; background: transparent; gap: 8px; }
+      .us-intro-dev i, .us-intro-dev svg { width: 24px; height: 24px; color: #111114; stroke-width: 1.5; }
+      .us-intro-dev b { font-size: 11px; font-weight: 500; color: #3A3A4C; }
+      .us-intro-hint { font-size: 10px; font-weight: 500; color: #AAAAB4; }
+      .us-splash-mark { box-shadow: none; }
+      .us-splash-brand { font-weight: 600; }
+      .us-devlab { border-color: #ECECF1; }
+      .us-devlab i, .us-devlab svg { color: #111114; }
+      .us-devlab b { font-weight: 600; }
+      .us-trail-arrow { color: #AAAAB4; }
+      .us-findev { font-weight: 500; border-color: #ECECF1; color: #3A3A4C; }
+      .us-findev i, .us-findev svg { color: #111114; }
+      .us-findev.is-lit { border-color: #111114; background: #fff; color: #111114; box-shadow: none; }
+      .us-w365-ico { background: #fff; color: #111114; font-weight: 800; letter-spacing: -0.05em; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35); }
+      .us-ever { box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 12px 30px rgba(0, 0, 0, 0.18); border-color: rgba(0,0,0,0.06); }
+      .us-ever-ico { background: transparent !important; }
+      .us-ever-ico img { background: transparent; padding: 0; }
+      .us-ever-app b { font-weight: 600; }
+      .us-ever-li { font-weight: 500; }
+      .us-pers2-row { border-color: #ECECF1; background: #fff; }
+      .us-pers2-row b { font-weight: 600; }
+      .us-finico { background: transparent !important; }
+      .us-finico img { background: transparent; padding: 0; }
+      .us-catsearch { border-color: #ECECF1; font-weight: 500; }
+      .us-catsearch .us-caret { background: #111114; }
+      .us-reqcard { background: #fff; border-color: #ECECF1; }
+      .us-reqico { background: transparent !important; }
+      .us-reqico img { background: transparent; padding: 0; }
+      .us-reqbtn-dark { background: #111114; color: #fff; border-color: #111114; font-weight: 600; padding: 3px 12px; }
+      .us-reqchip.is-ok { font-weight: 600; }
+      .us-auto-step { color: #6A6A7A; background: #fff; border-color: #ECECF1; font-weight: 600; }
+      .us-auto-step.is-ok { color: #0F7A3F; background: #F1F8F3; border-color: #D5EBDC; }
+      .us-auto-arrow { color: #C4C4CC; }
+      .us-tm-rail span b, .us-tm-mark { background: #fff; color: #111114; border: 1px solid #E5E5EA; font-weight: 800; letter-spacing: -0.05em; }
+      .us-tm-ico { background: transparent !important; }
+      .us-tm-ico img { background: transparent; padding: 0; }
+      .us-fin-grid { display: flex; flex-direction: column; gap: 8px; width: min(500px, 100%); }
+      .us-fin-row { display: grid; grid-template-columns: auto minmax(90px, auto) 1fr; align-items: center; gap: 10px; background: #fff; border: 1px solid #ECECF1; border-radius: 10px; padding: 8px 12px 8px 8px; }
+      .us-fin-row .us-finava { width: 26px; height: 26px; font-size: 8.5px; }
+      .us-fin-name { display: flex; flex-direction: column; line-height: 1.2; }
+      .us-fin-name b { font-size: 11px; font-weight: 600; color: #111114; }
+      .us-fin-name span { font-size: 9px; color: #8A8A9A; font-weight: 500; }
+      .us-fin-devs { display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
+      .us-fin-devs .us-findev { font-size: 8.5px; padding: 2.5px 8px; }
+      .us-eco span { background: #fff; border: 1px solid #ECECF1; font-weight: 500; color: #3A3A4C; }
+      .us-eco span i, .us-eco span svg { color: #111114; }
+      .us-fintitle { font-size: 14px; font-weight: 600; letter-spacing: -0.015em; }
+      .us-finsub { color: #8A8A9A; font-weight: 500; }
+      .us-who { background: #fff; border-color: #ECECF1; }
+      .us-who-ava { box-shadow: none; }
+      .us-who-txt { font-weight: 600; }
+      .us-step-tx b { font-weight: 600; }
+      .us-cursor-late::after { background: rgba(17, 17, 20, 0.25); }
+      .rw-pair { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: start; gap: 10px; width: 100%; }
+      .rw-pair-col { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; container-type: inline-size; }
+      .rw-pair-col > .rw-lap { zoom: calc(100cqw / 520px); width: 520px; }
+      .rw-pair-col .rw-label { display: none; }
+      .rw-pair-lab { display: flex; flex-direction: column; align-items: center; gap: 1px; text-align: center; min-height: 40px; }
+      .rw-pair-k { font-size: 8px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #0E8A7B; }
+      .rw-pair-lab b { font-size: 11px; font-weight: 600; color: #0B1F3A; }
+      .rw-pair-lab span:not(.rw-pair-k) { font-size: 9px; color: #6E6E7A; font-weight: 500; }
+      .rw-pair-eq { display: flex; flex-direction: column; align-items: center; gap: 3px; color: #0B1F3A; align-self: center; padding-top: 48px; }
+      .rw-pair-eq i, .rw-pair-eq svg { width: 18px; height: 18px; }
+      .rw-pair-eq span { font-size: 8px; font-weight: 600; color: #6E6E7A; white-space: nowrap; }
+      .rw-win-wide { left: 4%; right: 4%; top: 16px; bottom: 32px; }
+      .rw-wall-mac .rw-win-wide { top: 20px; bottom: 34px; }
+      .rw-cpc .rw-win-wide { top: 10px; bottom: 30px; }
+      .rw-wall-mac .rw-signin { background: rgba(30, 20, 60, 0.6); z-index: 9; }
+      /* Behind-the-scenes update panel */
+      .rw-bts { display: grid; grid-template-columns: minmax(0, 1.45fr) 34px minmax(190px, 0.9fr); align-items: center; gap: 4px; width: 100%; }
+      .rw-bts-dev { min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; container-type: inline-size; }
+      .rw-bts-dev > .rw-lap { zoom: calc(100cqw / 520px); width: 520px; }
+      .rw-bts-user { display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; font-weight: 500; color: #6E6E7A; }
+      .rw-bts-user i, .rw-bts-user svg { width: 11px; height: 11px; }
+      .rw-bts-link { display: flex; align-items: center; justify-content: center; gap: 0; align-self: center; }
+      .rw-bts-link > i { width: 7px; height: 0; border-top: 1.5px dashed #C4C8D2; }
+      .rw-bts-link span { width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 1px solid #E3E3E8; display: grid; place-items: center; color: #0E8A7B; }
+      .rw-bts-link span i, .rw-bts-link span svg { width: 10px; height: 10px; }
+      .rw-bts-panel { background: #fff; border: 1px solid #E3E3E8; border-radius: 10px; padding: 12px 12px 10px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 1px 2px rgba(26,26,46,0.05), 0 10px 26px -14px rgba(11,31,58,0.35); }
+      .rw-bts-head { display: flex; flex-direction: column; gap: 5px; }
+      .rw-bts-k { font-size: 7.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #0E8A7B; }
+      .rw-bts-t { display: flex; align-items: center; gap: 6px; }
+      .rw-bts-t b { font-size: 12px; font-weight: 600; color: #0B1F3A; }
+      .rw-bts-ico { width: 20px; height: 20px; }
+      .rw-bts-ver { display: inline-flex; align-items: center; gap: 5px; font-size: 9px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #7A8290; }
+      .rw-bts-ver em { font-style: normal; text-decoration: line-through; text-decoration-color: #C4C8D2; }
+      .rw-bts-ver b { color: #0B1F3A; font-weight: 700; background: #E6F4F1; border-radius: 3px; padding: 0 4px; }
+      .rw-bts-ver i, .rw-bts-ver svg { width: 9px; height: 9px; }
+      .rw-bts-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; position: relative; }
+      .rw-bts-steps::before { content: ''; position: absolute; left: 9px; top: 10px; bottom: 10px; width: 1px; background: #E3E3E8; }
+      .rw-bts-steps li { display: flex; align-items: center; gap: 8px; padding: 5px 0; position: relative; }
+      .rw-bts-dot { width: 19px; height: 19px; border-radius: 50%; background: #fff; border: 1px solid #D5D9E2; display: grid; place-items: center; color: #0B1F3A; flex-shrink: 0; z-index: 1; }
+      .rw-bts-dot i, .rw-bts-dot svg { width: 9px; height: 9px; }
+      .rw-bts-tx { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; flex: 1; }
+      .rw-bts-tx b { font-size: 9.5px; font-weight: 600; color: #0B1F3A; }
+      .rw-bts-tx span { font-size: 8px; color: #7A8290; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .rw-bts-ok { width: 11px; height: 11px; color: #0F7A3F; stroke-width: 3; flex-shrink: 0; }
+      .rw-bts-foot { display: inline-flex; align-items: center; gap: 5px; font-size: 8.5px; font-weight: 600; color: #0E8A7B; background: #E6F4F1; border-radius: 6px; padding: 5px 8px; white-space: nowrap; }
+      .rw-bts-foot i, .rw-bts-foot svg { width: 10px; height: 10px; flex-shrink: 0; }
+      .rw-bts-panel { min-width: 0; }
+      .rw-bts-head, .rw-bts-t b { min-width: 0; }
+      @media (max-width: 760px) { .rw-bts { grid-template-columns: 1fr; } .rw-bts-link { display: none; } }
+      /* ══ Realistic devices, OS shells, Acme Workspace product UI ══ */
+      .rw-stage { background: #F4F4F6 !important; border: 1px solid #E3E3E8 !important; }
+      .us-story { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
+      .us-say { text-align: center; display: flex; flex-direction: column; gap: 3px; max-width: 540px; padding: 0 8px; }
+      .us-say b { font-size: 13px; font-weight: 600; color: #1A1A2E; letter-spacing: -0.01em; line-height: 1.3; }
+      .us-say span { font-size: 10.5px; color: #6E6E7A; font-weight: 500; line-height: 1.4; }
+      .us-zoomin { width: 100%; display: flex; justify-content: center; animation: usZoomIn 900ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+      @keyframes usZoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: none; } }
+      .rw-rise { opacity: 0; animation: rwRise 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+      @keyframes rwRise { from { opacity: 0; transform: translateY(14px) scale(0.97); } to { opacity: 1; transform: none; } }
+      /* Acme identity */
+      .ac-logo { width: 1em; height: 1em; color: #0E8A7B; flex-shrink: 0; }
+      .ac-brand { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: #0B1F3A; }
+      .ac-brand-tx { display: flex; align-items: baseline; gap: 5px; line-height: 1; }
+      .ac-brand-tx b { font-size: 0.78em; font-weight: 800; letter-spacing: 0.16em; color: inherit; }
+      .ac-brand-tx span { font-size: 0.66em; font-weight: 500; color: #7A8290; letter-spacing: 0.01em; }
+      .ac-tile { width: 100%; height: 100%; border-radius: 22%; background: #0B1F3A; display: grid; place-items: center; }
+      .ac-tile .ac-logo { width: 62%; height: 62%; color: #fff; }
+      .ac-tile-sm { display: inline-grid; width: 14px; height: 14px; }
+      .ac-ava { width: 20px; height: 20px; border-radius: 50%; color: #fff; font-size: 7.5px; font-weight: 700; display: grid; place-items: center; flex-shrink: 0; }
+      /* Laptops */
+      .rw-lap { width: min(520px, 96%); display: flex; flex-direction: column; align-items: center; }
+      .rw-screen { position: relative; width: 100%; height: 300px; border-radius: 12px 12px 4px 4px; background: #0B0B0F; border: 7px solid #15151A; border-bottom-width: 12px; overflow: hidden; box-shadow: 0 0 0 1px #2A2A32, 0 24px 46px -18px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.05); }
+      .rw-lap-mac .rw-screen { border-color: #1C1C1F; border-radius: 14px 14px 5px 5px; border-bottom-width: 10px; box-shadow: 0 0 0 1px #3A3A40, 0 24px 46px -18px rgba(0,0,0,0.55); }
+      .rw-cam { position: absolute; top: 3px; left: 50%; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: #23232B; box-shadow: inset 0 0 0 1.2px #0A0A0D, 0 0 0 1px #2E2E36; z-index: 9; }
+      .rw-notch { position: absolute; top: 0; left: 50%; width: 92px; height: 12px; margin-left: -46px; background: #1C1C1F; border-radius: 0 0 9px 9px; z-index: 9; }
+      .rw-glare { position: absolute; inset: 0; pointer-events: none; z-index: 8; background: linear-gradient(115deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.03) 32%, rgba(255,255,255,0) 50%); }
+      .rw-base { width: 106%; height: 15px; border-radius: 0 0 14px 14px; background: linear-gradient(#D7D8DD, #B9BAC2); position: relative; box-shadow: 0 6px 14px -6px rgba(0,0,0,0.45); }
+      .rw-lap-mac .rw-base { background: linear-gradient(#E4E5E9, #C4C5CC); }
+      .rw-hinge { position: absolute; left: 50%; top: 0; width: 22%; height: 4px; margin-left: -11%; border-radius: 0 0 6px 6px; background: #9A9BA3; }
+      .rw-pad { position: absolute; left: 50%; bottom: 3px; width: 34%; height: 4px; margin-left: -17%; border-radius: 3px; background: rgba(0,0,0,0.08); }
+      .rw-label { margin-top: 9px; display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 600; color: #4A4A5A; }
+      .rw-label i, .rw-label svg { width: 12px; height: 12px; color: #4A4A5A; }
+      /* Desktops */
+      .rw-desk { position: absolute; inset: 0; overflow: hidden; }
+      .rw-wall-win { background: radial-gradient(ellipse 80% 90% at 28% 78%, #3F7BFF 0%, #1C3FA8 32%, #0B1F5C 62%, #050F33 100%); }
+      .rw-wall-mac { background: radial-gradient(circle at 72% 18%, #9C6BFF 0%, #4A2E9E 30%, #1E1A46 62%, #0C0B1F 100%); }
+      .rw-desk-icons { position: absolute; left: 8px; top: 8px; display: flex; flex-direction: column; gap: 8px; }
+      .rw-desk-icons span { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 44px; font-size: 6.5px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
+      .rw-desk-icons i, .rw-desk-icons svg { width: 18px; height: 18px; color: #F2C94C; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.4)); }
+      .rw-desk-icons span:last-child i, .rw-desk-icons span:last-child svg { color: #D0D6E8; }
+      .rw-tb { position: absolute; left: 0; right: 0; bottom: 0; height: 26px; background: rgba(243, 243, 249, 0.84); backdrop-filter: blur(14px); border-top: 1px solid rgba(255,255,255,0.6); display: flex; align-items: center; padding: 0 8px; z-index: 5; }
+      .rw-tb-c { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 4px; height: 100%; }
+      .rw-start { width: 20px; height: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; padding: 4px; }
+      .rw-start i { display: block; background: #0078D4; border-radius: 0.5px; }
+      .rw-tb-search { display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 8px; border-radius: 9px; background: #fff; border: 1px solid #DADCE3; font-size: 7px; color: #5E6069; }
+      .rw-tb-search i, .rw-tb-search svg { width: 8px; height: 8px; }
+      .rw-tb-app { position: relative; width: 20px; height: 20px; display: grid; place-items: center; border-radius: 4px; }
+      .rw-tb-app img { width: 14px; height: 14px; }
+      .rw-tb-app .ac-tile { width: 14px; height: 14px; }
+      .rw-tb-app.is-on { background: rgba(0,0,0,0.06); }
+      .rw-tb-app.is-on::after { content: ''; position: absolute; bottom: 0; left: 6px; right: 6px; height: 2px; border-radius: 2px; background: #0078D4; }
+      .rw-tray { margin-left: auto; display: flex; align-items: center; gap: 5px; color: #2B2B33; }
+      .rw-tray i, .rw-tray svg { width: 9px; height: 9px; }
+      .rw-clock { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.1; margin-left: 3px; }
+      .rw-clock b { font-size: 6.5px; font-weight: 500; }
+      .rw-clock span { font-size: 6px; }
+      .rw-menubar { position: absolute; top: 0; left: 0; right: 0; height: 15px; background: rgba(28, 24, 52, 0.55); backdrop-filter: blur(10px); display: flex; align-items: center; gap: 7px; padding: 0 9px; color: #fff; font-size: 6.5px; z-index: 5; }
+      .rw-menubar b { font-weight: 700; }
+      .rw-menubar i, .rw-menubar svg { width: 8px; height: 8px; }
+      .rw-menubar-r { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+      .rw-dock { position: absolute; left: 50%; bottom: 5px; transform: translateX(-50%); display: flex; align-items: flex-end; gap: 4px; padding: 3px 5px; border-radius: 9px; background: rgba(255,255,255,0.22); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.28); z-index: 5; }
+      .rw-dock-i { position: relative; width: 20px; height: 20px; border-radius: 5px; display: grid; place-items: center; overflow: hidden; }
+      .rw-dock-i img { width: 18px; height: 18px; }
+      .rw-dock-i .ac-tile { width: 18px; height: 18px; }
+      .rw-finder { background: linear-gradient(#5AC8FA, #1E7BE6); }
+      .rw-finder i { display: block; width: 10px; height: 8px; border-radius: 2px; background: #fff; opacity: 0.9; }
+      .rw-safari { background: radial-gradient(circle, #fff 0 34%, #1E90FF 36%); color: #E5322D; }
+      .rw-safari svg, .rw-safari i { width: 11px; height: 11px; }
+      .rw-trash { background: rgba(255,255,255,0.35); color: #DDE; }
+      .rw-trash svg, .rw-trash i { width: 11px; height: 11px; }
+      .rw-dock-sep { width: 1px; height: 16px; background: rgba(255,255,255,0.35); margin: 0 2px; }
+      .rw-dock-on::after { content: ''; position: absolute; bottom: -3px; left: 50%; width: 3px; height: 3px; margin-left: -1.5px; border-radius: 50%; background: rgba(255,255,255,0.85); }
+      /* Edge + Cloud PC */
+      .rw-edge { position: absolute; inset: 0; background: #fff; display: flex; flex-direction: column; }
+      .rw-edge-tabs { height: 20px; background: #E9E9EF; display: flex; align-items: flex-end; padding: 0 6px; gap: 4px; position: relative; }
+      .rw-edge-tab { display: inline-flex; align-items: center; gap: 4px; height: 16px; padding: 0 8px; border-radius: 6px 6px 0 0; background: #fff; font-size: 6.5px; color: #1F1F1F; }
+      .rw-edge-tab i, .rw-edge-tab svg { width: 7px; height: 7px; color: #0078D4; }
+      .rw-edge-tab i:last-child, .rw-edge-tab svg:last-child { color: #777; margin-left: 4px; }
+      .rw-edge-plus { font-size: 9px; color: #444; padding-bottom: 3px; }
+      .rw-edge-win { position: absolute; right: 8px; top: 4px; display: flex; gap: 8px; color: #333; }
+      .rw-edge-win i, .rw-edge-win svg { width: 7px; height: 7px; }
+      .rw-edge-bar { height: 20px; display: flex; align-items: center; gap: 6px; padding: 0 8px; border-bottom: 1px solid #E3E3E8; color: #555; }
+      .rw-edge-bar > i, .rw-edge-bar > svg { width: 8px; height: 8px; }
+      .rw-url { flex: 1; display: flex; align-items: center; gap: 4px; height: 14px; border-radius: 7px; background: #F1F1F5; padding: 0 8px; font-size: 6.5px; color: #1F1F1F; }
+      .rw-url em { font-style: normal; color: #7A7A85; }
+      .rw-url i, .rw-url svg { width: 7px; height: 7px; color: #2B8A3E; }
+      .rw-cpc-bar { height: 12px; background: #1F2937; color: #E5E7EB; display: flex; align-items: center; justify-content: space-between; padding: 0 8px; font-size: 6px; }
+      .rw-cpc-bar span { display: inline-flex; align-items: center; gap: 3px; }
+      .rw-cpc-bar i, .rw-cpc-bar svg { width: 7px; height: 7px; }
+      .rw-cpc { position: relative; flex: 1; }
+      /* App windows */
+      .rw-win { position: absolute; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,0.18), 0 18px 40px -10px rgba(0,0,0,0.55); display: flex; flex-direction: column; }
+      .rw-win-app { left: 8%; right: 8%; top: 22px; bottom: 36px; }
+      .rw-wall-mac .rw-win-app { top: 24px; bottom: 34px; }
+      .rw-cpc .rw-win-app { top: 12px; bottom: 32px; }
+      .rw-win-front { left: 15%; right: 5%; top: 32px; bottom: 30px; z-index: 4; }
+      .rw-win-t { height: 20px; display: flex; align-items: center; gap: 6px; padding: 0 8px; background: #F7F7FA; border-bottom: 1px solid #E6E6EB; flex-shrink: 0; }
+      .rw-win-ico { width: 11px; height: 11px; display: grid; place-items: center; }
+      .rw-win-ico img, .rw-win-ico .ac-tile { width: 11px; height: 11px; }
+      .rw-win-title { font-size: 7px; color: #333; }
+      .rw-win-ctl { margin-left: auto; display: flex; gap: 10px; color: #444; }
+      .rw-win-ctl i, .rw-win-ctl svg { width: 7px; height: 7px; }
+      .rw-win-t-mac { justify-content: center; position: relative; }
+      .rw-lights { position: absolute; left: 8px; display: flex; gap: 4px; }
+      .rw-lights i { width: 7px; height: 7px; border-radius: 50%; background: #FF5F57; box-shadow: inset 0 0 0 0.5px rgba(0,0,0,0.15); }
+      .rw-lights i:nth-child(2) { background: #FEBC2E; }
+      .rw-lights i:nth-child(3) { background: #28C840; }
+      .rw-win-b { flex: 1; min-height: 0; position: relative; overflow: hidden; }
+      /* Acme Workspace product */
+      .ac-shell { position: absolute; inset: 0; display: flex; }
+      .ac-side { width: 92px; flex-shrink: 0; background: #0B1F3A; color: #C9D3E3; display: flex; flex-direction: column; padding: 9px 8px; }
+      .ac-side .ac-brand { color: #fff; font-size: 12px; }
+      .ac-side .ac-brand-tx span { color: #8FA3C2; }
+      .ac-nav { display: flex; flex-direction: column; gap: 1px; margin-top: 12px; }
+      .ac-nav span { display: flex; align-items: center; gap: 5px; font-size: 6.8px; font-weight: 500; padding: 4px 6px; border-radius: 4px; color: #AEBBD1; }
+      .ac-nav span.is-on { background: rgba(255,255,255,0.1); color: #fff; }
+      .ac-nav i, .ac-nav svg { width: 8px; height: 8px; }
+      .ac-me { margin-top: auto; display: flex; align-items: center; gap: 5px; }
+      .ac-me .ac-ava { width: 16px; height: 16px; font-size: 6px; }
+      .ac-me span { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
+      .ac-me b { font-size: 6.5px; color: #fff; font-weight: 600; white-space: nowrap; }
+      .ac-me em { font-style: normal; font-size: 5.5px; color: #8FA3C2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .ac-main { flex: 1; min-width: 0; background: #F6F7F9; padding: 8px 12px; display: flex; flex-direction: column; overflow: hidden; }
+      .ac-top { display: flex; align-items: center; gap: 8px; color: #5C6270; }
+      .ac-top > i, .ac-top > svg { width: 9px; height: 9px; }
+      .ac-search { flex: 1; display: flex; align-items: center; gap: 4px; height: 16px; border-radius: 4px; background: #fff; border: 1px solid #E1E4EA; padding: 0 7px; font-size: 6.8px; color: #8A909C; }
+      .ac-search.is-typing { color: #1F2430; border-color: #0E8A7B; box-shadow: 0 0 0 2px rgba(14,138,123,0.15); }
+      .ac-search i, .ac-search svg { width: 8px; height: 8px; }
+      .ac-caret { width: 1px; height: 8px; background: #1F2430; animation: ac-caret 1s steps(1) infinite; }
+      .ac-greet { margin-top: 9px; display: flex; flex-direction: column; gap: 1px; }
+      .ac-greet b { font-size: 11px; font-weight: 700; color: #0B1F3A; letter-spacing: -0.01em; }
+      .ac-greet span { font-size: 6.5px; color: #7A8290; }
+      .ac-sec { margin-top: 9px; font-size: 6.5px; font-weight: 600; color: #3A4150; display: flex; align-items: center; gap: 4px; }
+      .ac-sec em { font-style: normal; font-size: 5.5px; background: #E7EAF0; color: #5C6270; border-radius: 8px; padding: 0 4px; }
+      .ac-grid { margin-top: 6px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px 4px; }
+      .ac-app { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 4px 2px; border-radius: 5px; }
+      .ac-app-ico { position: relative; width: 26px; height: 26px; display: grid; place-items: center; }
+      .ac-app-ico img { width: 24px; height: 24px; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.12)); }
+      .ac-app-n { font-size: 6.3px; color: #3A4150; font-weight: 500; white-space: nowrap; }
+      .ac-hot { background: #E9EDF5; }
+      .ac-hot .ac-app-ico::after { content: ''; position: absolute; inset: -3px; border-radius: 7px; border: 1.5px solid rgba(14,138,123,0.55); animation: uxClickPulse 900ms cubic-bezier(0.22, 1, 0.36, 1) 900ms forwards; opacity: 0; }
+      .ac-badge { position: absolute; right: -3px; bottom: -2px; width: 9px; height: 9px; border-radius: 50%; background: #0F7A3F; border: 1.5px solid #fff; display: grid; place-items: center; animation: usZoom 400ms cubic-bezier(0.22,1,0.36,1) 900ms both; }
+      .ac-badge i, .ac-badge svg { width: 5px; height: 5px; color: #fff; stroke-width: 3; }
+      .rw-cur { position: absolute; width: 12px; height: 12px; left: 18px; top: 16px; z-index: 6; animation: rwCur 1000ms cubic-bezier(0.22, 1, 0.36, 1) forwards; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.35)); }
+      @keyframes rwCur { from { transform: translate(110px, 70px); } to { transform: translate(0, 0); } }
+      .ac-row { margin-top: 10px; display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #E1E4EA; border-radius: 6px; padding: 7px 9px; }
+      .ac-row-ico { width: 22px; height: 22px; }
+      .ac-row-tx { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; flex: 1; }
+      .ac-row-tx b { font-size: 7.5px; color: #0B1F3A; font-weight: 600; }
+      .ac-row-tx em { font-style: normal; font-size: 6px; color: #7A8290; }
+      .ac-btn { position: relative; height: 16px; min-width: 62px; }
+      .ac-btn-a, .ac-btn-b { position: absolute; inset: 0; display: inline-flex; align-items: center; justify-content: center; gap: 3px; border-radius: 4px; font-size: 6.5px; font-weight: 600; white-space: nowrap; padding: 0 8px; }
+      .ac-btn-a { background: #0B1F3A; color: #fff; animation: rwFadeOut 300ms ease 1700ms forwards; }
+      .ac-btn-b { background: #E6F4F1; color: #0E8A7B; border: 1px solid #BFE3DB; }
+      .ac-btn-b i, .ac-btn-b svg { width: 7px; height: 7px; }
+      @keyframes rwFadeOut { to { opacity: 0; visibility: hidden; } }
+      .ac-status { margin-top: 10px; display: flex; align-items: center; gap: 4px; }
+      .ac-status span { display: inline-flex; align-items: center; gap: 3px; font-size: 6px; font-weight: 600; color: #7A8290; background: #fff; border: 1px solid #E1E4EA; border-radius: 10px; padding: 2px 6px; white-space: nowrap; }
+      .ac-status span.is-done { color: #0F7A3F; border-color: #C9E7D3; background: #F1F9F4; }
+      .ac-status span.is-on { color: #0B1F3A; border-color: #0B1F3A; }
+      .ac-status i, .ac-status svg { width: 6px; height: 6px; }
+      .ac-status-ln { flex: 1; height: 1px; background: #D5D9E2; }
+      /* Power BI */
+      .pbi { position: absolute; inset: 0; display: flex; flex-direction: column; background: #F3F2F1; }
+      .pbi-top { height: 18px; background: #252423; color: #fff; display: flex; align-items: center; gap: 8px; padding: 0 8px; font-size: 6.5px; }
+      .pbi-logo { display: inline-flex; align-items: center; gap: 4px; font-weight: 600; }
+      .pbi-logo img { width: 10px; height: 10px; }
+      .pbi-path { color: #C8C6C4; }
+      .pbi-tools { margin-left: auto; display: flex; gap: 7px; }
+      .pbi-tools i, .pbi-tools svg { width: 7px; height: 7px; }
+      .pbi-body { flex: 1; display: flex; min-height: 0; }
+      .pbi-rail { width: 18px; background: #fff; border-right: 1px solid #E1DFDD; display: flex; flex-direction: column; align-items: center; gap: 8px; padding-top: 8px; color: #605E5C; }
+      .pbi-rail i, .pbi-rail svg { width: 8px; height: 8px; }
+      .pbi-canvas { flex: 1; padding: 7px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+      .pbi-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+      .pbi-kpi { background: #fff; border-radius: 3px; padding: 5px 6px; display: flex; flex-direction: column; gap: 1px; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+      .pbi-kpi span { font-size: 5.2px; color: #605E5C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .pbi-kpi b { font-size: 9px; font-weight: 600; color: #252423; }
+      .pbi-kpi em { font-style: normal; font-size: 5.2px; font-weight: 600; }
+      .pbi-kpi em.up { color: #107C10; }
+      .pbi-kpi em.dn { color: #D13438; }
+      .pbi-charts { flex: 1; display: grid; grid-template-columns: 1.4fr 1fr; gap: 5px; min-height: 0; }
+      .pbi-card { background: #fff; border-radius: 3px; padding: 5px 6px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.08); min-height: 0; }
+      .pbi-card > span { font-size: 5.8px; font-weight: 600; color: #252423; }
+      .pbi-bars { flex: 1; display: flex; align-items: flex-end; gap: 3px; border-bottom: 1px solid #E1DFDD; padding-bottom: 1px; min-height: 40px; }
+      .pbi-bars i { flex: 1; background: #118DFF; border-radius: 1px 1px 0 0; transform-origin: bottom; animation: rwGrowY 600ms cubic-bezier(0.22,1,0.36,1) var(--d, 0ms) both; }
+      .pbi-bars i:nth-child(n+9) { background: #12239E; }
+      @keyframes rwGrowY { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+      .pbi-hbars { flex: 1; display: flex; flex-direction: column; justify-content: space-around; gap: 3px; }
+      .pbi-hbars div { display: flex; align-items: center; gap: 4px; }
+      .pbi-hbars em { font-style: normal; font-size: 5px; color: #605E5C; width: 26px; flex-shrink: 0; text-align: right; }
+      .pbi-hbars i { height: 5px; border-radius: 1px; background: #E66C37; transform-origin: left; animation: rwGrowX 700ms cubic-bezier(0.22,1,0.36,1) 1100ms both; }
+      @keyframes rwGrowX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+      /* Teams */
+      .tm { position: absolute; inset: 0; display: flex; flex-direction: column; background: #F5F5F5; }
+      .tm-top { height: 18px; background: #EBEBEB; display: flex; align-items: center; justify-content: center; position: relative; }
+      .tm-search { display: inline-flex; align-items: center; gap: 4px; width: 44%; height: 12px; border-radius: 3px; background: #fff; border: 1px solid #DDD; padding: 0 6px; font-size: 6px; color: #616161; }
+      .tm-search i, .tm-search svg { width: 7px; height: 7px; }
+      .tm-ava { position: absolute; right: 8px; width: 12px; height: 12px; border-radius: 50%; color: #fff; font-size: 5px; font-weight: 700; display: grid; place-items: center; }
+      .tm-body { flex: 1; display: flex; min-height: 0; }
+      .tm-rail { width: 34px; background: #EBEBEB; display: flex; flex-direction: column; align-items: stretch; gap: 2px; padding: 4px 3px; }
+      .tm-rail span { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 4.8px; color: #616161; padding: 3px 0; border-radius: 4px; }
+      .tm-rail span i, .tm-rail span svg { width: 9px; height: 9px; }
+      .tm-rail span.is-on { background: #fff; color: #5B5FC7; box-shadow: 0 1px 2px rgba(0,0,0,0.08); position: relative; }
+      .tm-rail span.is-on::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 4px; width: 2px; border-radius: 1px; background: #5B5FC7; }
+      .tm-more { margin-top: auto; }
+      .tm-main { flex: 1; min-width: 0; padding: 8px 10px; display: flex; flex-direction: column; gap: 8px; background: #FAFAFA; }
+      .tm-head { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #E5E5E5; padding-bottom: 5px; }
+      .tm-head .ac-brand { font-size: 11px; }
+      .tm-tabs { margin-left: auto; display: flex; gap: 8px; font-size: 6px; color: #616161; }
+      .tm-tabs b { color: #242424; font-weight: 600; position: relative; }
+      .tm-tabs b::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: #5B5FC7; }
+      .tm-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+      .tm-app { background: #fff; border: 1px solid #E5E5E5; border-radius: 4px; padding: 6px 4px 5px; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+      .tm-app img { width: 18px; height: 18px; }
+      .tm-app span { font-size: 5.8px; color: #242424; font-weight: 500; }
+      .tm-app em { font-style: normal; font-size: 5px; color: #5B5FC7; font-weight: 600; }
+      /* Sign-in + toast */
+      .rw-over { position: absolute; inset: 0; z-index: 7; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+      .rw-signin { background: rgba(6, 16, 52, 0.62); backdrop-filter: blur(16px); color: #fff; }
+      .rw-si-ava { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-size: 15px; font-weight: 600; color: #fff; box-shadow: 0 0 0 2px rgba(255,255,255,0.35); margin-bottom: 4px; }
+      .rw-signin b { font-size: 12px; font-weight: 600; letter-spacing: -0.01em; }
+      .rw-si-msg { display: inline-flex; align-items: center; gap: 5px; font-size: 7px; color: rgba(255,255,255,0.85); }
+      .rw-spin { width: 8px; height: 8px; border-radius: 50%; border: 1.2px solid rgba(255,255,255,0.35); border-top-color: #fff; animation: rwSpin 800ms linear infinite; }
+      @keyframes rwSpin { to { transform: rotate(360deg); } }
+      .rw-toast { position: absolute; right: 8px; bottom: 32px; width: 186px; background: rgba(255,255,255,0.96); border-radius: 7px; box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 10px 26px -8px rgba(0,0,0,0.5); padding: 7px 9px 8px; z-index: 8; }
+      .rw-toast-h { display: flex; align-items: center; gap: 5px; font-size: 6px; color: #444; margin-bottom: 5px; }
+      .rw-toast-h em { margin-left: auto; font-style: normal; color: #888; }
+      .rw-toast-b { display: flex; gap: 7px; align-items: flex-start; }
+      .rw-toast-ico { width: 20px; height: 20px; flex-shrink: 0; }
+      .rw-toast-b div { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+      .rw-toast-b b { font-size: 7.5px; font-weight: 600; color: #1F1F1F; }
+      .rw-toast-b > div > span { font-size: 6px; color: #666; line-height: 1.35; }
+      .rw-toast-list { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; }
+      .rw-toast-list span { display: inline-flex; align-items: center; gap: 3px; font-size: 6px; font-weight: 600; color: #1F1F1F; }
+      .rw-toast-list i, .rw-toast-list svg { width: 7px; height: 7px; color: #0F7A3F; stroke-width: 3; }
+      .rw-trail { display: flex; align-items: center; gap: 6px; }
+      .rw-trail span { display: inline-flex; align-items: center; gap: 4px; font-size: 9.5px; font-weight: 500; color: #6E6E7A; border: 1px solid #E3E3E8; border-radius: 999px; padding: 3px 9px; background: #fff; }
+      .rw-trail span.is-on { color: #0B1F3A; border-color: #0B1F3A; font-weight: 600; }
+      .rw-trail > i, .rw-trail > svg { width: 11px; height: 11px; color: #AAAAB4; }
+      .rw-trail span i, .rw-trail span svg { width: 10px; height: 10px; }
+      /* Hero / final with miniature devices */
+      .ac-hero { display: flex; flex-direction: column; align-items: center; gap: 14px; width: 100%; padding: 6px 0 2px; }
+      .ac-hero-brand .ac-brand { font-size: 24px; }
+      .ac-hero-h { font-size: 26px; font-weight: 600; letter-spacing: -0.03em; color: #0B1F3A; text-align: center; line-height: 1.15; margin-bottom: 6px; }
+      .ac-hero-h-sm { font-size: 14px; }
+      .ac-hero-sub { font-size: 10.5px; font-weight: 500; color: #6E6E7A; text-align: center; }
+      .ac-hero-hint { font-size: 10px; font-weight: 500; color: #AAAAB4; }
+      .rw-trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; gap: 3%; width: min(640px, 100%); }
+      .rw-mini { container-type: inline-size; width: 100%; min-width: 0; }
+      .rw-mini > .rw-lap { zoom: calc(100cqw / 520px); width: 520px; }
+      .rw-mini .rw-screen { box-shadow: 0 0 0 1px #2A2A32, 0 30px 50px -24px rgba(0,0,0,0.5); }
+      .rw-mini .us-in, .rw-mini .rw-rise { opacity: 1 !important; animation: none !important; }
+      .rw-mini .rw-label { font-size: 26px; margin-top: 16px; gap: 10px; }
+      .rw-mini .rw-label i, .rw-mini .rw-label svg { width: 28px; height: 28px; }
+      .ac-hero-final { gap: 8px; }
+      .ac-hero-final .rw-trio { gap: 2%; width: 100%; }
+      .ac-hero-final .rw-trio-row { grid-template-columns: 112px minmax(0, 1fr); }
+      .ac-hero-final .rw-mini .rw-label { display: none; }
+      .rw-trio-row { display: grid; grid-template-columns: 112px minmax(0, 1fr); align-items: center; gap: 10px; width: 100%; }
+      .rw-trio-lab { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+      .rw-trio-lab > span:last-child { display: flex; flex-direction: column; line-height: 1.2; }
+      .rw-trio-lab b { font-size: 10.5px; font-weight: 600; color: #0B1F3A; }
+      .rw-trio-lab em { font-style: normal; font-size: 9px; color: #7A8290; font-weight: 500; }
+      .rw-trio-lab .ac-ava { width: 26px; height: 26px; font-size: 9px; }
+      .ac-hero-final { align-items: stretch; gap: 10px; padding: 2px 6px; }
+      .ac-mast { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; width: 100%; padding-bottom: 10px; border-bottom: 1px solid #E3E3E8; }
+      .ac-mast-l { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+      .ac-mast-l .ac-hero-h { text-align: left; font-size: 17px; margin: 0; white-space: nowrap; }
+      @media (max-width: 900px) { .ac-mast-l .ac-hero-h { white-space: normal; font-size: 15px; } .ac-mast-r { display: none; } }
+      .ac-mast-r { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 14px; flex-shrink: 0; }
+      .ac-mast-r span { display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; font-weight: 500; color: #3A3A4C; white-space: nowrap; }
+      .ac-mast-r i, .ac-mast-r svg { width: 11px; height: 11px; color: #0E8A7B; stroke-width: 2.5; }
+      .ac-board { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+      .ac-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2%; width: 100%; }
+      .ac-col { display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 9px; color: #0B1F3A; white-space: nowrap; min-width: 0; overflow: hidden; }
+      .ac-col i, .ac-col svg { width: 11px; height: 11px; flex-shrink: 0; }
+      .ac-col b { font-weight: 600; }
+      .ac-col em { font-style: normal; font-size: 7.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #7A8290; padding-left: 4px; border-left: 1px solid #D5D9E2; }
+      .ac-foot { display: flex; align-items: center; justify-content: center; gap: 10px; padding-top: 8px; border-top: 1px solid #E3E3E8; font-size: 9.5px; font-weight: 500; color: #6E6E7A; flex-wrap: wrap; }
+      .ac-foot i { width: 3px; height: 3px; border-radius: 50%; background: #C4C8D2; }
+      .rw-trio-row .rw-trio { flex: 1; min-width: 0; }
+      .ac-eco { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center; margin-top: 2px; }
+      .ac-eco span { display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; font-weight: 500; color: #3A3A4C; background: #fff; border: 1px solid #E3E3E8; border-radius: 999px; padding: 3px 10px; }
+      .ac-eco span i, .ac-eco span svg { width: 11px; height: 11px; color: #0B1F3A; }
+      .us-who { background: #fff; border-color: #E3E3E8; }
+      .us-who-ava { box-shadow: none; }
+      .us-who-txt { font-weight: 600; }
+      .us-step-tx b { font-weight: 600; }
+
+      /* CH3 device picker: the story waits here until the user picks a device */
+      .us-devpick { width: 100%; min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; opacity: 0; animation: usIn 500ms cubic-bezier(0.2, 0.8, 0.2, 1) 100ms forwards; }
+      .us-devpick-t { font-size: 15px; font-weight: 800; color: #1A1A2E; letter-spacing: -0.01em; text-align: center; }
+      .us-devpick-cap { font-size: 11px; color: #6A6A7A; font-weight: 600; text-align: center; margin-top: -6px; }
+      .us-devpick-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; width: min(560px, 100%); }
+      .us-devpick-btn { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 10px 14px; background: #fff; border: 1px solid #DDDDEE; border-radius: 8px; cursor: pointer; font-family: inherit; color: #1A1A2E; box-shadow: 0 1px 2px rgba(26,26,46,0.06); transition: border-color 200ms cubic-bezier(0.2,0.8,0.2,1), box-shadow 200ms cubic-bezier(0.2,0.8,0.2,1), background 200ms; }
+      .us-devpick-btn:hover { border-color: #0000CC; background: #F6F8FF; box-shadow: 0 8px 24px rgba(0, 0, 204, 0.15); }
+      .us-devpick-btn:active { transform: translateY(1px); }
+      .us-devpick-btn i, .us-devpick-btn svg { width: 26px; height: 26px; color: #0000CC; }
+      .us-devpick-btn b { font-size: 12px; font-weight: 800; }
+      .us-devpick-btn span { font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #8A8A9A; }
+      .us-devpick-hint { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; color: #0000CC; }
+      .us-devpick-hint i, .us-devpick-hint svg { width: 13px; height: 13px; animation: usArrowNudge 1.1s ease-in-out infinite; }
       /* ── Two chairs: Maya's day + Sam's quiet panel ── */
       .us-playbtn { width: 48px; height: 48px; border-radius: 50%; background: #0000CC; color: #fff; border: 0; display: grid; place-items: center; cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 204, 0.35); transition: transform 160ms ease, background 160ms ease; animation: usPickPulse 2.2s ease-out infinite; }
       .us-playbtn:hover { transform: scale(1.08); background: #33CCFF; color: #0B2530; }
@@ -9401,6 +9949,8 @@
         solutionViewMultiTenant: false,
         uxPersona: 0,
         uxDevice: 'win',
+        uxSwitchDev: null,
+        uxAwaitDev: false,
         lifecyclePlaying: false,
         lcStep: -1,
         lcTimers: [],
@@ -9777,15 +10327,15 @@
       // pop-out modal's Next button (which advances to the adjacent module).
       /* Dwell per lifecycle step (ms) — the tour timer and the rail's progress
          bar read the same array, so the bar can never disagree with the tour. */
-      const LC_DWELL = [27500, 8800, 11800, 11200, 8900, 8600, 8900];
+      const LC_DWELL = [65000, 8800, 11800, 8900, 8600, 8900, 11200];
       const LIFECYCLE_MODULES = [
         {view:'user',       stage:'RUN',       name:'User Experience',       icon:'monitor-smartphone'},
         {view:'setupstore', stage:'PACKAGE',   name:'Setup Store',           icon:'library'},
         {view:'admin',      stage:'DEPLOY',    name:'Admin Console',         icon:'settings-2'},
-        {view:'onboarding', stage:'ONBOARD',   name:'Onboarding',            icon:'user-plus'},
         {view:'dashboard',  stage:'GOVERN',    name:'Dashboard & Reporting', icon:'bar-chart-3'},
         {view:'ai',         stage:'ASSIST',    name:'AI Copilot',            icon:'sparkles'},
         {view:'multitenant',stage:'SCALE',     name:'Multi-Tenant',          icon:'building-2'},
+        {view:'onboarding', stage:'ONBOARD',   name:'Onboarding',            icon:'user-plus'},
       ];
       const lifecycleViewFlag = (view) => ({
         setupstore:'solutionViewSetupStore', admin:'solutionViewAdmin', update:'solutionViewUpdate',
@@ -10432,16 +10982,16 @@
         // the console is meant to feel quick and straightforward.
         const uxOn = !!STATE.solutionViewUser;
         const BEATS = uxOn ? [
-          ['bare',     4600],
-          ['boot',     6200],
-          ['launch',   4200],
-          ['catalog',  2000],
-          ['approach', 2400],
-          ['clicking', 9200],
-          ['checking', 5200],
-          ['routing',  3800],
-          ['config',   4400],
-          ['done',     4400],
+          ['bare',     4200],
+          ['boot',     6000],
+          ['launch',   6000],
+          ['catalog',  7000],
+          ['approach', 1500],
+          ['clicking', 5500],
+          ['checking', 6500],
+          ['routing',  7000],
+          ['config',   4500],
+          ['done',     6500],
           ['final',    6000],
         ] : [
           ['launch',   900],
@@ -10655,6 +11205,7 @@
         clearFlowTimers();
         STATE.flowRunning = true;
         STATE.flowPaused = false;
+        STATE.uxSwitchDev = null; STATE.uxAwaitDev = false;
         STATE.flowScenarioIdx = 0;
         STATE.flowPhase = 'idle';
         STATE.flowAppOpened = false;
@@ -10670,6 +11221,7 @@
       function pauseFlow(){
         if (!STATE.flowRunning) return;
         STATE.flowPaused = true;
+        STATE._holdFrozen = true;
         STATE.flowTimers.timeouts.forEach(id => clearTimeout(id));
         STATE.flowTimers.timeouts = [];
         // Freeze in place: no re-render (that would replay the scene's entrance
@@ -10681,24 +11233,41 @@
       function resumeFlow(){
         if (!STATE.flowRunning || !STATE.flowPaused) return;
         STATE.flowPaused = false;
+        STATE._holdFrozen = false;
+        // Resuming past the CH3 device picker without a pick defaults to the Mac.
+        if (STATE.uxAwaitDev) { STATE.uxAwaitDev = false; if (!STATE.uxSwitchDev) STATE.uxSwitchDev = 'mac'; updateFlowDOM(); }
         _setDemoFrozen(false);
         refreshDemoControls();
-        runFlowQueue();
+        // Resume with a short beat instead of replaying the whole scene hold.
+        if (STATE.flowQueueIdx < STATE.flowQueue.length) {
+          const step = STATE.flowQueue[STATE.flowQueueIdx];
+          const wait = Math.min(step.delay, 2500);
+          const tid = setTimeout(() => {
+            if (STATE.flowPaused) return;
+            step.fn();
+            STATE.flowQueueIdx++;
+            runFlowQueue();
+          }, wait);
+          STATE.flowTimers.timeouts.push(tid);
+        }
       }
 
       /* Pausing must stop what the eye sees, not just the JS timers — every
          scene's beats are CSS animations with staggered delays. */
       function _setDemoFrozen(on){
         const st = document.getElementById('demo-stage');
-        if (st) st.classList.toggle('is-frozen', !!on);
+        if (st) { st.classList.toggle('is-frozen', !!on); if (!on) st.classList.remove('is-settled'); }
       }
 
       /* Jump the shared flow to a phase and continue from there through the
          normal queue, so Pause / Step / Reset all keep working afterwards. */
       function jumpFlowTo(startPh){
+        const wasPaused = STATE.flowRunning && STATE.flowPaused;
         clearFlowTimers();
         STATE.flowRunning = true;
         STATE.flowPaused = false;
+        STATE._holdFrozen = false;
+        STATE.uxSwitchDev = null; STATE.uxAwaitDev = false;
         if (STATE.flowScenarioIdx < 0) STATE.flowScenarioIdx = STATE.uxScenarioIdx >= 0 ? STATE.uxScenarioIdx : 0;
         STATE.flowQueue = buildFlowQueue();
         const qi = STATE.flowQueue.findIndex(s => s.ph === startPh);
@@ -10706,6 +11275,7 @@
         STATE.flowQueue[qi].fn();
         STATE.flowQueueIdx = qi + 1;
         _setDemoFrozen(false);
+        if (wasPaused) { STATE.flowPaused = true; refreshDemoControls(); return; }
         refreshDemoControls();
         runFlowQueue();
       }
@@ -10741,6 +11311,8 @@
         if (window.lucide?.createIcons) try { window.lucide.createIcons(); } catch {}
         _demoReplayReveals(_revealPrev);
         _glideAcCursor();
+        // A paused run stays paused across re-renders (Step lands a scene, then holds).
+        if (STATE.flowRunning && STATE.flowPaused && STATE._holdFrozen) { const st = document.getElementById('demo-stage'); if (st) st.classList.add('is-frozen', 'is-settled'); }
       }
 
       function resetFlow(){
@@ -10757,22 +11329,35 @@
         STATE._acSeen = {};
         STATE._acCursorPrev = null;
         STATE.flowDevice = null;
+        STATE.uxSwitchDev = null; STATE.uxAwaitDev = false;
         render();
       }
 
       function stepFlow(){
         if (STATE.flowRunning && !STATE.flowPaused) return;
         if (!STATE.flowDevice) STATE.flowDevice = 'multi';
-        if (!STATE.flowQueue || STATE.flowQueue.length === 0) {
+        if (!STATE.flowQueue || STATE.flowQueue.length === 0 || STATE.flowQueueIdx >= STATE.flowQueue.length) {
           STATE.flowQueue = buildFlowQueue();
           STATE.flowQueueIdx = 0;
           STATE.flowPhase = 'idle';
-          STATE.flowPaused = true;
         }
-        if (STATE.flowQueueIdx >= STATE.flowQueue.length) return;
-        const step = STATE.flowQueue[STATE.flowQueueIdx];
+        // Step = advance one scene and hold there (entrance animation plays, timers stay off).
+        STATE.flowRunning = true;
+        STATE.flowPaused = true;
+        STATE._holdFrozen = false;
+        if (STATE.flowScenarioIdx < 0) STATE.flowScenarioIdx = STATE.uxScenarioIdx >= 0 ? STATE.uxScenarioIdx : 0;
+        _setDemoFrozen(false);
+        let step = STATE.flowQueue[STATE.flowQueueIdx];
+        // 'approach' shares a scene with 'catalog' in the User Experience story — skip past it.
+        while (step && step.ph === 'approach' && STATE.solutionViewUser && STATE.flowQueueIdx + 1 < STATE.flowQueue.length) {
+          STATE.flowQueueIdx++; step = STATE.flowQueue[STATE.flowQueueIdx];
+        }
+        if (!step) return;
         step.fn();
         STATE.flowQueueIdx++;
+        // The closing entry ends the run; keep it paused-but-running so Play restarts cleanly.
+        if (!STATE.flowRunning) { STATE.flowPaused = false; }
+        refreshDemoControls();
       }
 
       function startAppCascade(){
@@ -10920,27 +11505,6 @@
                 <button type="button" data-action="open-alm-modal" class="alm-icon-btn focus-ring" title="Application Lifecycle Management" aria-label="Application Lifecycle Management explainer"><i data-lucide="refresh-cw" aria-hidden="true"></i></button>
                 <button type="button" data-action="open-currentstate-editor" class="w-7 h-7 rounded-full border-2 border-gray-300 bg-transparent text-gray-400 inline-flex items-center justify-center hover:text-[#0000CC] hover:border-[#0000CC] transition flex-shrink-0" title="Edit Current State"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
               </div>
-            </div>
-            <div class="grid grid-cols-2 gap-2 sm:grid-cols-4 cs-stats">
-              ${STAT_CARDS.map(card => {
-                const isFlipped = STATE.flippedCards[card.id];
-                return '<div class="flip-card '+(isFlipped ? 'flipped' : '')+'" data-action="flip-card" data-card-id="'+card.id+'" role="button" tabindex="0" aria-label="'+card.title+'">'
-                  +'<div class="flip-card-inner">'
-                    +'<div class="flip-card-front section-card">'
-                      +'<div class="flip-card-face"><i data-lucide="'+card.icon+'"></i><div class="flip-card-stat">'+card.stat+'</div></div>'
-                      +'<span class="flip-card-hint">tap to reveal</span>'
-                    +'</div>'
-                    +'<div class="flip-card-back">'
-                      +'<div>'
-                        +'<div class="text-[10px] font-bold uppercase tracking-wide text-[#0000CC] mb-1.5">'+card.title+'</div>'
-                        +'<p class="text-[10px] leading-snug text-[#4A4A5A] mb-1.5">'+card.body+'</p>'
-                        +'<p class="text-[10px] leading-snug text-[#4A4A5A]">'+card.body2+'</p>'
-                      +'</div>'
-                      +'<div class="text-[8px] text-[#8A8A9A] italic">'+card.source+'</div>'
-                    +'</div>'
-                  +'</div>'
-                +'</div>';
-              }).join('')}
             </div>
             <div class="section-card cs-chart-card">
               <div class="grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-3 items-stretch">
@@ -12490,386 +13054,346 @@
       function renderUserStory(){
         const live = STATE.flowRunning && STATE.flowScenarioIdx >= 0;
         const ph = live ? STATE.flowPhase : 'idle';
-        const isMaya = STATE.uxPersona !== 1;
-        // One morning, nine beats: empty desk → first click → another machine
-        // → two requests → silent update → security reroute → the reveal.
-        const SCENE_OF = { idle:0, bare:1, boot:2, launch:3, catalog:4, approach:5, clicking:6, checking:7, routing:8, config:9, done:10, final:11 };
+        // Acme Corp. demo — ten scenes, one flow phase each:
+        // 1 intro · 2 Maya on Windows · 3 opens Power BI · 4 Windows 365 · 5 Mac
+        // 6 evergreen · 7 switch to Alex · 8 Alex requests · 9 Teams · 10 final
+        const SCENE_OF = { idle:0, bare:1, boot:2, launch:3, catalog:4, approach:4, clicking:5, checking:6, routing:7, config:8, done:9, final:9 };
         const scene = SCENE_OF[ph] !== undefined ? SCENE_OF[ph] : 0;
         const ended = ph === 'final';
 
-        // Real, recognizable app logos (icons8 CDN) with lettered-tile
-        // fallback if any icon fails to load offline.
         const APPS = {
-          excel:      { n:'Excel',      l:'X',   c:'#107C41', s:'microsoft-excel-2019' },
-          word:       { n:'Word',       l:'W',   c:'#185ABD', s:'microsoft-word-2019' },
-          outlook:    { n:'Outlook',    l:'O',   c:'#106EBE', s:'microsoft-outlook-2019' },
-          teams:      { n:'Teams',      l:'T',   c:'#5B53D6', s:'microsoft-teams' },
-          sap:        { n:'SAP',        l:'SAP', c:'#0A6ED1', s:'sap' },
-          zoom:       { n:'Zoom',       l:'Z',   c:'#0B5CFF', s:'zoom' },
-          salesforce: { n:'Salesforce', l:'SF',  c:'#00A1E0', s:'salesforce' },
-          slack:      { n:'Slack',      l:'S',   c:'#E01E5A', s:'slack-new' },
-          chrome:     { n:'Chrome',     l:'C',   c:'#4285F4', s:'chrome' },
-          edge:       { n:'Edge',       l:'E',   c:'#0C8EC5', s:'ms-edge-new' },
-          onedrive:   { n:'OneDrive',   l:'OD',  c:'#0A5BD5', s:'microsoft-onedrive-2019' },
-          github:     { n:'GitHub',     l:'GH',  c:'#1A1A2E', s:'github' },
-          jira:       { n:'Jira',       l:'J',   c:'#2684FF', s:'jira' },
-          docker:     { n:'Docker',     l:'D',   c:'#2496ED', s:'docker' },
-          figma:      { n:'Figma',      l:'F',   c:'#A259FF', s:'figma' },
-          trello:     { n:'Trello',     l:'Tr',  c:'#0079BF', s:'trello' },
-          dropbox:    { n:'Dropbox',    l:'Db',  c:'#0061FF', s:'dropbox' },
-          powerbi:    { n:'Power BI',   l:'PB',  c:'#F2C811', s:'power-bi' },
-          hubspot:    { n:'HubSpot',    l:'HS',  c:'#FF7A59' },
-          linkedin:   { n:'LinkedIn',   l:'in',  c:'#0A66C2', s:'linkedin' },
-          asana:      { n:'Asana',      l:'As',  c:'#F06A6A' },
-          notion:     { n:'Notion',     l:'N',   c:'#1A1A2E', s:'notion' },
-          photoshop:  { n:'Adobe',      l:'Ps',  c:'#001E36', s:'adobe-photoshop' },
+          excel:      { n:'Excel',      s:'microsoft-excel-2019' },
+          word:       { n:'Word',       s:'microsoft-word-2019' },
+          outlook:    { n:'Outlook',    s:'microsoft-outlook-2019' },
+          powerpoint: { n:'PowerPoint', s:'microsoft-powerpoint-2019' },
+          teams:      { n:'Teams',      s:'microsoft-teams-2019' },
+          sap:        { n:'SAP',        s:'sap', st:'color' },
+          zoom:       { n:'Zoom',       s:'zoom' },
+          salesforce: { n:'Salesforce', s:'salesforce', st:'color' },
+          chrome:     { n:'Chrome',     s:'chrome' },
+          edge:       { n:'Edge',       s:'ms-edge-new' },
+          onedrive:   { n:'OneDrive',   s:'microsoft-onedrive-2019' },
+          dropbox:    { n:'Dropbox',    s:'dropbox', st:'color' },
+          powerbi:    { n:'Power BI',   s:'power-bi', st:'color' },
+          acrobat:    { n:'Acrobat',    s:'adobe-acrobat' },
+          tableau:    { n:'Tableau',    s:'tableau-software' },
+          linkedin:   { n:'LinkedIn',   s:'linkedin' },
+          notion:     { n:'Notion',     s:'notion' },
         };
         const PERSONAS = [
-          { name:'Maya Chen', initials:'MC', role:'Finance', roleIcon:'calculator', accent:'#0F7A3F', wall:'#12123E', desk:'#16266B',
-            apps:['excel','word','outlook','zoom','sap','onedrive','dropbox','teams','photoshop','edge'], target:'teams',
-            fin:'sap', finName:'the finance system', req1:'slack', req2:'powerbi', upd:'photoshop' },
-          { name:'Alex Rivera', initials:'AR', role:'Sales', roleIcon:'briefcase', accent:'#0000CC', wall:'#301345', desk:'#3B1E5E',
-            apps:['outlook','linkedin','slack','chrome','zoom','word','excel','salesforce','teams','notion'], target:'salesforce',
-            fin:'excel', finName:'the forecast sheet', req1:'figma', req2:'powerbi', upd:'notion' },
+          { name:'Maya Chen', initials:'MC', role:'Finance', title:'Senior Financial Analyst', accent:'#2E6F9E',
+            apps:['excel','powerbi','acrobat','zoom','outlook','word','sap','onedrive','edge','dropbox'], target:'powerbi', ever:'zoom' },
+          { name:'Alex Rivera', initials:'AR', role:'Sales', title:'Account Executive', accent:'#7A4E9E',
+            apps:['salesforce','teams','zoom','powerpoint','outlook','linkedin','word','chrome','excel','notion'], target:'salesforce', req:'tableau' },
         ];
-        const baseIdx = STATE.uxPersona === 1 ? 1 : 0;
-        const p = PERSONAS[baseIdx];
-        const A = (id) => { const o = APPS[id] || { n:id, l:'?', c:'#8A8A9A' }; return { name:o.n, letter:o.l, color:o.c, img:o.s ? `https://img.icons8.com/color/96/${o.s}.png` : '' }; };
-        const target = A(p.target);
-        const req1 = A(p.req1);
-        const req2 = A(p.req2);
-        const upd = A(p.upd);
-        const fin = A(p.fin);
-        const first = p.name.split(' ')[0];
-        const other = PERSONAS[1 - baseIdx];
-        const her = isMaya ? 'her' : 'his';
-        const she = isMaya ? 'She' : 'He';
+        const maya = PERSONAS[0], alex = PERSONAS[1];
+        const p = (scene >= 6 && scene <= 8) ? alex : maya;
+        const A = (id) => { const o = APPS[id] || { n:id }; return { id, name:o.n, img:o.s ? `https://img.icons8.com/${o.st || 'fluency'}/96/${o.s}.png` : '' }; };
+        const target = A(maya.target), ever = A(maya.ever), req = A(alex.req);
+        const img = (app, cls) => `<img class="${cls || ''}" src="${app.img}" alt="${app.name}" draggable="false">`;
 
-        // Two chairs, eight chapters: every time the user gets something
-        // effortlessly, the second chair shows WHY — and it is quiet there too.
         const CHAPTERS = [
-          ['A new laptop, ready before she sits down', `Autopilot enrolls it, one script calls Recast, and ${first} signs in to ${her} apps \u2014 zero touch, no ticket.`],
-          [`${she} opens ${target.name}`, 'One click. Everything behind it already happened.'],
-          [`${she} switches to a Mac`, `Same icon, same workspace. ${target.name} opens in the browser \u2014 the right fit for that machine.`],
-          [`${she} requests two new apps`, `One approves automatically. One goes to ${her} manager. Both arrive.`],
-          ['Apps stay up to date', 'Updates install silently as apps open.'],
-          ['IT changes the backend', `Sam moves ${fin.name} from Citrix to Azure Virtual Desktop. ${first} clicks the same icon \u2014 it just opens.`],
-          ['A security threat appears', `The app reroutes to a safe version. ${she} keeps working.`],
-          ['What made it all work', 'Identity, policy, delivery \u2014 invisible to the user, quiet for IT.'],
+          ['Acme Corp.', 'A consistent application experience wherever work happens.'],
+          ['Maya \u00b7 Finance \u00b7 Windows laptop', 'Maya sees the applications available to her.'],
+          ['Maya opens Power BI', 'Find and launch the applications you need in a few clicks.'],
+          ['Maya on any device', 'Windows 365 and Mac, side by side \u2014 the same workspace on physical and virtual devices.'],
+          ['Applications stay current', 'Kept up to date without adding complexity for the user.'],
+          ['Switch users: Alex \u00b7 Sales', 'The experience is personalized to the employee.'],
+          ['Alex requests an application', 'Employees can request the applications they need.'],
+          ['Embedded or portal', 'The same workspace inside Teams or SharePoint, or on its own.'],
+          ['Acme Corp.', 'A consistent application experience wherever work happens.'],
         ];
-        const chap = ({ 0:-1, 1:0, 2:0, 3:0, 4:1, 5:1, 6:2, 7:3, 8:4, 9:5, 10:6, 11:7 })[scene];
+        const CHAPTER_PH = ['bare','boot','launch','catalog','clicking','checking','routing','config','done'];
+        const chap = ({ 0:0, 1:0, 2:1, 3:2, 4:3, 5:4, 6:5, 7:6, 8:7, 9:8 })[scene];
 
-        const plus = `<span class="us-plus" style="left:8%;top:16%">+</span><span class="us-plus" style="right:12%;top:64%">+</span><span class="us-plus" style="left:22%;bottom:10%">+</span>`;
+        // ── Acme Corp. identity ──
+        const LOGO = `<svg class="ac-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 1.8 21.5h4.6l5.6-10.9 5.6 10.9h4.6z" fill="currentColor"/><path d="M8.6 21.5h6.8L12 15z" fill="currentColor" opacity=".45"/></svg>`;
+        const brand = (o = {}) => `<span class="ac-brand ${o.cls || ''}">${LOGO}<span class="ac-brand-tx"><b>ACME</b>${o.sub !== false ? `<span>${o.sub || 'Workspace'}</span>` : ''}</span></span>`;
 
+        const clk = ({ 0:'9:00 AM', 1:'9:00 AM', 2:'9:02 AM', 3:'9:04 AM', 4:'10:30 AM', 5:'1:20 PM', 6:'9:00 AM', 7:'9:06 AM', 8:'9:10 AM', 9:'5:30 PM' })[scene];
+        const DATE = 'Tue Sep 8';
+
+        // ── Devices ──
+        const winTaskbar = () => `
+          <div class="rw-tb">
+            <div class="rw-tb-c">
+              <span class="rw-start"><i></i><i></i><i></i><i></i></span>
+              <span class="rw-tb-search"><i data-lucide="search"></i>Search</span>
+              ${['edge','outlook','teams'].map(id => `<span class="rw-tb-app">${img(A(id))}</span>`).join('')}
+              <span class="rw-tb-app is-on"><span class="ac-tile">${LOGO}</span></span>
+            </div>
+            <div class="rw-tray"><i data-lucide="chevron-up"></i><i data-lucide="wifi"></i><i data-lucide="volume-2"></i><i data-lucide="battery-full"></i><span class="rw-clock"><b>${clk}</b><span>9/8/2026</span></span></div>
+          </div>`;
+        const winDesktop = (inner, o = {}) => `
+          <div class="rw-desk rw-wall-win">
+            <div class="rw-desk-icons">${[['folder','Documents'],['trash-2','Recycle Bin']].map(([ic, n]) => `<span><i data-lucide="${ic}"></i>${n}</span>`).join('')}</div>
+            ${inner}
+            ${winTaskbar()}
+            ${o.overlay || ''}
+          </div>`;
+        const laptop = (kind, screen, label) => `
+          <div class="rw-lap rw-lap-${kind}">
+            <div class="rw-screen">${kind === 'mac' ? '<span class="rw-notch"></span>' : '<span class="rw-cam"></span>'}${screen}<span class="rw-glare"></span></div>
+            <div class="rw-base"><span class="rw-hinge"></span><span class="rw-pad"></span></div>
+            <div class="rw-label"><i data-lucide="${kind === 'mac' ? 'laptop' : 'monitor'}"></i>${label}</div>
+          </div>`;
+        const macDesktop = (inner) => `
+          <div class="rw-desk rw-wall-mac">
+            <div class="rw-menubar"><i data-lucide="apple"></i><b>Finder</b><span>File</span><span>Edit</span><span>View</span><span>Go</span><span>Window</span><span>Help</span>
+              <span class="rw-menubar-r"><i data-lucide="wifi"></i><i data-lucide="search"></i><i data-lucide="sliders-horizontal"></i><i data-lucide="battery-full"></i><span>${DATE} ${clk}</span></span></div>
+            ${inner}
+            <div class="rw-dock">
+              <span class="rw-dock-i rw-finder"><i></i></span>
+              <span class="rw-dock-i rw-safari"><i data-lucide="compass"></i></span>
+              ${['outlook','teams','zoom','excel','word'].map(id => `<span class="rw-dock-i">${img(A(id))}</span>`).join('')}
+              <span class="rw-dock-i rw-dock-on"><span class="ac-tile">${LOGO}</span></span>
+              <span class="rw-dock-sep"></span>
+              <span class="rw-dock-i rw-trash"><i data-lucide="trash-2"></i></span>
+            </div>
+          </div>`;
+        // Windows 365: the Cloud PC streams inside Microsoft Edge on her laptop.
+        const cloudPc = (inner, overlay) => `
+          <div class="rw-edge">
+            <div class="rw-edge-tabs"><span class="rw-edge-tab is-on"><i data-lucide="cloud"></i>Windows 365<i data-lucide="x"></i></span><span class="rw-edge-plus">+</span>
+              <span class="rw-edge-win"><i data-lucide="minus"></i><i data-lucide="square"></i><i data-lucide="x"></i></span></div>
+            <div class="rw-edge-bar"><i data-lucide="arrow-left"></i><i data-lucide="arrow-right"></i><i data-lucide="rotate-cw"></i><span class="rw-url"><i data-lucide="lock"></i>windows365.microsoft.com<em>/webclient/Maya-CloudPC</em></span><i data-lucide="star"></i><i data-lucide="more-horizontal"></i></div>
+            <div class="rw-cpc-bar"><span><i data-lucide="cloud"></i>Cloud PC \u00b7 Maya Chen</span><span>Windows 11 Enterprise \u00b7 Connected</span></div>
+            <div class="rw-desk rw-wall-win rw-cpc">
+              ${inner}
+              ${winTaskbar()}
+              ${overlay || ''}
+            </div>
+          </div>`;
+
+        // ── Windows / Mac app window chrome ──
+        const winFrame = (title, icon, body, o = {}) => `
+          <div class="rw-win ${o.cls || ''}" style="${o.style || ''}">
+            <div class="rw-win-t"><span class="rw-win-ico">${icon}</span><span class="rw-win-title">${title}</span><span class="rw-win-ctl"><i data-lucide="minus"></i><i data-lucide="square"></i><i data-lucide="x"></i></span></div>
+            <div class="rw-win-b">${body}</div>
+          </div>`;
+        const macFrame = (title, body, o = {}) => `
+          <div class="rw-win rw-win-mac ${o.cls || ''}" style="${o.style || ''}">
+            <div class="rw-win-t rw-win-t-mac"><span class="rw-lights"><i></i><i></i><i></i></span><span class="rw-win-title">${title}</span></div>
+            <div class="rw-win-b">${body}</div>
+          </div>`;
+
+        // ── Acme Workspace — the product UI (identical on every device) ──
         const tile = (app, o = {}) => `
-          <div class="us-app ${o.pop ? 'us-in' : ''} ${o.clicked ? 'us-clicked' : ''}" style="--d:${o.d || 0}ms">
-            <div class="us-app-ico ${o.added ? 'us-addedring' : ''}" style="background:${app.color}">${app.letter}
-              ${app.img ? `<img src="${app.img}" alt="" loading="lazy" onerror="this.remove()">` : ''}
-              ${o.pulse ? '<span class="us-pulse"></span>' : ''}
-              ${o.vuln ? '<span class="us-vuln"></span>' : ''}
-              ${o.web ? '<span class="us-webbadge"><i data-lucide="globe"></i></span>' : ''}
-            </div>
-            <span class="us-app-name">${app.name}</span>
+          <div class="ac-app ${o.pop ? 'us-in' : ''} ${o.hot ? 'ac-hot' : ''}" style="--d:${o.d || 0}ms">
+            <span class="ac-app-ico">${img(app)}${o.badge ? `<em class="ac-badge" style="animation-delay:${o.badgeD || 900}ms"><i data-lucide="check"></i></em>` : ''}${o.cursor ? `<svg class="rw-cur" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 1.5L9.5 19z" fill="#111" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>` : ''}</span>
+            <span class="ac-app-n">${app.name}</span>
           </div>`;
-
-        const win = (tab, inner, o = {}) => `
-          <div class="us-win ${o.cls || ''}" style="--acc:${(o.p || p).accent}">
-            <div class="us-win-head" style="background:${(o.p || p).accent}">
-              <span class="us-win-mark">A</span><span class="us-win-brand">Acme Workspace</span>
-              <span class="us-search"><i data-lucide="search"></i>Search apps</span>
-              <span class="us-win-user">${(o.p || p).initials}</span>
-            </div>
-            <div class="us-win-tabs">
-              <span class="us-tab ${tab === 'ws' ? 'is-on' : ''}">My workspace</span>
-              <button type="button" class="us-tab us-tab-btn ${tab === 'cat' ? 'is-on' : ''}" data-action="ux-request" title="Click to request an app">Catalog</button>
-            </div>
-            <div class="us-win-body">${inner}</div>
-          </div>`;
-
-        // The portal grid — one renderer for every workspace beat so the DOM
-        // stays stable between phases (no re-animation, no flicker).
-        const wsInner = (pp, o = {}) => {
-          const ids = [...pp.apps, ...(o.extra || [])];
-          return `
-          <div class="us-greet">Good morning, ${pp.name.split(' ')[0]}</div>
-          <div class="us-greet-sub" style="${o.tags ? 'margin-bottom:6px' : ''}">${ids.length} apps \u2014 everything ${pp.role} has access to</div>
-          ${o.tags ? `<div class="us-tags us-in" style="--d:${o.tagD || 0}ms"><span>${pp.role}</span><span>Laptop</span><span>Full-time</span><em>the apps chose themselves</em></div>` : ''}
-          <div class="us-grid" style="grid-template-columns:repeat(${ids.length > 10 ? 6 : 5},1fr)">${ids.map((id, i) => {
-            const isT = id === pp.target;
-            const isU = id === pp.upd;
-            const isF = id === pp.fin;
-            return tile(A(id), {
-              pop: o.pop, d: o.pop ? (o.popBase || 100) + i * 80 : 0,
-              clicked: (isT && o.clickTarget) || (isF && o.clickFin),
-              pulse: (isT && o.clickTarget) || (isF && o.clickFin),
-              vuln: isU && o.vuln,
-              web: isU && o.web,
-              added: (o.extra || []).includes(id),
-            });
-          }).join('')}</div>`;
-        };
-
-        // Small app window + overlay helpers for the open/update/reroute beats.
-        const over = (inner, d) => `<div class="us-over us-in" style="--d:${d || 0}ms">${inner}</div>`;
-        const appWin = (app, o = {}) => `
-          <div class="us-appwin ${o.cls || ''}" style="width:min(300px,88%)">
-            <div class="us-appwin-bar" style="background:${app.color}">
-              <span class="us-appwin-ico">${app.letter}${app.img ? `<img src="${app.img}" alt="" onerror="this.remove()">` : ''}</span><span>${o.title || app.name}</span>
-              ${o.ver ? `<span class="us-ver"><i class="us-ver-old">${o.ver[0]}</i><i class="us-ver-new">${o.ver[1]}</i></span>` : ''}
-              <span class="us-appwin-dots"><i></i><i></i><i></i></span>
-            </div>
-            ${o.url ? `<div class="us-urlbar"><i data-lucide="lock"></i>${o.url}</div>` : ''}
-            <div class="us-appbody">${o.body || `
-              <div class="us-approw"><span style="width:38%"></span><span style="width:62%"></span></div>
-              <div class="us-bars" style="height:42px">${[42,68,55,82,48,74].map(h => `<i style="height:${h}%"></i>`).join('')}</div>`}</div>
-          </div>`;
-
-        // A believable Teams chat for the first-open beat.
-        const teamsBody = `
-          <div class="us-chat-top"><span class="us-chat-ch"># ${p.role.toLowerCase()}-team</span><span class="us-chat-day">Today</span></div>
-          <div class="us-msg us-in" style="--d:500ms">
-            <span class="us-msg-ava" style="background:#B4009E">PP</span>
-            <div class="us-msg-body"><span class="us-msg-name">Priya Patel <i>9:01 AM</i></span><span class="us-msg-bubble">Morning ${first}! Welcome aboard.</span></div>
-          </div>
-          <div class="us-msg us-msg-me us-in" style="--d:1000ms">
-            <div class="us-msg-body"><span class="us-msg-name">You <i>9:01 AM</i></span><span class="us-msg-bubble us-msg-bubble-me">Morning! All set up already.</span></div>
-            <span class="us-msg-ava" style="background:${p.accent}">${p.initials}</span>
-          </div>`;
-
-        // Request card (used by the two-column asking beat).
-        const reqCard = (app) => `
-          <div class="us-reqcard">
-            <span class="us-reqico" style="background:${app.color}">${app.letter}${app.img ? `<img src="${app.img}" alt="" onerror="this.remove()">` : ''}</span>
-            <div class="us-reqid"><b>${app.name}</b><span>Catalog</span></div>
-            <span class="us-get us-reqbtn">Request</span>
-          </div>`;
-
-        // The second chair. Slides in from the right, never covers Maya,
-        // always calm: status lines only.
-        const sam = (inner, o = {}) => `
-          <aside class="us-sam us-in" style="--d:${o.d != null ? o.d : 250}ms">
-            <div class="us-sam-head"><span class="us-sam-ava">SO</span><div class="us-sam-id"><b>Sam Okafor</b><span>IT Administrator</span></div><i data-lucide="coffee"></i></div>
-            <div class="us-sam-body">${inner}</div>
+        const wsNav = (pp, active) => `
+          <aside class="ac-side">
+            ${brand({ sub: false })}
+            <nav class="ac-nav">${[['home','Home'],['layout-grid','My apps'],['store','Catalog'],['inbox','Requests'],['settings','Settings']].map(([ic, n]) => `<span class="${n === active ? 'is-on' : ''}"><i data-lucide="${ic}"></i>${n}</span>`).join('')}</nav>
+            <div class="ac-me"><span class="ac-ava" style="background:${pp.accent}">${pp.initials}</span><span><b>${pp.name}</b><em>${pp.title}</em></span></div>
           </aside>`;
-        const samLine = (icon, txt, d, cls) => `<div class="us-samline ${cls || ''} us-in" style="--d:${d || 0}ms"><i data-lucide="${icon}"></i><span>${txt}</span></div>`;
-        const duo = (mayaInner, samPanel) => `<div class="us-duo"><div class="us-duo-main">${mayaInner}</div>${samPanel || ''}</div>`;
-
-        // Persistent "signed in as" chip — anchors every scene to a person.
-        const who = (scene > 2) ? `
-          <div class="us-who">
-            <span class="us-who-ava" style="background:${p.accent}">${p.initials}</span>
-            <span class="us-who-txt">${p.name} \u00b7 ${p.role}</span>
-            ${scene === 3 ? '<span class="us-day1">Day 1</span>' : ''}
-          </div>` : (scene ? `
-          <div class="us-who"><span class="us-who-txt">New laptop \u00b7 out of the box</span></div>` : '');
-
-        // One device-chrome shell used by the picker, the live journey, and
-        // the any-device scene: 'win' laptop, 'mac' MacBook, 'vdi' browser.
-        // One day, told by the clock: it advances scene by scene.
-        const clk = ({ 0:'8:58 AM', 1:'8:44 AM', 2:'8:47 AM', 3:'8:58 AM', 4:'9:01 AM', 5:'9:01 AM', 6:'11:30 AM', 7:'11:52 AM', 8:'1:15 PM', 9:'2:05 PM', 10:'2:41 PM', 11:'5:58 PM' })[scene];
-        const shell = (kind, inner, cls) => {
-          if (kind === 'vdi') return `
-            <div class="us-browser ${cls || ''}">
-              <div class="us-btabs"><span class="us-btab"><i data-lucide="cloud"></i>Virtual Desktop</span><span class="us-btab-ghost"></span></div>
-              <div class="us-burl"><span class="us-bdot"></span><span class="us-bdot"></span><span class="us-bdot"></span><span class="us-burl-bar"><i data-lucide="lock"></i>desktop.acme.com</span></div>
-              <div class="us-screen" style="background:${p.desk}">${inner}</div>
-            </div>`;
-          return `
-            <div class="us-lap us-lap-${kind} ${cls || ''}">
-              <div class="us-screen" style="background:${p.desk}">
-                ${kind === 'mac' ? '<span class="us-notch"></span>' : '<span class="us-cam"></span>'}
-                ${kind === 'mac' ? `<div class="us-macbar"><i data-lucide="apple"></i><span class="us-macbar-r"><i data-lucide="wifi"></i><i data-lucide="battery"></i><span>Tue ${clk}</span></span></div>` : ''}
-                ${inner}
-                ${kind === 'mac'
-                  ? `<div class="us-dock"><i style="background:#185ABD"></i><i style="background:#107C41"></i><i style="background:${p.accent}"></i><i style="background:#E01E5A"></i></div>`
-                  : `<div class="us-taskbar"><span class="us-tb-center"><span class="us-start"><i></i><i></i><i></i><i></i></span><span class="us-tb-dot" style="background:#185ABD"></span><span class="us-tb-dot" style="background:#107C41"></span><span class="us-tb-dot" style="background:${p.accent}"></span></span><span class="us-tb-clock">${clk}</span></div>`}
+        const wsTop = (q) => `<div class="ac-top"><span class="ac-search ${q ? 'is-typing' : ''}"><i data-lucide="search"></i>${q || 'Search apps'}${q ? '<i class="ac-caret"></i>' : ''}</span><i data-lucide="bell"></i><i data-lucide="circle-help"></i></div>`;
+        const wsHome = (pp, o = {}) => `
+          <div class="ac-shell">
+            ${wsNav(pp, 'Home')}
+            <div class="ac-main">
+              ${wsTop()}
+              <div class="ac-greet"><b>Good morning, ${pp.name.split(' ')[0]}</b><span>Tuesday, September 8 \u00b7 ${pp.role}</span></div>
+              <div class="ac-sec">Your apps <em>${pp.apps.length}</em></div>
+              <div class="ac-grid">${pp.apps.map((id, i) => tile(A(id), { pop: o.pop, d: o.pop ? (o.popBase || 200) + i * 70 : 0, hot: id === o.hot, cursor: id === o.hot && o.cursor, badge: id === o.badge, badgeD: o.badgeD })).join('')}</div>
+            </div>
+          </div>`;
+        const wsCatalog = (pp) => `
+          <div class="ac-shell">
+            ${wsNav(pp, 'Catalog')}
+            <div class="ac-main">
+              ${wsTop(req.name)}
+              <div class="ac-greet"><b>Catalog</b><span>Apps available to request</span></div>
+              <div class="ac-row us-in" style="--d:700ms">
+                ${img(req, 'ac-row-ico')}
+                <span class="ac-row-tx"><b>${req.name} Desktop</b><em>Analytics \u00b7 Salesforce Inc. \u00b7 Approval required</em></span>
+                <span class="ac-btn us-in" style="--d:700ms"><span class="ac-btn-a">Request access</span><span class="ac-btn-b us-in" style="--d:1700ms"><i data-lucide="check"></i>Requested</span></span>
               </div>
-              <div class="us-lap-base ${kind === 'mac' ? 'us-lap-base-mac' : ''}"><i></i></div>
-              <div class="us-dev-tag us-shell-tag"><i data-lucide="${kind === 'mac' ? 'laptop' : 'monitor'}"></i><b>${kind === 'mac' ? 'MacBook Pro' : 'Windows laptop'}</b></div>
-            </div>`;
-        };
-        const dev = ['win','mac','vdi'].includes(STATE.uxDevice) ? STATE.uxDevice : 'win';
+              <div class="ac-status us-in" style="--d:2500ms">
+                <span class="is-done"><i data-lucide="check"></i>Request submitted</span><i class="ac-status-ln"></i>
+                <span class="is-done us-in" style="--d:3100ms"><i data-lucide="check"></i>Approved by policy</span><i class="ac-status-ln"></i>
+                <span class="is-on us-in" style="--d:3700ms"><i data-lucide="layout-grid"></i>Added to your apps</span>
+              </div>
+            </div>
+          </div>`;
 
-        const webUrl = `${target.name.toLowerCase().replace(/ /g, '')}.acme.com`;
+        // ── Real app surfaces ──
+        const powerBi = () => `
+          <div class="pbi">
+            <div class="pbi-top"><span class="pbi-logo">${img(target)}Power BI</span><span class="pbi-path">Finance \u203a FY26 Overview</span><span class="pbi-tools"><i data-lucide="share-2"></i><i data-lucide="download"></i><i data-lucide="more-horizontal"></i></span></div>
+            <div class="pbi-body">
+              <div class="pbi-rail">${['home','layout-dashboard','file-bar-chart','database','clock'].map(ic => `<i data-lucide="${ic}"></i>`).join('')}</div>
+              <div class="pbi-canvas">
+                <div class="pbi-kpis">${[['Revenue','$4.21M','+3.1%'],['Operating expense','$2.87M','\u22121.4%'],['Gross margin','31.8%','+0.6 pt'],['Open invoices','412','\u221228']].map(([l, v, d], i) => `<div class="pbi-kpi us-in" style="--d:${300 + i * 90}ms"><span>${l}</span><b>${v}</b><em class="${d.startsWith('+') ? 'up' : 'dn'}">${d}</em></div>`).join('')}</div>
+                <div class="pbi-charts">
+                  <div class="pbi-card us-in" style="--d:700ms"><span>Revenue by month</span><div class="pbi-bars">${[46,52,49,61,58,66,72,69,78,74,83,88].map((h, i) => `<i style="height:${h}%;--d:${800 + i * 40}ms"></i>`).join('')}</div></div>
+                  <div class="pbi-card us-in" style="--d:900ms"><span>Spend by department</span><div class="pbi-hbars">${[['Sales',88],['R&amp;D',72],['Marketing',54],['Operations',41],['Finance',23]].map(([n, w]) => `<div><em>${n}</em><i style="width:${w}%"></i></div>`).join('')}</div></div>
+                </div>
+              </div>
+            </div>
+          </div>`;
+        const teamsUi = (pp) => `
+          <div class="tm">
+            <div class="tm-top"><span class="tm-search"><i data-lucide="search"></i>Search</span><span class="tm-ava" style="background:${pp.accent}">${pp.initials}</span></div>
+            <div class="tm-body">
+              <div class="tm-rail">${[['bell','Activity'],['message-square','Chat'],['users','Teams'],['calendar','Calendar'],['phone','Calls']].map(([ic, n]) => `<span><i data-lucide="${ic}"></i>${n}</span>`).join('')}<span class="is-on us-in" style="--d:500ms"><span class="ac-tile ac-tile-sm">${LOGO}</span>Acme</span><span class="tm-more"><i data-lucide="more-horizontal"></i></span></div>
+              <div class="tm-main">
+                <div class="tm-head us-in" style="--d:700ms">${brand({ sub: 'Workspace' })}<span class="tm-tabs"><b>My apps</b><span>Catalog</span><span>Requests</span></span></div>
+                <div class="tm-grid">${pp.apps.slice(0, 8).map((id, i) => `<div class="tm-app us-in" style="--d:${900 + i * 80}ms">${img(A(id))}<span>${A(id).name}</span><em>Open</em></div>`).join('')}</div>
+              </div>
+            </div>
+          </div>`;
+
+        // ── Sign-in screens & toasts ──
+        const winSignIn = (pp, msg) => `<div class="rw-over rw-signin us-s1login"><span class="rw-si-ava" style="background:${pp.accent}">${pp.initials}</span><b>${pp.name}</b><span class="rw-si-msg"><i class="rw-spin"></i>${msg || 'Welcome'}</span></div>`;
+        const toast = (inner, d) => `<div class="rw-toast us-in" style="--d:${d || 0}ms">${inner}</div>`;
+        const say = (msg, sub, d) => `<div class="us-say us-in" style="--d:${d || 0}ms"><b>${msg}</b>${sub ? `<span>${sub}</span>` : ''}</div>`;
+
+        // Miniature device trio — real frames, scaled down.
+        const trio = (pp, d0) => `
+          <div class="rw-trio">
+            <div class="rw-mini us-in" style="--d:${d0}ms">${laptop('win', winDesktop(winFrame('Acme Workspace', `<span class="ac-tile ac-tile-sm">${LOGO}</span>`, wsHome(pp), { cls: 'rw-win-app' })), 'Windows laptop')}</div>
+            <div class="rw-mini us-in" style="--d:${d0 + 250}ms">${laptop('win', cloudPc(winFrame('Acme Workspace', `<span class="ac-tile ac-tile-sm">${LOGO}</span>`, wsHome(pp), { cls: 'rw-win-app rw-win-app-cpc' })), 'Windows 365')}</div>
+            <div class="rw-mini us-in" style="--d:${d0 + 500}ms">${laptop('mac', macDesktop(macFrame('Acme Workspace', wsHome(pp), { cls: 'rw-win-app' })), 'Mac')}</div>
+          </div>`;
+
+        const appIcon = `<span class="ac-tile ac-tile-sm">${LOGO}</span>`;
+        const who = (scene >= 2 && scene <= 8) ? `<div class="us-who"><span class="us-who-ava" style="background:${p.accent}">${p.initials}</span><span class="us-who-txt">${p.name} \u00b7 ${p.role}</span></div>` : '';
+
         let stage = '';
-        if (scene === 0) {
-          // Idle — the finished workspace; clicking the laptop starts the day.
-          // div[data-action] (not <button>) — the window contains its own
-          // buttons and nested buttons break the DOM.
-          stage = `<div class="us-lapbtn focus-ring" data-action="ux-play" role="button" tabindex="0" aria-label="Play the day" title="Play">${shell('win', win('ws', wsInner(p, {})), 'us-frame-lg')}</div>`;
-        } else if (scene === 1) {
-          // Prologue A — the bare device. Nothing configured; the OS nags.
-          stage = duo(shell('win', `<div class="us-bare">
-              <span class="us-bare-bin"><i data-lucide="trash-2"></i>Recycle Bin</span>
-              <span class="us-bare-wm">Activate Windows<em>Go to Settings to activate Windows</em></span>
-              <div class="us-bare-empty"><i data-lucide="package-open"></i><span>No apps installed</span></div>
-              <div class="us-bare-toasts">
-                ${[['Windows Update available','bell'],['Activate Windows','key-round'],['Set up your device','settings']].map(([t, ic], i) => `<span class="us-bare-toast us-in" style="--d:${600 + i * 700}ms"><i data-lucide="${ic}"></i>${t}<b>\u00d7</b></span>`).join('')}
+        const intro = () => `
+          <div class="ac-hero ac-hero-final">
+            <div class="ac-mast">
+              <div class="ac-mast-l">
+                <div class="ac-hero-brand us-in" style="--d:100ms">${brand({ sub: 'Corp.' })}</div>
+                <div class="ac-hero-h us-in" style="--d:400ms">A consistent application experience<br>wherever work happens.</div>
               </div>
-            </div>`, 'us-frame-lg'),
-            sam(
-              samLine('laptop-minimal', 'New laptop \u00b7 nothing configured', 200, 'is-gray') +
-              samLine('shield-check', 'Autopilot \u00b7 MDM enrolment', 1400, 'is-gray') +
-              samLine('shield-check', 'Intune \u00b7 security baseline', 2200, 'is-gray') +
-              samLine('circle-slash', 'Still no apps, no profile', 3000, 'is-gray'), { d: 0 }));
+              <div class="ac-mast-r us-in" style="--d:700ms">${['Personalized','Easy to use','Cross-device','Always current'].map(t => `<span><i data-lucide="check"></i>${t}</span>`).join('')}</div>
+            </div>
+            <div class="ac-board">
+              <div class="rw-trio-row ac-board-head us-in" style="--d:900ms"><span></span><div class="ac-cols">${[['monitor','Windows laptop','Physical'],['cloud','Windows 365','Virtual'],['laptop','Mac','Physical']].map(([ic, n, k]) => `<span class="ac-col"><i data-lucide="${ic}"></i><b>${n}</b><em>${k}</em></span>`).join('')}</div></div>
+              <div class="rw-trio-row"><span class="rw-trio-lab us-in" style="--d:1000ms"><span class="ac-ava" style="background:${maya.accent}">${maya.initials}</span><span><b>Maya Chen</b><em>Finance</em></span></span>${trio(maya, 1100)}</div>
+              <div class="rw-trio-row"><span class="rw-trio-lab us-in" style="--d:1700ms"><span class="ac-ava" style="background:${alex.accent}">${alex.initials}</span><span><b>Alex Rivera</b><em>Sales</em></span></span>${trio(alex, 1800)}</div>
+            </div>
+            <div class="ac-foot us-in" style="--d:2500ms"><span>One workspace</span><i></i><span>Personalized per employee</span><i></i><span>Same on every device</span><i></i><span>Also inside Microsoft Teams</span></div>
+          </div>`;
+
+        if (scene <= 1) {
+          stage = `<div class="us-lapbtn focus-ring" data-action="ux-play" role="button" tabindex="0" aria-label="Play the demo" title="Play">${intro(true)}</div>`;
         } else if (scene === 2) {
-          // Prologue B — one script, then trust, agent, context, apps. Zero touch.
-          stage = duo(shell('win', `<div class="us-bare">
-              <span class="us-bare-wm">Activate Windows</span>
-              <div class="us-cmd us-in" style="--d:100ms">C:\\&gt; bootstrap.exe<span class="us-caret"></span></div>
-              <div class="us-boot us-in" style="--d:1100ms">
-                <div class="us-boot-t"><span class="us-agent"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2.6 20 6.4v5.6c0 4.6-3.3 8-8 9.4-4.7-1.4-8-4.8-8-9.4V6.4L12 2.6Z" fill="#00BFFF" fill-opacity=".18" stroke="#00BFFF" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="10.6" r="2.4" fill="#fff"/><path d="M12 13v4.4M12 13l-3.1 2M12 13l3.1 2" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg></span><span class="us-boot-node">Recast agent \u2192 backend</span><span class="us-boot-pill">TCP 443</span></div>
-                ${[['Device trusted \u00b7 certificate valid', 400], ['Agent installed \u00b7 2.5 MB', 1200], ['Context evaluated \u00b7 Finance \u00b7 Windows 11', 2000], ['Configurations + apps delivered', 2800]].map(([t, d]) => `<div class="us-bootrow us-in" style="--d:${1300 + d}ms"><i data-lucide="check"></i>${t}</div>`).join('')}
-                <div class="us-boot-sum us-in" style="--d:4600ms">Bare metal to ready \u00b7 2 min 41 s \u00b7 nobody touched it</div>
-              </div>
-            </div>`, 'us-frame-lg'),
-            sam(
-              samLine('terminal', 'One script \u00b7 delivered by Intune', 300) +
-              samLine('plug', 'Port 443 out \u00b7 nothing inbound', 1100) +
-              samLine('check-circle-2', 'No imaging bench \u00b7 no technician', 2600, 'is-ok'), { d: 200 }));
+          // Maya · Finance — signs in to her Windows laptop; Acme Workspace opens.
+          stage = `<div class="us-story">
+              <div class="us-zoomin">${laptop('win', winDesktop(winFrame('Acme Workspace', appIcon, wsHome(maya, { pop: true, popBase: 1900 }), { cls: 'rw-win-app rw-rise', style: 'animation-delay:1500ms' }), { overlay: winSignIn(maya, 'Signing in\u2026') }), 'Windows laptop')}</div>
+              ${say('Maya sees the applications available to her.', '', 3000)}
+            </div>`;
         } else if (scene === 3) {
-          // CH1 — the empty desk. She signs in; Sam has nothing to do.
-          stage = duo(shell('win', `
-              ${win('ws', wsInner(p, { pop: true, popBase: 1600, tags: true, tagD: 3100 }), { cls: 'us-s1ws' })}
-              <div class="us-over us-s1login"><div class="us-splash">
-                <span class="us-splash-mark" style="background:${p.accent}">${p.initials}</span>
-                <div class="us-splash-brand">${p.name}</div>
-                <div class="us-splash-sso"><i data-lucide="shield-check"></i>Signing in\u2026</div>
-              </div></div>`, 'us-frame-lg'),
-            sam(
-              samLine('user-plus', `New hire: ${p.name} \u00b7 ${p.role}`, 900) +
-              samLine('inbox', '0 tickets opened', 1600) +
-              samLine('check-circle-2', 'Nothing to do', 2300, 'is-ok'), { d: 700 }));
+          // Maya opens Power BI — one click, the report opens.
+          stage = `<div class="us-story">
+              ${laptop('win', winDesktop(`${winFrame('Acme Workspace', appIcon, wsHome(maya, { hot: maya.target, cursor: true }), { cls: 'rw-win-app' })}${winFrame('Power BI \u2014 FY26 Overview', img(target), powerBi(), { cls: 'rw-win-app rw-win-front rw-rise', style: 'animation-delay:1500ms' })}`), 'Windows laptop')}
+              ${say('Find and launch the applications you need in just a few clicks.', '', 2600)}
+            </div>`;
         } else if (scene === 4) {
-          // CH2 — the first click. Sam stays hidden; don't interrupt the fast beat.
-          stage = shell('win', win('ws', wsInner(p, { clickTarget: true })), 'us-frame-lg');
+          // Any device — Windows 365 Cloud PC (virtual) and a Mac (physical), side by side.
+          // Both sign in together and the identical workspace appears in sync.
+          stage = `<div class="us-story">
+              <div class="rw-pair">
+                <div class="rw-pair-col us-in" style="--d:100ms">
+                  <div class="rw-pair-lab"><span class="rw-pair-k">Virtual</span><b>Windows 365 Cloud PC</b><span>Streamed in the browser</span></div>
+                  ${laptop('win', cloudPc(winFrame('Acme Workspace', appIcon, wsHome(maya, { pop: true, popBase: 2000 }), { cls: 'rw-win-app rw-win-app-cpc rw-win-wide rw-rise', style: 'animation-delay:1600ms' }), winSignIn(maya, 'Connecting to your Cloud PC\u2026')), 'Windows 365')}
+                </div>
+                <div class="rw-pair-eq us-in" style="--d:2800ms"><i data-lucide="equal"></i><span>Identical</span></div>
+                <div class="rw-pair-col us-in" style="--d:100ms">
+                  <div class="rw-pair-lab"><span class="rw-pair-k">Physical</span><b>MacBook Pro</b><span>Native macOS app</span></div>
+                  ${laptop('mac', macDesktop(`${macFrame('Acme Workspace', wsHome(maya, { pop: true, popBase: 2000 }), { cls: 'rw-win-app rw-win-wide rw-rise', style: 'animation-delay:1600ms' })}${winSignIn(maya, 'Signing in\u2026')}`), 'Mac')}
+                </div>
+              </div>
+              ${say('Maya accesses her applications on any device.', 'Physical or virtual \u2014 same apps, same experience. Nothing new to learn.', 3200)}
+            </div>`;
         } else if (scene === 5) {
-          stage = shell('win', `${win('ws', wsInner(p, {}))}${over(`${appWin(target, { cls: 'us-zoom', body: p.target === 'teams' ? teamsBody : '' })}<span class="us-gone">no ticket \u00b7 no installer \u00b7 no setup wizard \u00b7 no restart</span>`, 100)}`, 'us-frame-lg');
+          // Evergreen — Maya keeps working; beside the laptop, a "behind the scenes"
+          // panel shows Zoom being verified, versioned and installed. She never sees it.
+          const steps = [
+            ['scan-search', 'New version detected', 'Zoom 6.2.5 published', 900],
+            ['shield-check', 'Package verified', 'Publisher signature \u00b7 malware scan', 1600],
+            ['flask-conical', 'Tested', 'Passed on Finance test ring', 2300],
+            ['download', 'Installed silently', 'While Maya worked \u00b7 no restart', 3000],
+          ];
+          stage = `<div class="us-story">
+              <div class="rw-bts">
+                <div class="rw-bts-dev">
+                  ${laptop('win', winDesktop(winFrame('Acme Workspace', appIcon, wsHome(maya, { badge: maya.ever, badgeD: 3400 }), { cls: 'rw-win-app' })), 'Windows laptop')}
+                  <div class="rw-bts-user us-in" style="--d:3900ms"><i data-lucide="eye-off"></i>Nothing to click. Nothing to wait for.</div>
+                </div>
+                <div class="rw-bts-link us-in" style="--d:600ms"><i></i><span><i data-lucide="lock"></i></span><i></i></div>
+                <aside class="rw-bts-panel us-in" style="--d:500ms">
+                  <div class="rw-bts-head"><span class="rw-bts-k">Behind the scenes</span><span class="rw-bts-t">${img(ever, 'rw-bts-ico')}<b>${ever.name}</b></span>
+                    <span class="rw-bts-ver"><em>6.2.4</em><i data-lucide="arrow-right"></i><b class="us-in" style="--d:3000ms">6.2.5</b></span></div>
+                  <ol class="rw-bts-steps">${steps.map(([ic, t, s, d], i) => `<li class="us-in" style="--d:${d}ms"><span class="rw-bts-dot"><i data-lucide="${ic}"></i></span><span class="rw-bts-tx"><b>${t}</b><span>${s}</span></span><i data-lucide="check" class="rw-bts-ok us-in" style="--d:${d + 450}ms"></i></li>`).join('')}</ol>
+                  <div class="rw-bts-foot us-in" style="--d:3600ms"><i data-lucide="shield-check"></i>Secure \u00b7 versioned \u00b7 rolled out in rings</div>
+                </aside>
+              </div>
+              ${say('Applications stay current without adding complexity for the user.', 'Updates are verified, versioned and installed in the background. Maya just opens Zoom.', 4200)}
+            </div>`;
         } else if (scene === 6) {
-          // CH3 — follows her. A clear "switching devices" title card first,
-          // then the MacBook, then the same icon opening as web.
-          stage = duo(`<div class="us-switchwrap">
-              <div class="us-switch">
-                <span class="us-switch-dev"><i data-lucide="monitor"></i>Windows laptop</span>
-                <span class="us-switch-arrow"><i data-lucide="arrow-right"></i></span>
-                <span class="us-switch-dev is-to"><i data-lucide="laptop"></i>MacBook Pro</span>
-                <span class="us-switch-cap">${first} walks to the meeting room and signs in again</span>
-              </div>
-              <div class="us-switch-mac">${shell('mac', `${win('ws', wsInner(p, { pop: true, popBase: 3400 }), { cls: 'us-s1ws us-s1ws-late' })}${over(`<span class="us-webchip us-webchip-top us-in" style="--d:900ms"><i data-lucide="globe"></i>Same ${target.name} icon \u2014 opens in the browser on this Mac</span>${appWin(target, { cls: 'us-zoom', url: webUrl, body: p.target === 'teams' ? teamsBody : '' })}`, 5200)}`, 'us-frame-lg')}</div>
-            </div>`,
-            sam(`
-              <div class="us-cmp us-in" style="--d:5600ms">
-                <div class="us-cmp-row"><i data-lucide="monitor"></i><span>Windows laptop</span><b>Installed app</b></div>
-                <div class="us-cmp-row is-lit"><i data-lucide="laptop"></i><span>MacBook Pro</span><b>Web app</b></div>
-              </div>
-              ${samLine('mouse-pointer-click', `Same ${target.name} icon on both. Recast picks how it opens.`, 6400)}
-              ${samLine('check-circle-2', 'Nothing for Sam to configure per device.', 7200, 'is-ok')}`, { d: 5000 }));
+          // Switch users — Alex · Sales signs in; a clearly different app set.
+          stage = `<div class="us-story">
+              ${laptop('win', winDesktop(winFrame('Acme Workspace', appIcon, wsHome(alex, { pop: true, popBase: 1900 }), { cls: 'rw-win-app rw-rise', style: 'animation-delay:1500ms' }), { overlay: winSignIn(alex, 'Signing in\u2026') }), 'Windows laptop')}
+              ${say('The experience is personalized to the employee.', 'Maya sees Finance apps. Alex sees Sales apps.', 3200)}
+            </div>`;
         } else if (scene === 7) {
-          // CH4 — asking. Two requests, two paths, side by side. Zero tickets.
-          stage = duo(shell('win', win('cat', `
-              <div class="us-greet">Catalog</div>
-              <div class="us-req2col">
-                <div class="us-reqcol us-in" style="--d:150ms">
-                  ${reqCard(req1)}
-                  <div class="us-reqchip is-ok us-in" style="--d:1200ms"><i data-lucide="check"></i>Approved \u00b7 auto</div>
-                  <div class="us-reqadded us-in" style="--d:1900ms"><i data-lucide="layout-grid"></i>Added</div>
-                </div>
-                <div class="us-reqcol us-in" style="--d:800ms">
-                  ${reqCard(req2)}
-                  <div class="us-reqchip is-warn us-in" style="--d:2200ms"><i data-lucide="user-check"></i>Routed to manager</div>
-                  <div class="us-reqchip is-ok us-in" style="--d:3400ms"><i data-lucide="check"></i>Approved</div>
-                  <div class="us-reqadded us-in" style="--d:4000ms"><i data-lucide="layout-grid"></i>Added</div>
-                </div>
-              </div>
-              <div class="us-toastn us-in" style="--d:3500ms">
-                <span class="us-toastn-ico" style="background:${req2.color}">${req2.letter}${req2.img ? `<img src="${req2.img}" alt="" onerror="this.remove()">` : ''}</span>
-                <div class="us-toastn-tx"><b>${req2.name} approved</b><span>by J. Torres \u00b7 added to your workspace</span></div>
-              </div>`), 'us-frame-lg'),
-            sam(
-              samLine('file-check', `${req1.name} \u00b7 auto-approved \u00b7 policy: ${p.role}, under $10/user`, 2400) +
-              samLine('user-check', `${req2.name} Pro \u00b7 manager approval \u00b7 4 min`, 3600), { d: 2000 }));
+          // Alex requests Tableau — request, confirmation, status. No admin screens.
+          stage = `<div class="us-story">
+              ${laptop('win', winDesktop(winFrame('Acme Workspace', appIcon, wsCatalog(alex), { cls: 'rw-win-app' }), { overlay: toast(`
+                <div class="rw-toast-h">${appIcon}<span>Acme Workspace</span><em>now</em></div>
+                <div class="rw-toast-b">${img(req, 'rw-toast-ico')}<div><b>Request submitted</b><span>You\u2019ll be notified when ${req.name} is ready.</span></div></div>`, 1900) }), 'Windows laptop')}
+              ${say('Employees can request the applications they need.', '', 3900)}
+            </div>`;
         } else if (scene === 8) {
-          // CH5 — kept current. The version ticks over as it opens; Sam sees the rings.
-          stage = duo(shell('win', `${win('ws', wsInner(p, { extra: [p.req1, p.req2] }))}${over(appWin(upd, { cls: 'us-zoom', ver: ['v2.1', 'v2.2'] }), 400)}`, 'us-frame-lg'),
-            sam(
-              samLine('bell', `New ${upd.name} version available \u00b7 v2.2`, 700) +
-              samLine('package-check', 'Package prepared automatically \u00b7 tested', 1500) +
-              `<div class="us-sampaths us-in" style="--d:2300ms">${['Dev','Test','Acceptance','Production'].map((s, i) => `<span class="us-sampath is-lit us-in" style="--d:${2400 + i * 260}ms">${s}</span>`).join('')}</div>` +
-              samLine('refresh-cw', 'Rolled out ring by ring \u00b7 overnight', 3600) +
-              samLine('check-circle-2', `4,000 devices current \u00b7 0 user interruptions`, 4400, 'is-ok'), { d: 500 }));
-        } else if (scene === 9) {
-          // CH6 — the migration. Sam moves SAP's backend at 2:00; Maya clicks the same tile at 2:05.
-          stage = duo(shell('win', `${win('ws', wsInner(p, { extra: [p.req1, p.req2], clickFin: true }))}${over(`<span class="us-stamp">2:05 PM \u00b7 ${first} opens ${fin.name}</span>${appWin(fin, { cls: 'us-zoom' })}<span class="us-webchip us-in" style="--d:700ms"><i data-lucide="check"></i>Same icon. Same app. Nothing changed for ${her}.</span>`, 2600)}`, 'us-frame-lg'),
-            sam(
-              samLine('clock', '2:00 PM \u00b7 Sam moves where SAP runs', 200, 'is-stamp') +
-              `<div class="us-cmp us-in" style="--d:700ms">
-                <div class="us-cmp-row"><i data-lucide="server"></i><span>Before</span><b>Citrix</b></div>
-                <div class="us-cmp-row is-lit"><i data-lucide="cloud"></i><span>After</span><b>Azure Virtual Desktop</b></div>
-              </div>` +
-              samLine('mouse-pointer-click', 'One setting changed. No repackaging.', 1500) +
-              samLine('users', `${p.role} users: no email, no downtime`, 2100) +
-              samLine('check-circle-2', `${first} never noticed \u2014 that\u2019s the point`, 3400, 'is-ok'), { d: 0 }));
-        } else if (scene === 10) {
-          // CH7 — protected. Sam's amber flag first; her tile reroutes to web.
-          stage = duo(shell('win', `${win('ws', wsInner(p, { extra: [p.req1, p.req2], vuln: true, web: true }))}${over(`${appWin(upd, { cls: 'us-zoom', url: `${p.upd}.acme.com` })}<span class="us-webchip us-in" style="--d:800ms">Rerouted for your protection</span>`, 2300)}`, 'us-frame-lg'),
-            sam(
-              samLine('clock', '2:41 PM', 200, 'is-stamp') +
-              samLine('shield-alert', `${upd.name}: known vulnerability \u00b7 severity 7.8`, 700, 'is-warn') +
-              samLine('git-branch', 'Reroute to web', 1500) +
-              samLine('check-circle-2', 'Closed', 2200, 'is-ok'), { d: 0 }));
+          // Two ways in — embedded inside Teams, or the standalone portal. Same apps.
+          stage = `<div class="us-story">
+              <div class="rw-pair">
+                <div class="rw-pair-col us-in" style="--d:100ms">
+                  <div class="rw-pair-lab"><span class="rw-pair-k">Embedded</span><b>Inside Microsoft Teams</b><span>Also SharePoint or your intranet</span></div>
+                  ${laptop('win', winDesktop(winFrame('Microsoft Teams', img(A('teams')), teamsUi(alex), { cls: 'rw-win-app rw-win-wide' })), 'Windows laptop')}
+                </div>
+                <div class="rw-pair-eq us-in" style="--d:1400ms"><i data-lucide="equal"></i><span>Same apps</span></div>
+                <div class="rw-pair-col us-in" style="--d:700ms">
+                  <div class="rw-pair-lab"><span class="rw-pair-k">Portal</span><b>Acme Workspace on its own</b><span>workspace.acme.com or the desktop app</span></div>
+                  ${laptop('win', winDesktop(winFrame('Acme Workspace', appIcon, wsHome(alex), { cls: 'rw-win-app rw-win-wide' })), 'Windows laptop')}
+                </div>
+              </div>
+              ${say('Prefer to work in Teams? Your apps can be there too.', 'Application Workspace can be embedded where people already work, or opened as its own portal.', 2000)}
+            </div>`;
         } else {
-          // CH8 — the reveal: the stack she stood on all day, then the line.
-          stage = `${duo(`<div class="us-reveal">
-              <div class="us-reveal-lap us-in" style="--d:100ms">${shell('win', win('ws', wsInner(p, { extra: [p.req1, p.req2] })))}</div>
-              <div class="us-layers">${['Identity','Policy','Catalog \u00b7 8,000+ apps','Delivery paths','Update engine'].map((l, i) => `<span class="us-layer us-in" style="--d:${600 + i * 240}ms">${l}</span>`).join('')}</div>
-              <div class="us-alexrow us-in" style="--d:2100ms">
-                <span class="us-finava" style="background:${other.accent}">${other.initials}</span>
-                <b>${other.name}</b><span>${other.role}</span>
-                <span class="us-alexapps">${other.apps.slice(0, 5).map(id => { const a = A(id); return `<span class="us-finico" style="background:${a.color}">${a.letter}${a.img ? `<img src="${a.img}" alt="" onerror="this.remove()">` : ''}</span>`; }).join('')}</span>
-                <em>different apps</em>
-              </div>
-              <div class="us-findevs us-in" style="--d:2500ms">
-                ${[['monitor','Windows laptop'],['laptop','MacBook Pro'],['cloud','Virtual desktop']].map(([ic, nm]) => `<span class="us-findev"><i data-lucide="${ic}"></i>${nm}</span>`).join('')}
-              </div>
-              <div class="us-fintitle us-in" style="--d:2900ms">One icon. It just works. Everywhere.</div>
-            </div>`,
-            sam(samLine('sigma', 'Today: 0 tickets \u00b7 1 approval \u00b7 1 migration \u00b7 1 reroute', 800), { d: 400 }))}`;
+          // Final — the journey closes on the exact frame it opened with.
+          stage = `<div class="us-lapbtn focus-ring" data-action="ux-play" role="button" tabindex="0" aria-label="Replay the demo" title="Replay">${intro(true)}</div>`;
         }
 
-        const cursor = scene === 4 ? `<svg class="us-cursor us-cursor-travel us-cursor-late" viewBox="0 0 24 24" fill="#1A1A2E" stroke="#fff" stroke-width="1.5" aria-hidden="true"><path d="M5 3l14 8-6 1.5L9.5 19z"/></svg>` : '';
-
-        // Crossfade only when the SCENE changes — intra-scene ticks (cursor,
-        // pulses) re-render without a fade so nothing double-animates.
-        const sceneChanged = STATE._usScene !== scene;
-        STATE._usScene = scene;
+        const sceneKey = scene <= 1 ? 1 : scene;
+        const sceneChanged = STATE._usScene !== sceneKey;
+        STATE._usScene = sceneKey;
 
         return `
           <div class="section-card p-4 us-card">
             <div class="flex items-center justify-between mb-2 gap-2 flex-wrap">
               ${ended
-                ? `<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200" style="white-space:nowrap"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500" style="flex-shrink:0"></i><span class="text-xs font-semibold text-emerald-700">Done \u2014 try ${PERSONAS[1 - baseIdx].name.split(' ')[0]} \u00b7 ${PERSONAS[1 - baseIdx].role}</span></div>`
+                ? `<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200" style="white-space:nowrap"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500" style="flex-shrink:0"></i><span class="text-xs font-semibold text-emerald-700">Demo complete \u2014 click any step to replay</span></div>`
                 : '<div class="bts-label bts-label-user"><i data-lucide="user" class="w-3 h-3"></i> What the user sees</div>'}
-              <div class="us-personas">
-                <span class="us-personas-lab">User</span>
-                ${PERSONAS.map((pp, i) => `
-                  <button type="button" class="ux-scenario-pill ux-persona-pill ${baseIdx === i ? 'is-active' : ''}" data-action="pick-ux-persona" data-idx="${i}">
-                    <span class="ux-persona-dot" style="background:${pp.accent}"></span><span>${pp.name.split(' ')[0]} \u00b7 ${pp.role}</span>
-                  </button>`).join('')}
-              </div>
             </div>
-            <div style="display:none" aria-hidden="true">${Object.keys(APPS).map(k => A(k).img ? `<img src="${A(k).img}" alt="">` : '').join('')}</div>
+            <div style="display:none" aria-hidden="true">${Object.keys(APPS).map(k => `<img src="${A(k).img}" alt="">`).join('')}</div>
             <div class="us-body2">
-              <div class="us-stage" style="background:#FFFFFF;border:1px solid #DDDDEE">
+              <div class="us-stage rw-stage">
                 ${who}
-                ${cursor}
                 <div class="us-scene ${sceneChanged ? 'us-scenefade' : ''}">${stage}</div>
               </div>
               <aside class="us-rail" aria-label="Journey steps">
                 <div class="us-rail-t">The journey</div>
                 ${CHAPTERS.map((c, i) => `
-                  <button type="button" class="us-step focus-ring ${chap > i ? 'is-done' : ''} ${chap === i ? 'is-on' : ''}" data-action="ux-chapter" data-ph="${['bare','catalog','clicking','checking','routing','config','done','final'][i]}" title="Jump to this chapter">
+                  <button type="button" class="us-step focus-ring ${chap > i ? 'is-done' : ''} ${chap === i ? 'is-on' : ''}" data-action="ux-chapter" data-ph="${CHAPTER_PH[i]}" title="Jump to this scene">
                     <span class="us-step-n">${chap > i ? '\u2713' : i + 1}</span>
-                    <div class="us-step-tx"><b>${c[0]}</b><span>${c[1]}</span>${i === 0 && chap === 0 ? `<span class="us-substeps">${['Blank device','Recast agent','Signed in'].map((s, k) => `<i class="${scene > k + 1 ? 'is-done' : scene === k + 1 ? 'is-on' : ''}">${s}</i>`).join('')}</span>` : ''}</div>
+                    <div class="us-step-tx"><b>${c[0]}</b><span>${c[1]}</span></div>
                   </button>`).join('')}
               </aside>
             </div>
@@ -16398,7 +16922,7 @@
                     </span>
                   </div>
                   <div class="demo-modal-body" data-modal-body>
-                    <div id="demo-stage" class="grid grid-cols-1 ${multiCol ? 'lg:grid-cols-2' : ''} gap-3 ${STATE.flowPaused ? 'is-frozen' : ''}">
+                    <div id="demo-stage" class="grid grid-cols-1 ${multiCol ? 'lg:grid-cols-2' : ''} gap-3 ${STATE.flowPaused && STATE._holdFrozen ? 'is-frozen is-settled' : ''}">
                       ${STATE.solutionViewSetupStore ? renderSetupStoreView() : ''}
                       ${STATE.solutionViewAdmin ? renderConsoleModule() : ''}
                       ${STATE.solutionViewUpdate ? renderUpdateView() : ''}
@@ -19304,6 +19828,15 @@
             source: 'Reference operating model' },
         ];
 
+        const BI_OUTCOME_MATRIX = [
+          ['More IT capacity', 'Less repetitive packaging, testing, deployment, and support work', 'Engineering hours returned, FTE capacity, backlog reduction', 'Where teams spend the most effort, which apps create the most work, where automation has the highest payoff', 'users'],
+          ['Faster employee productivity', 'Apps become available faster and with less waiting on IT', 'Time to app, device readiness time, onboarding time', 'Which users or departments wait longest, which apps delay onboarding, where access friction exists', 'zap'],
+          ['Fewer support tickets', 'More self service and fewer failed installs or access requests', 'App related tickets, cost per ticket, repeat incidents', 'Which applications generate the most support demand, what issues repeat, where self service could eliminate tickets', 'ticket'],
+          ['Lower security exposure', 'Applications stay current faster and vulnerable versions are easier to identify', 'Patch latency, vulnerable versions, percentage current', 'Which apps are most exposed, where patch SLAs are being missed, which groups or devices create the most risk', 'shield-check'],
+          ['Faster transformation', 'Apps are less tied to a specific endpoint or delivery platform', 'Migration duration, apps remaining, engineering effort per migration', 'Which apps are blocking Intune, Citrix, AVD, Windows 365, or other modernization efforts', 'route'],
+          ['Lower run cost', 'Less manual labor, fewer overlapping tools, reduced infrastructure dependence', 'Cost per app, cost per endpoint, licensing cost, operating cost', 'Where spend is concentrated, which apps or delivery methods cost the most, where consolidation creates savings', 'coins'],
+        ];
+
         const rail = [
           ['fronts', 'gauge', 'Why teams change'],
           ['change', 'arrow-left-right', 'Before and after'],
@@ -19345,26 +19878,18 @@
               </div>
             ` : `
             <div class="bi2">
-              <div class="bi2-hero">
-                <div class="bi2-hero-l">
-                  <div class="bi2-eyebrow">What changes</div>
-                  <div class="bi2-h">${ent ? 'Four things your team stops doing by hand.' : 'Same contract. Fewer hours. Better margin.'}</div>
-                  <div class="bi2-sub">${ent ? 'Each one is a repeatable saving \u2014 it happens on every release, every platform, every request.' : 'Delivery and support hours drop; revenue does not.'}</div>
-                </div>
-                <div class="bi2-hero-r">
-                  <div class="bi2-big"><span class="bi2-big-l">Application hours a month</span><span class="bi2-big-v"><s>${num(m.tNow)}</s><i data-lucide="arrow-right"></i><b>${num(m.tAw)}</b></span><span class="bi2-big-m">${multHead} the load with the same team</span></div>
-                </div>
-              </div>
-              <div class="bi2-tiles">
-                ${cards.map((card, i) => `
-                  <div class="bi2-tile dv-in" style="--d:${200 + i * 160}ms">
-                    <div class="bi2-tile-top"><span class="bi2-tile-n">${String(i + 1).padStart(2, '0')}</span><i data-lucide="${card.icon}"></i><span>${card.title}</span></div>
-                    ${card.oc
-                      ? `<div class="bi2-chg"><s>${card.from}</s><i data-lucide="arrow-right"></i><b>${card.to}</b>${card.unit ? `<u>${card.unit}</u>` : ''}</div>`
-                      : `<div class="bi2-chg"><b>${card.stat}</b></div>`}
-                    <div class="bi2-claim">${card.claim || card.label}</div>
-                    <div class="bi2-note">${card.note || card.body2 || ''}</div>
+              <div class="section-card bi4">
+                <div class="bi-head"><div class="bi-col-h">Business outcomes</div><div class="bi-leg"><span>Six outcomes, what moves them, and how you measure each</span></div></div>
+                <div class="bi4-m">
+                  <div class="bi4-hd"><span>Business outcome</span><span>What changes</span><span>Business measure</span><span>What the data can tell you</span></div>
+                  ${BI_OUTCOME_MATRIX.map((r, i) => `
+                  <div class="bi4-r">
+                    <span class="bi4-o"><i class="bi4-n">${String(i + 1).padStart(2, '0')}</i><i data-lucide="${r[4]}"></i><b>${r[0]}</b></span>
+                    <span class="bi4-c">${r[1]}</span>
+                    <span class="bi4-c bi4-meas">${r[2].split(', ').map((t) => `<em>${t}</em>`).join('')}</span>
+                    <span class="bi4-c">${r[3]}</span>
                   </div>`).join('')}
+                </div>
               </div>
               <div class="bi2-row">
                 <div class="section-card bi2-chart">
@@ -19877,10 +20402,10 @@
                   }, 5600);
                   STATE.lcTimers.push(t);
                 }, dwell: LC_DWELL[2] },
-              { key: 'solutionViewOnboarding',  start: () => startOb(),   dwell: LC_DWELL[3] },
-              { key: 'solutionViewDashboard',   start: () => startDr(),   dwell: LC_DWELL[4] },
-              { key: 'solutionViewAi',          start: () => startAi(),   dwell: LC_DWELL[5] },
-              { key: 'solutionViewMultiTenant', start: () => startMt(),   dwell: LC_DWELL[6] },
+              { key: 'solutionViewDashboard',   start: () => startDr(),   dwell: LC_DWELL[3] },
+              { key: 'solutionViewAi',          start: () => startAi(),   dwell: LC_DWELL[4] },
+              { key: 'solutionViewMultiTenant', start: () => startMt(),   dwell: LC_DWELL[5] },
+              { key: 'solutionViewOnboarding',  start: () => startOb(),   dwell: LC_DWELL[6] },
             ];
 
             let elapsed = 0;
@@ -20064,7 +20589,7 @@
             }
             return;
           }
-          if (action === 'ux-play') { if (!STATE.flowRunning) startFlow(); return; }
+          if (action === 'ux-play') { if (STATE.flowRunning && STATE.flowPhase === 'final') resetFlow(); if (!STATE.flowRunning) startFlow(); return; }
           if (action === 'ux-chapter') {
             // Click a rail step → jump to that chapter and keep playing from there.
             const startPh = act.getAttribute('data-ph');
@@ -20081,6 +20606,15 @@
             STATE.uxPersona = pi === 1 ? 1 : 0;
             if (STATE.flowRunning || STATE.flowScenarioIdx >= 0) resetFlow();
             startFlow();
+            return;
+          }
+          if (action === 'ux-switch-dev') {
+            // CH3 device picker → show the switch on that device and continue the story.
+            const dv = act.getAttribute('data-dev');
+            STATE.uxSwitchDev = ['win','mac','vdi'].includes(dv) ? dv : 'mac';
+            STATE.uxAwaitDev = false;
+            if (STATE.flowRunning && STATE.flowPaused) { updateFlowDOM(); resumeFlow(); }
+            else updateFlowDOM();
             return;
           }
           if (action === 'pick-ux-device') {
