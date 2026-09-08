@@ -4356,6 +4356,11 @@
       .rw-bts-ok { width: 11px; height: 11px; color: #0F7A3F; stroke-width: 3; flex-shrink: 0; }
       .rw-bts-foot { display: inline-flex; align-items: center; gap: 5px; font-size: 8.5px; font-weight: 600; color: #0E8A7B; background: #E6F4F1; border-radius: 6px; padding: 5px 8px; white-space: nowrap; }
       .rw-bts-foot i, .rw-bts-foot svg { width: 10px; height: 10px; flex-shrink: 0; }
+      .rw-bts-route { display: flex; gap: 5px; flex-wrap: wrap; }
+      .rw-bts-route em, .rw-bts-route b { display: inline-flex; align-items: center; gap: 4px; font-size: 8px; font-weight: 600; border-radius: 999px; padding: 2px 7px; white-space: nowrap; font-style: normal; }
+      .rw-bts-route em { color: #9AA1AE; background: #F3F4F6; }
+      .rw-bts-route b { color: #0B1F3A; background: #E6F4F1; border: 1px solid #BFE3DB; }
+      .rw-bts-route i, .rw-bts-route svg { width: 9px; height: 9px; }
       .rw-bts-panel { min-width: 0; }
       .rw-bts-head, .rw-bts-t b { min-width: 0; }
       @media (max-width: 760px) { .rw-bts { grid-template-columns: 1fr; } .rw-bts-link { display: none; } }
@@ -4625,21 +4630,26 @@
       .rw-trio-lab b { font-size: 10.5px; font-weight: 600; color: #0B1F3A; }
       .rw-trio-lab em { font-style: normal; font-size: 9px; color: #7A8290; font-weight: 500; }
       .rw-trio-lab .ac-ava { width: 26px; height: 26px; font-size: 9px; }
-      .ac-hero-final { align-items: stretch; gap: 10px; padding: 2px 6px; }
-      .ac-mast { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; width: 100%; padding-bottom: 10px; border-bottom: 1px solid #E3E3E8; }
-      .ac-mast-l { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
-      .ac-mast-l .ac-hero-h { text-align: left; font-size: 17px; margin: 0; white-space: nowrap; }
+      .ac-hero-final { align-items: stretch; gap: 14px; padding: 4px 8px 2px; }
+      .ac-mast { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; width: 100%; }
+      .ac-mast-l { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+      .ac-mast-l .ac-hero-sub { text-align: left; color: #7A8290; }
+      .ac-mast-l .ac-hero-h { text-align: left; font-size: 18px; margin: 0; white-space: normal; text-wrap: balance; max-width: 520px; }
       @media (max-width: 900px) { .ac-mast-l .ac-hero-h { white-space: normal; font-size: 15px; } .ac-mast-r { display: none; } }
-      .ac-mast-r { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 14px; flex-shrink: 0; }
-      .ac-mast-r span { display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; font-weight: 500; color: #3A3A4C; white-space: nowrap; }
-      .ac-mast-r i, .ac-mast-r svg { width: 11px; height: 11px; color: #0E8A7B; stroke-width: 2.5; }
-      .ac-board { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+      .ac-mast-r { display: none; }
+      .ac-mast-r span { display: inline-flex; align-items: center; gap: 5px; font-size: 9px; font-weight: 600; color: #3A3A4C; white-space: nowrap; background: #fff; border: 1px solid #E3E3E8; border-radius: 999px; padding: 3px 9px; }
+      .ac-mast-r i, .ac-mast-r svg { width: 10px; height: 10px; color: #0B1F3A; }
+      .ac-board { display: flex; flex-direction: column; gap: 0; width: 100%; background: #fff; border: 1px solid #E3E3E8; border-radius: 12px; padding: 10px 14px 6px; box-shadow: 0 1px 2px rgba(26,26,46,0.04), 0 14px 34px -22px rgba(11,31,58,0.35); }
+      .ac-board-head { padding-bottom: 8px; border-bottom: 1px solid #EEEEF2; }
+      .ac-board-row { padding: 10px 0 6px; }
+      .ac-board-row + .ac-board-row { border-top: 1px solid #EEEEF2; }
       .ac-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2%; width: 100%; }
       .ac-col { display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 9px; color: #0B1F3A; white-space: nowrap; min-width: 0; overflow: hidden; }
       .ac-col i, .ac-col svg { width: 11px; height: 11px; flex-shrink: 0; }
       .ac-col b { font-weight: 600; }
-      .ac-col em { font-style: normal; font-size: 7.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #7A8290; padding-left: 4px; border-left: 1px solid #D5D9E2; }
-      .ac-foot { display: flex; align-items: center; justify-content: center; gap: 10px; padding-top: 8px; border-top: 1px solid #E3E3E8; font-size: 9.5px; font-weight: 500; color: #6E6E7A; flex-wrap: wrap; }
+      .ac-col em { display: none; }
+      @media (min-width: 1100px) { .ac-col em { display: inline; font-style: normal; font-size: 7.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #7A8290; padding-left: 4px; border-left: 1px solid #D5D9E2; } }
+      .ac-foot { display: none; align-items: center; justify-content: center; gap: 10px; padding-top: 8px; border-top: 1px solid #E3E3E8; font-size: 9.5px; font-weight: 500; color: #6E6E7A; flex-wrap: wrap; }
       .ac-foot i { width: 3px; height: 3px; border-radius: 50%; background: #C4C8D2; }
       .rw-trio-row .rw-trio { flex: 1; min-width: 0; }
       .ac-eco { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center; margin-top: 2px; }
@@ -10989,7 +10999,7 @@
           ['approach', 1500],
           ['clicking', 5500],
           ['checking', 6500],
-          ['routing',  7000],
+          ['routing',  8200],
           ['config',   4500],
           ['done',     6500],
           ['final',    6000],
@@ -13268,16 +13278,16 @@
             <div class="ac-mast">
               <div class="ac-mast-l">
                 <div class="ac-hero-brand us-in" style="--d:100ms">${brand({ sub: 'Corp.' })}</div>
-                <div class="ac-hero-h us-in" style="--d:400ms">A consistent application experience<br>wherever work happens.</div>
+                <div class="ac-hero-h us-in" style="--d:400ms">A consistent application experience wherever work happens.</div>
+                <div class="ac-hero-sub us-in" style="--d:650ms">Personalized. Easy to use. Cross-device. Always current.</div>
               </div>
-              <div class="ac-mast-r us-in" style="--d:700ms">${['Personalized','Easy to use','Cross-device','Always current'].map(t => `<span><i data-lucide="check"></i>${t}</span>`).join('')}</div>
+              <div class="ac-mast-r us-in" style="--d:800ms">${[['users','2 employees'],['layout-grid','1 workspace'],['monitor-smartphone','3 devices']].map(([ic, t]) => `<span><i data-lucide="${ic}"></i>${t}</span>`).join('')}</div>
             </div>
             <div class="ac-board">
               <div class="rw-trio-row ac-board-head us-in" style="--d:900ms"><span></span><div class="ac-cols">${[['monitor','Windows laptop','Physical'],['cloud','Windows 365','Virtual'],['laptop','Mac','Physical']].map(([ic, n, k]) => `<span class="ac-col"><i data-lucide="${ic}"></i><b>${n}</b><em>${k}</em></span>`).join('')}</div></div>
-              <div class="rw-trio-row"><span class="rw-trio-lab us-in" style="--d:1000ms"><span class="ac-ava" style="background:${maya.accent}">${maya.initials}</span><span><b>Maya Chen</b><em>Finance</em></span></span>${trio(maya, 1100)}</div>
-              <div class="rw-trio-row"><span class="rw-trio-lab us-in" style="--d:1700ms"><span class="ac-ava" style="background:${alex.accent}">${alex.initials}</span><span><b>Alex Rivera</b><em>Sales</em></span></span>${trio(alex, 1800)}</div>
+              <div class="rw-trio-row ac-board-row"><span class="rw-trio-lab us-in" style="--d:1000ms"><span class="ac-ava" style="background:${maya.accent}">${maya.initials}</span><span><b>Maya Chen</b><em>Finance</em></span></span>${trio(maya, 1100)}</div>
+              <div class="rw-trio-row ac-board-row"><span class="rw-trio-lab us-in" style="--d:1700ms"><span class="ac-ava" style="background:${alex.accent}">${alex.initials}</span><span><b>Alex Rivera</b><em>Sales</em></span></span>${trio(alex, 1800)}</div>
             </div>
-            <div class="ac-foot us-in" style="--d:2500ms"><span>One workspace</span><i></i><span>Personalized per employee</span><i></i><span>Same on every device</span><i></i><span>Also inside Microsoft Teams</span></div>
           </div>`;
 
         if (scene <= 1) {
@@ -13343,12 +13353,31 @@
               ${say('The experience is personalized to the employee.', 'Maya sees Finance apps. Alex sees Sales apps.', 3200)}
             </div>`;
         } else if (scene === 7) {
-          // Alex requests Tableau — request, confirmation, status. No admin screens.
+          // Alex requests Tableau. Beside the laptop, the request is routed by
+          // its type: policy decides the path, a manager approves, it's delivered.
+          const rsteps = [
+            ['inbox', 'Request received', 'Tableau Desktop \u00b7 Alex Rivera \u00b7 Sales', 2000],
+            ['git-branch', 'Routed by request type', 'Licensed app \u2192 manager approval', 2600],
+            ['user-check', 'Approved', 'J. Torres (manager) \u00b7 1 tap in Teams', 3200],
+            ['package-check', 'Delivered', 'License assigned \u00b7 added to Alex\u2019s workspace', 3800],
+          ];
           stage = `<div class="us-story">
-              ${laptop('win', winDesktop(winFrame('Acme Workspace', appIcon, wsCatalog(alex), { cls: 'rw-win-app' }), { overlay: toast(`
-                <div class="rw-toast-h">${appIcon}<span>Acme Workspace</span><em>now</em></div>
-                <div class="rw-toast-b">${img(req, 'rw-toast-ico')}<div><b>Request submitted</b><span>You\u2019ll be notified when ${req.name} is ready.</span></div></div>`, 1900) }), 'Windows laptop')}
-              ${say('Employees can request the applications they need.', '', 3900)}
+              <div class="rw-bts">
+                <div class="rw-bts-dev">
+                  ${laptop('win', winDesktop(winFrame('Acme Workspace', appIcon, wsCatalog(alex), { cls: 'rw-win-app' }), { overlay: toast(`
+                    <div class="rw-toast-h">${appIcon}<span>Acme Workspace</span><em>now</em></div>
+                    <div class="rw-toast-b">${img(req, 'rw-toast-ico')}<div><b>Request submitted</b><span>You\u2019ll be notified when ${req.name} is ready.</span></div></div>`, 1900) }), 'Windows laptop')}
+                  <div class="rw-bts-user us-in" style="--d:4300ms"><i data-lucide="ticket-x"></i>No ticket. No email chain.</div>
+                </div>
+                <div class="rw-bts-link us-in" style="--d:1900ms"><i></i><span><i data-lucide="workflow"></i></span><i></i></div>
+                <aside class="rw-bts-panel us-in" style="--d:1800ms">
+                  <div class="rw-bts-head"><span class="rw-bts-k">Behind the scenes</span><span class="rw-bts-t">${img(req, 'rw-bts-ico')}<b>${req.name} Desktop</b></span>
+                    <span class="rw-bts-route"><em class="us-in" style="--d:2400ms"><i data-lucide="zap"></i>Free app \u00b7 auto</em><b class="us-in" style="--d:2600ms"><i data-lucide="user-check"></i>Licensed \u00b7 manager</b></span></div>
+                  <ol class="rw-bts-steps">${rsteps.map(([ic, t, s, d]) => `<li class="us-in" style="--d:${d}ms"><span class="rw-bts-dot"><i data-lucide="${ic}"></i></span><span class="rw-bts-tx"><b>${t}</b><span>${s}</span></span><i data-lucide="check" class="rw-bts-ok us-in" style="--d:${d + 450}ms"></i></li>`).join('')}</ol>
+                  <div class="rw-bts-foot us-in" style="--d:4400ms"><i data-lucide="clock"></i>Request to ready \u00b7 4 minutes</div>
+                </aside>
+              </div>
+              ${say('Employees can request the applications they need.', 'Policy routes each request by type. Alex sees the outcome, not the process.', 4600)}
             </div>`;
         } else if (scene === 8) {
           // Two ways in — embedded inside Teams, or the standalone portal. Same apps.
