@@ -10266,7 +10266,7 @@
           closer: "Trusted by organizations that can't afford downtime.", timeline: false, bgHeader: 'bg-[#F0F0F6]', bgContent: 'bg-[#F0F0F6]'
         },
         {
-          id: 'onboarding', icon: 'clock', title: 'How fast you go live.',
+          id: 'onboarding', icon: 'clock', title: 'How to get started.',
           bullets: ['Standard POC rollout in 4-6 weeks (Kickoff -  Implementation -  UAT -  Launch -  Enablement).','No new infrastructure -  integrates with your existing environments.','Guided setup with dedicated Customer Success Manager.','Typical resource: 1-2 IT engineers part-time.','Enablement includes training, certification, and success planning.'],
           closer: 'From first call to production in weeks, not months.', timeline: true, bgHeader: 'bg-[#F0F0F6]', bgContent: 'bg-[#F0F0F6]'
         }
@@ -11472,16 +11472,6 @@
                 </div>
                 <div class="rs-appbar-divider" aria-hidden="true"></div>
                 <div class="rs-product">Application Workspace</div>
-                <div class="rs-em-dash" aria-hidden="true">·</div>
-                <div class="rs-subtitle">${
-                  STATE.activeTab==='problems'
-                    ? 'One package for every workspace: laptop, Cloud PC, or VDI.'
-                    : STATE.activeTab==='solution'
-                      ? 'Application delivery as a service: package, deploy, update, govern, and retire applications.'
-                      : STATE.activeTab==='partner'
-                        ? (STATE.audience === 'enterprise' ? 'One operating model across every platform you run.' : 'One operating model across every customer you manage.')
-                        : 'Keep applications running smoothly as platforms change.'
-                }</div>
                 <div class="rs-aud-wrap">
                   <button type="button" class="rs-aud-key ${STATE.audOpen ? 'is-open' : ''} focus-ring" data-action="toggle-audience-menu"
                     aria-haspopup="menu" aria-expanded="${!!STATE.audOpen}" aria-label="Audience mode"><span class="rs-brand-mark">Re</span></button>
@@ -13313,6 +13303,12 @@
         // ── Sign-in screens & toasts ──
         const winSignIn = (pp, msg) => `<div class="rw-over rw-signin us-s1login"><span class="rw-si-ava" style="background:${pp.accent}">${pp.initials}</span><b>${pp.name}</b><span class="rw-si-msg"><i class="rw-spin"></i>${msg || 'Welcome'}</span></div>`;
         const toast = (inner, d) => `<div class="rw-toast us-in" style="--d:${d || 0}ms">${inner}</div>`;
+        const btsList = (rows) => `<ol class="rw-bts-steps">${rows.map(([ic, t, s, d]) => `
+          <li class="us-in" style="--d:${d}ms">
+            <span class="rw-bts-dot"><i data-lucide="${ic}"></i></span>
+            <span class="rw-bts-tx"><b>${t}</b><span>${s}</span></span>
+            <i data-lucide="check" class="rw-bts-ok us-in" style="--d:${d + 450}ms"></i>
+          </li>`).join('')}</ol>`;
         const say = (msg, sub, d) => `<div class="us-say us-in" style="--d:${d || 0}ms"><b>${msg}</b>${sub ? `<span>${sub}</span>` : ''}</div>`;
 
         // Miniature device trio — real frames, scaled down.
@@ -13347,16 +13343,67 @@
         if (scene <= 1) {
           stage = `<div class="us-lapbtn focus-ring" data-action="ux-play" role="button" tabindex="0" aria-label="Play the demo" title="Play">${intro(true)}</div>`;
         } else if (scene === 2) {
-          // Maya · Finance — signs in to her Windows laptop; Acme Workspace opens.
+          // Maya signs in to her Windows laptop. Panel rows land beside the on-screen beats.
+          const lsteps = [
+            ['fingerprint', 'Device authenticated',  'Agent certificate \u2192 Acme zone',                500],
+            ['key-round',   'Single sign-on',         'Entra ID \u00b7 no second password',              1100],
+            ['users',       'Entitlements resolved',  'Finance group + Windows context \u2192 10 apps',  1900],
+            ['zap',         'Logon events run',       'Silent \u00b7 Maya sees nothing',                 2600],
+            ['cloud-download', 'Content pre-cached',  'Nearest source \u00b7 background',                3200],
+          ];
           stage = `<div class="us-story">
-              <div class="us-zoomin">${laptop('win', winDesktop(winFrame('Acme Workspace', appIcon, wsHome(maya, { pop: true, popBase: 1900 }), { cls: 'rw-win-app rw-rise', style: 'animation-delay:1500ms' }), { overlay: winSignIn(maya, 'Signing in\u2026') }), 'Windows laptop')}</div>
-              ${say('Maya sees the applications available to her.', '', 3000)}
+              <div class="us-zoomin">
+                <div class="rw-bts">
+                  <div class="rw-bts-dev">
+                    ${laptop('win', winDesktop(winFrame('Acme Workspace', appIcon, wsHome(maya, { pop: true, popBase: 1900 }), { cls: 'rw-win-app rw-rise', style: 'animation-delay:1500ms' }), { overlay: winSignIn(maya, 'Signing in\u2026') }), 'Windows laptop')}
+                    <div class="rw-bts-user us-in" style="--d:3900ms"><i data-lucide="eye-off"></i>One sign-in. Her apps are just there.</div>
+                  </div>
+                  <div class="rw-bts-link us-in" style="--d:400ms"><i></i><span><i data-lucide="fingerprint"></i></span><i></i></div>
+                  <aside class="rw-bts-panel us-in" style="--d:300ms">
+                    <div class="rw-bts-head">
+                      <span class="rw-bts-k">Behind the scenes</span>
+                      <span class="rw-bts-t">${appIcon}<b>Sign-in \u00b7 Windows laptop</b></span>
+                      <span class="rw-bts-route">
+                        <em class="us-in" style="--d:1300ms"><i data-lucide="monitor"></i>Device \u00b7 cert</em>
+                        <b class="us-in" style="--d:1500ms"><i data-lucide="user"></i>Maya \u00b7 Entra ID SSO</b>
+                      </span>
+                    </div>
+                    ${btsList(lsteps)}
+                    <div class="rw-bts-foot us-in" style="--d:3800ms"><i data-lucide="shield-check"></i>Identity-based \u00b7 filtered by device \u00b7 ready before she clicks</div>
+                  </aside>
+                </div>
+              </div>
+              ${say('Maya sees the applications available to her.', 'Device and identity are verified, entitlements are resolved, and content is staged \u2014 all before the first click.', 4300)}
             </div>`;
         } else if (scene === 3) {
-          // Maya opens Power BI — one click, the report opens.
+          // Maya clicks Power BI. "Start process" fires as the window rises (1500 ms).
+          const xsteps = [
+            ['mouse-pointer-click', 'Launch action set',  'Runs on every smart-icon click',                              400],
+            ['list-checks',         'Filters evaluated',  'MSI installed \u00b7 version current \u2192 install skipped', 900],
+            ['play',                'Start process',      'PBIDesktop.exe \u00b7 user context',                        1400],
+            ['file-clock',          'Event logged',       'Launch \u00b7 Maya Chen \u00b7 Windows laptop \u00b7 9:02',   2300],
+          ];
           stage = `<div class="us-story">
-              ${laptop('win', winDesktop(`${winFrame('Acme Workspace', appIcon, wsHome(maya, { hot: maya.target, cursor: true }), { cls: 'rw-win-app' })}${winFrame('Power BI \u2014 FY26 Overview', img(target), powerBi(), { cls: 'rw-win-app rw-win-front rw-rise', style: 'animation-delay:1500ms' })}`), 'Windows laptop')}
-              ${say('Find and launch the applications you need in just a few clicks.', '', 2600)}
+              <div class="rw-bts">
+                <div class="rw-bts-dev">
+                  ${laptop('win', winDesktop(`${winFrame('Acme Workspace', appIcon, wsHome(maya, { hot: maya.target, cursor: true }), { cls: 'rw-win-app' })}${winFrame('Power BI \u2014 FY26 Overview', img(target), powerBi(), { cls: 'rw-win-app rw-win-front rw-rise', style: 'animation-delay:1500ms' })}`), 'Windows laptop')}
+                  <div class="rw-bts-user us-in" style="--d:3200ms"><i data-lucide="eye-off"></i>One click. No installer, no prompt.</div>
+                </div>
+                <div class="rw-bts-link us-in" style="--d:400ms"><i></i><span><i data-lucide="mouse-pointer-click"></i></span><i></i></div>
+                <aside class="rw-bts-panel us-in" style="--d:300ms">
+                  <div class="rw-bts-head">
+                    <span class="rw-bts-k">Behind the scenes</span>
+                    <span class="rw-bts-t">${img(target, 'rw-bts-ico')}<b>${target.name} Desktop</b></span>
+                    <span class="rw-bts-route">
+                      <em class="us-in" style="--d:1000ms"><i data-lucide="package"></i>Not installed \u2192 install from cache</em>
+                      <b class="us-in" style="--d:1200ms"><i data-lucide="check"></i>Installed \u2192 launch</b>
+                    </span>
+                  </div>
+                  ${btsList(xsteps)}
+                  <div class="rw-bts-foot us-in" style="--d:3000ms"><i data-lucide="monitor-smartphone"></i>Same package on Mac / Cloud PC \u00b7 platform-filtered actions</div>
+                </aside>
+              </div>
+              ${say('Find and launch the applications you need in just a few clicks.', 'The click runs the package\u2019s Launch actions. Filters decide whether anything needs installing first \u2014 here nothing does.', 3400)}
             </div>`;
         } else if (scene === 4) {
           // Any device — Windows 365 Cloud PC (virtual) and a Mac (physical), side by side.
@@ -13427,7 +13474,7 @@
                 <aside class="rw-bts-panel us-in" style="--d:1800ms">
                   <div class="rw-bts-head"><span class="rw-bts-k">Behind the scenes</span><span class="rw-bts-t">${img(req, 'rw-bts-ico')}<b>${req.name} Desktop</b></span>
                     <span class="rw-bts-route"><em class="us-in" style="--d:2400ms"><i data-lucide="zap"></i>Free app \u00b7 auto</em><b class="us-in" style="--d:2600ms"><i data-lucide="user-check"></i>Licensed \u00b7 manager</b></span></div>
-                  <ol class="rw-bts-steps">${rsteps.map(([ic, t, s, d]) => `<li class="us-in" style="--d:${d}ms"><span class="rw-bts-dot"><i data-lucide="${ic}"></i></span><span class="rw-bts-tx"><b>${t}</b><span>${s}</span></span><i data-lucide="check" class="rw-bts-ok us-in" style="--d:${d + 450}ms"></i></li>`).join('')}</ol>
+                  ${btsList(rsteps)}
                   <div class="rw-bts-foot us-in" style="--d:4400ms"><i data-lucide="clock"></i>Request to ready \u00b7 4 minutes</div>
                 </aside>
               </div>
