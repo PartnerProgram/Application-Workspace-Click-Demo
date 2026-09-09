@@ -3374,6 +3374,24 @@
          top and bottom, framing the white pipeline that runs between them.
          Document order is unchanged, so the PDF's reader still finds the
          title, both rails and both chip rows where it expects them. ── */
+      .rws-core { position: relative; --hub-d: 200px; --hub-cx: 50%; --hub-cy: 50%; --in-col-right: 20%; --out-col-left: 80%; --bar-top: 0px; --bar-bottom: 100%; --ring-gap: 0px; }
+      .rws-core > .rws-rail, .rws-core > .rws-io { position: relative; z-index: 1; }
+      /* Directional flow bands: one hue, soft gradients that fade toward the hub. */
+      .flow-band { position: absolute; pointer-events: none; z-index: 0; }
+      .flow-l, .flow-r { height: calc(var(--hub-d) * .55); top: calc(var(--hub-cy) - var(--hub-d) * .275);
+        -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 35%, #000 65%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0%, #000 35%, #000 65%, transparent 100%); }
+      .flow-l { left: var(--in-col-right); right: calc(100% - var(--hub-cx) + var(--hub-d) * .65); background: linear-gradient(90deg, rgba(0,0,204,0) 0%, rgba(0,0,204,.06) 50%, rgba(0,0,204,.10) 100%); }
+      .flow-r { right: calc(100% - var(--out-col-left)); left: calc(var(--hub-cx) + var(--hub-d) * .65); background: linear-gradient(270deg, rgba(0,0,204,0) 0%, rgba(0,0,204,.06) 50%, rgba(0,0,204,.10) 100%); }
+      .flow-t, .flow-b { width: calc(var(--hub-d) * .55); left: calc(var(--hub-cx) - var(--hub-d) * .275);
+        -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 35%, #000 65%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 35%, #000 65%, transparent 100%); }
+      .flow-t { top: var(--bar-top); bottom: calc(100% - var(--hub-cy) + var(--hub-d) * .65 + var(--ring-gap)); background: linear-gradient(180deg, rgba(0,0,204,0) 0%, rgba(0,0,204,.06) 50%, rgba(0,0,204,.10) 100%); }
+      .flow-b { bottom: calc(100% - var(--bar-bottom)); top: calc(var(--hub-cy) + var(--hub-d) * .65 + var(--ring-gap)); background: linear-gradient(0deg, rgba(0,0,204,0) 0%, rgba(0,0,204,.06) 50%, rgba(0,0,204,.10) 100%); }
+      /* One hue in this frame: ring, arc and dots take the brand blue. */
+      .rws-core .lc-ring-base { stroke: rgba(0, 0, 204, 0.22); stroke-width: 1; }
+      .rws-core .lc-orbit-trail { stroke: rgba(0, 0, 204, 0.70); stroke-width: 2; opacity: 1; }
+      .rws-core .lc-orbit-mark { fill: #0000CC; filter: drop-shadow(0 0 4px rgba(0, 0, 204, 0.5)); }
+      .rws-core .lc-hub-prog-c { stroke: #0000CC; }
+      @media (max-width: 900px) { .flow-band { display: none; } }
       .rws-rail { padding: 11px 17px 12px; background: #F7F7FC; }
       .rws-rail-in  { border-bottom: 1px solid var(--r-divider, #DDDDEE); }
       .rws-rail-out { border-top: 1px solid var(--r-divider, #DDDDEE); }
@@ -3514,7 +3532,7 @@
          inputs enter from the left, outputs leave to the right. All motion
          lives in the circle (orbiting dots, sequential stage pulses) and on
          its connectors. ── */
-      .rws-io.rws-io-orbit { grid-template-columns: minmax(0, 1fr) 44px minmax(430px, 2.4fr) 44px minmax(0, 1fr); align-items: center; gap: 10px; max-width: 1560px; margin-left: auto; margin-right: auto; width: 100%; box-sizing: border-box; }
+      .rws-io.rws-io-orbit { grid-template-columns: minmax(0, 1fr) minmax(430px, 2.4fr) minmax(0, 1fr); align-items: center; gap: 10px 28px; max-width: 1560px; margin-left: auto; margin-right: auto; width: 100%; box-sizing: border-box; }
       .rws-io-orbit .lc-orbit-wrap.lc-in-diagram { width: 100%; }
       .rws-io-orbit .lc-in-diagram .lc-orbit { flex: 1 1 auto; margin: 0 auto; }
       .rws-io-orbit .rws-pill-store { display: grid; grid-template-columns: 18px 1fr; align-items: center; column-gap: 8px; row-gap: 1px; }
@@ -3573,7 +3591,7 @@
         .rws-hub > span:last-child { font-size: 8.8px; }
       }
       @media (max-width: 1180px) {
-        .rws-io.rws-io-orbit { grid-template-columns: minmax(0, 1fr) 36px minmax(360px, 2.4fr) 36px minmax(0, 1fr); gap: 8px; }
+        .rws-io.rws-io-orbit { grid-template-columns: minmax(0, 1fr) minmax(360px, 2.4fr) minmax(0, 1fr); gap: 8px; }
         .rws-wheel { --orbD: 360px; --hubD: 116px; margin: 4px auto; }
         .rws-quiet .rws-wheel .rws-stage { width: 100px; }
         .rws-wheel .rws-stage b { font-size: 11px; }
@@ -9887,7 +9905,7 @@
         /* a wider input column takes the note from three lines to two, which
            is where most of this card's spare height was sitting */
         .rws-io { grid-template-columns: 0.95fr 2.15fr 0.9fr; gap: 10px; }
-        .rws-io.rws-io-orbit { grid-template-columns: minmax(0, 1fr) 44px minmax(430px, 2.4fr) 44px minmax(0, 1fr); }
+        .rws-io.rws-io-orbit { grid-template-columns: minmax(0, 1fr) minmax(430px, 2.4fr) minmax(0, 1fr); }
         .rws-stages { padding-top: 15px; gap: 7px; }
         .rws-stage { padding: 7px 7px 8px; gap: 3px; }
         .rws-stage-ic { width: 23px; height: 23px; }
@@ -10472,13 +10490,17 @@
                   <!--LC_TOUR_BTN-->
                 </div>
 
+                <div class="rws-core">
+                <div class="flow-band flow-l" aria-hidden="true"></div>
+                <div class="flow-band flow-r" aria-hidden="true"></div>
+                <div class="flow-band flow-t" aria-hidden="true"></div>
+                <div class="flow-band flow-b" aria-hidden="true"></div>
                 <div class="rws-rail rws-rail-in">
                 <div class="rws-rail-lab">What you already run</div>
                 <div class="rws-chips">
-                  <span class="rws-chip rws-chip-info" tabindex="0" data-pop="intune" data-label="Intune"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="rwsIn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00BFFF"/><stop offset="1" stop-color="#0078D4"/></linearGradient></defs><path fill="url(#rwsIn)" d="M22.5 12.5a6.5 6.5 0 0 0-12.7-1.7A5 5 0 0 0 10 21h12a4.5 4.5 0 0 0 .5-8.5z"/></svg>Intune<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Microsoft Intune</b><em class="rws-pop-s">Manages and secures the modern endpoint</em><span class="rws-pop-g"><span><i>Device enrollment and cloud endpoint management.</i><i>Compliance and security policy.</i><i>Application deployment and configuration.</i><i>MAM and protection of corporate data.</i><i>The strategic role remains the device management/control plane.</i></span></span><span class="rws-pop-g"><u>Application Workspace enhances it</u><span><i>Intune doesn’t have to become the entire employee application experience. Application Workspace can provide the catalog, packaging, lifecycle, and delivery layer while Intune continues doing enrollment, compliance, and device policy.</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="cm" data-label="ConfigMgr"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="4" width="11.5" height="11.5" fill="#F25022"/><rect x="16.5" y="4" width="11.5" height="11.5" fill="#7FBA00"/><rect x="4" y="16.5" width="11.5" height="11.5" fill="#00A4EF"/><rect x="16.5" y="16.5" width="11.5" height="11.5" fill="#FFB900"/></svg>ConfigMgr<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">ConfigMgr / SCCM</b><em class="rws-pop-s">Manages the existing Windows estate</em><span class="rws-pop-g"><span><i>Deep Windows application deployment and software distribution.</i><i>OS deployment.</i><i>Software updates.</i><i>Inventory, reporting, and device-management capabilities.</i><i>It remains valuable for organizations with significant on-premises Windows infrastructure.</i></span></span><span class="rws-pop-g"><u>Application Workspace enhances it</u><span><i>Customers don’t have to throw SCCM away to modernize the application experience. Application Workspace can span ConfigMgr and Intune while the customer moves devices at its own pace. Recast specifically documents support for co-managed and partially ConfigMgr-managed estates.</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="citrix" data-label="Citrix"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#1A1A2E"/><path d="M22 11.2a8.5 8.5 0 1 0 0 9.6l-2.6-1.5a5.5 5.5 0 1 1 0-6.6z" fill="#fff"/></svg>Citrix<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Citrix</b><em class="rws-pop-s">A virtual delivery path in the estate</em><span class="rws-pop-g"><span><i>Context-aware delivery — the appropriate local, virtual, cloud, or other delivery path can be presented based on the user’s context.</i><i>Makes infrastructure change less disruptive — the endpoint or delivery platform can change while the employee’s application experience remains more consistent.</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="avd" data-label="AVD / W365"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="4" width="11.5" height="11.5" fill="#F25022"/><rect x="16.5" y="4" width="11.5" height="11.5" fill="#7FBA00"/><rect x="4" y="16.5" width="11.5" height="11.5" fill="#00A4EF"/><rect x="16.5" y="16.5" width="11.5" height="11.5" fill="#FFB900"/></svg>AVD / W365<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">AVD / Windows 365</b><em class="rws-pop-s">A virtual delivery path in the estate</em><span class="rws-pop-g"><span><i>Context-aware delivery — the appropriate local, virtual, cloud, or other delivery path can be presented based on the user’s context.</i><i>Makes infrastructure change less disruptive — the endpoint or delivery platform can change while the employee’s application experience remains more consistent.</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="jamf" data-label="Jamf"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#1168ED" d="M22.5 4.5c.6 0 1 .5 1 1.1V18c0 5-4 9-9 9-2.4 0-4.5-.9-6.1-2.4-.4-.4-.4-1 0-1.4l2.1-2.1c.4-.4 1-.4 1.4-.1.7.6 1.6 1 2.6 1 2.2 0 4-1.8 4-4V5.6c0-.6.5-1.1 1.1-1.1h2.9z"/></svg>Jamf<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Jamf</b><em class="rws-pop-s">Manages the Mac estate</em><span class="rws-pop-g"><span><i>One front door for applications — users see a consistent workspace rather than needing to understand which backend delivers an application.</i><i>Application lifecycle across the estate — packaging, updates, approvals, self-service, and audit can be handled consistently.</i></span></span></span></span>
+                  <span class="rws-chip rws-chip-info" tabindex="0" data-pop="intune" data-label="Intune"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="rwsIn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00BFFF"/><stop offset="1" stop-color="#0078D4"/></linearGradient></defs><path fill="url(#rwsIn)" d="M22.5 12.5a6.5 6.5 0 0 0-12.7-1.7A5 5 0 0 0 10 21h12a4.5 4.5 0 0 0 .5-8.5z"/></svg>Intune<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Microsoft Intune</b><em class="rws-pop-s">Intune manages the device. Application Workspace manages the apps on it.</em><span class="rws-pop-g"><u>Intune’s lane</u><span><i>Enrolls and secures the device</i><i>Compliance, conditional access, MAM</i><i>Device configuration and policy</i><i>Stays your system of record for devices</i></span></span><span class="rws-pop-g"><u>Application Workspace’s lane</u><span><i>The employee’s app catalog and self-service</i><i>Packaging, versions, staged rollout, rollback</i><i>User-based app delivery on Windows, macOS, VDI and Cloud PC</i><i>One view of who has which app, on every platform</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="cm" data-label="ConfigMgr"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="4" width="11.5" height="11.5" fill="#F25022"/><rect x="16.5" y="4" width="11.5" height="11.5" fill="#7FBA00"/><rect x="4" y="16.5" width="11.5" height="11.5" fill="#00A4EF"/><rect x="16.5" y="16.5" width="11.5" height="11.5" fill="#FFB900"/></svg>ConfigMgr<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Microsoft ConfigMgr</b><em class="rws-pop-s">ConfigMgr manages on-prem and co-managed devices. Application Workspace manages the apps on them.</em><span class="rws-pop-g"><u>ConfigMgr’s lane</u><span><i>Device imaging, inventory and OS deployment</i><i>Collections, boundaries and content distribution points</i><i>Windows updates and compliance baselines</i><i>Stays your system of record for on-prem devices</i></span></span><span class="rws-pop-g"><u>Application Workspace’s lane</u><span><i>The employee’s app catalog and self-service</i><i>Packaging, versions, staged rollout, rollback</i><i>User-based app delivery on Windows, macOS, VDI and Cloud PC</i><i>One view of who has which app, on every platform</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="citrix" data-label="Citrix"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#1A1A2E"/><path d="M22 11.2a8.5 8.5 0 1 0 0 9.6l-2.6-1.5a5.5 5.5 0 1 1 0-6.6z" fill="#fff"/></svg>Citrix<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Citrix</b><em class="rws-pop-s">Citrix runs the virtual desktop. Application Workspace runs the apps inside it.</em><span class="rws-pop-g"><u>Citrix’s lane</u><span><i>Virtual desktop and app virtualization infrastructure</i><i>Session brokering, HDX and StoreFront</i><i>Capacity, images and hosting</i><i>Stays your system of record for virtual desktops</i></span></span><span class="rws-pop-g"><u>Application Workspace’s lane</u><span><i>The employee’s app catalog and self-service</i><i>Packaging, versions, staged rollout, rollback</i><i>User-based app delivery on Windows, macOS, VDI and Cloud PC</i><i>One view of who has which app, on every platform</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="avd" data-label="AVD / W365"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="4" width="11.5" height="11.5" fill="#F25022"/><rect x="16.5" y="4" width="11.5" height="11.5" fill="#7FBA00"/><rect x="4" y="16.5" width="11.5" height="11.5" fill="#00A4EF"/><rect x="16.5" y="16.5" width="11.5" height="11.5" fill="#FFB900"/></svg>AVD / W365<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">AVD / Windows 365</b><em class="rws-pop-s">Microsoft runs the Cloud PC. Application Workspace runs the apps on it.</em><span class="rws-pop-g"><u>AVD / W365’s lane</u><span><i>Cloud PC and session host infrastructure</i><i>Host pools, autoscale, images and FSLogix profiles</i><i>Entra ID sign-in and conditional access</i><i>Stays your system of record for cloud desktops</i></span></span><span class="rws-pop-g"><u>Application Workspace’s lane</u><span><i>The employee’s app catalog and self-service</i><i>Packaging, versions, staged rollout, rollback</i><i>User-based app delivery on Windows, macOS, VDI and Cloud PC</i><i>One view of who has which app, on every platform</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="jamf" data-label="Jamf"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#1168ED" d="M22.5 4.5c.6 0 1 .5 1 1.1V18c0 5-4 9-9 9-2.4 0-4.5-.9-6.1-2.4-.4-.4-.4-1 0-1.4l2.1-2.1c.4-.4 1-.4 1.4-.1.7.6 1.6 1 2.6 1 2.2 0 4-1.8 4-4V5.6c0-.6.5-1.1 1.1-1.1h2.9z"/></svg>Jamf<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Jamf</b><em class="rws-pop-s">Jamf manages the Mac. Application Workspace manages the apps on it.</em><span class="rws-pop-g"><u>Jamf’s lane</u><span><i>Mac enrollment, configuration profiles and security</i><i>macOS updates and compliance</i><i>Device inventory and self-service for Mac settings</i><i>Stays your system of record for Apple devices</i></span></span><span class="rws-pop-g"><u>Application Workspace’s lane</u><span><i>The employee’s app catalog and self-service</i><i>Packaging, versions, staged rollout, rollback</i><i>User-based app delivery on Windows, macOS, VDI and Cloud PC</i><i>One view of who has which app, on every platform</i></span></span></span></span>
                 </div>
                 </div>
-                <div class="rws-brk rws-brk-t" aria-hidden="true"><span class="rws-flow"></span><span class="rws-flow"></span><span class="rws-flow"></span></div>
 
                   <div class="rws-io rws-io-orbit">
                     <div class="rws-col">
@@ -10492,9 +10514,7 @@
                         <div class="rws-pill rws-pill-users"><i data-lucide="users"></i><span class="rws-pill-2l">Users and groups <em>Entra ID &middot; LDAP</em></span></div>
                       </div>
                     </div>
-                    <div class="rws-hbrk rws-hbrk-l" aria-hidden="true"><span class="rws-hflow"></span><span class="rws-hflow"></span></div>
                     <!--LC_ORBIT-->
-                    <div class="rws-hbrk rws-hbrk-r" aria-hidden="true"><span class="rws-hflow"></span><span class="rws-hflow"></span></div>
                     <div class="rws-col">
                       <span class="rws-lab">What comes out</span>
                       <div class="rws-pills">
@@ -10505,7 +10525,6 @@
                     </div>
                   </div>
 
-                <div class="rws-brk rws-brk-b" aria-hidden="true"><span class="rws-flow"></span><span class="rws-flow"></span><span class="rws-flow"></span></div>
                 <div class="rws-rail rws-rail-out">
                 <div class="rws-rail-lab">Everyone you support</div>
                 <div class="rws-chips rws-chips-sm">
@@ -10516,6 +10535,7 @@
                   <span class="rws-chip"><i data-lucide="cloud"></i>Cloud PC / W365</span>
                   <span class="rws-chip"><i data-lucide="laptop"></i>BYOD / Remote</span>
                   <span class="rws-chip"><i data-lucide="globe"></i>Browser-Based</span>
+                </div>
                 </div>
                 </div>
 
@@ -11219,6 +11239,30 @@
       /* The admin-console pointer is re-created at its new position on
          every phase render, which teleports it. Glide it from its previous
          spot instead so it moves like a real cursor. */
+      function _layoutFlowBands(){
+        const root = document.querySelector('.rws-core');
+        if (!root) return;
+        const hub = root.querySelector('.lc-hub-btn');
+        if (!hub) return;
+        const R = root.getBoundingClientRect(), H = hub.getBoundingClientRect();
+        if (!H.width) return;
+        const s = root.style;
+        s.setProperty('--hub-d', H.width + 'px');
+        s.setProperty('--hub-cx', (H.left - R.left + H.width / 2) + 'px');
+        s.setProperty('--hub-cy', (H.top - R.top + H.height / 2) + 'px');
+        const cols = root.querySelectorAll('.rws-io-orbit > .rws-col');
+        if (cols[0]) s.setProperty('--in-col-right', (cols[0].getBoundingClientRect().right - R.left + 8) + 'px');
+        if (cols[1]) s.setProperty('--out-col-left', (cols[1].getBoundingClientRect().left - R.left - 8) + 'px');
+        const railIn = root.querySelector('.rws-rail-in'), railOut = root.querySelector('.rws-rail-out');
+        if (railIn) s.setProperty('--bar-top', (railIn.getBoundingClientRect().bottom - R.top) + 'px');
+        if (railOut) s.setProperty('--bar-bottom', (railOut.getBoundingClientRect().top - R.top) + 'px');
+        const orbit = root.querySelector('.lc-orbit');
+        if (orbit) {
+          const O = orbit.getBoundingClientRect();
+          s.setProperty('--ring-gap', Math.max(0, O.height / 2 - 14 - H.height * 0.65) + 'px');
+        }
+      }
+      window.addEventListener('resize', () => requestAnimationFrame(_layoutFlowBands));
       function _glideAcCursor(){
         const cur = document.querySelector('.ac-cursor');
         if (!cur) { STATE._acCursorPrev = null; return; }
@@ -11486,8 +11530,6 @@
                   <span class="rs-brand-mark">Re</span>
                   <span class="rs-brand-label">Recast<span class="rs-brand-label-soft"> Software</span></span>
                 </div>
-                <div class="rs-appbar-divider" aria-hidden="true"></div>
-                <div class="rs-product">Application Workspace</div>
                 <div class="rs-aud-wrap">
                   <button type="button" class="rs-aud-key ${STATE.audOpen ? 'is-open' : ''} focus-ring" data-action="toggle-audience-menu"
                     aria-haspopup="menu" aria-expanded="${!!STATE.audOpen}" aria-label="Audience mode"><span class="rs-brand-mark">Re</span></button>
@@ -11531,6 +11573,7 @@
           ${renderAIAgentModal()}
         `;
         if (window.lucide?.createIcons) { try { window.lucide.createIcons(); } catch {} }
+        requestAnimationFrame(_layoutFlowBands);
         attachEvents();
         if (_focusId) {
           const el = document.getElementById(_focusId);
@@ -16951,7 +16994,6 @@
                           <span class="lifecycle-label lc-hub-stage ${lblClass}">${it.stage}${count}</span>
                           <span class="lc-hub-ico"><i data-lucide="${it.icon}"></i></span>
                           <span class="lc-hub-name">${it.name}</span>
-                          <span class="lc-hub-sub">Everything here serves this</span>
                         </button>
                         ${it.isDone ? `<span class="lc-hub-tick" aria-hidden="true">${TICK}</span>` : ''}
                       </div>`;
@@ -17396,7 +17438,6 @@
               </div>
               <div class="flex-1 min-w-0">
                 <div class="cardtab-title text-[14px] font-semibold leading-tight">${card.title}</div>
-                <div class="cardtab-sub text-[11px] mt-0.5 truncate">${card.closer}</div>
               </div>
               ${isActive ? '<i data-lucide="check-circle-2" class="w-4 h-4 text-[var(--r-cyan)] flex-shrink-0" aria-hidden="true"></i>' : '<i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 flex-shrink-0" aria-hidden="true"></i>'}
             </div>
