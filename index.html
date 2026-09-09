@@ -4363,7 +4363,70 @@
       .us-who { background: #fff; border-color: #ECECF1; }
       .us-who-ava { box-shadow: none; }
       .us-who-txt { font-weight: 600; }
+      .us-who-col { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+      .us-who-stack { align-items: flex-start; border-radius: 10px; padding: 5px 12px 6px 6px; }
+      .us-who-say { font-size: 11px; font-weight: 600; color: #1A1A2E; line-height: 1.3; white-space: normal; max-width: 260px; }
       .us-step-tx b { font-weight: 600; }
+      /* Scene 6 handoff: the outgoing workspace slides off, the incoming one is already beneath */
+      /* Scene 3: smart-icon highlights + Start menu */
+      .rw-bts-sub { display: block; font-size: 8.5px; line-height: 1.4; color: #4A4A5A; margin-top: 3px; text-wrap: pretty; }
+      .rw-win-back { animation: rwWinBack 400ms cubic-bezier(0.2, 0.8, 0.2, 1) 1700ms forwards; }
+      @keyframes rwWinBack { to { transform: translate(-4px, -3px) scale(0.985); filter: brightness(0.96); } }
+      .rw-smart { position: relative; }
+      .rw-smart::after { content: ''; position: absolute; inset: -2px; border-radius: 6px; border: 1.5px solid #0E8A7B; box-shadow: 0 0 0 3px rgba(14, 138, 123, 0.18); opacity: 0; animation: rwSmartOn 320ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms) forwards; }
+      @keyframes rwSmartOn { to { opacity: 1; } }
+      .rw-smart-tag { position: absolute; left: 50%; bottom: calc(100% + 6px); transform: translateX(-50%); white-space: nowrap; font-style: normal; font-size: 5.5px; font-weight: 700; letter-spacing: 0.04em; color: #fff; background: #0E8A7B; border-radius: 3px; padding: 1.5px 5px; opacity: 0; animation: rwTagIn 240ms ease calc(var(--d, 0ms) + 200ms) forwards, rwTagOut 240ms ease calc(var(--d, 0ms) + 2200ms) forwards; z-index: 9; pointer-events: none; }
+      .rw-smart-tag::after { content: ''; position: absolute; left: 50%; top: 100%; margin-left: -3px; border: 3px solid transparent; border-top-color: #0E8A7B; }
+      @keyframes rwTagIn { to { opacity: 1; } }
+      @keyframes rwTagOut { to { opacity: 0; } }
+      .rw-tb-pin { animation: rwLockIn 200ms ease var(--d, 0ms) both; opacity: 0; }
+      .rw-tb-pin img { width: 14px; height: 14px; }
+      .rw-start-menu { position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%) translateY(12px); width: 58%; background: rgba(243, 243, 249, 0.96); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.7); border-radius: 8px; padding: 9px 12px 0; z-index: 6; box-shadow: 0 18px 40px -12px rgba(0,0,0,0.55); opacity: 0;
+        animation: rwSmIn 280ms cubic-bezier(0.2, 0.8, 0.2, 1) 3200ms forwards, rwSmOut 260ms cubic-bezier(0.2, 0.8, 0.2, 1) 5900ms forwards; }
+      @keyframes rwSmIn { to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+      @keyframes rwSmOut { to { opacity: 0; transform: translateX(-50%) translateY(12px); visibility: hidden; } }
+      .rw-sm-search { display: flex; align-items: center; gap: 5px; height: 16px; border-radius: 8px; background: #fff; border: 1px solid #DADCE3; padding: 0 8px; font-size: 6px; color: #5E6069; }
+      .rw-sm-search i, .rw-sm-search svg { width: 7px; height: 7px; }
+      .rw-sm-lab { margin: 8px 0 4px; font-size: 6.5px; font-weight: 600; color: #1F1F1F; }
+      .rw-sm-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px 2px; }
+      .rw-sm-grid > span { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 3px 1px; border-radius: 4px; }
+      .rw-sm-grid img { width: 16px; height: 16px; }
+      .rw-sm-grid em { font-style: normal; font-size: 5px; color: #1F1F1F; white-space: nowrap; }
+      .rw-sm-foot { display: flex; align-items: center; gap: 6px; margin: 8px -12px 0; padding: 6px 12px; background: rgba(0,0,0,0.04); border-radius: 0 0 8px 8px; font-size: 6px; color: #1F1F1F; }
+      .rw-sm-foot .rw-si-ava { width: 14px; height: 14px; font-size: 5px; margin: 0; box-shadow: none; }
+      .rw-sm-foot b { font-weight: 600; flex: 1; }
+      .rw-sm-foot i, .rw-sm-foot svg { width: 8px; height: 8px; color: #1F1F1F; }
+      /* Scene 6 lock screen: Maya's session → Switch user → Alex signs in → unlock */
+      .rw-lock { justify-content: center; background: radial-gradient(ellipse 80% 90% at 28% 78%, #3F7BFF 0%, #1C3FA8 32%, #0B1F5C 62%, #050F33 100%); color: #fff; opacity: 0;
+        animation: rwLockIn 320ms cubic-bezier(0.2, 0.8, 0.2, 1) 300ms forwards, rwLockOut 420ms cubic-bezier(0.2, 0.8, 0.2, 1) 3300ms forwards; }
+      .rw-lock::before { content: ''; position: absolute; inset: 0; background: rgba(6, 16, 52, 0.45); backdrop-filter: blur(14px); }
+      @keyframes rwLockIn { to { opacity: 1; } }
+      @keyframes rwLockOut { to { opacity: 0; visibility: hidden; } }
+      .rw-lock-main { position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: -8px; }
+      .rw-lock-ava { width: 44px; height: 44px; font-size: 14px; margin-bottom: 3px; }
+      .rw-lock-name { font-size: 12px; font-weight: 600; letter-spacing: -0.01em; }
+      .rw-lock-user { font-size: 7px; color: rgba(255,255,255,0.75); }
+      .rw-lock-pw { position: relative; margin-top: 6px; width: 132px; height: 18px; border-radius: 3px; background: rgba(255,255,255,0.92); display: flex; align-items: center; padding: 0 7px; gap: 2px; opacity: 0; animation: rwLockIn 200ms ease 700ms forwards; }
+      .rw-lock-dots { display: flex; gap: 3px; align-items: center; flex: 1; }
+      .rw-lock-dots i { width: 4px; height: 4px; border-radius: 50%; background: #1A1A2E; opacity: 0; animation: rwLockIn 60ms steps(1) forwards; }
+      .rw-lock-dots i:nth-child(1) { animation-delay: 1000ms; } .rw-lock-dots i:nth-child(2) { animation-delay: 1110ms; } .rw-lock-dots i:nth-child(3) { animation-delay: 1220ms; } .rw-lock-dots i:nth-child(4) { animation-delay: 1330ms; } .rw-lock-dots i:nth-child(5) { animation-delay: 1440ms; } .rw-lock-dots i:nth-child(6) { animation-delay: 1550ms; } .rw-lock-dots i:nth-child(7) { animation-delay: 1660ms; } .rw-lock-dots i:nth-child(8) { animation-delay: 1770ms; } .rw-lock-dots i:nth-child(9) { animation-delay: 1880ms; }
+      .rw-lock-go { width: 10px; height: 10px; color: #1A1A2E; opacity: 0.4; animation: rwLockGo 240ms ease 2150ms forwards; }
+      @keyframes rwLockGo { 50% { transform: scale(0.85); opacity: 1; } to { opacity: 1; } }
+      .rw-lock-hint { display: inline-flex; align-items: center; gap: 5px; margin-top: 7px; font-size: 7px; color: rgba(255,255,255,0.85); opacity: 0; animation: rwLockIn 200ms ease 2450ms forwards; }
+      .rw-lock-users { position: absolute; left: 10px; bottom: 32px; display: flex; flex-direction: column; gap: 5px; }
+      .rw-lock-u { display: inline-flex; align-items: center; gap: 6px; font-size: 6.5px; font-weight: 600; padding: 3px 8px 3px 3px; border-radius: 4px; color: rgba(255,255,255,0.8); }
+      .rw-lock-u .rw-si-ava { width: 16px; height: 16px; font-size: 5.5px; margin: 0; box-shadow: none; }
+      .rw-lock-u.is-prev { opacity: 0.55; }
+      .rw-lock-u.is-on { background: rgba(255,255,255,0.16); color: #fff; opacity: 0; animation: rwLockIn 240ms ease 500ms forwards; }
+      .rw-lock-foot { position: absolute; right: 10px; bottom: 32px; display: flex; gap: 6px; }
+      .rw-lock-foot span { width: 16px; height: 16px; display: grid; place-items: center; border-radius: 4px; background: rgba(255,255,255,0.12); }
+      .rw-lock-foot i, .rw-lock-foot svg { width: 8px; height: 8px; color: #fff; }
+      .us-who-swap { gap: 8px; }
+      .us-who-from { display: inline-flex; align-items: center; gap: 6px; opacity: 0.45; }
+      .us-who-arrow { width: 11px; height: 11px; color: #6E6E7A; flex-shrink: 0; }
+      .us-who-swap > .us-who-ava:not(.us-who-from *) { box-shadow: 0 0 0 1.5px #fff, 0 0 0 3px #0B1F3A; }
+      .rw-wipe-out { position: absolute; inset: 0; z-index: 3; animation: rwWipeOut 700ms cubic-bezier(0.4, 0, 0.2, 1) both; }
+      @keyframes rwWipeOut { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 0 100%); } }
       /* Closing board: one user, three devices, same workspace */
       .ac-board-solo { display: flex; flex-direction: column; gap: 6px; padding: 14px 18px 18px; }
       .ac-board-solo .ac-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; width: 100%; }
@@ -4423,8 +4486,8 @@
       .rw-bts-tx b { font-size: 9.5px; font-weight: 600; color: #0B1F3A; }
       .rw-bts-tx span { font-size: 8px; color: #7A8290; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .rw-bts-ok { width: 11px; height: 11px; color: #0F7A3F; stroke-width: 3; flex-shrink: 0; }
-      .rw-bts-foot { display: inline-flex; align-items: center; gap: 5px; font-size: 8.5px; font-weight: 600; color: #0E8A7B; background: #E6F4F1; border-radius: 6px; padding: 5px 8px; white-space: nowrap; }
-      .rw-bts-foot i, .rw-bts-foot svg { width: 10px; height: 10px; flex-shrink: 0; }
+      .rw-bts-foot { display: inline-flex; align-items: flex-start; gap: 5px; font-size: 8.5px; font-weight: 600; color: #0E8A7B; background: #E6F4F1; border-radius: 6px; padding: 5px 8px; white-space: normal; text-wrap: pretty; line-height: 1.35; }
+      .rw-bts-foot i, .rw-bts-foot svg { width: 10px; height: 10px; flex-shrink: 0; margin-top: 1px; }
       .rw-bts-route { display: flex; gap: 5px; flex-wrap: wrap; }
       .rw-bts-route em, .rw-bts-route b { display: inline-flex; align-items: center; gap: 4px; font-size: 8px; font-weight: 600; border-radius: 999px; padding: 2px 7px; white-space: nowrap; font-style: normal; }
       .rw-bts-route em { color: #9AA1AE; background: #F3F4F6; }
@@ -4727,7 +4790,31 @@
       .us-who { background: #fff; border-color: #E3E3E8; }
       .us-who-ava { box-shadow: none; }
       .us-who-txt { font-weight: 600; }
+      .us-who-col { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+      .us-who-stack { align-items: flex-start; border-radius: 10px; padding: 5px 12px 6px 6px; }
+      .us-who-say { font-size: 11px; font-weight: 600; color: #1A1A2E; line-height: 1.3; white-space: normal; max-width: 260px; }
       .us-step-tx b { font-weight: 600; }
+      /* Scene 6 handoff: the outgoing workspace slides off, the incoming one is already beneath */
+      .rw-switch { background: rgba(6, 16, 52, 0.55); backdrop-filter: blur(10px); opacity: 0; animation: rwSwitchIn 320ms cubic-bezier(0.2, 0.8, 0.2, 1) 300ms forwards, rwSwitchOut 320ms cubic-bezier(0.2, 0.8, 0.2, 1) 2300ms forwards; }
+      @keyframes rwSwitchIn { to { opacity: 1; } }
+      @keyframes rwSwitchOut { to { opacity: 0; visibility: hidden; } }
+      .rw-switch-card { background: rgba(255,255,255,0.97); border-radius: 10px; padding: 12px 18px 13px; display: flex; flex-direction: column; gap: 9px; box-shadow: 0 16px 40px -12px rgba(0,0,0,0.5); }
+      .rw-switch-k { font-size: 7px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #8A8A9A; }
+      .rw-switch-row { display: flex; align-items: center; gap: 14px; }
+      .rw-switch-row > i, .rw-switch-row > svg { width: 14px; height: 14px; color: #0B1F3A; flex-shrink: 0; }
+      .rw-switch-p { display: flex; flex-direction: column; align-items: center; gap: 3px; opacity: 0.45; transition: opacity 300ms; }
+      .rw-switch-p b { font-size: 8.5px; font-weight: 700; color: #1A1A2E; }
+      .rw-switch-p em { font-style: normal; font-size: 6.5px; color: #6E6E7A; font-weight: 600; }
+      .rw-switch-p.is-to { opacity: 1; }
+      .rw-switch-p.is-to .rw-switch-ava { box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px #0B1F3A; }
+      .rw-switch-ava { width: 30px; height: 30px; font-size: 10px; margin-bottom: 1px; }
+      .rw-switch-p:not(.is-to) .rw-switch-ava { box-shadow: none; }
+      .us-who-swap { gap: 8px; }
+      .us-who-from { display: inline-flex; align-items: center; gap: 6px; opacity: 0.45; }
+      .us-who-arrow { width: 11px; height: 11px; color: #6E6E7A; flex-shrink: 0; }
+      .us-who-swap > .us-who-ava:not(.us-who-from *) { box-shadow: 0 0 0 1.5px #fff, 0 0 0 3px #0B1F3A; }
+      .rw-wipe-out { position: absolute; inset: 0; z-index: 3; animation: rwWipeOut 700ms cubic-bezier(0.4, 0, 0.2, 1) both; }
+      @keyframes rwWipeOut { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 0 100%); } }
       /* Closing board: one user, three devices, same workspace */
       .ac-board-solo { display: flex; flex-direction: column; gap: 6px; padding: 14px 18px 18px; }
       .ac-board-solo .ac-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; width: 100%; }
@@ -10498,7 +10585,7 @@
                 <div class="rws-rail rws-rail-in">
                 <div class="rws-rail-lab">What you already run</div>
                 <div class="rws-chips">
-                  <span class="rws-chip rws-chip-info" tabindex="0" data-pop="intune" data-label="Intune"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="rwsIn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00BFFF"/><stop offset="1" stop-color="#0078D4"/></linearGradient></defs><path fill="url(#rwsIn)" d="M22.5 12.5a6.5 6.5 0 0 0-12.7-1.7A5 5 0 0 0 10 21h12a4.5 4.5 0 0 0 .5-8.5z"/></svg>Intune<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Microsoft Intune</b><em class="rws-pop-s">Intune manages the device. Application Workspace manages the apps on it.</em><span class="rws-pop-g"><u>Intune’s lane</u><span><i>Enrolls and secures the device</i><i>Compliance, conditional access, MAM</i><i>Device configuration and policy</i><i>Stays your system of record for devices</i></span></span><span class="rws-pop-g"><u>Application Workspace’s lane</u><span><i>The employee’s app catalog and self-service</i><i>Packaging, versions, staged rollout, rollback</i><i>User-based app delivery on Windows, macOS, VDI and Cloud PC</i><i>One view of who has which app, on every platform</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="cm" data-label="ConfigMgr"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="4" width="11.5" height="11.5" fill="#F25022"/><rect x="16.5" y="4" width="11.5" height="11.5" fill="#7FBA00"/><rect x="4" y="16.5" width="11.5" height="11.5" fill="#00A4EF"/><rect x="16.5" y="16.5" width="11.5" height="11.5" fill="#FFB900"/></svg>ConfigMgr<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Microsoft ConfigMgr</b><em class="rws-pop-s">ConfigMgr manages on-prem and co-managed devices. Application Workspace manages the apps on them.</em><span class="rws-pop-g"><u>ConfigMgr’s lane</u><span><i>Device imaging, inventory and OS deployment</i><i>Collections, boundaries and content distribution points</i><i>Windows updates and compliance baselines</i><i>Stays your system of record for on-prem devices</i></span></span><span class="rws-pop-g"><u>Application Workspace’s lane</u><span><i>The employee’s app catalog and self-service</i><i>Packaging, versions, staged rollout, rollback</i><i>User-based app delivery on Windows, macOS, VDI and Cloud PC</i><i>One view of who has which app, on every platform</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="citrix" data-label="Citrix"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#1A1A2E"/><path d="M22 11.2a8.5 8.5 0 1 0 0 9.6l-2.6-1.5a5.5 5.5 0 1 1 0-6.6z" fill="#fff"/></svg>Citrix<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Citrix</b><em class="rws-pop-s">Citrix runs the virtual desktop. Application Workspace runs the apps inside it.</em><span class="rws-pop-g"><u>Citrix’s lane</u><span><i>Virtual desktop and app virtualization infrastructure</i><i>Session brokering, HDX and StoreFront</i><i>Capacity, images and hosting</i><i>Stays your system of record for virtual desktops</i></span></span><span class="rws-pop-g"><u>Application Workspace’s lane</u><span><i>The employee’s app catalog and self-service</i><i>Packaging, versions, staged rollout, rollback</i><i>User-based app delivery on Windows, macOS, VDI and Cloud PC</i><i>One view of who has which app, on every platform</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="avd" data-label="AVD / W365"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="4" width="11.5" height="11.5" fill="#F25022"/><rect x="16.5" y="4" width="11.5" height="11.5" fill="#7FBA00"/><rect x="4" y="16.5" width="11.5" height="11.5" fill="#00A4EF"/><rect x="16.5" y="16.5" width="11.5" height="11.5" fill="#FFB900"/></svg>AVD / W365<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">AVD / Windows 365</b><em class="rws-pop-s">Microsoft runs the Cloud PC. Application Workspace runs the apps on it.</em><span class="rws-pop-g"><u>AVD / W365’s lane</u><span><i>Cloud PC and session host infrastructure</i><i>Host pools, autoscale, images and FSLogix profiles</i><i>Entra ID sign-in and conditional access</i><i>Stays your system of record for cloud desktops</i></span></span><span class="rws-pop-g"><u>Application Workspace’s lane</u><span><i>The employee’s app catalog and self-service</i><i>Packaging, versions, staged rollout, rollback</i><i>User-based app delivery on Windows, macOS, VDI and Cloud PC</i><i>One view of who has which app, on every platform</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="jamf" data-label="Jamf"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#1168ED" d="M22.5 4.5c.6 0 1 .5 1 1.1V18c0 5-4 9-9 9-2.4 0-4.5-.9-6.1-2.4-.4-.4-.4-1 0-1.4l2.1-2.1c.4-.4 1-.4 1.4-.1.7.6 1.6 1 2.6 1 2.2 0 4-1.8 4-4V5.6c0-.6.5-1.1 1.1-1.1h2.9z"/></svg>Jamf<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Jamf</b><em class="rws-pop-s">Jamf manages the Mac. Application Workspace manages the apps on it.</em><span class="rws-pop-g"><u>Jamf’s lane</u><span><i>Mac enrollment, configuration profiles and security</i><i>macOS updates and compliance</i><i>Device inventory and self-service for Mac settings</i><i>Stays your system of record for Apple devices</i></span></span><span class="rws-pop-g"><u>Application Workspace’s lane</u><span><i>The employee’s app catalog and self-service</i><i>Packaging, versions, staged rollout, rollback</i><i>User-based app delivery on Windows, macOS, VDI and Cloud PC</i><i>One view of who has which app, on every platform</i></span></span></span></span>
+                  <span class="rws-chip rws-chip-info" tabindex="0" data-pop="intune" data-label="Intune"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="rwsIn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00BFFF"/><stop offset="1" stop-color="#0078D4"/></linearGradient></defs><path fill="url(#rwsIn)" d="M22.5 12.5a6.5 6.5 0 0 0-12.7-1.7A5 5 0 0 0 10 21h12a4.5 4.5 0 0 0 .5-8.5z"/></svg>Intune<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Microsoft Intune</b><em class="rws-pop-s">Intune manages the device. Application Workspace manages the apps on it.</em><span class="rws-pop-g"><u>Intune</u><span><i>Enrolls and secures the device</i><i>Compliance, conditional access, MAM</i><i>Device configuration and policy</i><i>Stays your system of record for devices</i></span></span><span class="rws-pop-g"><u>Application Workspace</u><span><i>The employee’s app catalog and self-service</i><i>Packaging, versions, staged rollout, rollback</i><i>User-based app delivery on Windows, macOS, VDI and Cloud PC</i><i>One view of who has which app, on every platform</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="cm" data-label="ConfigMgr"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="4" width="11.5" height="11.5" fill="#F25022"/><rect x="16.5" y="4" width="11.5" height="11.5" fill="#7FBA00"/><rect x="4" y="16.5" width="11.5" height="11.5" fill="#00A4EF"/><rect x="16.5" y="16.5" width="11.5" height="11.5" fill="#FFB900"/></svg>ConfigMgr<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Microsoft ConfigMgr</b><em class="rws-pop-s">ConfigMgr manages on-prem and co-managed devices. Application Workspace manages the apps on them.</em><span class="rws-pop-g"><u>ConfigMgr</u><span><i>Device imaging, inventory and OS deployment</i><i>Collections, boundaries and content distribution points</i><i>Windows updates and compliance baselines</i><i>Stays your system of record for on-prem devices</i></span></span><span class="rws-pop-g"><u>Application Workspace</u><span><i>The employee’s app catalog and self-service</i><i>Packaging, versions, staged rollout, rollback</i><i>User-based app delivery on Windows, macOS, VDI and Cloud PC</i><i>One view of who has which app, on every platform</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="citrix" data-label="Citrix"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#1A1A2E"/><path d="M22 11.2a8.5 8.5 0 1 0 0 9.6l-2.6-1.5a5.5 5.5 0 1 1 0-6.6z" fill="#fff"/></svg>Citrix<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Citrix</b><em class="rws-pop-s">Citrix runs the virtual desktop. Application Workspace runs the apps inside it.</em><span class="rws-pop-g"><u>Citrix</u><span><i>Virtual desktop and app virtualization infrastructure</i><i>Session brokering, HDX and StoreFront</i><i>Capacity, images and hosting</i><i>Stays your system of record for virtual desktops</i></span></span><span class="rws-pop-g"><u>Application Workspace</u><span><i>The employee’s app catalog and self-service</i><i>Packaging, versions, staged rollout, rollback</i><i>User-based app delivery on Windows, macOS, VDI and Cloud PC</i><i>One view of who has which app, on every platform</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="avd" data-label="AVD / W365"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="4" width="11.5" height="11.5" fill="#F25022"/><rect x="16.5" y="4" width="11.5" height="11.5" fill="#7FBA00"/><rect x="4" y="16.5" width="11.5" height="11.5" fill="#00A4EF"/><rect x="16.5" y="16.5" width="11.5" height="11.5" fill="#FFB900"/></svg>AVD / W365<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">AVD / Windows 365</b><em class="rws-pop-s">Microsoft runs the Cloud PC. Application Workspace runs the apps on it.</em><span class="rws-pop-g"><u>AVD / Windows 365</u><span><i>Cloud PC and session host infrastructure</i><i>Host pools, autoscale, images and FSLogix profiles</i><i>Entra ID sign-in and conditional access</i><i>Stays your system of record for cloud desktops</i></span></span><span class="rws-pop-g"><u>Application Workspace</u><span><i>The employee’s app catalog and self-service</i><i>Packaging, versions, staged rollout, rollback</i><i>User-based app delivery on Windows, macOS, VDI and Cloud PC</i><i>One view of who has which app, on every platform</i></span></span></span></span><span class="rws-chip rws-chip-info" tabindex="0" data-pop="jamf" data-label="Jamf"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#1168ED" d="M22.5 4.5c.6 0 1 .5 1 1.1V18c0 5-4 9-9 9-2.4 0-4.5-.9-6.1-2.4-.4-.4-.4-1 0-1.4l2.1-2.1c.4-.4 1-.4 1.4-.1.7.6 1.6 1 2.6 1 2.2 0 4-1.8 4-4V5.6c0-.6.5-1.1 1.1-1.1h2.9z"/></svg>Jamf<i class="rws-i" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Jamf</b><em class="rws-pop-s">Jamf manages the Mac. Application Workspace manages the apps on it.</em><span class="rws-pop-g"><u>Jamf</u><span><i>Mac enrollment, configuration profiles and security</i><i>macOS updates and compliance</i><i>Device inventory and self-service for Mac settings</i><i>Stays your system of record for Apple devices</i></span></span><span class="rws-pop-g"><u>Application Workspace</u><span><i>The employee’s app catalog and self-service</i><i>Packaging, versions, staged rollout, rollback</i><i>User-based app delivery on Windows, macOS, VDI and Cloud PC</i><i>One view of who has which app, on every platform</i></span></span></span></span>
                 </div>
                 </div>
 
@@ -11069,9 +11156,9 @@
         const BEATS = uxOn ? [
           ['bare',     1300],
           ['boot',     6000],
-          ['launch',   6000],
+          ['launch',   7500],
           ['catalog',  8500],
-          ['clicking', 5500],
+          ['clicking', 8000],
           ['checking', 6500],
           ['routing',  8200],
           ['config',   4500],
@@ -11386,7 +11473,6 @@
       /* Jump the shared flow to a phase and continue from there through the
          normal queue, so Pause / Step / Reset all keep working afterwards. */
       function jumpFlowTo(startPh){
-        const wasPaused = STATE.flowRunning && STATE.flowPaused;
         clearFlowTimers();
         STATE.flowRunning = true;
         STATE.flowPaused = false;
@@ -11399,9 +11485,10 @@
         STATE.flowQueue[qi].fn();
         STATE.flowQueueIdx = qi + 1;
         _setDemoFrozen(false);
-        if (wasPaused) { STATE.flowPaused = true; refreshDemoControls(); return; }
+        // Clicking a journey step plays that step and holds there; the top
+        // Play button is what runs the full journey.
+        STATE.flowPaused = true;
         refreshDemoControls();
-        runFlowQueue();
       }
 
       function animateChecks(){
@@ -13208,10 +13295,10 @@
         const CHAPTERS = [
           ['Acme Corp.', 'A consistent application experience wherever work happens.'],
           ['Maya \u00b7 Finance \u00b7 Windows laptop', 'Maya sees the applications available to her.'],
-          ['Maya opens Power BI', 'Find and launch the applications you need in a few clicks.'],
+          ['Maya opens Power BI', 'Smart icons: every click is checked, wherever she opens it from.'],
           ['Maya on any device', 'Windows 365 and Mac, side by side \u2014 the same workspace on physical and virtual devices.'],
           ['Applications stay current', 'Kept up to date without adding complexity for the user.'],
-          ['Switch users: Alex \u00b7 Sales', 'The experience is personalized to the employee.'],
+          ['Same laptop, different person', 'Alex signs in to Maya\u2019s device. The tiles wipe to his set.'],
           ['Alex requests an application', 'Employees can request the applications they need.'],
           ['Embedded or portal', 'The same workspace inside Teams or SharePoint, or on its own.'],
           ['Acme Corp.', 'A consistent application experience wherever work happens.'],
@@ -13227,13 +13314,14 @@
         const DATE = 'Tue Sep 8';
 
         // ── Devices ──
-        const winTaskbar = () => `
+        const winTaskbar = (o = {}) => `
           <div class="rw-tb">
             <div class="rw-tb-c">
               <span class="rw-start"><i></i><i></i><i></i><i></i></span>
               <span class="rw-tb-search"><i data-lucide="search"></i>Search</span>
               ${['edge','outlook','teams'].map(id => `<span class="rw-tb-app">${img(A(id))}</span>`).join('')}
               <span class="rw-tb-app is-on"><span class="ac-tile">${LOGO}</span></span>
+              ${o.pin ? `<span class="rw-tb-app rw-tb-pin rw-smart" style="--d:${o.pinD || 0}ms">${img(A(o.pin))}<em class="rw-smart-tag">smart icon</em></span>` : ''}
             </div>
             <div class="rw-tray"><i data-lucide="chevron-up"></i><i data-lucide="wifi"></i><i data-lucide="volume-2"></i><i data-lucide="battery-full"></i><span class="rw-clock"><b>${clk}</b><span>9/8/2026</span></span></div>
           </div>`;
@@ -13241,7 +13329,7 @@
           <div class="rw-desk rw-wall-win">
             <div class="rw-desk-icons">${[['folder','Documents'],['trash-2','Recycle Bin']].map(([ic, n]) => `<span><i data-lucide="${ic}"></i>${n}</span>`).join('')}</div>
             ${inner}
-            ${winTaskbar()}
+            ${winTaskbar(o)}
             ${o.overlay || ''}
           </div>`;
         const laptop = (kind, screen, label) => `
@@ -13379,7 +13467,9 @@
           </div>`;
 
         const appIcon = `<span class="ac-tile ac-tile-sm">${LOGO}</span>`;
-        const who = (scene >= 2 && scene <= 8) ? `<div class="us-who"><span class="us-who-ava" style="background:${p.accent}">${p.initials}</span><span class="us-who-txt">${p.name} \u00b7 ${p.role}</span></div>` : '';
+        const whoSwap = scene === 6 ? `<span class="us-who-from"><span class="us-who-ava" style="background:${maya.accent}">${maya.initials}</span><span class="us-who-txt">${maya.name} \u00b7 ${maya.role}</span></span><i data-lucide="arrow-right" class="us-who-arrow"></i>` : '';
+        const whoSay = scene === 2 ? '<span class="us-who-say us-in" style="--d:4300ms">Maya sees the applications available to her.</span>' : '';
+        const who = (scene >= 2 && scene <= 8) ? `<div class="us-who ${whoSay ? 'us-who-stack' : ''} ${whoSwap ? 'us-who-swap' : ''}">${whoSwap}<span class="us-who-ava" style="background:${p.accent}">${p.initials}</span><span class="us-who-col"><span class="us-who-txt">${p.name} \u00b7 ${p.role}</span>${whoSay}</span></div>` : '';
 
         let stage = '';
         const intro = () => `
@@ -13414,7 +13504,6 @@
                 <div class="rw-bts">
                   <div class="rw-bts-dev">
                     ${laptop('win', winDesktop(winFrame('Acme Workspace', appIcon, wsHome(maya, { pop: true, popBase: 1900 }), { cls: 'rw-win-app rw-rise', style: 'animation-delay:1500ms' }), { overlay: winSignIn(maya, 'Signing in\u2026') }), 'Windows laptop')}
-                    <div class="rw-bts-user us-in" style="--d:3900ms"><i data-lucide="eye-off"></i>One sign-in. Her apps are just there.</div>
                   </div>
                   <div class="rw-bts-link us-in" style="--d:400ms"><i></i><span><i data-lucide="fingerprint"></i></span><i></i></div>
                   <aside class="rw-bts-panel us-in" style="--d:300ms">
@@ -13431,37 +13520,43 @@
                   </aside>
                 </div>
               </div>
-              ${say('Maya sees the applications available to her.', 'Device and identity are verified, entitlements are resolved, and content is staged \u2014 all before the first click.', 4300)}
             </div>`;
         } else if (scene === 3) {
-          // Maya clicks Power BI. "Start process" fires as the window rises (1500 ms).
+          // Maya clicks the Power BI smart icon. Power BI opens in front; then the
+          // taskbar and Start menu show the same smart icon so the point lands:
+          // wherever she opens it from, the same checks run.
           const xsteps = [
-            ['mouse-pointer-click', 'Launch action set',  'Runs on every smart-icon click',                              400],
-            ['list-checks',         'Filters evaluated',  'MSI installed \u00b7 version current \u2192 install skipped', 900],
-            ['play',                'Start process',      'PBIDesktop.exe \u00b7 user context',                        1400],
-            ['file-clock',          'Event logged',       'Launch \u00b7 Maya Chen \u00b7 Windows laptop \u00b7 9:02',   2300],
+            ['user-check',   'Confirmed she\u2019s entitled', 'Finance group, this device \u00b7 each click',   900],
+            ['badge-check',  'Confirmed it\u2019s current',   'Installed version matches IT\u2019s',             1500],
+            ['play',         'Launched it',                    'Right context, no admin prompt',                 2100],
+            ['file-clock',   'Logged it',                      'Who, what, which device, when',                  2700],
           ];
+          const startMenu = `<div class="rw-start-menu">
+              <div class="rw-sm-search"><i data-lucide="search"></i>Search for apps, settings, and documents</div>
+              <div class="rw-sm-lab">Pinned</div>
+              <div class="rw-sm-grid">
+                ${['edge','outlook','teams','word','excel','onedrive'].map(id => `<span>${img(A(id))}<em>${A(id).name}</em></span>`).join('')}
+                <span class="rw-smart" style="--d:3500ms">${img(target)}<em>${target.name}</em><b class="rw-smart-tag">smart icon</b></span>
+                ${['zoom','acrobat'].map(id => `<span>${img(A(id))}<em>${A(id).name}</em></span>`).join('')}
+              </div>
+              <div class="rw-sm-foot"><span class="rw-si-ava" style="background:${maya.accent}">${maya.initials}</span><b>${maya.name}</b><i data-lucide="power"></i></div>
+            </div>`;
           stage = `<div class="us-story">
               <div class="rw-bts">
                 <div class="rw-bts-dev">
-                  ${laptop('win', winDesktop(`${winFrame('Acme Workspace', appIcon, wsHome(maya, { hot: maya.target, cursor: true }), { cls: 'rw-win-app' })}${winFrame('Power BI \u2014 FY26 Overview', img(target), powerBi(), { cls: 'rw-win-app rw-win-front rw-rise', style: 'animation-delay:1500ms' })}`), 'Windows laptop')}
-                  <div class="rw-bts-user us-in" style="--d:3200ms"><i data-lucide="eye-off"></i>One click. No installer, no prompt.</div>
+                  ${laptop('win', winDesktop(`${winFrame('Acme Workspace', appIcon, wsHome(maya, { hot: maya.target, cursor: true }), { cls: 'rw-win-app rw-win-back' })}${winFrame('Power BI \u2014 FY26 Overview', img(target), powerBi(), { cls: 'rw-win-app rw-win-front rw-rise', style: 'animation-delay:1500ms' })}${startMenu}`, { pin: maya.target, pinD: 2800 }), 'Windows laptop')}
                 </div>
                 <div class="rw-bts-link us-in" style="--d:400ms"><i></i><span><i data-lucide="mouse-pointer-click"></i></span><i></i></div>
                 <aside class="rw-bts-panel us-in" style="--d:300ms">
                   <div class="rw-bts-head">
                     <span class="rw-bts-k">Behind the scenes</span>
                     <span class="rw-bts-t">${img(target, 'rw-bts-ico')}<b>${target.name} Desktop</b></span>
-                    <span class="rw-bts-route">
-                      <em class="us-in" style="--d:1000ms"><i data-lucide="package"></i>Not installed \u2192 install from cache</em>
-                      <b class="us-in" style="--d:1200ms"><i data-lucide="check"></i>Installed \u2192 launch</b>
-                    </span>
+                    <span class="rw-bts-sub">Not a shortcut \u2014 a Recast smart icon. The icon is the package.</span>
                   </div>
                   ${btsList(xsteps)}
-                  <div class="rw-bts-foot us-in" style="--d:3000ms"><i data-lucide="monitor-smartphone"></i>Same package on Mac / Cloud PC \u00b7 platform-filtered actions</div>
+                  <div class="rw-bts-foot us-in" style="--d:4200ms"><i data-lucide="monitor-smartphone"></i>Same smart icon in Start, taskbar, desktop</div>
                 </aside>
               </div>
-              ${say('Find and launch the applications you need in just a few clicks.', 'The click runs the package\u2019s Launch actions. Filters decide whether anything needs installing first \u2014 here nothing does.', 3400)}
             </div>`;
         } else if (scene === 4) {
           // Any device — Windows 365 Cloud PC (virtual) and a Mac (physical), side by side.
@@ -13493,7 +13588,6 @@
               <div class="rw-bts">
                 <div class="rw-bts-dev">
                   ${laptop('win', winDesktop(winFrame('Acme Workspace', appIcon, wsHome(maya, { badge: maya.ever, badgeD: 3400 }), { cls: 'rw-win-app' })), 'Windows laptop')}
-                  <div class="rw-bts-user us-in" style="--d:3900ms"><i data-lucide="eye-off"></i>Nothing to click. Nothing to wait for.</div>
                 </div>
                 <div class="rw-bts-link us-in" style="--d:600ms"><i></i><span><i data-lucide="lock"></i></span><i></i></div>
                 <aside class="rw-bts-panel us-in" style="--d:500ms">
@@ -13503,13 +13597,62 @@
                   <div class="rw-bts-foot us-in" style="--d:3600ms"><i data-lucide="shield-check"></i>Secure \u00b7 versioned \u00b7 rolled out in rings</div>
                 </aside>
               </div>
-              ${say('Applications stay current without adding complexity for the user.', 'Updates are verified, versioned and installed in the background. Maya just opens Zoom.', 4200)}
             </div>`;
         } else if (scene === 6) {
-          // Switch users — Alex · Sales signs in; a clearly different app set.
+          // Same laptop, different person. Maya's workspace is on screen; the
+          // tiles wipe to Alex's set. Entitlements follow the person, not the machine.
+          const handoff = `
+            <div class="ac-shell">
+              ${wsNav(alex, 'Home')}
+              <div class="ac-main">
+                ${wsTop()}
+                <div class="ac-greet"><b>Good morning, Alex</b><span>Tuesday, September 8 \u00b7 Sales</span></div>
+                <div class="ac-sec">Your apps <em>${alex.apps.length}</em></div>
+                <div class="ac-grid">${alex.apps.map((id, i) => tile(A(id), { pop: true, d: 3700 + i * 60 })).join('')}</div>
+              </div>
+            </div>`;
+          const mayaOut = `<div class="rw-wipe-out" style="animation-delay:1900ms">${wsHome(maya)}</div>`;
+          const switchCard = `<div class="rw-over rw-lock" aria-hidden="true">
+              <div class="rw-lock-main">
+                <span class="rw-si-ava rw-lock-ava" style="background:${alex.accent}">${alex.initials}</span>
+                <b class="rw-lock-name">${alex.name}</b>
+                <span class="rw-lock-user">arivera@acme.com</span>
+                <span class="rw-lock-pw"><span class="rw-lock-dots">${'<i></i>'.repeat(9)}</span><i data-lucide="arrow-right" class="rw-lock-go"></i></span>
+                <span class="rw-lock-hint"><i class="rw-spin"></i>Welcome</span>
+              </div>
+              <div class="rw-lock-users">
+                <span class="rw-lock-u is-prev"><span class="rw-si-ava" style="background:${maya.accent}">${maya.initials}</span><span>${maya.name}</span></span>
+                <span class="rw-lock-u is-on"><span class="rw-si-ava" style="background:${alex.accent}">${alex.initials}</span><span>${alex.name}</span></span>
+              </div>
+              <div class="rw-lock-foot"><span><i data-lucide="wifi"></i></span><span><i data-lucide="accessibility"></i></span><span><i data-lucide="power"></i></span></div>
+            </div>`;
+          const hsteps = [
+            ['scan-search',  'Context evaluated',        'Subnet, AD group, department, device type',                2600],
+            ['user-cog',     'User + device combined',   'This person, on this device, right now',                  3000],
+            ['users',        'Entitlements resolved',    'Sales group + Windows context \u2192 10 apps',            3400],
+            ['building-2',   'Department-driven',        '\u201cSales\u201d in Active Directory publishes Sales apps', 3900],
+            ['layout-grid',  'Workspace rebuilt',        'Icons, Start menu, autolaunch \u2014 per user',           4400],
+          ];
           stage = `<div class="us-story">
-              ${laptop('win', winDesktop(winFrame('Acme Workspace', appIcon, wsHome(alex, { pop: true, popBase: 1900 }), { cls: 'rw-win-app rw-rise', style: 'animation-delay:1500ms' }), { overlay: winSignIn(alex, 'Signing in\u2026') }), 'Windows laptop')}
-              ${say('The experience is personalized to the employee.', 'Maya sees Finance apps. Alex sees Sales apps.', 3200)}
+              <div class="rw-bts">
+                <div class="rw-bts-dev">
+                  ${laptop('win', winDesktop(winFrame('Acme Workspace', appIcon, `${handoff}${mayaOut}`, { cls: 'rw-win-app' }), { overlay: switchCard }), 'Windows laptop \u00b7 same device')}
+                </div>
+                <div class="rw-bts-link us-in" style="--d:400ms"><i></i><span><i data-lucide="user-cog"></i></span><i></i></div>
+                <aside class="rw-bts-panel us-in" style="--d:300ms">
+                  <div class="rw-bts-head">
+                    <span class="rw-bts-k">Behind the scenes</span>
+                    <span class="rw-bts-t">${appIcon}<b>Who gets what \u00b7 on this device</b></span>
+                    <span class="rw-bts-route">
+                      <em class="us-in" style="--d:700ms"><i data-lucide="monitor"></i>Device \u00b7 unchanged</em>
+                      <b class="us-in" style="--d:900ms"><i data-lucide="user"></i>Alex Rivera \u00b7 Sales</b>
+                    </span>
+                  </div>
+                  ${btsList(hsteps)}
+                  <div class="rw-bts-foot us-in" style="--d:5000ms"><i data-lucide="shield-check"></i>Right apps for whoever signs in \u00b7 no ticket</div>
+                </aside>
+              </div>
+              ${say('Entitlements follow the person, not the machine.', '', 4300)}
             </div>`;
         } else if (scene === 7) {
           // Alex requests Tableau. Beside the laptop, the request is routed by
