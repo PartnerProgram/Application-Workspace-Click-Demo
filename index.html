@@ -3070,17 +3070,18 @@
       .hf-slab-t { font-size: 14.5px; font-weight: 800; color: #fff; letter-spacing: -0.01em; padding: 13px 16px 0; }
       .hf-slab-sub { font-size: 11px; color: #AABBEE; margin-top: 2px; padding: 0 16px 13px; }
       .hf-stages { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid rgba(255,255,255,0.22); }
+      .hf-stages-6 { grid-template-columns: repeat(6, 1fr); }
       .hf-stage { padding: 10px 11px 11px; }
       .hf-stage + .hf-stage { border-left: 1px solid rgba(255,255,255,0.22); }
       .hf-stage b { display: block; font-size: 11px; font-weight: 800; color: #fff; letter-spacing: 0.01em; }
       .hf-stage span { display: block; font-size: 9.5px; line-height: 1.4; color: #AABBEE; margin-top: 3px; text-wrap: pretty; }
       @media (max-width: 720px) {
-        .hf-stages { grid-template-columns: repeat(2, 1fr); }
+        .hf-stages, .hf-stages-6 { grid-template-columns: repeat(2, 1fr); }
         .hf-stage + .hf-stage { border-left: 0; border-top: 1px solid rgba(255,255,255,0.22); }
       }
 
       /* ─── Positioning + outcome band (top of Recast Approach tab) ─── */
-      .alm-band { display: grid; grid-template-columns: minmax(300px, 1.05fr) 2fr; gap: 22px; align-items: start; padding-bottom: 12px; border-bottom: 1px solid #DDDDEE; }
+      .alm-band { display: grid; grid-template-columns: 1fr; gap: 22px; align-items: start; padding-bottom: 12px; border-bottom: 1px solid #DDDDEE; }
       .alm-lede { display: flex; flex-direction: column; gap: 5px; }
       .alm-lede-eyebrow { font-size: 9px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #0000CC; }
       .alm-lede-txt { font-size: 13px; line-height: 1.5; color: #1A1A2E; font-weight: 500; text-wrap: pretty; }
@@ -3104,8 +3105,9 @@
          shed detail in order of importance rather than introducing a
          scrollbar. ─── */
       .why-r { display: flex; flex-direction: column; gap: 10px; }
-      .why-r-split { display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: 12px; align-items: stretch; }
+      .why-r-split { display: grid; grid-template-columns: 1fr; gap: 12px; align-items: stretch; }
       .why-r-msg { display: flex; flex-direction: column; min-width: 0; }
+      .why-r-close { font-size: 12px; font-weight: 600; line-height: 1.5; color: #1A1A2E; margin-top: 10px; text-wrap: pretty; }
       .why-r-intro { font-size: 13px; font-weight: 700; line-height: 1.45; letter-spacing: -0.01em; color: #1A1A2E; margin-bottom: 10px; text-wrap: pretty; }
       .why-r-list { display: flex; flex-direction: column; border: 1px solid #DDDDEE; border-radius: 8px; background: #fff; overflow: hidden; }
       .why-r-item { display: flex; align-items: flex-start; gap: 9px; padding: 9px 13px; }
@@ -4086,6 +4088,32 @@
       .dv-dev { position: relative; }
       @keyframes dvPing { 0% { opacity: 0.8; transform: scale(0.85); } 100% { opacity: 0; transform: scale(1.25); } }
       .dv-stage { display: flex; flex-direction: column; gap: 12px; }
+      .dv-stat-gap { background: #1A1A2E !important; border-color: #1A1A2E !important; }
+      .dv-stat-gap b { color: #fff !important; } .dv-stat-gap span { color: #C9D3E3 !important; }
+      /* App Portfolio Growth — bars + device types, no logo wall */
+      .dv-g { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 16px; align-items: stretch; }
+      @media (max-width: 820px) { .dv-g { grid-template-columns: 1fr; } }
+      .dv-g-main { border: 1px solid #DDDDEE; border-radius: 10px; background: #fff; padding: 12px 14px 10px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 2px 6px rgba(26,26,46,0.06); }
+      .dv-g-hd { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+      .dv-g-t { font-size: 9.5px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: #8A8A9A; }
+      .dv-g-num { position: relative; display: inline-block; min-width: 56px; height: 26px; text-align: right; font-size: 22px; font-weight: 800; color: #0000CC; letter-spacing: -0.02em; }
+      .dv-g-num .dv-cnt { left: auto; right: 0; top: 0; }
+      .dv-g-bars { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; align-items: end; height: 150px; padding-top: 14px; border-bottom: 1px solid #EDEDF4; }
+      .dv-g-col { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; gap: 4px; position: relative; }
+      .dv-g-val { font-size: 10px; font-weight: 800; color: #1A1A2E; font-variant-numeric: tabular-nums; }
+      .dv-g-bar { width: 100%; max-width: 44px; height: var(--h); background: #00BFFF; border-radius: 4px 4px 0 0; transform-origin: bottom; transform: scaleY(0); animation: dvGrow 667ms linear var(--d, 0ms) forwards; }
+      .dv-g-cnt { animation-duration: 667ms; }
+      .dv-g-devin { opacity: 0; animation: dvIn 500ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms) forwards; }
+      .dv-g-fill { animation: dvLoad 4000ms linear 400ms forwards !important; }
+      .dv-g-col:nth-child(n+5) .dv-g-bar { background: #CC8800; }
+      .dv-g-col:last-child .dv-g-bar { background: #CC2222; }
+      .dv-g-yr { font-size: 10px; font-weight: 700; color: #4A4A5A; position: absolute; bottom: -18px; }
+      @keyframes dvGrow { to { transform: scaleY(1); } }
+      .dv-g-bars { margin-bottom: 18px; }
+      .dv-g-side { display: flex; flex-direction: column; gap: 6px; }
+      .dv-g-devs { display: flex; flex-direction: column; gap: 5px; }
+      .dv-g-dev { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: #1A1A2E; background: #F6F8FF; border: 1px solid #D5DAF5; border-radius: 6px; padding: 6px 10px; }
+      .dv-g-dev i, .dv-g-dev svg { width: 14px; height: 14px; color: #0000CC; flex-shrink: 0; }
       .dv-in { opacity: 0; animation: dvIn 420ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms) forwards; }
       .dv-pop { opacity: 0; animation: dvPop 360ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms) forwards; }
       @keyframes dvIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -4172,13 +4200,19 @@
       .dv-stat span { font-size: 10px; color: #6A6A7A; font-weight: 600; }
       .dv-stat-red { border-color: #FBDCDC; background: #FDF0F0; } .dv-stat-red b { color: #CC2222; }
       .ew-grid-clean { grid-template-columns: 1fr 240px; align-items: start; }
+      .ew-sub { margin: 0 0 4px; font-size: 13px; font-weight: 600; color: #1A1A2E; text-wrap: pretty; }
+      .ew-rail { gap: 8px; }
+      .dv-stat-acc { border-color: #C9D3F5; background: #F6F8FF; } .dv-stat-acc b { color: #0000CC; }
+      .ew-bottom { margin: 4px 0 0; font-size: 14px; font-weight: 700; color: #1A1A2E; text-align: center; letter-spacing: -0.01em; text-wrap: pretty; }
+      .ew-src { margin: 0; font-size: 9.5px; color: #AAAABB; font-weight: 600; text-align: center; }
+      .ew-anim .ew-ai { opacity: 0; animation: dvIn 500ms ease 2400ms forwards; }
       .ew-anim .ew-line-attack { stroke-dasharray: 1; stroke-dashoffset: 1; animation: ewDraw 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) 400ms forwards; }
       .ew-anim .ew-line-deploy { opacity: 0; animation: dvIn 600ms ease 300ms forwards; }
-      .ew-anim .ew-band { opacity: 0; animation: ewBand 800ms ease 2400ms forwards; }
-      .ew-anim .ew-cross { opacity: 0; animation: dvIn 400ms ease 1500ms forwards; }
-      .ew-anim .ew-labels { opacity: 0; animation: dvIn 400ms ease 2600ms forwards; }
+      .ew-anim .ew-band { opacity: 0; animation: ewBand 800ms ease 2000ms forwards; }
+      .ew-anim .ew-cross { opacity: 0; animation: dvIn 400ms ease 1600ms forwards; }
+      .ew-anim .ew-labels { opacity: 0; animation: dvIn 400ms ease 2300ms forwards; }
       @keyframes ewDraw { to { stroke-dashoffset: 0; } }
-      @keyframes ewBand { to { opacity: 0.09; } }
+      @keyframes ewBand { to { opacity: 0.1; } }
       /* ── Business Impact v2: one clear read — what changes, by how much, why ── */
       .bi2 { display: flex; flex-direction: column; gap: 10px; }
       .bi2-hero { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; background: #0000CC; border-radius: 10px; padding: 12px 18px; position: relative; overflow: hidden; align-items: center; }
@@ -7598,7 +7632,7 @@
         /* Chart section card: compact, chart capped to fit viewport */
         #panel-problems > .section-card { padding: 14px 18px !important; }
         #panel-problems > .section-card > .grid {
-          grid-template-columns: 1fr 220px !important;
+          grid-template-columns: 220px 1fr !important;
           gap: 18px !important;
           align-items: stretch !important;
         }
@@ -7610,15 +7644,16 @@
           padding: 0 !important;
         }
         #capacity-gap-chart {
-          max-height: min(52vh, 420px) !important;
-          height: min(52vh, 420px) !important;
+          max-height: min(62vh, 500px) !important;
+          height: min(62vh, 500px) !important;
           width: 100% !important;
           min-height: 320px !important;
           display: block;
         }
 
         /* Modern IT Challenges rail — clean card, compact */
-        #panel-problems > .section-card > .grid > div:last-child {
+        #panel-problems > .section-card > .grid > .cs-challenges {
+          order: -1;
           background: var(--r-quote-bg) !important;
           backdrop-filter: none !important;
           -webkit-backdrop-filter: none !important;
@@ -7627,7 +7662,7 @@
           box-shadow: none !important;
           padding: 12px !important;
         }
-        #panel-problems > .section-card > .grid > div:last-child > h3 {
+        #panel-problems > .section-card > .grid > .cs-challenges > h3 {
           font-size: 11px !important;
           font-weight: 700 !important;
           text-transform: uppercase;
@@ -7637,9 +7672,9 @@
           padding-bottom: 8px;
           border-bottom: 1px solid var(--r-divider);
         }
-        #panel-problems > .section-card > .grid > div:last-child > .grid { gap: 6px !important; }
-        #panel-problems > .section-card > .grid > div:last-child .callout-dropdown,
-        #panel-problems > .section-card > .grid > div:last-child [data-action="toggle-callout"] {
+        #panel-problems > .section-card > .grid > .cs-challenges > .grid { gap: 6px !important; }
+        #panel-problems > .section-card > .grid > .cs-challenges .callout-dropdown,
+        #panel-problems > .section-card > .grid > .cs-challenges [data-action="toggle-callout"] {
           padding: 8px 10px !important;
           font-size: 13px !important;
         }
@@ -10277,11 +10312,10 @@
         activePopover: null,
         years: [2025, 2026, 2027, 2028],
         drivers: [
-          { id: "more_apps", label: "App Portfolio Growth", subtext: "Portfolio growth across Windows, macOS, VDI, web", markerYear: 2025.6, bullets: ["Every new app adds ongoing work - packaging, testing, updates, support.", "App sprawl compounds across Windows, macOS, VDI, and web delivery paths.", "Portfolio growth increases version drift and troubleshooting load."], short: "Every new app creates ongoing packaging, testing, update, and support work across every platform.", state: 'off' },
-          { id: "constant_updates", label: "Continuous Change Velocity", subtext: "Security patches, compatibility, vendor releases", markerYear: 2026.2, bullets: ["Updates are continuous, not occasional - work never clears.", "Security patches and compatibility changes create perpetual churn.", "Release velocity outpaces admin capacity."], short: "Updates are constant -  not occasional. Stability now requires perpetual change management.", state: 'off' },
-          { id: "exploit_window", label: "The Patching Window Is Shrinking", subtext: "AI moves in hours; a manual app process moves in weeks", markerYear: 2026.4, bullets: ["AI has industrialized finding flaws. Anthropic and around 50 partners pointed its Mythos model at widely used software and turned up more than 10,000 serious flaws in a single month. Every vendor you deploy is now being audited by machines, so updates arrive more often and with less warning.", "The gap between a flaw going public and an attack using it has fallen from 756 days in 2018 to roughly 10 hours in 2026. A published patch is now the starting gun: AI can turn one into a working attack in under an hour, while the average company still takes 43 days to install it.", "Nobody loses this race on information \u2014 they lose it on delivery. If every update means a person repackaging, testing and scheduling it, your speed is capped by headcount. Keeping up means the routine version of that work happens on its own, so your team only touches the exceptions."], short: "The threats now move at machine speed while most app updates still move at human speed. Worth asking your team: of the updates we shipped last quarter, how many actually needed a person \u2014 and what would it take to get an app out the same day it is released?", state: 'off' },
-          { id: "too_many_tools", label: "Platform Multiplication", subtext: "Fragmented delivery across platforms", markerYear: 2026.8, bullets: ["App delivery is fragmented across tools and environments (e.g., Intune/ConfigMgr/VDI).", "Teams rebuild packaging and deployment logic per platform.", "Tool fragmentation creates handoffs, duplication, and drift."], short: "Same app, different platforms. Packaging and deployment logic rebuilt per environment.", state: 'off' },
-          { id: "manual_rework", label: "Rework & Technical Debt", subtext: "Rebuilds, exceptions, one-off fixes", markerYear: 2027.3, bullets: ["Manual rebuilds per version create packaging backlog and rework.", "Reactive fixes become permanent exceptions (technical debt).", "Firefighting displaces planned work and modernization."], short: "Manual rebuilds, one-off fixes, and undocumented exceptions compound into permanent drag.", state: 'off' },
+          { id: "more_apps", label: "App Portfolio Growth", subtext: "Portfolio growth across Windows, macOS, VDI, web", markerYear: 2027.0, stackAbove: true, bullets: ["Every new app adds ongoing work - packaging, testing, updates, support.", "App sprawl compounds across Windows, macOS, VDI, and web delivery paths.", "Portfolio growth increases version drift and troubleshooting load."], short: "Every new app creates ongoing packaging, testing, update, and support work across every platform.", state: 'off' },
+          { id: "constant_updates", label: "Continuous Change Velocity", subtext: "Security patches, compatibility, vendor releases", markerYear: 2026.1, bullets: ["Updates are continuous, not occasional - work never clears.", "Security patches and compatibility changes create perpetual churn.", "Release velocity outpaces admin capacity."], short: "Updates are constant -  not occasional. Stability now requires perpetual change management.", state: 'off' },
+          { id: "exploit_window", label: "The Patching Window Is Shrinking", subtext: "AI moves in hours; a manual app process moves in weeks", markerYear: 2026.55, bullets: ["AI has industrialized finding flaws. Anthropic and around 50 partners pointed its Mythos model at widely used software and turned up more than 10,000 serious flaws in a single month. Every vendor you deploy is now being audited by machines, so updates arrive more often and with less warning.", "The gap between a flaw going public and an attack using it has fallen from 756 days in 2018 to roughly 10 hours in 2026. A published patch is now the starting gun: AI can turn one into a working attack in under an hour, while the average company still takes 43 days to install it.", "Nobody loses this race on information \u2014 they lose it on delivery. If every update means a person repackaging, testing and scheduling it, your speed is capped by headcount. Keeping up means the routine version of that work happens on its own, so your team only touches the exceptions."], short: "The threats now move at machine speed while most app updates still move at human speed. Worth asking your team: of the updates we shipped last quarter, how many actually needed a person \u2014 and what would it take to get an app out the same day it is released?", state: 'off' },
+          { id: "too_many_tools", label: "Platform Multiplication", subtext: "Fragmented delivery across platforms", markerYear: 2027.0, bullets: ["App delivery is fragmented across tools and environments (e.g., Intune/ConfigMgr/VDI).", "Teams rebuild packaging and deployment logic per platform.", "Tool fragmentation creates handoffs, duplication, and drift."], short: "Same app, different platforms. Packaging and deployment logic rebuilt per environment.", state: 'off' },
           { id: "security_compliance", label: "Security & Compliance Pressure", subtext: "Higher urgency, higher risk", markerYear: 2027.7, bullets: ["Security/compliance raises the urgency and risk of app change.", "Inconsistent versions and installs increase exposure and escalations.", "Patching timelines stretch when workflows are manual and fragmented."], short: "Higher urgency, tighter windows, zero tolerance -  on top of everything else.", state: 'off' }
         ],
         tippingPointYear: 2027.5,
@@ -10324,14 +10358,14 @@
           recast: {
             intro: "",
             bullets: [
-              "Define once, deliver everywhere = One definition deploys to Intune, SCCM, Citrix, AVD, and macOS automatically.",
-              "8,000+ apps ready to go = A curated catalog with verified sources, tested silent switches, vulnerability data, and virus scan scores — updated daily. Your team only packages what's genuinely unique to your business.",
-              "Self-service replaces tickets = Users get approved apps in seconds. IT controls the catalog. Users control the timing.",
-              "Patches land everywhere at once = Staged pipeline. Every environment. No per-platform rebuilds.",
-              "Nothing gets ripped out = Works with what you already run. Additive, not replacement.",
-              "Your team gets time back = Engineers stop rebuilding. That capacity goes to your backlog."
+              "Packaging and patching are done for you = Recast maintains 8,000+ commercial apps and republishes each one when the vendor ships a new version. Your team stops building and re-testing installers.",
+              "Your own apps run through the same pipeline = Line-of-business apps get the same structure — install logic, detection, dependencies, release stages — so custom work is the exception, not the backlog.",
+              "One package reaches every device you run = Windows, Mac, virtual desktop, Cloud PC. Delivered through Intune, ConfigMgr, Citrix, AVD or Jamf from a single definition. Today that's five builds.",
+              "Employees get apps without a ticket = They pick from a catalog. Anything that needs approval routes to the right manager automatically.",
+              "Updates follow one path, with a way back = Test, then Acceptance, then Production, with rollback. Every release, every platform, the same way.",
+              "You can see the whole estate = Every app, version, install and approval, by user and device, in one place — and the data is yours to plug into Power BI or an AI model."
             ],
-            analyst: "They're not adding headcount - they're adding a layer that eliminates rework."
+            analyst: "They're not adding headcount — they're adding a layer that removes rework."
           }
         },
         defaultsCurrentState() {
@@ -10357,14 +10391,14 @@
             recast: {
               intro: "",
               bullets: [
-                "Define once, deliver everywhere = One definition deploys to Intune, SCCM, Citrix, AVD, and macOS automatically.",
-                "8,000+ apps ready to go = A curated catalog with verified sources, tested silent switches, vulnerability data, and virus scan scores — updated daily. Your team only packages what's genuinely unique to your business.",
-                "Self-service replaces tickets = Users get approved apps in seconds. IT controls the catalog. Users control the timing.",
-                "Patches land everywhere at once = Staged pipeline. Every environment. No per-platform rebuilds.",
-                "Nothing gets ripped out = Works with what you already run. Additive, not replacement.",
-                "Your team gets time back = Engineers stop rebuilding. That capacity goes to your backlog."
+                "Packaging and patching are done for you = Recast maintains 8,000+ commercial apps and republishes each one when the vendor ships a new version. Your team stops building and re-testing installers.",
+                "Your own apps run through the same pipeline = Line-of-business apps get the same structure — install logic, detection, dependencies, release stages — so custom work is the exception, not the backlog.",
+                "One package reaches every device you run = Windows, Mac, virtual desktop, Cloud PC. Delivered through Intune, ConfigMgr, Citrix, AVD or Jamf from a single definition. Today that's five builds.",
+                "Employees get apps without a ticket = They pick from a catalog. Anything that needs approval routes to the right manager automatically.",
+                "Updates follow one path, with a way back = Test, then Acceptance, then Production, with rollback. Every release, every platform, the same way.",
+                "You can see the whole estate = Every app, version, install and approval, by user and device, in one place — and the data is yours to plug into Power BI or an AI model."
               ],
-              analyst: "They're not adding headcount - they're adding a layer that eliminates rework."
+              analyst: "They're not adding headcount — they're adding a layer that removes rework."
             }
           }));
         },
@@ -10379,11 +10413,10 @@
         },
         defaultsDrivers() {
           return JSON.parse(JSON.stringify([
-            { id: "more_apps", label: "App Portfolio Growth", subtext: "Portfolio growth across Windows, macOS, VDI, web", markerYear: 2025.6, bullets: ["Every new app adds ongoing work - packaging, testing, updates, support.", "App sprawl compounds across Windows, macOS, VDI, and web delivery paths.", "Portfolio growth increases version drift and troubleshooting load."], short: "Every new app creates ongoing packaging, testing, update, and support work across every platform.", state: 'off' },
-            { id: "constant_updates", label: "Continuous Change Velocity", subtext: "Security patches, compatibility, vendor releases", markerYear: 2026.2, bullets: ["Updates are continuous, not occasional - work never clears.", "Security patches and compatibility changes create perpetual churn.", "Release velocity outpaces admin capacity."], short: "Updates are constant -  not occasional. Stability now requires perpetual change management.", state: 'off' },
-            { id: "exploit_window", label: "The Patching Window Is Shrinking", subtext: "AI moves in hours; a manual app process moves in weeks", markerYear: 2026.4, bullets: ["AI has industrialized finding flaws. Anthropic and around 50 partners pointed its Mythos model at widely used software and turned up more than 10,000 serious flaws in a single month. Every vendor you deploy is now being audited by machines, so updates arrive more often and with less warning.", "The gap between a flaw going public and an attack using it has fallen from 756 days in 2018 to roughly 10 hours in 2026. A published patch is now the starting gun: AI can turn one into a working attack in under an hour, while the average company still takes 43 days to install it.", "Nobody loses this race on information \u2014 they lose it on delivery. If every update means a person repackaging, testing and scheduling it, your speed is capped by headcount. Keeping up means the routine version of that work happens on its own, so your team only touches the exceptions."], short: "The threats now move at machine speed while most app updates still move at human speed. Worth asking your team: of the updates we shipped last quarter, how many actually needed a person \u2014 and what would it take to get an app out the same day it is released?", state: 'off' },
-            { id: "too_many_tools", label: "Platform Multiplication", subtext: "Fragmented delivery across platforms", markerYear: 2026.8, bullets: ["App delivery is fragmented across tools and environments (e.g., Intune/ConfigMgr/VDI).", "Teams rebuild packaging and deployment logic per platform.", "Tool fragmentation creates handoffs, duplication, and drift."], short: "Same app, different platforms. Packaging and deployment logic rebuilt per environment.", state: 'off' },
-            { id: "manual_rework", label: "Rework & Technical Debt", subtext: "Rebuilds, exceptions, one-off fixes", markerYear: 2027.3, bullets: ["Manual rebuilds per version create packaging backlog and rework.", "Reactive fixes become permanent exceptions (technical debt).", "Firefighting displaces planned work and modernization."], short: "Manual rebuilds, one-off fixes, and undocumented exceptions compound into permanent drag.", state: 'off' },
+            { id: "more_apps", label: "App Portfolio Growth", subtext: "Portfolio growth across Windows, macOS, VDI, web", markerYear: 2027.0, stackAbove: true, bullets: ["Every new app adds ongoing work - packaging, testing, updates, support.", "App sprawl compounds across Windows, macOS, VDI, and web delivery paths.", "Portfolio growth increases version drift and troubleshooting load."], short: "Every new app creates ongoing packaging, testing, update, and support work across every platform.", state: 'off' },
+            { id: "constant_updates", label: "Continuous Change Velocity", subtext: "Security patches, compatibility, vendor releases", markerYear: 2026.1, bullets: ["Updates are continuous, not occasional - work never clears.", "Security patches and compatibility changes create perpetual churn.", "Release velocity outpaces admin capacity."], short: "Updates are constant -  not occasional. Stability now requires perpetual change management.", state: 'off' },
+            { id: "exploit_window", label: "The Patching Window Is Shrinking", subtext: "AI moves in hours; a manual app process moves in weeks", markerYear: 2026.55, bullets: ["AI has industrialized finding flaws. Anthropic and around 50 partners pointed its Mythos model at widely used software and turned up more than 10,000 serious flaws in a single month. Every vendor you deploy is now being audited by machines, so updates arrive more often and with less warning.", "The gap between a flaw going public and an attack using it has fallen from 756 days in 2018 to roughly 10 hours in 2026. A published patch is now the starting gun: AI can turn one into a working attack in under an hour, while the average company still takes 43 days to install it.", "Nobody loses this race on information \u2014 they lose it on delivery. If every update means a person repackaging, testing and scheduling it, your speed is capped by headcount. Keeping up means the routine version of that work happens on its own, so your team only touches the exceptions."], short: "The threats now move at machine speed while most app updates still move at human speed. Worth asking your team: of the updates we shipped last quarter, how many actually needed a person \u2014 and what would it take to get an app out the same day it is released?", state: 'off' },
+            { id: "too_many_tools", label: "Platform Multiplication", subtext: "Fragmented delivery across platforms", markerYear: 2027.0, bullets: ["App delivery is fragmented across tools and environments (e.g., Intune/ConfigMgr/VDI).", "Teams rebuild packaging and deployment logic per platform.", "Tool fragmentation creates handoffs, duplication, and drift."], short: "Same app, different platforms. Packaging and deployment logic rebuilt per environment.", state: 'off' },
             { id: "security_compliance", label: "Security & Compliance Pressure", subtext: "Higher urgency, higher risk", markerYear: 2027.7, bullets: ["Security/compliance raises the urgency and risk of app change.", "Inconsistent versions and installs increase exposure and escalations.", "Patching timelines stretch when workflows are manual and fragmented."], short: "Higher urgency, tighter windows, zero tolerance -  on top of everything else.", state: 'off' }
           ]));
         },
@@ -11787,11 +11820,11 @@
               </div>
             </div>
             <div class="section-card cs-chart-card">
-              <div class="grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-3 items-stretch">
-                <div class="chart-container relative">
+              <div class="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-3 items-stretch">
+                <div class="chart-container relative lg:order-2">
                   <svg id="capacity-gap-chart" viewBox="0 0 860 420" preserveAspectRatio="xMidYMid meet"></svg>
                 </div>
-                <div class="w-full bg-white/70 backdrop-blur-lg rounded-xl shadow-sm p-3 border border-slate-200 cs-challenges">
+                <div class="w-full bg-white/70 backdrop-blur-lg rounded-xl shadow-sm p-3 border border-slate-200 cs-challenges lg:order-1">
                   <h3 class="text-xs font-semibold uppercase tracking-wide text-[#1A1A2E] mb-2">Modern IT Challenges</h3>
                   <div class="grid grid-cols-1 gap-2 items-stretch">
                     ${calloutDropdown('change','alert-triangle','Why Change','bg-slate-50')}
@@ -12099,12 +12132,14 @@
             const flipLeft = (x + 14 + lblW) > (margin.left + width + 40);
             return { d: d, x: x, y: y, cy: y, lblW: lblW, lblX: flipLeft ? (x - 14 - lblW) : (x + 14), flipLeft: flipLeft };
           })
-          .sort(function(a, b){ return a.x - b.x; });
+          .sort(function(a, b){ return (a.x - b.x) || ((a.d.stackAbove ? 1 : 0) - (b.d.stackAbove ? 1 : 0)); });
         marks.forEach(function(it){
           for (let pass = 0; pass < 3; pass++) {
             slots.forEach(function(p){
               const xHit = it.lblX < p.lblX + p.lblW + 8 && p.lblX < it.lblX + it.lblW + 8;
               if (!xHit || Math.abs(it.cy - p.cy) >= PILL_H + PILL_GAP) return;
+              if (it.d.stackAbove) { it.cy = p.cy - PILL_H - PILL_GAP; return; }
+              if (p.d.stackAbove) { it.cy = p.cy + PILL_H + PILL_GAP; return; }
               it.cy = it.cy >= p.cy ? p.cy + PILL_H + PILL_GAP : p.cy - PILL_H - PILL_GAP;
             });
           }
@@ -12440,34 +12475,33 @@
       function renderDriverStory(c){
         const id = c.id;
         if (id === 'more_apps') {
-          // The portfolio fills a workspace faster every year while the team stays the same size.
+          // One story, three facts: apps grow, device types grow, the team does not.
           const YEARS = [2016, 2018, 2020, 2022, 2024, 2026];
           const COUNTS = [40, 70, 120, 190, 290, 420];
-          const PLATS = [['monitor','Windows',0],['laptop','macOS',1],['cloud','VDI',2],['globe','Web / SaaS',3],['smartphone','Mobile',4]];
-          let tiles = ''; let n = 0;
-          YEARS.forEach((y, yi) => { const add = yi === 0 ? 6 : [4, 6, 8, 10, 14][yi - 1]; for (let k = 0; k < add; k++) { tiles += dvTile(n, 600 + yi * 1400 + k * (260 - yi * 38), 'dv-pop'); n++; } });
+          const DEVS = [['monitor','Windows PC',0],['laptop','Mac',1],['cloud','Virtual desktop',2],['globe','Browser / SaaS',3],['smartphone','Mobile',4]];
+          const T0 = 400, DUR = 4000; const beat = (i) => T0 + Math.round(i * DUR / 6);
+          const max = COUNTS[COUNTS.length - 1];
           return `
             <div class="dv-stage">
-              <div class="dv-years">${YEARS.map((y, i) => `<span class="dv-year dv-in" style="--d:${600 + i * 1400}ms"><b>${y}</b><em>${COUNTS[i]} apps</em></span>`).join('')}</div>
-              <div class="dv-duo">
-                <div class="dv-win">
-                  <div class="dv-win-head"><span class="dv-win-mark">A</span>Acme Workspace<span class="dv-win-count">${COUNTS.map((cn, i) => `<b class="dv-cnt" style="--d:${600 + i * 1400}ms">${cn}</b>`).join('')}<span>apps</span></span></div>
-                  <div class="dv-grid">${tiles}<span class="dv-more dv-in" style="--d:${600 + 5 * 1400 + 900}ms">+ 370 more</span></div>
-                  <div class="dv-load"><span class="dv-load-l">Team capacity</span><span class="dv-load-bar"><i class="dv-load-cap"></i><i class="dv-load-fill"></i></span><span class="dv-load-r dv-in" style="--d:7400ms">work exceeds people</span></div>
+              <div class="dv-g">
+                <div class="dv-g-main">
+                  <div class="dv-g-hd"><span class="dv-g-t">Applications in the portfolio</span></div>
+                  <div class="dv-g-bars">
+                    ${YEARS.map((y, i) => `<div class="dv-g-col"><span class="dv-g-val dv-in" style="--d:${beat(i) + 450}ms">${COUNTS[i]}</span><span class="dv-g-bar" style="--h:${Math.round(COUNTS[i] / max * 100)}%;--d:${beat(i)}ms"></span><span class="dv-g-yr">${y}</span></div>`).join('')}
+                  </div>
                 </div>
-                <div class="dv-side">
-                  <div class="dv-side-t">Delivery platforms</div>
-                  <div class="dv-plats">${PLATS.map(([ic, nm, k]) => `<span class="dv-plat dv-in" style="--d:${1200 + k * 1500}ms"><i data-lucide="${ic}"></i>${nm}</span>`).join('')}</div>
-                  <div class="dv-side-t" style="margin-top:12px">Application team</div>
-                  <div class="dv-team">${[0,1,2,3].map(k => `<span class="dv-person"><i data-lucide="user"></i></span>`).join('')}<em>4 people \u00b7 every year</em></div>
-                  <div class="dv-side-t" style="margin-top:12px">Work per app, forever</div>
-                  <div class="dv-loop">${[['package','Package'],['flask-conical','Test'],['refresh-cw','Update'],['life-buoy','Support']].map(([ic, t], k) => `<span class="dv-loop-s dv-in" style="--d:${2000 + k * 900}ms"><i data-lucide="${ic}"></i>${t}</span>${k < 3 ? '<i data-lucide="chevron-right" class="dv-loop-a"></i>' : ''}`).join('')}</div>
+                <div class="dv-g-side">
+                  <div class="dv-g-t">Where people expect their apps</div>
+                  <div class="dv-g-devs">${DEVS.map(([ic, nm, k]) => `<span class="dv-g-dev dv-g-devin" style="--d:${beat(k) + 300}ms"><i data-lucide="${ic}"></i><span>${nm}</span></span>`).join('')}</div>
+                  <div class="dv-g-t" style="margin-top:14px">Application team</div>
+                  <div class="dv-team">${[0,1,2,3].map(() => `<span class="dv-person"><i data-lucide="user"></i></span>`).join('')}<em>4 people \u00b7 every year</em></div>
                 </div>
               </div>
+              <div class="dv-win"><div class="dv-load"><span class="dv-load-l">Team capacity</span><span class="dv-load-bar"><i class="dv-load-cap"></i><i class="dv-load-fill dv-g-fill"></i></span><span class="dv-load-r dv-in" style="--d:${T0 + DUR}ms">work exceeds people</span></div></div>
               <div class="dv-chips">
-                ${dvChip('trending-up', '10\u00d7 more apps in ten years', 7600, 'is-warn')}
-                ${dvChip('layers', 'Each app: package \u00b7 test \u00b7 update \u00b7 support', 8100)}
-                ${dvChip('users', 'Same team', 8600, 'is-red')}
+                ${dvChip('trending-up', '10\u00d7 more apps in ten years', T0 + DUR + 200, 'is-warn')}
+                ${dvChip('monitor-smartphone', '1 device type \u2192 5', T0 + DUR + 200)}
+                ${dvChip('users', 'Same team', T0 + DUR + 200, 'is-red')}
               </div>
             </div>`;
         }
@@ -12660,15 +12694,6 @@
           ${intro ? `<p class="text-sm leading-relaxed text-[#4A4A5A] mb-3">${intro}</p>` : ''}
           <div class="pm-anim-wrap rounded-xl border border-slate-200 bg-white/80 p-4">
 
-            <!-- Title -->
-            <div class="pm-title text-[11px] font-bold text-[#1A1A2E] text-center uppercase tracking-wider mb-3">Without a Unified Application Management Layer &mdash; Every Platform Is a Silo</div>
-
-            <!-- Compact context row: Business Requests → Identity → Devices -->
-            <div class="pm-context flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mb-3 text-[9px] text-slate-400">
-              <div class="flex items-center gap-1.5"><i data-lucide="briefcase" class="w-3 h-3"></i> <span class="font-semibold text-slate-500">Requests:</span> New hires, AI rollouts, patches, migrations, new apps</div>
-              <div class="flex items-center gap-1.5"><i data-lucide="user-check" class="w-3 h-3"></i> <span class="font-semibold text-slate-500">Identity:</span> AD, Entra ID, Okta <span class="text-red-400 font-bold">&mdash; no unified layer</span></div>
-              <div class="flex items-center gap-1.5"><i data-lucide="monitor" class="w-3 h-3"></i> <span class="font-semibold text-slate-500">Devices:</span> Windows, Windows on ARM, macOS, VDI, Cloud PC, BYOD</div>
-            </div>
 
             <div class="grid grid-cols-1 md:grid-cols-[1fr_220px] gap-3">
               <!-- LEFT: The 5 Silos (the focal point) -->
@@ -12743,72 +12768,63 @@
       }
 
       function renderExploitWindowChart(intro, bullets){
-        const W = 470, H = 252, ml = 58, mr = 58, mt = 14, mb = 28;
+        // Linear scale in days. Grey history, one accent for the 2026 AI marker.
+        const W = 480, H = 256, ml = 58, mr = 20, mt = 26, mb = 30;
         const cw = W - ml - mr, ch = H - mt - mb;
-        const years = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026];
-        const X = years.map((y, i) => ml + (i / (years.length - 1)) * cw);
-        const TOP = 3.12, BOT = -1.5;
-        const yP = (days) => mt + ch * (TOP - Math.log10(days)) / (TOP - BOT);
-        // days from a fix going public to a working attack existing
-        const attack = [756, 400, 180, 60, 32, 12, 5, 1.5, 0.42];
-        // days the average organization takes to get that fix onto its machines
-        const deploy = [60, 58, 56, 53, 51, 49, 46, 44, 43];
-        const line = (vals) => vals.map((v, i) => (i ? 'L' : 'M') + X[i] + ' ' + yP(v)).join(' ');
-        // crossover: where attack drops below deploy (log-linear between 2021 and 2022)
-        const i0 = 3, i1 = 4;
-        const d0 = Math.log10(attack[i0]) - Math.log10(deploy[i0]);
-        const d1 = Math.log10(attack[i1]) - Math.log10(deploy[i1]);
-        const t = d0 / (d0 - d1);
-        const cx = X[i0] + t * (X[i1] - X[i0]);
-        const cy = yP(Math.pow(10, Math.log10(attack[i0]) + t * (Math.log10(attack[i1]) - Math.log10(attack[i0]))));
-        // exposure band: between the two lines, from crossover to 2026
-        let band = 'M ' + cx + ' ' + cy;
-        for (let i = i1; i < years.length; i++) band += ' L ' + X[i] + ' ' + yP(attack[i]);
-        for (let i = years.length - 1; i >= i1; i--) band += ' L ' + X[i] + ' ' + yP(deploy[i]);
-        band += ' Z';
-        const ticks = [[756, '2 years'], [90, '3 months'], [10, '10 days'], [1, '1 day'], [0.0417, '1 hour']];
+        const years = [2018, 2020, 2022, 2023, 2026];
+        const X = years.map((y) => ml + ((y - 2018) / 8) * cw);
+        const MAX = 70;
+        const yP = (d) => mt + ch * (1 - d / MAX);
+        const attack = [63, 44, 32, 5];              // Mandiant time-to-exploit
+        const defend = 32;                            // DBIR median time to patch
+        const pts = (vals) => vals.map((v, i) => (i ? 'L' : 'M') + X[i] + ' ' + yP(v)).join(' ');
+        // crossing between 2022 (32) and 2023 (5) vs flat 32 — at 2022 exactly
+        const cxX = X[2], cxY = yP(defend);
+        let band = 'M ' + cxX + ' ' + cxY + ' L ' + X[3] + ' ' + yP(attack[3]) + ' L ' + X[4] + ' ' + yP(attack[3]) + ' L ' + X[4] + ' ' + yP(defend) + ' Z';
+        const ticks = [0, 20, 40, 60];
         const FF = 'Inter, system-ui, sans-serif';
+        const accent = '#0000CC';
         return `
           <div class="dv-stage">
           <div class="ew-grid ew-grid-clean">
             <div class="ew-chart ew-anim">
-              <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Chart: the time from a published fix to a working attack has fallen from about two years in 2018 to about ten hours in 2026, while the average organization still takes 43 days to install it.">
-                <rect x="${ml}" y="${mt}" width="${cw}" height="${ch}" fill="#FAFAFE"/>
-                ${ticks.map(([v, lbl]) => `<g><line x1="${ml}" y1="${yP(v)}" x2="${ml + cw}" y2="${yP(v)}" stroke="#DDDDEE" stroke-width="1"/><text x="${ml - 8}" y="${yP(v) + 4}" text-anchor="end" font-size="11" font-weight="600" fill="#8A8A9A" font-family="${FF}">${lbl}</text></g>`).join('')}
-                <path class="ew-band" d="${band}" fill="#CC2222"/>
-                <path class="ew-line ew-line-deploy" d="${line(deploy)}" fill="none" stroke="#6A6A7A" stroke-width="2.5" stroke-dasharray="7 4" stroke-linecap="round"/>
-                <path class="ew-line ew-line-attack" d="${line(attack)}" fill="none" stroke="#CC2222" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/>
-                <g class="ew-cross">
-                  <line x1="${cx}" y1="${mt}" x2="${cx}" y2="${mt + ch}" stroke="#1A1A2E" stroke-width="1" stroke-dasharray="3 3" opacity="0.35"/>
-                  <circle cx="${cx}" cy="${cy}" r="5" fill="#FFFFFF" stroke="#1A1A2E" stroke-width="2"/>
-                  <text x="${cx + 9}" y="${mt + 13}" font-size="11.5" font-weight="800" fill="#1A1A2E" font-family="${FF}">2021: attacks arrive first</text>
-                </g>
+              <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Chart: time from patch to working exploit fell from 63 days in 2018 to 5 days in 2023, while the median time organisations take to patch stayed at about 32 days. The lines cross in 2022 to 2023, opening an exposure window.">
+                ${ticks.map(v => `<g><line x1="${ml}" y1="${yP(v)}" x2="${ml + cw}" y2="${yP(v)}" stroke="#E6E6EF" stroke-width="1"/><text x="${ml - 8}" y="${yP(v) + 4}" text-anchor="end" font-size="10.5" font-weight="600" fill="#8A8A9A" font-family="${FF}">${v}${v === 60 ? ' days' : ''}</text></g>`).join('')}
+                <path class="ew-band" d="${band}" fill="${accent}"/>
+                <text class="ew-labels" x="${(X[3] + X[4]) / 2}" y="${(yP(defend) + yP(attack[3])) / 2 + 4}" text-anchor="middle" font-size="10.5" font-weight="800" fill="${accent}" font-family="${FF}">Exposure window</text>
+                <path class="ew-line ew-line-deploy" d="M ${X[0]} ${yP(defend)} L ${X[4]} ${yP(defend)}" fill="none" stroke="#6A6A7A" stroke-width="2.5" stroke-dasharray="7 4" stroke-linecap="round"/>
+                <path class="ew-line ew-line-attack" d="${pts(attack)}" fill="none" stroke="#4A4A5A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/>
                 <g class="ew-labels">
-                  <text x="${X[8] + 7}" y="${yP(attack[8]) + 4}" font-size="12" font-weight="800" fill="#CC2222" font-family="${FF}">10 hrs</text>
-                  <text x="${X[8] + 7}" y="${yP(deploy[8]) + 4}" font-size="12" font-weight="800" fill="#4A4A5A" font-family="${FF}">43 days</text>
-                  <text x="${X[0] + 7}" y="${yP(attack[0]) - 9}" font-size="11" font-weight="700" fill="#CC2222" font-family="${FF}">756 days</text>
+                  ${attack.map((v, i) => `<circle cx="${X[i]}" cy="${yP(v)}" r="3.5" fill="#fff" stroke="#4A4A5A" stroke-width="2"/><text x="${X[i]}" y="${yP(v) - 9}" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1A1A2E" font-family="${FF}">${v}d</text>`).join('')}
+                  <text x="${X[0] + 6}" y="${yP(defend) + 16}" text-anchor="start" font-size="10.5" font-weight="700" fill="#4A4A5A" font-family="${FF}">Time to patch: ~32 days</text>
+                </g>
+                <g class="ew-cross">
+                  <line x1="${cxX}" y1="${mt}" x2="${cxX}" y2="${mt + ch}" stroke="#1A1A2E" stroke-width="1" stroke-dasharray="3 3" opacity="0.4"/>
+                  <circle cx="${cxX}" cy="${cxY}" r="5" fill="#FFFFFF" stroke="#1A1A2E" stroke-width="2"/>
+                  <text x="${cxX}" y="${mt - 10}" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1A1A2E" font-family="${FF}">2023: attackers overtake defenders</text>
+                </g>
+                <g class="ew-ai">
+                  <line x1="${X[4]}" y1="${mt}" x2="${X[4]}" y2="${mt + ch}" stroke="${accent}" stroke-width="1.5"/>
+                  <circle cx="${X[4]}" cy="${yP(attack[3])}" r="6" fill="${accent}" stroke="#fff" stroke-width="2"/>
+                  <text x="${X[4] - 8}" y="${yP(60) + 14}" text-anchor="end" font-size="10.5" font-weight="800" fill="${accent}" font-family="${FF}">AI: 10,000+ flaws in 7 weeks</text>
+                  <text x="${X[4] - 8}" y="${yP(60) + 27}" text-anchor="end" font-size="9.5" font-weight="600" fill="${accent}" font-family="${FF}">2026</text>
                 </g>
                 <line x1="${ml}" y1="${mt + ch}" x2="${ml + cw}" y2="${mt + ch}" stroke="#C9C9DA" stroke-width="1"/>
-                ${years.map((y, i) => (i % 2 === 0 ? `<text x="${X[i]}" y="${mt + ch + 18}" text-anchor="middle" font-size="11" font-weight="600" fill="#8A8A9A" font-family="${FF}">${y}</text>` : '')).join('')}
+                ${years.map((y, i) => `<text x="${X[i]}" y="${mt + ch + 18}" text-anchor="middle" font-size="11" font-weight="${y === 2026 ? 800 : 600}" fill="${y === 2026 ? accent : '#8A8A9A'}" font-family="${FF}">${y}</text>`).join('')}
               </svg>
               <div class="ew-legend">
-                <span><i class="ew-swatch" style="border-top-color:#CC2222"></i>Fix published \u2192 working attack</span>
-                <span><i class="ew-swatch" style="border-top-color:#6A6A7A;border-top-style:dashed"></i>Fix published \u2192 installed on your machines</span>
+                <span><i class="ew-swatch" style="border-top-color:#4A4A5A"></i>Time to exploit</span>
+                <span><i class="ew-swatch" style="border-top-color:#6A6A7A;border-top-style:dashed"></i>Time to patch</span>
               </div>
             </div>
-            <div class="dv-side">
-              <div class="dv-side-t">Time from a published fix to a working attack</div>
-              <div class="dv-stat dv-in" style="--d:600ms"><b>756 days</b><span>2018</span></div>
-              <div class="dv-stat dv-stat-red dv-in" style="--d:1800ms"><b>10 hours</b><span>2026 \u00b7 AI writes the exploit</span></div>
-              <div class="dv-side-t" style="margin-top:12px">Time to install it</div>
-              <div class="dv-stat dv-in" style="--d:3000ms"><b>43 days</b><span>average company \u00b7 people repackage, test, schedule</span></div>
+            <div class="dv-side ew-rail">
+              <div class="dv-stat dv-in" style="--d:800ms"><b>63 \u2192 5 days</b><span>Time to exploit, 2018\u20132023</span></div>
+              <div class="dv-stat dv-stat-acc dv-in" style="--d:2200ms"><b>10,000+</b><span>Flaws found by AI in 7 weeks, 2026</span></div>
+              <div class="dv-stat dv-in" style="--d:3000ms"><b>32 days</b><span>Median time to patch</span></div>
             </div>
           </div>
-          <div class="dv-chips">
-            ${dvChip('bot', 'AI found 10,000+ serious flaws in one month', 3800, 'is-red')}
-            ${dvChip('users', 'Manual updates are capped by headcount', 4300, 'is-warn')}
-            ${dvChip('zap', 'Routine updates must ship on their own', 4800)}
-          </div>
+          <p class="ew-bottom dv-in" style="--d:3600ms">Finding flaws is now automated. Fixing them across every platform still isn\u2019t.</p>
+          <p class="ew-src">Sources: Mandiant \u00b7 Anthropic Project Glasswing \u00b7 Verizon DBIR</p>
           </div>`;
       }
 
@@ -13237,25 +13253,26 @@
         const prev = currentIdx > 0 ? whyOrder[currentIdx - 1] : null;
         const next = currentIdx < whyOrder.length - 1 ? whyOrder[currentIdx + 1] : null;
         const isRecast = id === 'recast';
+        const isChange = id === 'change';
+        const wide = isRecast || isChange;
         return `
           <div class="fixed inset-0 z-50 flex items-center justify-center modal-overlay" role="dialog" aria-modal="true" aria-labelledby="why-modal-title-${id}">
-            <div class="w-full ${isRecast ? 'max-w-6xl' : 'max-w-4xl'} mx-4 rounded-2xl overflow-hidden transform modal-content glass" style="${isRecast ? 'max-height:95vh;display:flex;flex-direction:column' : ''}">
+            <div class="w-full ${wide ? 'max-w-6xl' : 'max-w-4xl'} mx-4 rounded-2xl overflow-hidden transform modal-content glass" style="${wide ? 'max-height:95vh;display:flex;flex-direction:column' : ''}">
               <div class="bg-white/40 backdrop-blur-lg px-6 py-4 flex items-center justify-between flex-shrink-0" style="border-bottom:1px solid var(--border-subtle)">
-                <div class="flex items-center gap-3"><i data-lucide="${iconMap[id]}" class="w-7 h-7 text-[#1A1A2E]" aria-hidden="true"></i><h2 id="why-modal-title-${id}" class="text-2xl font-bold tracking-tight text-[#1A1A2E]">${labelMap[id]}</h2></div>
+                <div class="flex items-center gap-3"><i data-lucide="${isChange ? 'gauge' : iconMap[id]}" class="w-7 h-7 text-[#1A1A2E]" aria-hidden="true"></i><h2 id="why-modal-title-${id}" class="text-2xl font-bold tracking-tight text-[#1A1A2E]">${isChange ? 'Why teams change their approach' : labelMap[id]}</h2></div>
                 <button type="button" class="text-slate-500 hover:text-slate-700 focus-ring p-2" data-action="close-why-modal" aria-label="Close"><i data-lucide="x" class="w-5 h-5"></i></button>
               </div>
-              <div class="${isRecast ? 'px-6 py-4 overflow-y-auto' : 'p-8'} bg-white/35 backdrop-blur-lg" style="${isRecast ? 'flex:1;min-height:0' : ''}">
-                ${isRecast ? `
+              <div class="${wide ? 'px-6 py-4 overflow-y-auto' : 'p-8'} bg-white/35 backdrop-blur-lg" style="${wide ? 'flex:1;min-height:0' : ''}">
+                ${isChange ? `
+                  <p class="text-[15px] text-[#1A1A2E] mb-4">Three compounding fronts, each worse as the organisation grows.</p>
+                  ${exFrontsHtml()}
+                ` : isRecast ? `
                   <div class="why-r">
                     <div class="alm-band">
-                      <div class="alm-lede">
-                        <span class="alm-lede-eyebrow">Application lifecycle management</span>
-                        <span class="alm-lede-txt">Application Workspace manages the <b>full application lifecycle</b> &mdash; packaging, deployment, patching, governance, and retirement &mdash; so IT moves faster and keeps applications current without manual work.</span>
-                      </div>
                       <div class="alm-outcomes">
-                        <div class="alm-outcome"><span class="alm-ico"><i data-lucide="timer"></i></span><b>Save time</b><span>Automate packaging, patching, and repetitive application work.</span></div>
-                        <div class="alm-outcome"><span class="alm-ico"><i data-lucide="shield-check"></i></span><b>Reduce risk</b><span>Keep applications current, tested, controlled, and secure.</span></div>
-                        <div class="alm-outcome"><span class="alm-ico"><i data-lucide="layout-dashboard"></i></span><b>Gain control</b><span>One place for the whole lifecycle, across every platform.</span></div>
+                        <div class="alm-outcome"><span class="alm-ico"><i data-lucide="timer"></i></span><b>Save time</b><span>Packaging and patching are done for you. Your team packages only what&rsquo;s unique to your business.</span></div>
+                        <div class="alm-outcome"><span class="alm-ico"><i data-lucide="shield-check"></i></span><b>Reduce risk</b><span>Every app is current, tested in stages, and every change is logged.</span></div>
+                        <div class="alm-outcome"><span class="alm-ico"><i data-lucide="layout-dashboard"></i></span><b>Gain control</b><span>One place to see who has what, on every platform.</span></div>
                       </div>
                     </div>
 
@@ -13265,40 +13282,9 @@
                         <div class="why-r-list">
                           ${data.bullets.map(b => { const parts = b.split(' = '); const hasTitle = parts.length > 1; return '<div class="why-r-item"><i data-lucide="check-circle" class="why-r-tick"></i><div>' + (hasTitle ? '<b>' + parts[0] + '</b>' : '') + '<span>' + (hasTitle ? parts.slice(1).join(' = ') : b) + '</span></div></div>'; }).join('')}
                         </div>
-                      </div>
-
-                      <div class="hf">
-                        <div class="hf-h"><b>How it fits together</b><span>Additive, not replacement &mdash; one layer over the tools you already run.</span></div>
-
-                        <div class="hf-lab">Your management tools, unchanged</div>
-                        <div class="hf-chips">
-                          ${['Intune','ConfigMgr','Citrix','AVD / W365','Jamf / macOS'].map(t => `<span class="hf-chip">${t}</span>`).join('')}
-                        </div>
-
-                        <div class="hf-arrow"><span></span><i data-lucide="chevron-down"></i><span></span></div>
-
-                        <div class="hf-slab">
-                          <div class="hf-slab-t">Application Workspace</div>
-                          <div class="hf-slab-sub">One definition, one pipeline, one place to control it</div>
-                          <div class="hf-stages">
-                            <div class="hf-stage"><b>Package</b><span>Built once, not per platform</span></div>
-                            <div class="hf-stage"><b>Deploy</b><span>Right user, right path</span></div>
-                            <div class="hf-stage"><b>Patch</b><span>Staged, tested, everywhere</span></div>
-                            <div class="hf-stage"><b>Govern</b><span>Approvals and audit trail</span></div>
-                            <div class="hf-stage"><b>Retire</b><span>Removed cleanly</span></div>
-                          </div>
-                        </div>
-
-                        <div class="hf-arrow"><span></span><i data-lucide="chevron-down"></i><span></span></div>
-
-                        <div class="hf-lab">Every user, every device</div>
-                        <div class="hf-chips">
-                          ${['Windows','macOS','Virtual Desktop','Cloud PC / W365','BYOD / Remote'].map(d => `<span class="hf-chip">${d}</span>`).join('')}
-                        </div>
+                        <p class="why-r-close">Connects to the platforms you have today and starts delivering from day one. No new infrastructure, no cut-over, no re-packaging to get there.</p>
                       </div>
                     </div>
-
-                    <div class="why-r-analyst"><i data-lucide="lightbulb" class="why-r-bulb"></i><p>${data.analyst}</p></div>
                   </div>
                 ` : `
                   <p class="text-sm leading-relaxed text-[#4A4A5A] mb-5">${data.intro}</p>
@@ -13306,7 +13292,7 @@
                   <div class="mt-5 bg-white/70 backdrop-blur-lg p-4 rounded-xl shadow-sm flex items-start gap-3 border-l-4 border-amber-400"><i data-lucide="lightbulb" class="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5"></i><p class="text-sm italic text-[#6A6A7A]">${data.analyst}</p></div>
                 `}
                 <div class="${isRecast ? 'mt-2.5 gap-1.5' : 'mt-4 gap-3'} flex flex-col items-center w-full">
-                  ${!next ? `<div class="${isRecast ? 'text-[11px]' : 'text-xs'} text-[#8A8A9A]">You\'ve seen why the model breaks. Now see what replaces it.</div>` : ''}
+                  
                   <div class="flex items-center justify-between w-full">
                   ${prev ? `<button type="button" class="re-secondary inline-flex items-center gap-2" data-action="why-nav" data-to="${prev}"><i data-lucide="arrow-left" class="w-4 h-4"></i> Back</button>` : '<div></div>'}
                   ${next ? `<button type="button" class="re-primary inline-flex items-center gap-2" data-action="why-nav" data-to="${next}">Next <i data-lucide="arrow-right" class="w-4 h-4"></i></button>` : `<button type="button" class="re-primary inline-flex items-center gap-2" data-action="advance" data-next="solution">See Approach <i data-lucide="arrow-right" class="w-4 h-4"></i></button>`}
@@ -20667,7 +20653,7 @@
       function readChartFieldsRaw(){ const getVal = (id) => { const el = document.getElementById(id); return el ? el.value : undefined; }; return { chartConfig: { yAxis: getVal('chart-yaxis'), xAxis: getVal('chart-xaxis'), center: getVal('chart-center'), footer: getVal('chart-footer'), tipping: getVal('chart-tipping') }, drivers: STATE.drivers.map((_,i) => ({ label: getVal(`driver${i}-label`), bullets: getVal(`driver${i}-bullets`) })) }; }
       function writeFields(data){ if(!data) return; if(fields.changeIntro()) fields.changeIntro().value = data.change.intro ?? ""; if(fields.changeBullets()) fields.changeBullets().value = data.change.bullets ?? ""; if(fields.changeAnalyst()) fields.changeAnalyst().value = data.change.analyst ?? ""; if(fields.nowIntro()) fields.nowIntro().value = data.now.intro ?? ""; if(fields.nowBullets()) fields.nowBullets().value = data.now.bullets ?? ""; if(fields.nowAnalyst()) fields.nowAnalyst().value = data.now.analyst ?? ""; if(fields.recastIntro()) fields.recastIntro().value = data.recast.intro ?? ""; if(fields.recastBullets()) fields.recastBullets().value = data.recast.bullets ?? ""; if(fields.recastAnalyst()) fields.recastAnalyst().value = data.recast.analyst ?? ""; }
       function writeChartFields(config, drivers){ if($('#chart-yaxis')) $('#chart-yaxis').value = config?.yAxis ?? ""; if($('#chart-xaxis')) $('#chart-xaxis').value = config?.xAxis ?? ""; if($('#chart-center')) $('#chart-center').value = config?.center ?? ""; if($('#chart-footer')) $('#chart-footer').value = config?.footer ?? ""; if($('#chart-tipping')) $('#chart-tipping').value = config?.tipping ?? ""; drivers?.forEach((dd, i) => { const labelEl = $(`#driver${i}-label`); const bulletsEl = $(`#driver${i}-bullets`); if(labelEl) labelEl.value = dd.label ?? ""; if(bulletsEl) bulletsEl.value = dd.bullets ?? ""; }); }
-      function loadDraft(){ try{ const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : null; }catch{return null;} }
+      function loadDraft(){ try{ const raw = localStorage.getItem(STORAGE_KEY); const d = raw ? JSON.parse(raw) : null; if (d && Array.isArray(d.drivers)) d.drivers = d.drivers.filter(x => x && x.id !== 'manual_rework' && x.label !== 'Rework & Technical Debt'); return d; }catch{return null;} }
       function saveDraft(payload){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(payload)); } catch(e){ console.warn('Save failed:', e); } }
       function clearDraft(){ try{ localStorage.removeItem(STORAGE_KEY); }catch{} }
       function initCurrentStateModal(){ captureDefaultsOnce(); const draft = loadDraft(); if(draft) { writeFields(draft); STATE.editChartBuffer = { chartConfig: draft.chartConfig || {}, drivers: draft.drivers || [] }; writeChartFields(draft.chartConfig, draft.drivers); } else { STATE.editChartBuffer = { chartConfig: { ...STATE.chartConfig }, drivers: STATE.drivers.map(d => ({ label: d.label, bullets: d.bullets.join('\n') })) }; writeChartFields(STATE.chartConfig, STATE.drivers.map(d => ({label: d.label, bullets: d.bullets.join('\n')}))); } }
