@@ -4346,6 +4346,14 @@
       .us-who-ava { box-shadow: none; }
       .us-who-txt { font-weight: 600; }
       .us-step-tx b { font-weight: 600; }
+      /* Closing board: one user, three devices, same workspace */
+      .ac-board-solo { display: flex; flex-direction: column; gap: 6px; padding: 14px 18px 18px; }
+      .ac-board-solo .ac-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; width: 100%; }
+      .ac-board-solo .ac-col { justify-content: center; }
+      .ac-board-devs { display: flex; justify-content: center; width: 100%; }
+      .ac-board-devs .rw-trio { gap: 12px; width: 100%; justify-content: space-between; }
+      .ac-hero-final .ac-board-solo .rw-mini { zoom: 0.31; }
+      .ac-board-solo .rw-mini .rw-label { display: none; }
       .us-cursor-late::after { background: rgba(17, 17, 20, 0.25); }
       .rw-pair { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: start; gap: 10px; width: 100%; }
       .rw-pair-col { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; container-type: inline-size; }
@@ -4702,6 +4710,14 @@
       .us-who-ava { box-shadow: none; }
       .us-who-txt { font-weight: 600; }
       .us-step-tx b { font-weight: 600; }
+      /* Closing board: one user, three devices, same workspace */
+      .ac-board-solo { display: flex; flex-direction: column; gap: 6px; padding: 14px 18px 18px; }
+      .ac-board-solo .ac-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; width: 100%; }
+      .ac-board-solo .ac-col { justify-content: center; }
+      .ac-board-devs { display: flex; justify-content: center; width: 100%; }
+      .ac-board-devs .rw-trio { gap: 12px; width: 100%; justify-content: space-between; }
+      .ac-hero-final .ac-board-solo .rw-mini { zoom: 0.31; }
+      .ac-board-solo .rw-mini .rw-label { display: none; }
 
       /* CH3 device picker: the story waits here until the user picks a device */
       .us-devpick { width: 100%; min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; opacity: 0; animation: usIn 500ms cubic-bezier(0.2, 0.8, 0.2, 1) 100ms forwards; }
@@ -13333,10 +13349,9 @@
               </div>
               <div class="ac-mast-r us-in" style="--d:800ms">${[['users','2 employees'],['layout-grid','1 workspace'],['monitor-smartphone','3 devices']].map(([ic, t]) => `<span><i data-lucide="${ic}"></i>${t}</span>`).join('')}</div>
             </div>
-            <div class="ac-board">
-              <div class="rw-trio-row ac-board-head us-in" style="--d:900ms"><span></span><div class="ac-cols">${[['monitor','Windows laptop','Physical'],['cloud','Windows 365','Virtual'],['laptop','Mac','Physical']].map(([ic, n, k]) => `<span class="ac-col"><i data-lucide="${ic}"></i><b>${n}</b><em>${k}</em></span>`).join('')}</div></div>
-              <div class="rw-trio-row ac-board-row"><span class="rw-trio-lab us-in" style="--d:1000ms"><span class="ac-ava" style="background:${maya.accent}">${maya.initials}</span><span><b>Maya Chen</b><em>Finance</em></span></span>${trio(maya, 1100)}</div>
-              <div class="rw-trio-row ac-board-row"><span class="rw-trio-lab us-in" style="--d:1700ms"><span class="ac-ava" style="background:${alex.accent}">${alex.initials}</span><span><b>Alex Rivera</b><em>Sales</em></span></span>${trio(alex, 1800)}</div>
+            <div class="ac-board ac-board-solo">
+              <div class="ac-cols us-in" style="--d:900ms">${[['monitor','Windows laptop','Physical'],['cloud','Windows 365','Virtual'],['laptop','Mac','Physical']].map(([ic, n, k]) => `<span class="ac-col"><i data-lucide="${ic}"></i><b>${n}</b><em>${k}</em></span>`).join('')}</div>
+              <div class="ac-board-devs">${trio(maya, 1100)}</div>
             </div>
           </div>`;
 
