@@ -3201,7 +3201,7 @@
       .rws-rail:has(.rws-chip-info:hover), .rws-head:has(.rws-chip-info:hover),
       .rws-rail:has(.rws-chip-info:focus-visible), .rws-head:has(.rws-chip-info:focus-visible),
       .rws-rail:has(.rws-chip-info.force), .rws-head:has(.rws-chip-info.force) { z-index: 200; }
-      .rws-i { display: inline-grid; place-items: center; width: 12px; height: 12px; margin-left: 5px; border-radius: 50%; border: 1px solid currentColor; font-size: 8px; font-weight: 800; font-style: normal; line-height: 1; opacity: 0.5; flex-shrink: 0; }
+      .rws-i { display: none; }
       .rws-chip-info:hover .rws-i, .rws-chip-info:focus-visible .rws-i { opacity: 1; }
       .rws-i-lt { border-color: rgba(255,255,255,0.7); color: #fff; opacity: 0.7; }
       .rws-slab-info { display: inline-flex; align-items: center; }
@@ -9698,9 +9698,9 @@
          composition scales instead of the type stranding at fixed pixels. */
       .lc-sat .lifecycle-label { font-size: clamp(5.9px, 0.97cqw, 8.5px); }
       .lc-sat .view-toggle svg, .lc-sat .view-toggle i { width: clamp(8.5px, 1.59cqw, 14px); height: clamp(8.5px, 1.59cqw, 14px); }
-      .lc-hub-ico { width: clamp(20px, 3.86cqw, 34px); height: clamp(20px, 3.86cqw, 34px); }
-      .lc-hub-ico svg, .lc-hub-ico i { width: clamp(11px, 2.05cqw, 18px); height: clamp(11px, 2.05cqw, 18px); }
-      .lc-hub-name { font-size: clamp(10px, 1.82cqw, 15px); }
+      .lc-hub-ico { width: clamp(22px, 4.2cqw, 38px); height: clamp(22px, 4.2cqw, 38px); }
+      .lc-hub-ico svg, .lc-hub-ico i { width: clamp(12px, 2.3cqw, 20px); height: clamp(12px, 2.3cqw, 20px); }
+      .lc-hub-name { font-size: clamp(11px, 2cqw, 16.5px); }
       .lc-hub-sub { font-size: clamp(7.5px, 1.28cqw, 11px); }
 
       /* Gutter notes: what each half of the ring is for. The rule runs down
@@ -9966,9 +9966,9 @@
         .lc-in-diagram .lc-hub { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 24%; max-width: 219px; order: 0; margin: 0; }
         .lc-in-diagram .lc-hub-halo, .lc-in-diagram .lc-hub-prog { display: block; }
         .lc-in-diagram .lc-hub-btn { flex-direction: column; gap: 2px; justify-content: center; aspect-ratio: 1; padding: 0 17px; border-radius: 50%; box-shadow: 0 8px 26px -10px rgba(26, 26, 46, 0.26); }
-        .lc-in-diagram .lc-hub-ico { order: 0; width: clamp(20px, 3.86cqw, 34px); height: clamp(20px, 3.86cqw, 34px); margin-top: 3px; border-radius: 9px; }
-        .lc-in-diagram .lc-hub-ico svg, .lc-in-diagram .lc-hub-ico i { width: clamp(11px, 2.05cqw, 18px); height: clamp(11px, 2.05cqw, 18px); }
-        .lc-in-diagram .lc-hub-name { margin-top: 4px; font-size: clamp(11px, 2.05cqw, 17px); }
+        .lc-in-diagram .lc-hub-ico { order: 0; width: clamp(22px, 4.2cqw, 38px); height: clamp(22px, 4.2cqw, 38px); margin-top: 3px; border-radius: 10px; }
+        .lc-in-diagram .lc-hub-ico svg, .lc-in-diagram .lc-hub-ico i { width: clamp(12px, 2.3cqw, 20px); height: clamp(12px, 2.3cqw, 20px); }
+        .lc-in-diagram .lc-hub-name { margin-top: 4px; font-size: clamp(12px, 2.25cqw, 18px); }
         .lc-in-diagram .lc-hub-stage { font-size: clamp(8.5px, 1.25cqw, 11px); }
         .lc-in-diagram .lc-sat .view-toggle { font-size: clamp(11px, 1.6cqw, 14px); padding: 7px 14px; gap: 7px; }
         .lc-in-diagram .lc-sat .view-toggle svg, .lc-in-diagram .lc-sat .view-toggle i { width: clamp(11px, 1.8cqw, 16px); height: clamp(11px, 1.8cqw, 16px); }
