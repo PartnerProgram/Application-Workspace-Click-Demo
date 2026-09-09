@@ -14313,14 +14313,10 @@
                     <div class="ss-cc${a.q != null ? ' ss-cc-hit' : ''}" style="--r:${Math.floor(i / 3)};--c:${i % 3};--tc:${a.c}${a.q != null ? `;--q:${a.q}` : ''}">
                       ${a.aw && AW[a.aw] && AW[a.aw].svg ? `<span class="ss-cc-ic ss-cc-ic-real">${AW[a.aw].svg}</span>` : `<span class="ss-cc-ic" style="background:${a.c}">${a.l}</span>`}
                       <span class="ss-cc-tx"><b>${a.n}</b><u>${a.p} &middot; ${a.v}</u></span>
-                      <span class="ss-cc-pill"><s>Managed</s><em><i data-lucide="check"></i>Ready</em></span>
+                      <span class="ss-cc-pill"><s title="Recast updates it when the vendor ships a new version">Managed</s><em title="Fixed version, you decide when to update"><i data-lucide="check"></i>Snapshot</em></span>
                     </div>`).join('')}
                 </div>
 
-                <div class="ss-tray">
-                  <span class="ss-tray-lab">Found</span>
-                  ${SS_SEARCHES.map((s, i) => `<span class="ss-chip" style="--q:${i}"><i style="background:${s.c}">${s.l}</i><b>${s.s}</b><s><i data-lucide="check"></i></s></span>`).join('')}
-                </div>
 
                 <div class="ss-take">
                   <i data-lucide="store"></i>
@@ -14395,7 +14391,7 @@
               <div class="ss-synth">
                 <div class="ss-synth-header">
                   <div class="ss-synth-headline">Applications you never have to package or patch</div>
-                  <div class="ss-synth-sub">Packaging and patching stop being your team's work — Recast builds them, and rebuilds them as each new version ships. The only apps you package are the ones unique to your business, and they run through the same eight steps.</div>
+                  <div class="ss-synth-sub">Packaging and patching stop being your team's work — Recast builds them, and rebuilds them as each new version ships.</div>
                 </div>
 
                 <div class="ss-synth-cols">
@@ -14433,7 +14429,7 @@
                       `).join('')}
                     </ul>
 
-                    <div class="ss-synth-foot"><strong>Every one of those eight steps, already done 8,047 times.</strong> Refreshed daily. Available the moment Recast is installed.</div>
+                    <div class="ss-synth-foot"><strong>Every one of those eight steps, already done.</strong> Kept current as vendors release.</div>
                   </div>
 
                   <!-- RIGHT: Custom Packaging -->
@@ -14459,8 +14455,8 @@
 
                     <ul class="ss-synth-spine">
                       ${SS_PACKAGE_FIELDS.map((f, i) => {
-                        // First 4 inherited from engine (cyan), last 4 configured by team (green)
-                        const inherited = i < 4;
+                        // First 2 defined by team (green), remaining 6 inherited from engine (cyan)
+                        const inherited = i >= 2;
                         return `
                         <li class="ss-synth-step ${inherited ? 'ss-synth-step-inherited' : 'ss-synth-step-custom'}">
                           <i data-lucide="check" class="ss-synth-check"></i>
@@ -14470,7 +14466,7 @@
                       `;}).join('')}
                     </ul>
 
-                    <div class="ss-synth-foot">You build it once. The engine handles the rest.</div>
+                    <div class="ss-synth-foot">You define it once. Same pipeline, same controls.</div>
                   </div>
                 </div>
 
