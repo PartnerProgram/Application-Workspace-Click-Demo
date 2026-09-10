@@ -4872,9 +4872,11 @@
       .rw-trio-lab .ac-ava { width: 26px; height: 26px; font-size: 9px; }
       .ac-hero-final { align-items: stretch; gap: 14px; padding: 4px 8px 2px; }
       .ac-mast { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; width: 100%; }
-      .ac-mast-l { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+      .ac-mast-l { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+      .ac-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #6E7686; }
+      .ac-eyebrow .ac-tile { width: 18px; height: 18px; border-radius: 5px; }
       .ac-mast-l .ac-hero-sub { text-align: left; color: #7A8290; }
-      .ac-mast-l .ac-hero-h { text-align: left; font-size: 18px; margin: 0; white-space: normal; text-wrap: balance; max-width: 520px; }
+      .ac-mast-l .ac-hero-h { text-align: left; font-size: 24px; font-weight: 600; letter-spacing: -0.03em; margin: 0; white-space: normal; text-wrap: balance; max-width: 560px; }
       @media (max-width: 900px) { .ac-mast-l .ac-hero-h { white-space: normal; font-size: 15px; } .ac-mast-r { display: none; } }
       .ac-mast-r { display: none; }
       .ac-mast-r span { display: inline-flex; align-items: center; gap: 5px; font-size: 9px; font-weight: 600; color: #3A3A4C; white-space: nowrap; background: #fff; border: 1px solid #E3E3E8; border-radius: 999px; padding: 3px 9px; }
@@ -6345,6 +6347,214 @@
         .demo-modal-title { font-size: 15px; }
         .demo-modal-controls { width: 100%; justify-content: flex-end; }
       }
+
+
+      /* ═════════════════════════════════════════════════════════════
+         SETUP STORE — admin console storyboard (sa-*)
+         Same device + behind-the-scenes grammar as the User Experience
+         module. Console is drawn at 520px laptop scale: 6–9px type.
+         ═════════════════════════════════════════════════════════════ */
+      .sa-intro { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
+      .rw-bts-t .ac-tile.rw-bts-ico { width: 20px; height: 20px; border-radius: 5px; flex-shrink: 0; }
+      .sa-browser .rw-edge-tab { white-space: nowrap; }
+      .sa-browser .rw-edge-tab .ac-tile { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+      .sa-app .ac-tile { border-radius: 3px; }
+      .sa-intro .rw-lap { width: min(560px, 100%); }
+      .sa-browser { left: 4%; right: 4%; top: 14px; bottom: 30px; display: flex; flex-direction: column; }
+      .sa { flex: 1; min-height: 0; display: flex; background: #F5F6FA; }
+      .sa-nav { width: 74px; flex-shrink: 0; background: #0B1F3A; color: #C9D3E3; display: flex; flex-direction: column; padding: 7px 5px; gap: 1px; }
+      .sa-nav-brand { display: flex; align-items: center; gap: 4px; padding: 0 4px 7px; color: #fff; font-size: 7px; font-weight: 800; letter-spacing: 0.14em; }
+      .sa-nav-brand .ac-tile { width: 12px; height: 12px; border-radius: 3px; background: #fff; }
+      .sa-nav-brand .ac-tile .ac-logo { color: #0B1F3A; }
+      .sa-nav > span { display: flex; align-items: center; gap: 4px; font-size: 6.4px; font-weight: 500; padding: 3.5px 5px; border-radius: 4px; color: #AEBBD1; white-space: nowrap; }
+      .sa-nav > span i, .sa-nav > span svg { width: 7px; height: 7px; flex-shrink: 0; }
+      .sa-nav > span.is-on { background: rgba(255,255,255,0.13); color: #fff; font-weight: 600; }
+      .sa-nav-me { margin-top: auto; display: flex; align-items: center; gap: 4px; font-size: 6px; color: #C9D3E3; padding: 0 3px; white-space: nowrap; }
+      .sa-nav-me .ac-ava { width: 12px; height: 12px; font-size: 5px; }
+      .sa-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+      .sa-top { height: 17px; display: flex; align-items: center; gap: 4px; padding: 0 8px; background: #fff; border-bottom: 1px solid #E6E6EB; font-size: 6.2px; color: #6E7686; flex-shrink: 0; }
+      .sa-top i, .sa-top svg { width: 6px; height: 6px; }
+      .sa-top b { color: #0B1F3A; font-weight: 600; }
+      .sa-top .sa-ava { margin-left: auto; width: 11px; height: 11px; border-radius: 50%; color: #fff; font-size: 4.5px; font-weight: 700; display: grid; place-items: center; }
+      .sa-page { flex: 1; min-height: 0; padding: 7px 9px; display: flex; flex-direction: column; gap: 5px; overflow: hidden; position: relative; }
+      .sa-h { display: flex; align-items: center; gap: 6px; min-height: 12px; }
+      .sa-h > b { font-size: 9.5px; font-weight: 700; color: #0B1F3A; letter-spacing: -0.01em; }
+      .sa-h > span { font-size: 6.2px; color: #6E7686; }
+      .sa-re { display: inline-flex; align-items: center; gap: 3px; font-size: 5.2px; font-weight: 700; color: #0000CC; background: #EEF0FF; border-radius: 999px; padding: 1px 5px 1px 2px; letter-spacing: 0.06em; text-transform: uppercase; margin-left: auto; }
+      .sa-re i { width: 9px; height: 9px; border-radius: 2px; background: #0000CC; color: #fff; font-size: 4.2px; font-weight: 800; display: grid; place-items: center; font-style: normal; letter-spacing: 0; }
+      .sa-bar { display: flex; align-items: center; gap: 5px; }
+      .sa-search { flex: 1; display: flex; align-items: center; gap: 4px; height: 14px; padding: 0 6px; background: #fff; border: 1px solid #DDDDEE; border-radius: 4px; font-size: 6.4px; color: #8A8A9A; min-width: 0; }
+      .sa-search i, .sa-search svg { width: 7px; height: 7px; flex-shrink: 0; }
+      .sa-search.is-typing { color: #0B1F3A; border-color: #0000CC; box-shadow: 0 0 0 1.5px rgba(0,0,204,0.12); }
+      .sa-q { display: inline-block; overflow: hidden; white-space: nowrap; width: 0; vertical-align: bottom; animation: saType 640ms steps(4) 600ms forwards; }
+      .sa-q-long { animation: saType 1400ms steps(46) 4300ms forwards; --w: 46ch; }
+      @keyframes saType { to { width: var(--w, 4ch); } }
+      .sa-chips { display: flex; gap: 3px; }
+      .sa-chip { font-size: 5.4px; font-weight: 600; padding: 2px 6px; border-radius: 999px; border: 1px solid #DDDDEE; color: #4A4A5A; background: #fff; white-space: nowrap; }
+      .sa-chip.is-on { background: #0B1F3A; color: #fff; border-color: #0B1F3A; }
+      .sa-results { display: flex; align-items: baseline; gap: 4px; font-size: 6px; color: #6E7686; }
+      .sa-results b { color: #0B1F3A; font-weight: 700; }
+      .sa-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; }
+      .sa-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .sa-card { background: #fff; border: 1px solid #E3E3E8; border-radius: 5px; padding: 5px 6px; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+      .sa-card.is-hot { border-color: #0000CC; box-shadow: 0 0 0 1.5px rgba(0,0,204,0.15); }
+      .sa-card-t { display: flex; align-items: center; gap: 4px; min-width: 0; }
+      .sa-card-t img { width: 14px; height: 14px; flex-shrink: 0; }
+      .sa-card-t > span { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+      .sa-card-t b { font-size: 6.4px; font-weight: 600; color: #0B1F3A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .sa-card-t em { font-style: normal; font-size: 5.1px; color: #8A8A9A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .sa-card-f { display: flex; align-items: center; justify-content: space-between; gap: 3px; font-size: 5.1px; color: #6E7686; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .sa-pill { font-size: 4.8px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 999px; padding: 1px 4px; background: #E6F4F1; color: #0E8A7B; white-space: nowrap; }
+      .sa-pill-custom { background: #EEF0FF; color: #0000CC; }
+      .sa-pill-warn { background: #FFF4E0; color: #CC8800; }
+      .sa-dim { opacity: 0.35; filter: saturate(0.5); }
+      .sa-cur { position: absolute; width: 11px; height: 11px; z-index: 5; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3)); }
+      .sa-drawer { position: absolute; top: 0; right: 0; bottom: 0; width: 58%; background: #fff; border-left: 1px solid #E3E3E8; box-shadow: -10px 0 24px rgba(11,31,58,0.12); padding: 8px 9px; display: flex; flex-direction: column; gap: 6px; z-index: 3; }
+      .sa-dh { display: flex; align-items: center; gap: 5px; }
+      .sa-dh img { width: 18px; height: 18px; flex-shrink: 0; }
+      .sa-dh > span:not(.sa-pill) { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; flex: 1; }
+      .sa-dh b { font-size: 8px; font-weight: 700; color: #0B1F3A; }
+      .sa-dh em { font-style: normal; font-size: 5.4px; color: #6E7686; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .sa-sec { display: flex; flex-direction: column; gap: 3px; }
+      .sa-sec > span { font-size: 5.2px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8A8A9A; }
+      .sa-opts { display: flex; flex-wrap: wrap; gap: 3px; }
+      .sa-opt { display: inline-flex; align-items: center; gap: 3px; font-size: 5.8px; font-weight: 600; color: #6E7686; border: 1px solid #DDDDEE; border-radius: 4px; padding: 2px 5px; background: #fff; white-space: nowrap; }
+      .sa-opt i, .sa-opt svg { width: 6px; height: 6px; color: #0F7A3F; stroke-width: 3; }
+      .sa-opt.is-sel { border-color: #C5CBF5; background: #F6F8FF; color: #0B1F3A; }
+      .sa-btn { position: relative; height: 16px; padding: 0 10px; border-radius: 4px; background: #0000CC; color: #fff; font-size: 6.4px; font-weight: 700; display: inline-flex; align-items: center; overflow: hidden; margin-top: auto; align-self: flex-start; }
+      .sa-btn-b { position: absolute; inset: 0; background: #0F7A3F; display: flex; align-items: center; justify-content: center; gap: 3px; padding: 0 10px; }
+      .sa-btn-b i, .sa-btn-b svg { width: 7px; height: 7px; stroke-width: 3; }
+      .sa-table { display: flex; flex-direction: column; background: #fff; border: 1px solid #E3E3E8; border-radius: 5px; overflow: hidden; }
+      .sa-tr { display: grid; grid-template-columns: 1.6fr 1.1fr 0.8fr 1fr; align-items: center; gap: 6px; padding: 4px 7px; border-bottom: 1px solid #EEEEF2; font-size: 6px; color: #4A4A5A; min-height: 16px; }
+      .sa-tr:last-child { border-bottom: 0; }
+      .sa-th { background: #F7F7FA; font-size: 5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #8A8A9A; min-height: 12px; }
+      .sa-tr.is-hot { background: #F6F8FF; }
+      .sa-app { display: flex; align-items: center; gap: 4px; font-weight: 600; color: #0B1F3A; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .sa-app img, .sa-app .ac-tile { width: 11px; height: 11px; flex-shrink: 0; }
+      .sa-app-lg { font-size: 9.5px; }
+      .sa-app-lg .ac-tile { width: 14px; height: 14px; }
+      .sa-ver { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; display: inline-flex; gap: 3px; align-items: center; font-size: 5.8px; }
+      .sa-ver em { font-style: normal; text-decoration: line-through; color: #A0A4B0; }
+      .sa-ver b { color: #0B1F3A; background: #E6F4F1; border-radius: 3px; padding: 0 3px; }
+      .sa-ver i, .sa-ver svg { width: 6px; height: 6px; }
+      .sa-ok { display: inline-flex; align-items: center; gap: 3px; color: #0F7A3F; font-weight: 600; font-size: 5.8px; }
+      .sa-ok i, .sa-ok svg { width: 6px; height: 6px; stroke-width: 3; }
+      .sa-prog { height: 3px; background: #E3E3E8; border-radius: 2px; overflow: hidden; width: 100%; margin-top: 2px; }
+      .sa-prog i { display: block; height: 100%; background: #0000CC; width: 0; animation: saFill 2400ms cubic-bezier(0.2,0.8,0.2,1) var(--d, 0ms) forwards; }
+      .sa-prog-w { width: 46%; margin-top: 4px; }
+      @keyframes saFill { to { width: 100%; } }
+      .sa-swap { position: relative; display: inline-grid; align-items: center; }
+      .sa-swap > * { grid-area: 1 / 1; display: flex; flex-direction: column; gap: 1px; }
+      .sa-swap .sa-out { animation: saOut 300ms ease var(--d, 0ms) forwards; }
+      .sa-swap .sa-in { opacity: 0; animation: saIn 300ms ease var(--d, 0ms) forwards; }
+      @keyframes saOut { to { opacity: 0; visibility: hidden; } }
+      @keyframes saIn { to { opacity: 1; } }
+      .sa-note { display: inline-flex; align-items: center; gap: 4px; font-size: 6px; font-weight: 600; color: #0E8A7B; background: #E6F4F1; border-radius: 4px; padding: 3px 7px; align-self: flex-start; margin-top: auto; }
+      .sa-note i, .sa-note svg { width: 7px; height: 7px; flex-shrink: 0; }
+      .sa-drop { flex: 1; border: 1.5px dashed #C4C8D2; border-radius: 6px; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: #8A8A9A; font-size: 6.2px; position: relative; min-height: 0; }
+      .sa-drop > i, .sa-drop > svg { width: 14px; height: 14px; color: #A0A4B0; }
+      .sa-drop.is-drop { border-color: #0000CC; background: #F6F8FF; }
+      .sa-file { display: inline-flex; align-items: center; gap: 4px; background: #fff; border: 1px solid #DDDDEE; border-radius: 4px; padding: 3px 6px; font-size: 6.2px; font-weight: 600; color: #0B1F3A; box-shadow: 0 4px 10px rgba(11,31,58,0.12); animation: saDropIn 700ms cubic-bezier(0.2,0.8,0.2,1) 400ms both; }
+      @keyframes saDropIn { from { opacity: 0; transform: translate(60px, -50px) scale(1.06); } to { opacity: 1; transform: none; } }
+      .sa-file i, .sa-file svg { width: 8px; height: 8px; color: #0000CC; }
+      .sa-file em { font-style: normal; color: #8A8A9A; font-weight: 500; }
+      .sa-kv { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 2px 6px; font-size: 6px; background: #fff; border: 1px solid #E3E3E8; border-radius: 5px; padding: 5px 8px; align-items: center; }
+      .sa-kv > span { color: #8A8A9A; }
+      .sa-kv > b { color: #0B1F3A; font-weight: 600; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+      .sa-manual { display: flex; align-items: center; gap: 2px; }
+      .sa-manual em { font-style: normal; font-family: inherit; font-weight: 500; color: #8A8A9A; margin-left: 4px; font-family: Inter, sans-serif; opacity: 0; animation: saIn 300ms ease 5800ms forwards; }
+      .sa-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px; }
+      .sa-field { display: flex; align-items: center; gap: 4px; background: #fff; border: 1px solid #E3E3E8; border-radius: 4px; padding: 3px 6px; font-size: 5.8px; color: #0B1F3A; min-width: 0; min-height: 15px; }
+      .sa-field > i:first-child, .sa-field > svg:first-child { width: 7px; height: 7px; color: #6E7686; flex-shrink: 0; }
+      .sa-field span { color: #8A8A9A; font-weight: 500; white-space: nowrap; }
+      .sa-field b { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+      .sa-field .sa-okk { margin-left: auto; width: 7px; height: 7px; color: #0000CC; flex-shrink: 0; }
+      .sa-dtap { display: grid; grid-template-columns: 1fr 10px 1fr 10px 1fr 10px 1fr; gap: 3px; align-items: stretch; }
+      .sa-env { background: #fff; border: 1px solid #E3E3E8; border-radius: 5px; padding: 6px 7px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+      .sa-env b { font-size: 6.8px; color: #0B1F3A; font-weight: 700; }
+      .sa-env > span { font-size: 5.3px; color: #8A8A9A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .sa-st { display: inline-flex; align-items: center; gap: 3px; font-size: 5.6px; font-weight: 700; color: #0F7A3F; margin-top: 3px; }
+      .sa-st i, .sa-st svg { width: 6px; height: 6px; stroke-width: 3; }
+      .sa-st-wait { color: #A0A4B0; }
+      .sa-dtap-ar { width: 10px; height: 10px; color: #0000CC; align-self: center; }
+      .sa-re-big { display: grid; place-items: center; background: #0000CC; color: #fff; font-size: 8px; font-weight: 800; border-radius: 5px; letter-spacing: 0; }
+      .sa-conns { display: flex; flex-direction: column; gap: 4px; }
+      .sa-conn { display: flex; align-items: center; gap: 6px; background: #fff; border: 1px solid #E3E3E8; border-radius: 5px; padding: 5px 8px; }
+      .sa-conn-ic { width: 16px; height: 16px; border-radius: 4px; background: #F0F0F6; display: grid; place-items: center; color: #0B1F3A; flex-shrink: 0; }
+      .sa-conn-ic i, .sa-conn-ic svg { width: 8px; height: 8px; }
+      .sa-conn-tx { display: flex; flex-direction: column; line-height: 1.25; flex: 1; min-width: 0; }
+      .sa-conn-tx b { font-size: 6.6px; font-weight: 600; color: #0B1F3A; }
+      .sa-conn-tx em { font-style: normal; font-size: 5.3px; color: #8A8A9A; }
+      .sa-conn .sa-st { margin-top: 0; }
+      .sa-steps { margin-left: auto; display: flex; gap: 3px; }
+      .sa-steps span { font-size: 5.2px; font-weight: 600; color: #8A8A9A; border: 1px solid #DDDDEE; border-radius: 999px; padding: 1px 6px; white-space: nowrap; background: #fff; }
+      .sa-steps span.is-on { color: #fff; background: #0000CC; border-color: #0000CC; }
+      .sa-steps span.is-done { color: #0F7A3F; border-color: #BFE3DB; background: #F3FAF7; }
+      .sa-wiz { display: grid; grid-template-columns: 1.1fr 1fr; gap: 6px; flex: 1; min-height: 0; }
+      .sa-wiz-l, .sa-wiz-r { background: #fff; border: 1px solid #E3E3E8; border-radius: 5px; padding: 6px 8px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+      .sa-sec-t { display: flex; align-items: center; gap: 4px; font-size: 5.4px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8A8A9A; }
+      .sa-sec-t em { font-style: normal; font-weight: 600; letter-spacing: 0; text-transform: none; color: #0000CC; margin-left: auto; }
+      .sa-sec-t i, .sa-sec-t svg { width: 7px; height: 7px; }
+      .sa-ck { display: flex; align-items: center; gap: 5px; }
+      .sa-ck > span:last-child { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
+      .sa-ck b { font-size: 6.2px; font-weight: 600; color: #0B1F3A; }
+      .sa-ck em { font-style: normal; font-size: 5.2px; color: #8A8A9A; }
+      .sa-box { width: 9px; height: 9px; border-radius: 2px; border: 1px solid #C4C8D2; background: #fff; display: grid; place-items: center; flex-shrink: 0; color: #fff; }
+      .sa-box.is-on { background: #0000CC; border-color: #0000CC; }
+      .sa-box i, .sa-box svg { width: 6px; height: 6px; stroke-width: 3.5; }
+      .sa-code { background: #0B1F3A; color: #C9D3E3; border-radius: 4px; padding: 5px 7px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 5.4px; display: flex; flex-direction: column; gap: 1px; }
+      .sa-code b { color: #fff; font-weight: 700; margin-bottom: 2px; }
+      .sa-rev { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+      .sa-rev-card { background: #fff; border: 1px solid #E3E3E8; border-radius: 5px; padding: 6px 8px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+      .sa-cve { display: flex; align-items: center; gap: 4px; font-size: 5.6px; }
+      .sa-cve em { font-style: normal; color: #6E7686; }
+      .sa-dep { display: flex; align-items: center; gap: 5px; }
+      .sa-dep img { width: 12px; height: 12px; flex-shrink: 0; }
+      .sa-dep > span:not(.sa-box) { display: flex; flex-direction: column; line-height: 1.2; flex: 1; min-width: 0; }
+      .sa-dep b { font-size: 6.2px; font-weight: 600; color: #0B1F3A; }
+      .sa-dep em { font-style: normal; font-size: 5.2px; color: #8A8A9A; }
+      .sa-muted { font-style: normal; font-size: 5.4px; color: #8A8A9A; }
+      .sa-sum { display: flex; align-items: center; gap: 6px; background: #fff; border: 1px solid #E3E3E8; border-radius: 5px; padding: 6px 8px; }
+      .sa-sum img { width: 16px; height: 16px; flex-shrink: 0; }
+      .sa-sum > span:not(.sa-btn) { display: flex; flex-direction: column; line-height: 1.25; flex: 1; min-width: 0; }
+      .sa-sum b { font-size: 7px; font-weight: 700; color: #0B1F3A; }
+      .sa-sum em { font-style: normal; font-size: 5.3px; color: #6E7686; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .sa-btn-inline { margin-top: 0; align-self: center; }
+      .sa-dtap-3 { grid-template-columns: 1fr 10px 1fr 10px 1fr; }
+      .sa-fields-1 { grid-template-columns: 1fr; }
+      .sa-field b .sa-swap { display: inline-grid; }
+      .sa-form { display: grid; grid-template-columns: 66px minmax(0, 1fr); gap: 4px 6px; align-items: center; background: #fff; border: 1px solid #E3E3E8; border-radius: 5px; padding: 7px 8px; }
+      .sa-lab { font-size: 5.8px; color: #6E7686; font-weight: 500; }
+      .sa-input { display: flex; align-items: center; height: 13px; padding: 0 5px; border: 1px solid #DDDDEE; border-radius: 3px; background: #fff; font-size: 5.8px; color: #0B1F3A; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; min-width: 0; overflow: hidden; animation: saFocus 200ms ease var(--f) both; }
+      .sa-input .sa-q { animation-fill-mode: forwards; }
+      .sa-caret { opacity: 0; animation: saIn 1ms linear var(--f) forwards, saOut 1ms linear var(--e) forwards; }
+      @keyframes saFocus { to { border-color: #0000CC; box-shadow: 0 0 0 1.5px rgba(0,0,204,0.12); } }
+      .sa-btn-hot { box-shadow: 0 0 0 3px rgba(0,0,204,0.15); }
+      .sa-btn-hot i, .sa-btn-hot svg { width: 7px; height: 7px; margin-right: 3px; stroke-width: 3; }
+      .sa-note-plain { color: #4A4A5A; background: #F0F0F6; }
+      .sa-field-keep { background: #F3FAF7; border-color: #BFE3DB; }
+      .sa-ico-swap .sa-in .ac-tile { animation: saIn 300ms ease var(--d) both; }
+      .sa-swap-page { flex: 1; min-height: 0; display: grid; }
+      .sa-panes { grid-template-rows: 1fr; }
+      .sa-pane { grid-area: 1 / 1; display: flex; flex-direction: column; gap: 5px; min-height: 0; opacity: 0; animation: saIn 260ms ease var(--in) both, saOut 260ms ease var(--out) forwards; }
+      .sa-pane-last { animation: saIn 260ms ease var(--in) both; }
+      .sa-rev-one { flex: 1; justify-content: center; gap: 6px; }
+      .sa-cve-row, .sa-sup { display: flex; align-items: center; gap: 6px; }
+      .sa-cve-row > span:nth-child(2), .sa-sup > span:nth-child(2) { display: flex; flex-direction: column; line-height: 1.25; flex: 1; min-width: 0; }
+      .sa-cve-row b, .sa-sup b { font-size: 6.4px; font-weight: 600; color: #0B1F3A; }
+      .sa-cve-row em, .sa-sup em { font-style: normal; font-size: 5.3px; color: #8A8A9A; }
+      .sa-ver-lg { font-size: 7px; }
+      .sa-ver-lg b { font-size: 7px; }
+      .sa-swap-page > * { min-height: 0; }
+      .sa-swap-page .sa-wiz { height: 100%; }
+      .sa-box-anim { background: #fff; border-color: #C4C8D2; animation: saBoxOn 200ms ease var(--d, 0ms) forwards; }
+      .sa-box-anim i, .sa-box-anim svg { opacity: 0; animation: saIn 200ms ease var(--d, 0ms) forwards; }
+      @keyframes saBoxOn { to { background: #0000CC; border-color: #0000CC; } }
+      .rw-bts-checks::before { display: none; }
+      .rw-bts-checks li { padding: 4px 0; align-items: flex-start; }
+      .rw-bts-checks .rw-bts-tx span { white-space: normal; }
+      .rw-bts-box { width: 12px; height: 12px; border-radius: 3px; margin-top: 1px; }
+      .rw-bts-box i, .rw-bts-box svg { width: 8px; height: 8px; }
 
       /* ═════════════════════════════════════════════════════════════
          SETUP STORE VIEW
@@ -10358,7 +10568,7 @@
           recast: {
             intro: "",
             bullets: [
-              "Packaging and patching are done for you = Recast maintains 8,000+ commercial apps and republishes each one when the vendor ships a new version. Your team stops building and re-testing installers.",
+              "Packaging and patching are done for you = Recast maintains 8,500+ commercial apps and republishes each one when the vendor ships a new version. Your team stops building and re-testing installers.",
               "Your own apps run through the same pipeline = Line-of-business apps get the same structure — install logic, detection, dependencies, release stages — so custom work is the exception, not the backlog.",
               "One package reaches every device you run = Windows, Mac, virtual desktop, Cloud PC. Delivered through Intune, ConfigMgr, Citrix, AVD or Jamf from a single definition. Today that's five builds.",
               "Employees get apps without a ticket = They pick from a catalog. Anything that needs approval routes to the right manager automatically.",
@@ -10391,7 +10601,7 @@
             recast: {
               intro: "",
               bullets: [
-                "Packaging and patching are done for you = Recast maintains 8,000+ commercial apps and republishes each one when the vendor ships a new version. Your team stops building and re-testing installers.",
+                "Packaging and patching are done for you = Recast maintains 8,500+ commercial apps and republishes each one when the vendor ships a new version. Your team stops building and re-testing installers.",
                 "Your own apps run through the same pipeline = Line-of-business apps get the same structure — install logic, detection, dependencies, release stages — so custom work is the exception, not the backlog.",
                 "One package reaches every device you run = Windows, Mac, virtual desktop, Cloud PC. Delivered through Intune, ConfigMgr, Citrix, AVD or Jamf from a single definition. Today that's five builds.",
                 "Employees get apps without a ticket = They pick from a catalog. Anything that needs approval routes to the right manager automatically.",
@@ -10488,7 +10698,7 @@
       const NEW_CARDS = [
         {
           id: 'core', icon: 'layers', title: 'How it works.',
-          bullets: ['<strong>One platform for the whole application lifecycle.</strong> Package, deploy, patch, govern, and retire every app \u2014 across Intune, ConfigMgr, Citrix, AVD, Windows, and macOS \u2014 through the tools you already own.','<strong>Package</strong> \u2014 Install logic, detection rules, dependencies, uninstall steps, and deployment formats are prepared for you. 8,000+ maintained apps are ready to use; your own apps get the same structure.','<strong>Onboard</strong> \u2014 Existing apps from Workspace ONE, Intune, ConfigMgr, Jamf and others are read, matched to Setup Store packages (custom packages come across as-is) and landed in your zone \u2014 no re-packaging.','<strong>Deploy</strong> \u2014 One package reaches the right user, device, and path \u2014 local, VDI, SaaS, or Cloud PC \u2014 with no rebuild per environment.','<strong>Patch</strong> \u2014 New versions, security fixes, and replacements promote through Dev, Test, Acceptance, Production, with staged rollout and a rollback path.','<strong>Govern</strong> \u2014 Consistent rules for how apps are approved, deployed, updated, and retired. Entitlements, versions, licensing, and every action in one dashboard.','<strong>Retire</strong> \u2014 End-of-life apps removed cleanly across every environment. No orphaned installs.'],
+          bullets: ['<strong>One platform for the whole application lifecycle.</strong> Package, deploy, patch, govern, and retire every app \u2014 across Intune, ConfigMgr, Citrix, AVD, Windows, and macOS \u2014 through the tools you already own.','<strong>Package</strong> \u2014 Install logic, detection rules, dependencies, uninstall steps, and deployment formats are prepared for you. 8,500+ maintained apps are ready to use; your own apps get the same structure.','<strong>Onboard</strong> \u2014 Existing apps from Workspace ONE, Intune, ConfigMgr, Jamf and others are read, matched to Setup Store packages (custom packages come across as-is) and landed in your zone \u2014 no re-packaging.','<strong>Deploy</strong> \u2014 One package reaches the right user, device, and path \u2014 local, VDI, SaaS, or Cloud PC \u2014 with no rebuild per environment.','<strong>Patch</strong> \u2014 New versions, security fixes, and replacements promote through Dev, Test, Acceptance, Production, with staged rollout and a rollback path.','<strong>Govern</strong> \u2014 Consistent rules for how apps are approved, deployed, updated, and retired. Entitlements, versions, licensing, and every action in one dashboard.','<strong>Retire</strong> \u2014 End-of-life apps removed cleanly across every environment. No orphaned installs.'],
           closer: 'One definition. Every platform you already run.', timeline: false, bgHeader: 'bg-[#F0F0F6]', bgContent: 'bg-[#F0F0F6]'
         },
         {
@@ -10611,7 +10821,7 @@
       // pop-out modal's Next button (which advances to the adjacent module).
       /* Dwell per lifecycle step (ms) — the tour timer and the rail's progress
          bar read the same array, so the bar can never disagree with the tour. */
-      const LC_DWELL = [65000, 8800, 11800, 8900, 8600, 8900, 11800];
+      const LC_DWELL = [65000, 34000, 11800, 8900, 8600, 8900, 11800];
       const LIFECYCLE_MODULES = [
         {view:'user',       stage:'RUN',       name:'User Experience',       icon:'monitor-smartphone'},
         {view:'setupstore', stage:'PACKAGE',   name:'Setup Store',           icon:'library'},
@@ -10708,7 +10918,7 @@
                       <div class="rws-pills">
                         <div class="rws-pill rws-pill-store">
                           <span class="rws-store-mk">Re</span>
-                          <b>8,000+ maintained apps</b>
+                          <b>8,500+ maintained apps</b>
                         </div>
                         <div class="rws-pill"><i data-lucide="wrench"></i>Your own apps</div>
                         <div class="rws-pill rws-pill-users"><i data-lucide="users"></i><span class="rws-pill-2l">Users and groups <em>Entra ID &middot; LDAP</em></span></div>
@@ -11027,7 +11237,7 @@
 
                 <div class="platform-stats-row">
                   <div class="platform-stat-hero">
-                    <div class="platform-stat-hero-value">8,000+</div>
+                    <div class="platform-stat-hero-value">8,500+</div>
                     <div class="platform-stat-hero-label">Curated Apps</div>
                   </div>
                   <div class="platform-stats-row-divider"></div>
@@ -13542,9 +13752,8 @@
           <div class="ac-hero ac-hero-final">
             <div class="ac-mast">
               <div class="ac-mast-l">
-                <div class="ac-hero-brand us-in" style="--d:100ms">${brand({ sub: 'Corp.' })}</div>
+                <div class="ac-eyebrow us-in" style="--d:100ms"><span class="ac-tile ac-tile-sm">${LOGO}</span><span>Acme Corp.</span></div>
                 <div class="ac-hero-h us-in" style="--d:400ms">A consistent application experience wherever work happens.</div>
-                <div class="ac-hero-sub us-in" style="--d:650ms">Personalized. Easy to use. Cross-device. Always current.</div>
               </div>
               <div class="ac-mast-r us-in" style="--d:800ms">${[['users','2 employees'],['layout-grid','1 workspace'],['monitor-smartphone','3 devices']].map(([ic, t]) => `<span><i data-lucide="${ic}"></i>${t}</span>`).join('')}</div>
             </div>
@@ -13639,7 +13848,6 @@
                   ${laptop('mac', macDesktop(`${macFrame('Acme Workspace', wsHome(maya, { pop: true, popBase: 2000 }), { cls: 'rw-win-app rw-win-wide rw-rise', style: 'animation-delay:1600ms' })}${winSignIn(maya, 'Signing in\u2026')}`), 'Mac')}
                 </div>
               </div>
-              ${say('Maya accesses her applications on any device.', 'Physical or virtual \u2014 same apps, same experience. Nothing new to learn.', 3200)}
             </div>`;
         } else if (scene === 5) {
           // Evergreen — Maya keeps working; beside the laptop, a "behind the scenes"
@@ -13718,7 +13926,6 @@
                   <div class="rw-bts-foot us-in" style="--d:5000ms"><i data-lucide="shield-check"></i>Right apps for whoever signs in \u00b7 no ticket</div>
                 </aside>
               </div>
-              ${say('Entitlements follow the person, not the machine.', '', 4300)}
             </div>`;
         } else if (scene === 7) {
           // Alex requests Tableau. Beside the laptop, the request is routed by
@@ -13745,7 +13952,6 @@
                   <div class="rw-bts-foot us-in" style="--d:4400ms"><i data-lucide="clock"></i>Request to ready \u00b7 4 minutes</div>
                 </aside>
               </div>
-              ${say('Employees can request the applications they need.', 'Policy routes each request by type. Alex sees the outcome, not the process.', 4600)}
             </div>`;
         } else if (scene === 8) {
           // Two ways in — embedded inside Teams, or the standalone portal. Same apps.
@@ -13761,7 +13967,6 @@
                   ${laptop('win', winDesktop(winFrame('Acme Workspace', appIcon, wsHome(alex), { cls: 'rw-win-app rw-win-wide' })), 'Windows laptop')}
                 </div>
               </div>
-              ${say('Prefer to work in Teams? Your apps can be there too.', 'Application Workspace can be embedded where people already work, or opened as its own portal.', 2000)}
             </div>`;
         } else {
           // Final — the journey closes on the exact frame it opened with.
@@ -14274,280 +14479,432 @@
         {l:'S',c:'#0000CC',n:'Security'},{l:'V',c:'#0000A8',n:'VPN'}
       ];
 
-      /* ========== SETUP STORE VIEW ========== */
+      /* ========== SETUP STORE VIEW ==========
+         Same storyboard grammar as the User Experience module: one realistic
+         laptop showing the Application Workspace admin console, a "behind the
+         scenes" panel beside it naming the work Recast performs, and a journey
+         rail. Two journeys — the Setup Store catalog and a custom package —
+         switched by the mode toggle. */
       function renderSetupStoreView(){
+        const custom = (STATE.ssMode || 'curated') === 'custom';
         const act = STATE.ssAct || 'idle';
-        const mode = STATE.ssMode || 'curated';
-        const animating = act !== 'idle';
+        const scene = act === 'idle' ? 0 : act === 'done' ? 5 : (parseInt(act, 10) || 0);
+        const ended = act === 'done';
+        const running = STATE.ssRunning;
 
-        // Header — replaces phase counter with act counter when animating
-        const actLabel = act === '1' ? 'Act 1 · Catalog scale'
-                        : act === 'final' ? 'Act 2 · One pipeline'
-                        : act === 'done' ? 'Complete' : '';
-        const actNum = act === '1' ? 1 : (act === 'final' || act === 'done') ? 2 : 0;
+        const LOGO = `<svg class="ac-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 1.8 21.5h4.6l5.6-10.9 5.6 10.9h4.6z" fill="currentColor"/><path d="M8.6 21.5h6.8L12 15z" fill="currentColor" opacity=".45"/></svg>`;
+        const admin = { name: 'Jordan Lee', initials: 'JL', role: 'IT', title: 'IT Administrator', accent: '#0E8A7B' };
+        const ICON = (s, st) => `https://img.icons8.com/${st || 'fluency'}/96/${s}.png`;
+        const img = (src, alt, cls) => `<img class="${cls || ''}" src="${src}" alt="${alt || ''}" draggable="false">`;
+        const STORE = [
+          ['Zoom Workplace', 'Zoom Video Communications', '6.2.5', ICON('zoom')],
+          ['Google Chrome', 'Google LLC', '128.0.6613', ICON('chrome')],
+          ['Adobe Acrobat Reader', 'Adobe Inc.', '24.001.20643', ICON('adobe-acrobat')],
+          ['Microsoft Teams', 'Microsoft', '24215.1005', ICON('microsoft-teams-2019')],
+          ['Slack', 'Salesforce', '4.40.126', ICON('slack', 'color')],
+          ['Notion', 'Notion Labs', '3.12.0', ICON('notion')],
+          ['Microsoft OneDrive', 'Microsoft', '24.176.0901', ICON('microsoft-onedrive-2019')],
+          ['Visual Studio Code', 'Microsoft', '1.93.1', ICON('visual-studio-code-2019')],
+          ['Python', 'Python Software Foundation', '3.12.6', ICON('python')],
+          ['Tableau Desktop', 'Salesforce', '2024.2.3', ICON('tableau-software')],
+          ['Dropbox', 'Dropbox Inc.', '207.4.5821', ICON('dropbox', 'color')],
+          ['VLC media player', 'VideoLAN', '3.0.21', ICON('vlc')],
+        ];
+        const ZOOMS = [
+          ['Zoom Workplace', 'Zoom Video Communications', '6.2.5', ICON('zoom')],
+          ['Zoom Rooms', 'Zoom Video Communications', '6.1.8', ICON('zoom')],
+          ['Zoom Plugin for Outlook', 'Zoom Video Communications', '5.17.8', ICON('zoom')],
+        ];
+        const zoom = ZOOMS[0];
+        const acmeIco = `<span class="ac-tile">${LOGO}</span>`;
+        const reMark = `<span class="sa-re"><i>Re</i>Recast</span>`;
+
+        // ── Device: Windows laptop, Edge, admin console ──
+        const taskbar = `
+          <div class="rw-tb">
+            <div class="rw-tb-c">
+              <span class="rw-start"><i></i><i></i><i></i><i></i></span>
+              <span class="rw-tb-search"><i data-lucide="search"></i>Search</span>
+              <span class="rw-tb-app is-on">${img(ICON('ms-edge-new'), 'Edge')}</span>
+              <span class="rw-tb-app">${img(ICON('microsoft-outlook-2019'), 'Outlook')}</span>
+              <span class="rw-tb-app">${img(ICON('microsoft-teams-2019'), 'Teams')}</span>
+              <span class="rw-tb-app"><span class="ac-tile">${LOGO}</span></span>
+            </div>
+            <div class="rw-tray"><i data-lucide="chevron-up"></i><i data-lucide="wifi"></i><i data-lucide="volume-2"></i><i data-lucide="battery-full"></i><span class="rw-clock"><b>10:15 AM</b><span>9/8/2026</span></span></div>
+          </div>`;
+        const laptop = (screen) => `
+          <div class="rw-lap rw-lap-win">
+            <div class="rw-screen"><span class="rw-cam"></span>
+              <div class="rw-desk rw-wall-win">
+                <div class="rw-desk-icons">${[['folder', 'Documents'], ['trash-2', 'Recycle Bin']].map(([ic, n]) => `<span><i data-lucide="${ic}"></i>${n}</span>`).join('')}</div>
+                ${screen}
+                ${taskbar}
+              </div>
+              <span class="rw-glare"></span></div>
+            <div class="rw-base"><span class="rw-hinge"></span><span class="rw-pad"></span></div>
+            <div class="rw-label"><i data-lucide="monitor"></i>Windows laptop \u00b7 admin</div>
+          </div>`;
+        const NAV = [['layout-dashboard', 'Dashboard'], ['package', 'Packages'], ['store', 'Setup Store'], ['rocket', 'Deployments'], ['users', 'Entitlements'], ['map-pin', 'Contexts'], ['bar-chart-3', 'Reports']];
+        const console_ = (active, crumb, page) => `
+          <div class="rw-win rw-win-wide sa-browser">
+            <div class="rw-edge-tabs"><span class="rw-edge-tab is-on">${acmeIco}Acme Workspace \u00b7 Manage<i data-lucide="x"></i></span><span class="rw-edge-plus">+</span>
+              <span class="rw-edge-win"><i data-lucide="minus"></i><i data-lucide="square"></i><i data-lucide="x"></i></span></div>
+            <div class="rw-edge-bar"><i data-lucide="arrow-left"></i><i data-lucide="arrow-right"></i><i data-lucide="rotate-cw"></i><span class="rw-url"><i data-lucide="lock"></i>workspace.acme.com<em>/manage/${crumb}</em></span><i data-lucide="star"></i><i data-lucide="more-horizontal"></i></div>
+            <div class="sa">
+              <nav class="sa-nav">
+                <div class="sa-nav-brand">${acmeIco}ACME</div>
+                ${NAV.map(([ic, n]) => `<span class="${n === active ? 'is-on' : ''}"><i data-lucide="${ic}"></i>${n}</span>`).join('')}
+                <div class="sa-nav-me"><span class="ac-ava" style="background:${admin.accent}">${admin.initials}</span><span>${admin.name}</span></div>
+              </nav>
+              <div class="sa-main">
+                <div class="sa-top"><span>Acme Corp.</span><i data-lucide="chevron-right"></i><span>Production zone</span><i data-lucide="chevron-right"></i><b>${active}</b><span class="sa-ava" style="background:${admin.accent}">${admin.initials}</span></div>
+                <div class="sa-page">${page}</div>
+              </div>
+            </div>
+          </div>`;
+
+        // ── Console pages ──
+        const card = (a, o = {}) => `
+          <div class="sa-card ${o.pop ? 'us-in' : ''} ${o.hot ? 'is-hot' : ''}" style="--d:${o.d || 0}ms">
+            <div class="sa-card-t">${img(a[3], a[0])}<span><b>${a[0]}</b><em>${a[1]}</em></span></div>
+            <div class="sa-card-f"><span>v${a[2]}</span><span class="sa-pill">Managed</span></div>
+          </div>`;
+        const storeHead = (q) => `
+          <div class="sa-h"><b>Setup Store</b><span>8,500+ applications \u00b7 curated by Recast</span>${reMark}</div>
+          <div class="sa-bar">
+            <span class="sa-search ${q ? 'is-typing' : ''}"><i data-lucide="search"></i>${q ? `<span class="sa-q">${q}</span><i class="ac-caret"></i>` : 'Search 8,500+ applications'}</span>
+            <span class="sa-chips">${['All', 'Productivity', 'Collaboration', 'Developer', 'Browsers'].map((c, i) => `<span class="sa-chip ${i === 0 ? 'is-on' : ''}">${c}</span>`).join('')}</span>
+          </div>`;
+        const storeHome = (pop) => storeHead('') + `<div class="sa-grid">${STORE.map((a, i) => card(a, { pop, d: 300 + i * 55 })).join('')}</div>`;
+        const storeSearch = () => storeHead('zoom') + `
+          <div class="sa-results us-in" style="--d:1500ms"><b>3 results</b><span>for \u201czoom\u201d \u00b7 all packaged and tested by Recast</span></div>
+          <div class="sa-grid sa-grid-3">${ZOOMS.map((a, i) => card(a, { pop: true, d: 1600 + i * 180, hot: i === 0 })).join('')}</div>
+          <svg class="sa-cur us-in" style="--d:3200ms;left:19%;top:56%" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 1.5L9.5 19z" fill="#111" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+        const storePublish = () => storeHead('zoom') + `
+          <div class="sa-results"><b>3 results</b><span>for \u201czoom\u201d</span></div>
+          <div class="sa-grid sa-grid-3 sa-dim">${ZOOMS.map((a, i) => card(a, { hot: i === 0 })).join('')}</div>
+          <aside class="sa-drawer us-in" style="--d:300ms">
+            <div class="sa-dh">${img(zoom[3], zoom[0])}<span><b>${zoom[0]}</b><em>v${zoom[2]} \u00b7 ${zoom[1]}</em></span><span class="sa-pill">Managed</span></div>
+            <div class="sa-sec"><span>Platforms</span><div class="sa-opts">${[['monitor', 'Windows'], ['cloud', 'Windows 365'], ['laptop', 'macOS']].map(([ic, n], i) => `<span class="sa-opt is-sel us-in" style="--d:${1000 + i * 250}ms"><i data-lucide="check"></i>${n}</span>`).join('')}</div></div>
+            <div class="sa-sec"><span>Entitlement</span><div class="sa-opts">${['Finance', 'Sales'].map((n, i) => `<span class="sa-opt is-sel us-in" style="--d:${1900 + i * 250}ms"><i data-lucide="check"></i>${n}</span>`).join('')}<span class="sa-opt us-in" style="--d:2400ms">+ Add group</span></div></div>
+            <div class="sa-sec"><span>Updates</span><div class="sa-opts"><span class="sa-opt is-sel us-in" style="--d:2700ms"><i data-lucide="check"></i>Follow vendor releases \u00b7 ring-based</span></div></div>
+            <span class="sa-btn us-in" style="--d:3100ms">Publish to Acme<span class="sa-btn-b us-in" style="--d:4200ms"><i data-lucide="check"></i>Published</span></span>
+          </aside>`;
+        // ── Custom package pages ──
+        // Everything about a custom package is defined by the customer. Fields
+        // start empty and are typed by Jordan; nothing is inferred, inherited
+        // or pre-populated. Fictional app: Acme Case Manager.
+        const CM = 'Acme Case Manager';
+        const CM_FILE = 'AcmeCaseManager-4.2.0.msi';
+        const typed = (txt, d, ms) => `<span class="sa-q" style="--w:${txt.length}ch;animation:saType ${ms || 700}ms steps(${txt.length}) ${d}ms forwards">${txt}</span>`;
+        const packages = (o = {}) => `
+          <div class="sa-h"><b>Packages</b><span>Manage \u203a Packages \u00b7 ${o.custom ? 413 : 412} in production</span>${o.addBtn ? `<span class="sa-btn sa-btn-inline sa-btn-hot us-in" style="--d:600ms;margin-left:auto"><i data-lucide="plus"></i>Add custom package</span>` : ''}</div>
+          ${pkgTable([
+            ['Zoom Workplace', ICON('zoom'), '6.2.5', '', true],
+            ['Google Chrome', ICON('chrome'), '128.0.6613', '', true],
+            ['Microsoft Teams', ICON('microsoft-teams-2019'), '24215.1005', '', true],
+            ...(o.custom ? [[CM, null, '4.2.0', '', false]] : []),
+            ['Adobe Acrobat Reader', ICON('adobe-acrobat'), '24.001.20643', '', true],
+          ])}`;
+        const newPkg = () => `
+          <div class="sa-h"><b>Add custom package</b><span>Manage \u203a Packages \u203a Add your own</span></div>
+          <div class="sa-drop is-drop">
+            <i data-lucide="upload-cloud"></i><span>Drop your installer or script \u2014 MSI, EXE, PKG, DMG, PS1</span>
+            <span class="sa-file"><i data-lucide="file-box"></i>${CM_FILE}<em>61.4 MB</em></span>
+            <span class="sa-prog sa-prog-w"><i style="--d:1200ms"></i></span>
+            <span class="sa-ok us-in" style="--d:3800ms"><i data-lucide="check"></i>Uploaded \u00b7 ready to define</span>
+          </div>`;
+        // Form: labels visible, inputs empty; Jordan types each value.
+        const FORM = [
+          ['Name', CM, 500, 700],
+          ['Version', '4.2.0', 1400, 300],
+          ['Install command', 'msiexec /i ' + CM_FILE + ' /qn', 1900, 1300],
+          ['Uninstall command', 'msiexec /x {6B1F\u2026D2A7} /qn', 3400, 900],
+          ['Detection rule', 'MSI product code {6B1F\u2026D2A7} \u00b7 version \u2265 4.2.0', 4500, 1300],
+        ];
+        const pkgForm = () => `
+          <div class="sa-h"><span class="sa-app sa-app-lg">${acmeIco}<b>Define package</b></span><span>${CM_FILE}</span><span class="sa-pill sa-pill-custom">Custom</span></div>
+          <div class="sa-form">
+            ${FORM.map(([k, v, d, ms]) => `<label class="sa-lab">${k}</label><span class="sa-input ${d ? '' : ''}" style="--f:${d}ms">${typed(v, d, ms)}<i class="ac-caret sa-caret" style="--f:${d}ms;--e:${d + (ms || 700)}ms"></i></span>`).join('')}
+            <label class="sa-lab">Platforms</label><span class="sa-opts"><span class="sa-opt us-in" style="--d:5900ms"><span class="sa-box sa-box-anim" style="--d:6000ms"><i data-lucide="check"></i></span>Windows</span><span class="sa-opt">macOS</span></span>
+          </div>
+          <div class="sa-note sa-note-plain us-in" style="--d:6100ms"><i data-lucide="pencil"></i>Nothing is assumed about your package. You tell it how to install and how to detect it.</div>`;
+        // Spotlight step: access + publish, as a pane stack synced to the checklist.
+        const CSTEPS = ['Define', 'Access', 'Catalog', 'Delivery', 'Import'];
+        const cStep = (n) => `<span class="sa-steps">${CSTEPS.map((s, i) => `<span class="${i < n ? 'is-done' : i === n ? 'is-on' : ''}">${i < n ? '\u2713' : i + 1} ${s}</span>`).join('')}</span>`;
+        const cHead = (n, sub) => `<div class="sa-h"><span class="sa-app sa-app-lg">${acmeIco}<b>${CM}</b></span><span>${sub}</span>${cStep(n)}</div>`;
+        const publishCustom = () => `
+          <div class="sa-swap-page sa-panes">
+            ${pane(0, 3200, cHead(1, 'v4.2.0 \u00b7 who gets it') + `
+              <div class="sa-wiz">
+                <div class="sa-wiz-l"><span class="sa-sec-t">Groups</span>
+                  <div class="sa-opts">${['Legal', 'Finance'].map((n, i) => `<span class="sa-opt is-sel us-in" style="--d:${2000 + i * 250}ms"><i data-lucide="check"></i>${n}</span>`).join('')}<span class="sa-opt us-in" style="--d:2500ms">+ Add group</span></div>
+                  <span class="sa-sec-t" style="margin-top:3px">Approver <em style="color:#8A8A9A">optional</em></span>
+                  <div class="sa-opts"><span class="sa-opt is-sel us-in" style="--d:2700ms"><i data-lucide="user-check"></i>Legal operations lead</span></div>
+                </div>
+                <div class="sa-wiz-r"><span class="sa-sec-t">Defined by you</span>
+                  ${[['Install', 'msiexec \u2026 /qn'], ['Detection', 'Product code \u00b7 \u2265 4.2.0'], ['Platform', 'Windows']].map(([k, v]) => `<div class="sa-ck"><span class="sa-box is-on"><i data-lucide="check"></i></span><span><b>${k}</b><em>${v}</em></span></div>`).join('')}
+                </div>
+              </div>`)}
+            ${pane(3200, 4100, cHead(2, 'v4.2.0 \u00b7 catalog') + `
+              <div class="sa-rev-card sa-rev-one"><span class="sa-sec-t"><i data-lucide="store"></i>Publish to Catalog</span>
+                <div class="sa-ck"><span class="sa-box sa-box-anim" style="--d:3500ms"><i data-lucide="check"></i></span><span><b>Show in the Acme Workspace catalog</b><em>Users outside Legal and Finance can request it themselves</em></span></div>
+                <div class="sa-ck"><span class="sa-box sa-box-anim" style="--d:3700ms"><i data-lucide="check"></i></span><span><b>Route requests to the approver</b><em>Legal operations lead</em></span></div>
+              </div>`)}
+            ${pane(4100, 5300, cHead(3, 'v4.2.0 \u00b7 delivery controls') + `
+              <div class="sa-wiz">
+                <div class="sa-wiz-l"><span class="sa-sec-t">Controls</span>
+                  ${[['Filters', 'Windows 11 \u00b7 corporate network', 4300], ['Self-service', 'Install and repair from the workspace', 4550], ['Repair', 'Re-run install if detection fails', 4800]].map(([k, v, d]) => `<div class="sa-ck"><span class="sa-box sa-box-anim" style="--d:${d}ms"><i data-lucide="check"></i></span><span><b>${k}</b><em>${v}</em></span></div>`).join('')}
+                </div>
+                <div class="sa-wiz-r"><span class="sa-sec-t">Summary</span>
+                  <span class="sa-muted">${CM} 4.2.0 \u00b7 Legal, Finance \u00b7 Windows \u00b7 in catalog</span>
+                  <span class="sa-btn us-in" style="--d:4700ms">Import<span class="sa-btn-b us-in" style="--d:5000ms"><i data-lucide="check"></i>Imported</span></span>
+                </div>
+              </div>`)}
+            ${pane(5300, 0, `<div class="sa-h"><b>Packages</b><span>Manage \u203a Packages \u00b7 413 in production</span>${cStep(5)}</div>` + pkgTable([
+                ['Zoom Workplace', ICON('zoom'), '6.2.5', '', true],
+                ['Google Chrome', ICON('chrome'), '128.0.6613', '', true],
+                ['Microsoft Teams', ICON('microsoft-teams-2019'), '24215.1005', '', true],
+                [CM, null, '4.2.0', '', false, '<span class="sa-pill sa-pill-custom us-in" style="--d:5700ms">New</span>'],
+              ]), true)}
+          </div>`;
+        // New version: the file swaps, detection is updated, everything else stays lit.
+        const customUpdate = () => `
+          <div class="sa-h"><span class="sa-app sa-app-lg"><span class="sa-swap sa-ico-swap"><span class="sa-out" style="--d:1800ms">${acmeIco}</span><span class="sa-in" style="--d:1800ms">${acmeIco}</span></span><b>${CM}</b></span><span class="sa-ver"><em>4.2.0</em><i data-lucide="arrow-right"></i><b class="us-in" style="--d:1800ms">4.3.0</b></span><span class="sa-pill sa-pill-custom">Custom</span></div>
+          <div class="sa-fields sa-fields-1">
+            <div class="sa-field us-in" style="--d:400ms"><i data-lucide="file-box"></i><span>Binaries</span><b><span class="sa-swap"><span class="sa-out" style="--d:1800ms">${CM_FILE}</span><span class="sa-in" style="--d:1800ms">AcmeCaseManager-4.3.0.msi \u00b7 62.0 MB</span></span></b><i data-lucide="pencil" class="sa-okk"></i></div>
+            <div class="sa-field us-in" style="--d:700ms"><i data-lucide="scan-search"></i><span>Detection</span><b><span class="sa-swap"><span class="sa-out" style="--d:2800ms">Product code \u00b7 version \u2265 4.2.0</span><span class="sa-in" style="--d:2800ms">Product code \u00b7 version \u2265 4.3.0</span></span></b><i data-lucide="pencil" class="sa-okk"></i></div>
+            <div class="sa-field sa-field-keep us-in" style="--d:1000ms"><i data-lucide="filter"></i><span>Filters</span><b>Windows 11 \u00b7 corporate network</b><span class="sa-pill">kept</span></div>
+            <div class="sa-field sa-field-keep us-in" style="--d:1000ms"><i data-lucide="users"></i><span>Entitlements</span><b>Legal, Finance \u00b7 approver</b><span class="sa-pill">kept</span></div>
+            <div class="sa-field sa-field-keep us-in" style="--d:1000ms"><i data-lucide="history"></i><span>History</span><b>4.1.0 \u2192 4.2.0 \u2192 4.3.0</b><span class="sa-pill">kept</span></div>
+          </div>`;
+
+        // ── Shared: packages table, connectors, rollout ──
+        const pkgTable = (rows) => `
+          <div class="sa-table">
+            <div class="sa-tr sa-th"><span>Application</span><span>Version</span><span>Source</span><span>Status</span></div>
+            ${rows.map(([n, ic, v, v2, managed, status]) => `
+              <div class="sa-tr ${v2 || status ? 'is-hot' : ''}">
+                <span class="sa-app">${ic ? img(ic, n) : acmeIco}${n}</span>
+                <span class="sa-ver">${v2 ? `<em>${v}</em><i data-lucide="arrow-right"></i><b class="us-in" style="--d:2600ms">${v2}</b>` : v}</span>
+                <span>${managed ? '<span class="sa-pill">Setup Store</span>' : '<span class="sa-pill sa-pill-custom">Custom</span>'}</span>
+                ${status ? status : v2
+                  ? `<span class="sa-swap"><span class="sa-out" style="--d:3800ms"><span class="sa-pill sa-pill-warn">Updating \u00b7 ring 2/3</span><span class="sa-prog"><i style="--d:900ms"></i></span></span><span class="sa-in" style="--d:3800ms"><span class="sa-ok"><i data-lucide="check"></i>Current</span></span></span>`
+                  : `<span class="sa-ok"><i data-lucide="check"></i>Current</span>`}
+              </div>`).join('')}
+          </div>`;
+        const CONNS = [['monitor', 'Windows applications', 'Setup Store \u00b7 Windows'], ['laptop', 'Mac applications', 'Setup Store \u00b7 macOS'], ['shopping-bag', 'Microsoft Store', 'Store apps'], ['box', 'Custom packages', 'Your installers and scripts']];
+        const connectors = () => `
+          <div class="sa-h"><b>Connectors</b><span>Application sources linked to Acme Workspace</span>${reMark}</div>
+          <div class="sa-conns">
+            ${CONNS.map(([ic, n, s], i) => `<div class="sa-conn us-in" style="--d:${400 + i * 350}ms"><span class="sa-conn-ic"><i data-lucide="${ic}"></i></span><span class="sa-conn-tx"><b>${n}</b><em>${s}</em></span>
+              <span class="sa-swap"><span class="sa-out" style="--d:${1700 + i * 400}ms"><span class="sa-st sa-st-wait">Syncing\u2026</span></span><span class="sa-in" style="--d:${1700 + i * 400}ms"><span class="sa-st"><i data-lucide="check"></i>Connected</span></span></span></div>`).join('')}
+          </div>
+          <div class="sa-note us-in" style="--d:3600ms"><i data-lucide="refresh-cw"></i>Imports are consistent and repeatable. New versions arrive already tested.</div>`;
+        const STAGES = [['Test', 'IT pilot \u00b7 12 devices', 1400, 'Validated'], ['Acceptance', 'Finance leads', 2600, 'Promoted'], ['Production', '214 devices', 3800, 'Live']];
+        const rollout = () => `
+          <div class="sa-h"><span class="sa-app sa-app-lg">${img(zoom[3], zoom[0])}<b>Zoom Workplace</b></span><span class="sa-ver"><em>6.2.5</em><i data-lucide="arrow-right"></i><b>6.2.6</b></span><span class="sa-pill sa-pill-warn us-in" style="--d:300ms">New version from Recast</span></div>
+          <div class="sa-dtap sa-dtap-3">
+            ${STAGES.map(([n, s, d, ok], i) => `
+              <div class="sa-env"><b>${n}</b><span>${s}</span>
+                <span class="sa-swap"><span class="sa-out" style="--d:${d}ms"><span class="sa-st sa-st-wait">${i === 0 ? 'Testing\u2026' : 'Waiting'}</span></span><span class="sa-in" style="--d:${d}ms"><span class="sa-st"><i data-lucide="check"></i>${ok}</span></span></span>
+              </div>${i < 2 ? `<i data-lucide="arrow-right" class="sa-dtap-ar us-in" style="--d:${d + 300}ms"></i>` : ''}`).join('')}
+          </div>
+          <div class="sa-note us-in" style="--d:4300ms"><i data-lucide="package-check"></i>No repackaging. Your MST is re-applied. Validate in Test, promote when satisfied.</div>`;
+
+        // Import wizard as a pane stack. Each pane fades in at --in and out at
+        // --out; the behind-the-scenes checklist ticks on the same clock.
+        const WSTEPS = ['Settings', 'Review', 'Access', 'Import'];
+        const wStep = (n) => `<span class="sa-steps">${WSTEPS.map((s, i) => `<span class="${i < n ? 'is-done' : i === n ? 'is-on' : ''}">${i < n ? '\u2713' : i + 1} ${s}</span>`).join('')}</span>`;
+        const wHead = (n, sub) => `<div class="sa-h"><span class="sa-app sa-app-lg">${img(zoom[3], zoom[0])}<b>Add Zoom Workplace</b></span><span>${sub}</span>${wStep(n)}</div>`;
+        const pane = (tin, tout, inner, last) => `<div class="sa-pane ${last ? 'sa-pane-last' : ''}" style="--in:${tin}ms;--out:${tout}ms">${inner}</div>`;
+        const wizardOne = () => `
+          <div class="sa-swap-page sa-panes">
+            ${pane(0, 2300, wHead(0, 'v6.2.5 \u00b7 install settings') + `
+              <div class="sa-wiz">
+                <div class="sa-wiz-l"><span class="sa-sec-t">Install settings<em>MSI \u00b7 Recast GUI</em></span>
+                  ${[['Disable auto-update', 'Recast manages versions', 700], ['Sign in with SSO', 'acme.zoom.us', 1000], ['Install for all users', 'Per-machine', 1300]].map(([k, v, d], i) => `<div class="sa-ck us-in" style="--d:${300 + i * 150}ms"><span class="sa-box sa-box-anim" style="--d:${d}ms"><i data-lucide="check"></i></span><span><b>${k}</b><em>${v}</em></span></div>`).join('')}
+                </div>
+                <div class="sa-wiz-r"><span class="sa-sec-t">Generated transform</span>
+                  <div class="sa-code us-in" style="--d:1700ms"><b>ZoomWorkplace-6.2.5-Acme.mst</b><span>ZoomAutoUpdate=0</span><span>EnableSSO=1 \u00b7 SSO_URL=acme.zoom.us</span><span>ALLUSERS=1</span></div>
+                  <span class="sa-ok us-in" style="--d:1900ms"><i data-lucide="check"></i>Applied on every install and update</span>
+                </div>
+              </div>`)}
+            ${pane(2300, 3000, wHead(1, 'v6.2.5 \u00b7 review \u00b7 vulnerabilities') + `
+              <div class="sa-rev-card sa-rev-one"><span class="sa-sec-t"><i data-lucide="shield-alert"></i>Known vulnerabilities</span>
+                <div class="sa-cve-row"><span class="sa-pill sa-pill-warn">CVE-2024-24691</span><span><b>Improper input validation</b><em>Severity 7.8 \u00b7 affects 6.2.4 and earlier</em></span><span class="sa-ok us-in" style="--d:2700ms"><i data-lucide="check"></i>Fixed in 6.2.5</span></div>
+                <span class="sa-ok us-in" style="--d:2800ms"><i data-lucide="shield-check"></i>No open vulnerabilities in this version</span>
+              </div>`)}
+            ${pane(3000, 3700, wHead(1, 'v6.2.5 \u00b7 review \u00b7 dependencies') + `
+              <div class="sa-rev-card sa-rev-one"><span class="sa-sec-t"><i data-lucide="git-branch"></i>Required dependencies</span>
+                <div class="sa-dep">${img(ICON('ms-edge-new'), 'Edge')}<span><b>Microsoft Edge WebView2 Runtime</b><em>Setup Store \u00b7 129.0 \u00b7 pulled in with this import</em></span><span class="sa-box sa-box-anim" style="--d:3400ms"><i data-lucide="check"></i></span></div>
+                <span class="sa-muted">Installed first, then Zoom Workplace. One import, both packages.</span>
+              </div>`)}
+            ${pane(3700, 4400, wHead(1, 'v6.2.5 \u00b7 review \u00b7 supersedence') + `
+              <div class="sa-rev-card sa-rev-one"><span class="sa-sec-t"><i data-lucide="layers"></i>Supersedence</span>
+                <div class="sa-sup"><span class="sa-ver sa-ver-lg"><em>6.2.4</em><i data-lucide="arrow-right"></i><b>6.2.5</b></span><span><b>Replaces 6.2.4 in place</b><em>214 devices upgrade on next launch \u00b7 no uninstall</em></span><span class="sa-ok us-in" style="--d:4100ms"><i data-lucide="check"></i>Set</span></div>
+              </div>`)}
+            ${pane(4400, 5500, wHead(2, 'v6.2.5 \u00b7 who gets it') + `
+              <div class="sa-wiz">
+                <div class="sa-wiz-l"><span class="sa-sec-t">Groups</span>
+                  <div class="sa-opts">${['Finance', 'Sales'].map((n, i) => `<span class="sa-opt is-sel us-in" style="--d:${4600 + i * 200}ms"><i data-lucide="check"></i>${n}</span>`).join('')}</div>
+                  <span class="sa-sec-t" style="margin-top:3px">Approver <em style="color:#8A8A9A">optional</em></span>
+                  <div class="sa-opts"><span class="sa-opt is-sel us-in" style="--d:4900ms"><i data-lucide="user-check"></i>Finance manager</span></div>
+                </div>
+                <div class="sa-wiz-r"><span class="sa-sec-t">Platforms</span>
+                  <div class="sa-opts">${['Windows', 'Windows 365', 'macOS'].map((n) => `<span class="sa-opt is-sel"><i data-lucide="check"></i>${n}</span>`).join('')}</div>
+                  <span class="sa-btn us-in" style="--d:4700ms">Import<span class="sa-btn-b us-in" style="--d:5200ms"><i data-lucide="check"></i>Imported</span></span>
+                </div>
+              </div>`)}
+            ${pane(5500, 0, `<div class="sa-h"><b>Packages</b><span>Manage \u203a Packages \u00b7 413 in production</span>${wStep(4)}</div>` + pkgTable([
+                ['Zoom Workplace', ICON('zoom'), '6.2.5', '', true, '<span class="sa-pill sa-pill-custom us-in" style="--d:5900ms">New</span>'],
+                ['Google Chrome', ICON('chrome'), '128.0.6613', '', true],
+                ['Adobe Acrobat Reader', ICON('adobe-acrobat'), '24.001.20643', '', true],
+                [CM, null, '4.2.0', '', false],
+              ]), true)}
+          </div>`;
+
+        // Behind-the-scenes variant: a checklist. Each box ticks at its delay.
+        const btsChecks = (title, ico, rows, foot, d0, k) => `
+          <aside class="rw-bts-panel us-in" style="--d:${d0 || 500}ms">
+            <div class="rw-bts-head"><span class="rw-bts-k">${k || 'Behind the scenes \u00b7 Recast'}</span><span class="rw-bts-t">${ico}<b>${title}</b></span></div>
+            <ol class="rw-bts-steps rw-bts-checks">${rows.map(([t, s, d]) => `<li class="us-in" style="--d:${d - 400}ms"><span class="rw-bts-box sa-box sa-box-anim" style="--d:${d}ms"><i data-lucide="check"></i></span><span class="rw-bts-tx"><b>${t}</b><span>${s}</span></span></li>`).join('')}</ol>
+            ${foot ? `<div class="rw-bts-foot us-in" style="--d:${rows[rows.length - 1][2] + 600}ms"><i data-lucide="${foot[0]}"></i>${foot[1]}</div>` : ''}
+          </aside>`;
+
+        // ── Behind the scenes ──
+        const bts = (title, ico, rows, foot, d0) => `
+          <aside class="rw-bts-panel us-in" style="--d:${d0 || 500}ms">
+            <div class="rw-bts-head"><span class="rw-bts-k">Behind the scenes \u00b7 Recast</span><span class="rw-bts-t">${ico}<b>${title}</b></span></div>
+            <ol class="rw-bts-steps">${rows.map(([ic, t, s, d]) => `<li class="us-in" style="--d:${d}ms"><span class="rw-bts-dot"><i data-lucide="${ic}"></i></span><span class="rw-bts-tx"><b>${t}</b><span>${s}</span></span><i data-lucide="check" class="rw-bts-ok us-in" style="--d:${d + 450}ms"></i></li>`).join('')}</ol>
+            ${foot ? `<div class="rw-bts-foot us-in" style="--d:${rows[rows.length - 1][3] + 700}ms"><i data-lucide="${foot[0]}"></i>${foot[1]}</div>` : ''}
+          </aside>`;
+        const pair = (screen, panel, linkIc, linkD) => `
+          <div class="rw-bts">
+            <div class="rw-bts-dev">${laptop(screen)}</div>
+            <div class="rw-bts-link us-in" style="--d:${linkD || 600}ms"><i></i><span><i data-lucide="${linkIc}"></i></span><i></i></div>
+            ${panel}
+          </div>`;
+        const say = (msg, sub, d) => `<div class="us-say us-in" style="--d:${d || 0}ms"><b>${msg}</b>${sub ? `<span>${sub}</span>` : ''}</div>`;
+        const zoomIco = img(zoom[3], zoom[0], 'rw-bts-ico');
+        const acmeBts = `<span class="ac-tile rw-bts-ico">${LOGO}</span>`;
+
+        const CHAPTERS = custom ? [
+          ['Custom package', 'Your in-house tools, line-of-business installers, and scripts. Built and defined by you.'],
+          ['Upload the file', 'Bring your package into Application Workspace.'],
+          ['Define how it installs', 'You set the install details and detection logic. Nothing is assumed about your package \u2014 you tell it.'],
+          ['Set access and publish', 'Pick who gets it, import. From here it is managed like any Setup Store app.'],
+          ['New version, no repackaging', 'Swap the binaries, update detection. Filters, entitlements, and history stay.'],
+          ['Managed like every other app', 'Same catalog. Same controls. Same place.'],
+        ] : [
+          ['Setup Store', '8,500+ curated applications, packaged and tested by Recast.'],
+          ['A curated catalog', 'Recast\u2019s own team packages, tests and vets every application.'],
+          ['Connectors', 'Windows, Mac and Microsoft Store sources, imported consistently.'],
+          ['Configure and import', 'Tick a few settings, pick who gets it, import. Recast handles the rest.'],
+          ['New version, no repackaging', 'Validate in Test, promote to Production.'],
+          ['Setup Store', '8,500+ curated applications, packaged and tested by Recast.'],
+        ];
+
+        const reBts = `<span class="sa-re-big rw-bts-ico">Re</span>`;
+        let stage = '';
+        const intro = () => `<div class="us-lapbtn focus-ring" data-action="start-ss" role="button" tabindex="0" aria-label="${ended ? 'Replay' : 'Play'} the demo" title="${ended ? 'Replay' : 'Play'}">
+          <div class="sa-intro">
+            ${laptop(console_(custom ? 'Packages' : 'Setup Store', custom ? 'packages' : 'store', custom ? packages({ custom: ended, addBtn: !ended }) : storeHome(!running && !ended)))}
+          </div></div>`;
+        const scn = (screen, panel, ic, d) => `<div class="us-story">${pair(screen, panel, ic, d)}</div>`;
+
+        if (scene === 0 || ended) {
+          stage = intro();
+        } else if (!custom) {
+          if (scene === 1) stage = scn(console_('Setup Store', 'store', storeHome(true)), bts('Recast Setup Store', reBts, [
+            ['users', 'Recast\u2019s team packages every app', 'Not a wrapper around Winget or a public repo', 900],
+            ['flask-conical', 'Tested before it ships', 'Install, update and uninstall verified', 1600],
+            ['shield-check', 'Checked for known vulnerabilities', 'CVEs surfaced before you publish', 2300],
+            ['zap', 'New versions land fast', 'Already tested \u2014 ready to push, no waiting', 3000],
+          ], ['store', '8,500+ applications \u00b7 Windows and Mac'], 700), 'store', 600,
+            'A curated catalog of 8,500+ applications.', 'Every one packaged, tested and vetted by Recast. Nothing pulled unverified from a public source.', 4200);
+          else if (scene === 2) stage = scn(console_('Connectors', 'connectors', connectors()), bts('Connectors', reBts, [
+            ['monitor', 'Windows applications', 'Linked to the Setup Store', 1700],
+            ['laptop', 'Mac applications', 'Linked to the Setup Store', 2100],
+            ['shopping-bag', 'Microsoft Store', 'Linked', 2500],
+            ['refresh-cw', 'Consistent, repeatable imports', 'New versions arrive already tested', 3300],
+          ], ['plug', 'One workspace, every source'], 1500), 'plug', 1400,
+            'Connectors link the workspace to each source.', 'Windows, Mac and Microsoft Store. Imports stay consistent and repeatable.', 4200);
+          else if (scene === 3) stage = scn(console_('Setup Store', 'store/zoom-workplace/import', wizardOne()), btsChecks('Zoom Workplace 6.2.5', zoomIco, [
+            ['MST generated', 'From the ticked options \u00b7 no silent-switch hunting', 1800],
+            ['Known CVEs checked', 'CVE-2024-24691 fixed in 6.2.5 \u00b7 none open', 2800],
+            ['Dependencies pulled in', 'Edge WebView2 \u00b7 same import', 3500],
+            ['Supersedence set', '6.2.5 replaces 6.2.4 in place', 4200],
+            ['Access by group', 'Finance, Sales \u00b7 approver optional', 5000],
+            ['In Manage \u203a Packages', 'Live in Acme Workspace, every platform', 5900],
+          ], ['clock', 'Catalog to workspace in minutes \u00b7 no packaging'], 400), 'check-check', 300,
+            'Configure and import.', 'A few choices, one click. Recast handles the checks on the way there.', 6000);
+          else stage = scn(console_('Packages', 'packages/zoom-workplace', rollout()), bts('Zoom Workplace', zoomIco, [
+            ['scan-search', 'New version detected by Recast', 'Zoom 6.2.6 released by the vendor', 600],
+            ['package-check', 'Packaged and tested by Recast', 'In the catalog quickly, already verified', 1400],
+            ['flask-conical', 'You validate in Test', 'Rollout stages before production', 2400],
+            ['rocket', 'Promote when satisfied', 'No repackaging \u00b7 your MST re-applied', 3600],
+          ], ['shield-check', 'Nothing for your team to repackage'], 400), 'refresh-cw', 300,
+            'New version? No repackaging.', 'Recast tests and packages it. You validate in Test and promote once satisfied.', 4600);
+        } else {
+          if (scene === 1) stage = scn(console_('Packages', 'packages/new', newPkg()), bts(CM, acmeBts, [
+            ['upload', 'Your file, your build', CM_FILE + ' \u00b7 built by Acme', 1600],
+            ['badge-check', 'Signature checked', 'Acme Corp. code-signing certificate', 2600],
+            ['shield-check', 'Malware scan', '0 / 72 engines flagged', 3300],
+            ['package', 'Stored as a package', 'Ready for you to define', 4100],
+          ], ['file-box', 'Nothing read into it. Nothing assumed.'], 1400), 'upload', 1300);
+          else if (scene === 2) stage = scn(console_('Packages', 'packages/acme-case-manager/define', pkgForm()), bts(CM, acmeBts, [
+            ['pencil', 'Name and version', 'Entered by Jordan', 1600],
+            ['terminal', 'Install and uninstall commands', 'Entered by Jordan \u00b7 not generated', 3600],
+            ['scan-search', 'Detection rule', 'Defined by Jordan \u00b7 product code and version', 5400],
+            ['monitor', 'Platform', 'Windows, chosen by Jordan', 6100],
+          ], ['pencil', 'Tell it how to install. Once.'], 1400), 'pencil', 1300);
+          else if (scene === 3) stage = scn(console_('Packages', 'packages/acme-case-manager/publish', publishCustom()), btsChecks(CM + ' 4.2', acmeBts, [
+            ['Package uploaded', 'Your installer, your build', 900],
+            ['Install and detection defined', 'By you, not assumed', 1500],
+            ['Access by group', 'Legal, Finance \u00b7 approver optional', 2900],
+            ['Published to Catalog', 'Users can request it themselves', 3800],
+            ['Delivery controls applied', 'Filters, self-service, repair', 4900],
+            ['In Manage \u203a Packages', 'Alongside every Setup Store app', 5700],
+          ], ['check-check', 'Everything they get, it gets.'], 400, 'Behind the scenes \u00b7 your package'), 'check-check', 300);
+          else stage = scn(console_('Packages', 'packages/acme-case-manager', customUpdate()), bts(CM + ' 4.3', acmeBts, [
+            ['file-box', 'You swap the binaries', 'AcmeCaseManager-4.3.0.msi uploaded by Jordan', 1900],
+            ['scan-search', 'You update detection', 'Version \u2265 4.3.0', 2900],
+            ['filter', 'Filters and entitlements stay', 'Legal, Finance \u00b7 Windows 11 \u00b7 approver', 3600],
+            ['history', 'History kept', '4.1.0 \u2192 4.2.0 \u2192 4.3.0', 4300],
+          ], ['repeat', 'New version. Nothing to rebuild.'], 1700), 'repeat', 1600);
+        }
+
+        const who = (scene >= 1 && !ended) ? `<div class="us-who"><span class="us-who-ava" style="background:${admin.accent}">${admin.initials}</span><span class="us-who-col"><span class="us-who-txt">${admin.name} \u00b7 ${admin.title}</span></span></div>` : '';
+        const sceneKey = `${custom ? 'c' : 's'}${ended ? 0 : scene}`;
+        const sceneChanged = STATE._ssScene !== sceneKey;
+        STATE._ssScene = sceneKey;
 
         return `
-          <div class="section-card p-4" id="ss-panel">
-            <div class="flex items-center justify-between mb-3 gap-3 flex-wrap">
-              <div class="bts-label bts-label-platform">
-                <i data-lucide="library" class="w-3 h-3"></i> Setup Store
-              </div>
-              ${animating ? `
-                <div class="ss-act-progress" role="progressbar" aria-valuemin="1" aria-valuemax="2" aria-valuenow="${actNum}">
-                  ${[1,2].map(n => `
-                    <span class="ss-act-step ${n < actNum ? 'is-done' : ''} ${n === actNum ? 'is-active' : ''}">
-                      <span class="ss-act-step-dot"></span>
-                      <span class="ss-act-step-label">${n === 1 ? 'Catalog' : 'Deliver'}</span>
-                    </span>
-                  `).join('')}
-                </div>
-              ` : ''}
-            </div>
-
-            ${animating ? renderSsActStage() : renderSsIdleStage(mode)}
-          </div>
-        `;
-      }
-
-      /* ─── Idle stage (pre-animation prompt) ─────────────────────────── */
-      function renderSsIdleStage(mode){
-        return `
-          <div class="text-center py-6 text-sm text-slate-400">
-            <i data-lucide="${mode === 'custom' ? 'box' : 'library'}" class="w-8 h-8 mx-auto mb-2 text-slate-300"></i>
-            <div>Press <strong>Play</strong> to see how 8,000+ commercial apps and your custom apps share <strong>one pipeline</strong></div>
-            <div class="text-[10px] text-slate-300 mt-1">Search the store → everything it delivers, already packaged and current</div>
-          </div>
-        `;
-      }
-
-      /* ─── 3-act animation stage ─────────────────────────────────────── */
-      function renderSsActStage(){
-        const act = STATE.ssAct;
-        const counter = STATE.ssCounter || 0;
-        const caption = STATE.ssCaption || '';
-        const captionFinal = STATE.ssCaptionFinal;
-        const fieldStep = STATE.ssFieldStep || 0;
-        const inheritStep = STATE.ssInheritStep || 0;
-        const tickerIdx = STATE.ssTickerIdx;
-        const showAdobeBadges = STATE.ssBadgesAdobe;
-        const showYourBadges = STATE.ssBadgesYour;
-        const yourCardIn = STATE.ssYourCardIn;
-        const adobeShifted = STATE.ssAdobeShifted;
-        const showFinal = act === 'final' || act === 'done';
-        const showAct1 = act === '1';
-        const showAct2or3 = act === '2' || act === '3';
-
-        // Caption stream above visual — Act 2/3 show running captions; Act 1 only shows the closing line.
-        // Final/done has its own synthesis headline so the floating caption is suppressed there.
-        const showCaption = caption && !showFinal && (!showAct1 || captionFinal);
-        const captionHtml = showCaption ? `
-          <div class="ss-caption-stream ${captionFinal ? 'ss-caption-final' : ''}">
-            ${captionFinal ? `<i data-lucide="sparkles" class="w-3.5 h-3.5 inline" style="margin-right:6px;vertical-align:-2px"></i>` : ''}
-            ${caption}
-          </div>
-        ` : ((showAct1 || showFinal) ? '' : `<div class="ss-caption-stream ss-caption-empty">&nbsp;</div>`);
-
-
-        return `
-          <div class="ss-act-stage">
-            ${captionHtml}
-
-            <!-- ACT 1: Catalog scale — counter, category breakdown, and a dense scrolling list of real apps -->
-            <div class="ss-act-panel ${showAct1 ? 'ss-act-show' : 'ss-act-hide'}" style="${showAct1 ? '' : 'display:none'}">
-              <div class="ss-act1-stage">
-                <div class="ss-store-top">
-                  <span class="ss-store-brand">
-                    <span class="ss-store-mark">Re</span>
-                    <span class="ss-store-name">Recast <b>Setup Store</b></span>
-                  </span>
-                  <span class="ss-store-shelf"><b>8,047</b><span>apps, packaged and kept current</span></span>
-                </div>
-
-                <div class="ss-search">
-                  <i data-lucide="search"></i>
-                  <div class="ss-search-q">
-                    ${SS_SEARCHES.map((s, i) => `<span class="ss-sq" style="--q:${i};--ch:${s.q.length}">${s.q}</span>`).join('')}
-                  </div>
-                  <div class="ss-search-hits">
-                    ${SS_SEARCHES.map((s, i) => `<span class="ss-sh" style="--q:${i}">${s.hits}</span>`).join('')}
-                  </div>
-                </div>
-
-                <div class="ss-shelf-h"><b>Most popular</b><span>Managed by Recast</span></div>
-                <div class="ss-cat">
-                  ${SS_SHELF.map((a, i) => `
-                    <div class="ss-cc${a.q != null ? ' ss-cc-hit' : ''}" style="--r:${Math.floor(i / 3)};--c:${i % 3};--tc:${a.c}${a.q != null ? `;--q:${a.q}` : ''}">
-                      ${a.aw && AW[a.aw] && AW[a.aw].svg ? `<span class="ss-cc-ic ss-cc-ic-real">${AW[a.aw].svg}</span>` : `<span class="ss-cc-ic" style="background:${a.c}">${a.l}</span>`}
-                      <span class="ss-cc-tx"><b>${a.n}</b><u>${a.p} &middot; ${a.v}</u></span>
-                      <span class="ss-cc-pill"><s title="Recast updates it when the vendor ships a new version">Managed</s><em title="Fixed version, you decide when to update"><i data-lucide="check"></i>Snapshot</em></span>
-                    </div>`).join('')}
-                </div>
-
-
-                <div class="ss-take">
-                  <i data-lucide="store"></i>
-                  <div class="ss-take-tx">
-                    <b>This is where most of what your company runs comes from.</b>
-                    <span>Search it, assign it, done. No hunting for installers, no packaging, no patching, no version chasing on your side.</span>
-                  </div>
-                </div>
+          <div class="section-card p-4 us-card" id="ss-panel">
+            <div class="flex items-center justify-between mb-2 gap-2 flex-wrap">
+              ${ended
+                ? `<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200" style="white-space:nowrap"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500" style="flex-shrink:0"></i><span class="text-xs font-semibold text-emerald-700">Demo complete \u2014 click any step to replay</span></div>`
+                : '<div class="bts-label bts-label-user"><i data-lucide="user" class="w-3 h-3"></i> What the admin sees</div>'}
+              <div class="ss-mode-toggle" role="tablist" aria-label="Setup Store journeys">
+                <button type="button" role="tab" class="ss-mode-pill ${!custom ? 'is-active' : ''}" data-action="ss-mode" data-mode="curated" aria-selected="${!custom}"><i data-lucide="store" class="w-3 h-3"></i><span class="ss-mode-label">Setup Store</span></button>
+                <button type="button" role="tab" class="ss-mode-pill ${custom ? 'is-active' : ''}" data-action="ss-mode" data-mode="custom" aria-selected="${custom}"><i data-lucide="box" class="w-3 h-3"></i><span class="ss-mode-label">Custom package</span></button>
               </div>
             </div>
-
-            <!-- ACT 2 + 3: Package depth + custom inheritance (cards stage) -->
-            <div class="ss-act-panel ${showAct2or3 ? 'ss-act-show' : 'ss-act-hide'}" style="${showAct2or3 ? '' : 'display:none'}">
-              <div class="ss-cards-stage ${adobeShifted ? 'ss-cards-shifted' : ''}">
-                <!-- Adobe card -->
-                <div class="ss-package-card ss-card-adobe ${adobeShifted ? 'ss-card-shifted' : ''}">
-                  <div class="ss-package-header">
-                    <div class="ss-package-icon" style="background:#ED2224">A</div>
-                    <div class="flex-1">
-                      <div class="ss-package-name">Adobe Acrobat Reader DC</div>
-                      <div class="ss-package-version">v24.001.20065 · Windows x64 + macOS</div>
-                    </div>
-                  </div>
-                  <div class="ss-fields ss-fields-tracked" id="ss-fields-adobe">
-                    ${SS_PACKAGE_FIELDS.map((f, i) => `
-                      <div class="ss-field ${i < fieldStep ? 'ss-fill ss-field-done' : ''}" data-field-idx="${i}" data-card="adobe">
-                        <i data-lucide="${f.icon}"></i>
-                        <span>${f.label}</span>
-                        ${i < fieldStep ? `<i data-lucide="check" class="ss-field-check"></i>` : ''}
-                      </div>
-                    `).join('')}
-                  </div>
-                  <div class="ss-security-row ${showAdobeBadges ? 'ss-show' : ''}">
-                    <div class="ss-badge ss-badge-clean ss-badge-pop" style="--pop-delay:0ms"><i data-lucide="shield-check" class="w-3 h-3"></i> VirusTotal: 0/72 clean</div>
-                    <div class="ss-badge ss-badge-cve ss-badge-pop" style="--pop-delay:120ms"><i data-lucide="alert-triangle" class="w-3 h-3"></i> Known vulnerability flagged · severity 7.8</div>
-                    <div class="ss-badge ss-badge-supersede ss-badge-pop" style="--pop-delay:240ms">supersedes v23.x</div>
-                  </div>
-                </div>
-
-                <!-- YourApp card (slides in for Act 3) -->
-                <div class="ss-package-card ss-card-your ${yourCardIn ? 'ss-card-your-in' : ''}">
-                  <div class="ss-package-header">
-                    <div class="ss-package-icon ss-package-icon-custom"><i data-lucide="box" class="w-4 h-4"></i></div>
-                    <div class="flex-1">
-                      <div class="ss-package-name">YourApp <span style="font-weight:500;color:var(--r-ink-2)">·</span> Custom internal app</div>
-                      <div class="ss-package-version">v2.3 · Windows x64 + macOS</div>
-                    </div>
-                  </div>
-                  <div class="ss-fields ss-fields-tracked" id="ss-fields-your">
-                    ${SS_PACKAGE_FIELDS.map((f, i) => `
-                      <div class="ss-field ${i < inheritStep ? 'ss-fill ss-field-done ss-field-inherited' : ''}" data-field-idx="${i}" data-card="your">
-                        <i data-lucide="${f.icon}"></i>
-                        <span>${f.label}</span>
-                        ${i < inheritStep ? `<i data-lucide="check" class="ss-field-check"></i>` : ''}
-                      </div>
-                    `).join('')}
-                  </div>
-                  <div class="ss-security-row ${showYourBadges ? 'ss-show' : ''}">
-                    <div class="ss-badge ss-badge-clean ss-badge-pop" style="--pop-delay:0ms"><i data-lucide="shield-check" class="w-3 h-3"></i> VirusTotal: 0/72 clean</div>
-                    <div class="ss-badge ss-badge-cve ss-badge-pop" style="--pop-delay:120ms"><i data-lucide="alert-triangle" class="w-3 h-3"></i> Internal security policy applied</div>
-                    <div class="ss-badge ss-badge-supersede ss-badge-pop" style="--pop-delay:240ms">supersedes v2.2</div>
-                  </div>
-                </div>
-
-                <!-- SVG inheritance lines (drawn by post-render script) -->
-                <svg class="ss-inherit-svg" id="ss-inherit-svg" aria-hidden="true"></svg>
+            <div class="us-body2">
+              <div class="us-stage rw-stage">
+                ${who}
+                <div class="us-scene ${sceneChanged ? 'us-scenefade' : ''}">${stage}</div>
               </div>
+              <aside class="us-rail" aria-label="Journey steps">
+                <div class="us-rail-t">The journey</div>
+                ${CHAPTERS.map((c, i) => `
+                  <button type="button" class="us-step focus-ring ${scene > i ? 'is-done' : ''} ${scene === i ? 'is-on' : ''}" data-action="ss-chapter" data-scene="${i}" title="Jump to this scene">
+                    <span class="us-step-n">${scene > i ? '\u2713' : i + 1}</span>
+                    <div class="us-step-tx"><b>${c[0]}</b><span>${c[1]}</span></div>
+                  </button>`).join('')}
+              </aside>
             </div>
-
-            <!-- FINAL beat: synthesis — two parallel columns showing one engine, two inputs -->
-            <div class="ss-act-panel ${showFinal ? 'ss-act-show' : 'ss-act-hide'}" style="${showFinal ? '' : 'display:none'}">
-              <div class="ss-synth">
-                <div class="ss-synth-header">
-                  <div class="ss-synth-headline">Applications you never have to package or patch</div>
-                  <div class="ss-synth-sub">Packaging and patching stop being your team's work — Recast builds them, and rebuilds them as each new version ships.</div>
-                </div>
-
-                <div class="ss-synth-cols">
-                  <!-- LEFT: Setup Store -->
-                  <div class="ss-synth-col ss-synth-col-store">
-                    <div class="ss-synth-col-head">
-                      <div class="ss-synth-col-title">
-                        <i data-lucide="library" class="w-4 h-4"></i>
-                        <span>Setup Store</span>
-                      </div>
-                      <span class="ss-synth-pill ss-synth-pill-store">Maintained by Recast</span>
-                    </div>
-
-                    <div class="ss-synth-payload">
-                      <div class="ss-synth-num ss-num-rise">8,047</div>
-                      <div class="ss-synth-num-label">commercial applications, packaged and current</div>
-                      <div class="ss-shelf" aria-hidden="true"><span class="ss-shelf-tile" style="--t:0"></span><span class="ss-shelf-tile" style="--t:1"></span><span class="ss-shelf-tile" style="--t:2"></span><span class="ss-shelf-tile" style="--t:3"></span><span class="ss-shelf-tile" style="--t:4"></span><span class="ss-shelf-tile" style="--t:5"></span><span class="ss-shelf-tile" style="--t:6"></span><span class="ss-shelf-tile" style="--t:7"></span><span class="ss-shelf-tile" style="--t:8"></span><span class="ss-shelf-tile" style="--t:9"></span><span class="ss-shelf-tile" style="--t:10"></span><span class="ss-shelf-tile" style="--t:11"></span><span class="ss-shelf-tile" style="--t:12"></span><span class="ss-shelf-tile" style="--t:13"></span><span class="ss-shelf-tile" style="--t:14"></span><span class="ss-shelf-tile" style="--t:15"></span><span class="ss-shelf-tile" style="--t:16"></span><span class="ss-shelf-tile" style="--t:17"></span><span class="ss-shelf-tile" style="--t:18"></span><span class="ss-shelf-tile" style="--t:19"></span><span class="ss-shelf-tile" style="--t:20"></span><span class="ss-shelf-tile" style="--t:21"></span><span class="ss-shelf-tile" style="--t:22"></span><span class="ss-shelf-tile" style="--t:23"></span><span class="ss-shelf-tile" style="--t:24"></span><span class="ss-shelf-tile" style="--t:25"></span><span class="ss-shelf-tile" style="--t:26"></span><span class="ss-shelf-tile" style="--t:27"></span><span class="ss-shelf-tile" style="--t:28"></span><span class="ss-shelf-tile" style="--t:29"></span><span class="ss-shelf-tile" style="--t:30"></span><span class="ss-shelf-tile" style="--t:31"></span><span class="ss-shelf-tile" style="--t:32"></span><span class="ss-shelf-tile" style="--t:33"></span><span class="ss-shelf-tile" style="--t:34"></span><span class="ss-shelf-tile" style="--t:35"></span><span class="ss-shelf-tile" style="--t:36"></span><span class="ss-shelf-tile" style="--t:37"></span><span class="ss-shelf-tile" style="--t:38"></span><span class="ss-shelf-tile" style="--t:39"></span><span class="ss-shelf-tile" style="--t:40"></span><span class="ss-shelf-tile" style="--t:41"></span><span class="ss-shelf-tile" style="--t:42"></span><span class="ss-shelf-tile" style="--t:43"></span><span class="ss-shelf-tile" style="--t:44"></span><span class="ss-shelf-tile" style="--t:45"></span><span class="ss-shelf-tile" style="--t:46"></span><span class="ss-shelf-tile" style="--t:47"></span><span class="ss-shelf-tile" style="--t:48"></span><span class="ss-shelf-tile" style="--t:49"></span><span class="ss-shelf-tile" style="--t:50"></span><span class="ss-shelf-tile" style="--t:51"></span><span class="ss-shelf-tile" style="--t:52"></span><span class="ss-shelf-tile" style="--t:53"></span><span class="ss-shelf-tile" style="--t:54"></span><span class="ss-shelf-tile" style="--t:55"></span><span class="ss-shelf-tile" style="--t:56"></span><span class="ss-shelf-tile" style="--t:57"></span><span class="ss-shelf-tile" style="--t:58"></span><span class="ss-shelf-tile" style="--t:59"></span></div>
-                      <div class="ss-synth-vendors">
-                        ${SS_VENDORS.slice(0, 6).map(v => `
-                          <div class="ss-synth-vendor" title="${v.n}">
-                            <span class="ss-v-icon" style="background:${v.c}">${v.l}</span>
-                            <span class="ss-v-name">${v.n}</span>
-                          </div>
-                        `).join('')}
-                        <div class="ss-synth-vendor-more">+ 8,041 more</div>
-                      </div>
-                    </div>
-
-                    <ul class="ss-synth-spine">
-                      ${SS_PACKAGE_FIELDS.map((f, si) => `
-                        <li class="ss-synth-step ss-synth-step-store ss-stamp" style="--s:${si}">
-                          <i data-lucide="check" class="ss-synth-check"></i>
-                          <span>${f.label}</span>
-                        </li>
-                      `).join('')}
-                    </ul>
-
-                    <div class="ss-synth-foot"><strong>Every one of those eight steps, already done.</strong> Kept current as vendors release.</div>
-                  </div>
-
-                  <!-- RIGHT: Custom Packaging -->
-                  <div class="ss-synth-col ss-synth-col-custom">
-                    <div class="ss-synth-col-head">
-                      <div class="ss-synth-col-title">
-                        <i data-lucide="box" class="w-4 h-4"></i>
-                        <span>Custom Packaging</span>
-                      </div>
-                      <span class="ss-synth-pill ss-synth-pill-custom">Built by your team</span>
-                    </div>
-
-                    <div class="ss-synth-payload">
-                      <div class="ss-synth-custom-card">
-                        <div class="ss-synth-custom-icon"><i data-lucide="box" class="w-4 h-4"></i></div>
-                        <div class="ss-synth-custom-meta">
-                          <div class="ss-synth-custom-name">YourApp <span class="ss-synth-dim">· internal LOB tool</span></div>
-                          <div class="ss-synth-custom-sub">v2.3 · Windows + macOS</div>
-                        </div>
-                      </div>
-                      <div class="ss-synth-custom-note">Same packaging structure. Same security and compliance fields. Same delivery pipeline.</div>
-                    </div>
-
-                    <ul class="ss-synth-spine">
-                      ${SS_PACKAGE_FIELDS.map((f, i) => {
-                        // First 2 defined by team (green), remaining 6 inherited from engine (cyan)
-                        const inherited = i >= 2;
-                        return `
-                        <li class="ss-synth-step ${inherited ? 'ss-synth-step-inherited' : 'ss-synth-step-custom'}">
-                          <i data-lucide="check" class="ss-synth-check"></i>
-                          <span>${f.label}</span>
-                          ${inherited ? `<span class="ss-synth-badge-inherit">inherited</span>` : ''}
-                        </li>
-                      `;}).join('')}
-                    </ul>
-
-                    <div class="ss-synth-foot">You define it once. Same pipeline, same controls.</div>
-                  </div>
-                </div>
-
-                <!-- Footer: handoff to Admin Console -->
-                <div class="ss-synth-handoff">
-                  <span class="ss-synth-handoff-line"></span>
-                  <span class="ss-synth-handoff-label">
-                    Both flow into the same <strong>Admin Console</strong>
-                    <i data-lucide="arrow-right" class="w-3.5 h-3.5 inline" style="margin-left:6px;vertical-align:-2px"></i>
-                  </span>
-                  <span class="ss-synth-handoff-line"></span>
-                </div>
-              </div>
-            </div>
-
           </div>
         `;
       }
@@ -14679,7 +15036,7 @@
         {icon:'clock',    title:'Hours per app, already done',
          body:'Hunting links, testing switches, scanning, packaging — done before you start.'},
         {icon:'refresh-cw', title:'Continuous, not project-based',
-         body:'8,000+ apps · daily updates · 30+ languages · OEM-grade quality.'},
+         body:'8,500+ apps · daily updates · 30+ languages · OEM-grade quality.'},
         {icon:'unlock',   title:'Available standalone',
          body:'Existing OEM customers license the catalog alone for their own delivery stack.'},
       ];
@@ -16039,10 +16396,10 @@
           rows: [],
           stat: { hrs: "88% faster delivery \u00b7 70% fewer application tickets \u00b7 60% more margin on the same contract", sub: "the three numbers" },
           verdict: "Faster delivery, fewer tickets, and a materially better margin on the same contract." },
-        { key: "oem", pill: "Setup Store", tag: "8,000+ titles \u00b7 API \u00b7 OEM", icon: "store",
+        { key: "oem", pill: "Setup Store", tag: "8,500+ titles \u00b7 API \u00b7 OEM", icon: "store",
           event: "The shelf a partner would otherwise build title by title \u2014 already stocked, already current, and available through the API",
           rows: [],
-          stat: { hrs: "8,000+ Windows and macOS titles, sourced, packaged and version-monitored by Recast \u2014 consumed through the API and presented as yours", sub: "the Setup Store" },
+          stat: { hrs: "8,500+ Windows and macOS titles, sourced, packaged and version-monitored by Recast \u2014 consumed through the API and presented as yours", sub: "the Setup Store" },
           verdict: "The catalog you would spend years building, available on day one \u2014 under your brand if you want it there." },
         { key: "enablement", pill: "Partnership model", tag: "How we build it together", icon: "handshake", full: true,
           event: "What partnering looks like \u2014 six phases, both sides visible, from first conversation to a service you run without us",
@@ -16208,7 +16565,7 @@
         }
         if (S.key === 'oem') {
           const head_now = head(false, 'You build the shelf, one title at a time');
-          const head_aw = head(true, '8,000+ titles already on the shelf');
+          const head_aw = head(true, '8,500+ titles already on the shelf');
           const wv = (i) => 'r' + Math.min(3, i + 1);
           const aw2 = (i) => g(past('r' + Math.min(3, Math.floor(i / 2) + 1)));
           return '<div class="pt-viz">'
@@ -16227,7 +16584,7 @@
             + '</div>'
             + '<div class="pt-viz-lane" style="--pta:340ms">'
               + head_aw
-              + '<div class="aw-storebar ptv-el ' + g(past('r1')) + '"><b>Recast Setup Store</b><span class="aw-count">8,000+ titles \u00b7 monitored daily</span></div>'
+              + '<div class="aw-storebar ptv-el ' + g(past('r1')) + '"><b>Recast Setup Store</b><span class="aw-count">8,500+ titles \u00b7 monitored daily</span></div>'
               + '<div class="aw-wall">' + ["chrome","acrobat","zoom","teams","edge","firefox","slack","word","excel","outlook","powerpoint","onenote","notepadpp","sevenzip","vlc","python","node","citrix","java","postman","gimp","docker","teamviewer","filezilla"].map(function (id, i) { const a = AW[id] || AW.chrome; return '<div class="awt ptv-el ' + g(past('r1')) + '" style="--ptd:' + Math.min(420, i * 17) + 'ms"><span class="awt-ico">' + appMark(a, 26) + '<span class="aw-ok ' + g(past('r2')) + '" style="--ptd:' + Math.min(700, i * 28) + 'ms">\u2713</span></span><span class="awt-nm">' + a.name + '</span></div>'; }).join('') + '</div>'
               + '<div class="ptv-console ptv-el ' + g(past('r3')) + '">Imported as managed packages \u2014 new vendor versions arrive without anyone on your side touching them</div>'
               + '<div class="pt-viz-foot pt-viz-foot-aw">The same shelf, already stocked \u2014 you spend your engineering time on the custom titles that are actually yours</div>'
@@ -16237,13 +16594,13 @@
             + '<div class="pt-viz-lane ptv-full">'
               + '<div class="ptf-band ptv-el ' + g(past('r3')) + '"><b>And you can put that shelf inside your own product</b><span>The Setup Store is reachable through the API \u2014 consumed as data, not as a console your team logs into</span></div>'
               + '<div class="oem-sec"><span class="oem-seclab">What you integrate</span><div class="oem-api">'
-                + [["GET /packages","The shelf itself &mdash; <b>8,000+ Windows and macOS titles</b> with current versions, metadata, dependencies, and platform coverage. This is what you render inside your own product."],["POST /deployments","Publish a title into a customer workspace on <b>your</b> schedule, against <b>your</b> approval rules. One call per release, per tenant."],["GET /workspaces &middot; /identities","Provision and scope tenants programmatically. A new customer inherits the whole catalog on day one &mdash; no per-tenant build."],["GET /events &middot; /licenses","Install counts, launch counts, and seat usage per customer &mdash; the numbers your billing and reporting already need."]].map(function (a, i) { return '<div class="oem-api-row ptv-el ' + aw2(i) + '" style="--ptd:' + (i % 2) * 90 + 'ms"><span class="oem-ep">' + a[0] + '</span><span class="oem-api-txt">' + a[1] + '</span></div>'; }).join('')
+                + [["GET /packages","The shelf itself &mdash; <b>8,500+ Windows and macOS titles</b> with current versions, metadata, dependencies, and platform coverage. This is what you render inside your own product."],["POST /deployments","Publish a title into a customer workspace on <b>your</b> schedule, against <b>your</b> approval rules. One call per release, per tenant."],["GET /workspaces &middot; /identities","Provision and scope tenants programmatically. A new customer inherits the whole catalog on day one &mdash; no per-tenant build."],["GET /events &middot; /licenses","Install counts, launch counts, and seat usage per customer &mdash; the numbers your billing and reporting already need."]].map(function (a, i) { return '<div class="oem-api-row ptv-el ' + aw2(i) + '" style="--ptd:' + (i % 2) * 90 + 'ms"><span class="oem-ep">' + a[0] + '</span><span class="oem-api-txt">' + a[1] + '</span></div>'; }).join('')
               + '</div></div>'
               + '<div class="oem-sec"><span class="oem-seclab">What a partner gets from it</span><div class="oem-bens">'
                 + [["tag","Your brand on the shelf","The catalog renders inside your portal, in your UI. Your customers see your product, not ours."],["layers","No packaging factory","You resell maintained content instead of manufacturing it. No packagers to hire, no build queue to run."],["trending-up","A new billable line","Application currency becomes a service SKU on contracts you already hold, priced by you."],["building-2","One integration, every customer","Multi-tenant by design. Onboarding a customer to the catalog is a call, not a project."],["refresh-cw","Currency you do not fund","Vendor releases are tracked and repackaged upstream. Your roadmap never has to pay for it."]].map(function (b, i) { return '<div class="oem-ben ptv-el ' + g(past('r3')) + '" style="--ptd:' + i * 70 + 'ms"><span class="oem-ben-ico"><i data-lucide="' + b[0] + '"></i></span><b>' + b[1] + '</b><span>' + b[2] + '</span></div>'; }).join('')
               + '</div></div>'
               + '<div class="oem-simple ptv-el ' + g(past('stat')) + '"><span class="oem-simple-lab">The OEM model, in one line</span><div class="oem-flow">'
-                + [["Recast Setup Store","8,000+ titles, kept current"],["Your API call","packages &middot; deployments &middot; events"],["Your branded catalog","Your portal, your UI, your pricing"],["Your customers","They install from you"]].map(function (f, i) { return (i ? '<div class="oem-farrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></div>' : '') + '<div class="oem-fnode"><div class="oem-fbox"><b>' + f[0] + '</b><span>' + f[1] + '</span></div></div>'; }).join('')
+                + [["Recast Setup Store","8,500+ titles, kept current"],["Your API call","packages &middot; deployments &middot; events"],["Your branded catalog","Your portal, your UI, your pricing"],["Your customers","They install from you"]].map(function (f, i) { return (i ? '<div class="oem-farrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></div>' : '') + '<div class="oem-fnode"><div class="oem-fbox"><b>' + f[0] + '</b><span>' + f[1] + '</span></div></div>'; }).join('')
               + '</div><div class="oem-simple-foot">Recast maintains the applications. <b>You own the catalog, the brand, the pricing, and the customer relationship.</b></div></div>'
             + '</div>'
           + '</div>';
@@ -16294,11 +16651,11 @@
             </div>
             <div class="pt-viz-lane" style="--pta:380ms">
               ${head(true, 'The shelf is already stocked')}
-              <div class="aw-storebar ptv-el ${g(past("r1"))}"><b>Setup Store</b><span class="aw-count">8,000+ packages \u00b7 maintained by Recast</span></div>
+              <div class="aw-storebar ptv-el ${g(past("r1"))}"><b>Setup Store</b><span class="aw-count">8,500+ packages \u00b7 maintained by Recast</span></div>
               <div class="aw-wall">${WALL.map((id,i)=>{const a=AW[id]||AW.chrome;return `<div class="awt ptv-el ${g(past("r1"))}" style="--ptd:${Math.min(420,i*17)}ms"><span class="awt-ico">${appMark(a,26)}<span class="aw-ok ${g(past("r2"))}" style="--ptd:${Math.min(700,i*28)}ms">\u2713</span></span><span class="awt-nm">${a.name}</span></div>`;}).join("")}</div>
               <div class="aw-custom ptv-el ${g(past("r3"))}">${appMark(AW.custom,22)}<span class="aw-qlab" style="text-transform:none;letter-spacing:0">In-house app</span><span class="ptv-hline ptv-hline-aw ${dr(past("r3"))}" style="--w:18px"></span><span class="ptv-gate ptv-gate-aw">standardized workflow</span><span class="ptv-endchip">deploy</span></div>
               <div class="ptv-console ptv-el ${g(past("r3"))}">One admin console \u2014 rollout and updates automated across every customer</div>
-              <div class="pt-viz-foot pt-viz-foot-aw">8,000+ commercial apps arrive already packaged \u2014 in-house apps reuse one automated workflow</div>
+              <div class="pt-viz-foot pt-viz-foot-aw">8,500+ commercial apps arrive already packaged \u2014 in-house apps reuse one automated workflow</div>
             </div>
           </div>`;
         }
@@ -17015,54 +17372,12 @@
       function buildSsQueue(){
         const queue = [];
         const push = (delay, fn) => queue.push({ delay, fn });
-
-        // ── ACT 1 ──────────────────────────────────────────────
-        push(40, () => {
-          STATE.ssAct = '1';
-          STATE.ssCounter = 0;
-          STATE.ssCaption = '';
-          STATE.ssCaptionFinal = false;
-          STATE.ssTickerIdx = -1;
-          STATE.ssFieldStep = 0;
-          STATE.ssBadgesAdobe = false;
-          STATE.ssYourCardIn = false;
-          STATE.ssAdobeShifted = false;
-          STATE.ssTickerHistory = [];
-          STATE.ssInheritStep = 0;
-          STATE.ssBadgesYour = false;
-          demoPhaseRender();
-          });
-        // Ticker resolves to closing caption (~3.0s in)
-        /* No caption beat in Act 1. The stage's own takeaway band carries the
-           message, and ANY render here would remount .ss-act1-stage and restart
-           the CSS search sequence from delay 0. Just hold while it plays:
-           6 windows x 620ms plus the takeaway reveal. */
-        push(5100, () => { ssTickerStop(); });
-
-        /* Package depth (Adobe field fill) and custom inheritance are no longer
-           played — the sequence runs Catalog → Deliver. The card stage markup
-           stays in place for the PDF pose and can be re-enabled by restoring
-           the act 2/3 pushes here. */
-
-        // ── FINAL beat ────────────────────────────────────────
-        push(760, () => {
-          STATE.ssAct = 'final';
-          STATE.ssCaption = '';
-          STATE.ssCaptionFinal = false;
-          demoPhaseRender();
-        });
-        push(1200, () => {
-          STATE.ssAct = 'done';
-          STATE.ssCaption = 'One pipeline. Commercial apps and yours. Same delivery, same quality, same speed.';
-          STATE.ssCaptionFinal = true;
-          demoPhaseRender();
-        });
-        push(800, () => {
-          STATE.ssRunning = false;
-          STATE.ssPaused = false;
-          refreshDemoControls();
-        });
-
+        const N = 4;
+        // One render per scene; CSS delays inside the scene carry the beats.
+        push(40, () => { STATE.ssAct = '1'; demoPhaseRender(); });
+        for (let k = 2; k <= N; k++) push(6400, () => { STATE.ssAct = String(k); demoPhaseRender(); });
+        push(6400, () => { STATE.ssAct = 'done'; demoPhaseRender(); });
+        push(600,  () => { STATE.ssRunning = false; STATE.ssPaused = false; refreshDemoControls(); });
         return queue;
       }
 
@@ -18166,7 +18481,7 @@
          the console, the 15-minute onboarding from the split-screen demo —
          so the document never says more than the application shows. */
       const PDF_MODULE_COPY = {
-        setupstore: '8,000+ pre-packaged commercial applications — verified sources, tested install logic, updated daily — and your custom apps inherit the same package structure.',
+        setupstore: '8,500+ pre-packaged commercial applications — verified sources, tested install logic, updated daily — and your custom apps inherit the same package structure.',
         admin: 'Packages, deployments, entitlements and contexts in one console. Changes are authored once and promoted Development, Test, Acceptance, Production.',
         onboarding: 'The Migration Utility reads your existing estate (Workspace ONE, Intune, ConfigMgr, Jamf and others), matches catalog apps to Setup Store packages, brings custom packages across as-is, and lands them in your zone without re-packaging.',
         user: 'People browse an approved catalog and click Get. The app arrives installed, configured and policy-compliant in seconds — no ticket raised.',
@@ -19443,7 +19758,7 @@
          seller can move between them without relearning the layout. */
       const VM_MSP = [
         ['The delivery work', [
-          { st: 'Packaging', now: 'Rebuilt by hand in every tenant', aw: '8,000+ applications packaged and maintained by Recast', w: 'Packaging stops scaling with client count' },
+          { st: 'Packaging', now: 'Rebuilt by hand in every tenant', aw: '8,500+ applications packaged and maintained by Recast', w: 'Packaging stops scaling with client count' },
           { st: 'Deployment', now: 'Scripts and manual pushes per environment', aw: 'Rule-based auto-deploy by OS, device and group', w: 'Fewer touches, fewer escalations' },
           { st: 'New-hire setup', now: '4&ndash;11 hours per device', aw: 'About 15 minutes per device', w: 'An SLA you can actually quote' },
         ]],
@@ -19460,7 +19775,7 @@
 
       const VM_SI = [
         ['Winning the work', [
-          { st: 'Discovery', now: 'Real inventory surfaces after the date is public', aw: 'Discovery against a maintained 8,000+ app catalog', w: 'Estimates that survive the estate' },
+          { st: 'Discovery', now: 'Real inventory surfaces after the date is public', aw: 'Discovery against a maintained 8,500+ app catalog', w: 'Estimates that survive the estate' },
           { st: 'Competitive bids', now: 'Compared on rate cards and headcount', aw: 'A named platform plus an operating model', w: 'An answer a rate card cannot give' },
         ]],
         ['Delivering the program', [
@@ -20293,7 +20608,7 @@
             body2: 'This is elapsed time, not touch time. The wait disappears because nobody has to schedule the install.',
             source: 'Self-service delivery with approval workflow' },
           { id: 'bi-oc4', icon: 'store', seq: '04', oc: true,
-            from: 'By hand', to: '8,000+', unit: 'titles',
+            from: 'By hand', to: '8,500+', unit: 'titles',
             claim: 'You never package a commercial app again',
             note: 'Sourced, packaged, tested and patched by Recast.',
             title: 'Setup Store',
@@ -20833,7 +21148,10 @@
                and the module sat on its idle placeholder. A timeout always
                fires. */
             setTimeout(() => {
-              if (view === 'setupstore' && !STATE.ssRunning) startSs();
+              /* 'setupstore' does NOT auto-start when opened from a pill — it holds
+                 on step 1 until Play or a journey step is clicked. The lifecycle
+                 tour (next-demo-module) still auto-plays. */
+              if (view === 'setupstore' && action === 'next-demo-module' && !STATE.ssRunning) startSs();
               else if (view === 'admin' && !STATE.flowRunning) startFlow();
               else if (view === 'update' && !STATE.updRunning) startUpd();
               else if (view === 'onboarding' && !STATE.obRunning) startOb();
@@ -20976,6 +21294,23 @@
           if (action === 'start-ss') { startSs(); return; }
           if (action === 'step-ss') { stepSs(); return; }
           if (action === 'reset-ss') { resetSs(); return; }
+          if (action === 'ss-chapter') {
+            // Jump to a scene and keep playing from there. Queue steps map 1:1
+            // to scenes: idx 0 → '1', 1 → '2', 2 → '3', 3 → 'done'.
+            const n = parseInt(act.getAttribute('data-scene'), 10) || 0;
+            STATE.ssTimers.forEach(id => clearTimeout(id)); STATE.ssTimers = [];
+            STATE.ssQueue = buildSsQueue();
+            STATE.ssQueueIdx = n <= 0 ? 0 : Math.min(STATE.ssQueue.length - 2, n - 1);
+            STATE.ssRunning = true; STATE.ssPaused = false;
+            const step = STATE.ssQueue[STATE.ssQueueIdx];
+            step.fn(); STATE.ssQueueIdx++;
+            // Clicking a journey step plays that step and holds there; the top
+            // Play button is what continues the journey.
+            STATE.ssPaused = true;
+            _setDemoFrozen(false);
+            refreshDemoControls();
+            return;
+          }
           if (action === 'ss-mode') {
             const newMode = act.getAttribute('data-mode') || 'curated';
             if (STATE.ssMode === newMode) return;
