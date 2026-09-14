@@ -6361,6 +6361,9 @@
       .demo-modal-btn-next:hover { background: #0000A8; border-color: #0000A8; }
       .demo-modal-btn-next i { width: 12px; height: 12px; }
       .demo-modal-btn i, .demo-modal-btn svg { width: 12px; height: 12px; }
+      .demo-modal-pace { width: auto; padding: 0 9px 0 7px; gap: 5px; font-size: 10.5px; font-weight: 800; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; color: #0000CC; }
+      .demo-modal-pace:hover { background: #F6F8FF; border-color: #0000CC; }
+      .demo-modal-pace i, .demo-modal-pace svg { width: 12px; height: 12px; }
       .demo-modal-btn-close { color: #6A6A7A; }
       .demo-modal-btn-close i { width: 16px; height: 16px; }
       .demo-modal-body {
@@ -10714,6 +10717,65 @@
 
       STATE.recastMode = false;
       STATE.flowTimers = { intervals: [], timeouts: [] };
+
+      /* ── Presenter pace ─────────────────────────────────────────────────
+         One multiplier drives every demo timeline: the JS beat holds, the
+         RAF tweens, the typing cadence, and (via the Web Animations API)
+         every CSS animation/transition inside the demo stage. Relative
+         choreography is untouched — the whole piece just plays at rate x.
+         Ambient loops (infinite iterations) keep their natural tempo. The
+         first hold of every timeline is also capped so a click answers
+         within ~a quarter second. Persisted; ?pace=1.4 overrides. */
+      const DEMO_PACES = [
+        { rate: 1,    label: '1\u00d7',   name: 'Keynote pace' },
+        { rate: 1.4,  label: '1.4\u00d7', name: 'Live-call pace' },
+        { rate: 1.8,  label: '1.8\u00d7', name: 'Brisk pace' },
+      ];
+      (function initPace(){
+        const q = parseFloat(new URLSearchParams(location.search).get('pace'));
+        let saved = NaN; try { saved = parseFloat(localStorage.getItem('rsDemoPace')); } catch {}
+        const r = q > 0 ? q : (saved > 0 ? saved : 1.4);
+        STATE.demoRate = DEMO_PACES.some(p => p.rate === r) ? r : 1.4;
+      })();
+      const DEMO_LEAD_CAP = 260;
+      function tempoMs(ms, lead){
+        const r = STATE.demoRate || 1;
+        const v = lead ? Math.min(ms, DEMO_LEAD_CAP) : ms;
+        return Math.round(v / r);
+      }
+      function currentPace(){ return DEMO_PACES.find(p => p.rate === STATE.demoRate) || DEMO_PACES[1]; }
+      function cyclePace(){
+        const i = DEMO_PACES.findIndex(p => p.rate === STATE.demoRate);
+        STATE.demoRate = DEMO_PACES[(i + 1) % DEMO_PACES.length].rate;
+        try { localStorage.setItem('rsDemoPace', String(STATE.demoRate)); } catch {}
+        applyPaceToAnimations();
+      }
+      let _paceRaf = 0;
+      function applyPaceToAnimations(){
+        if (_paceRaf) return;
+        _paceRaf = requestAnimationFrame(() => {
+          _paceRaf = 0;
+          const stage = document.getElementById('demo-stage');
+          if (!stage || !document.getAnimations) return;
+          const r = STATE.demoRate || 1;
+          for (const a of document.getAnimations()) {
+            const t = a.effect && a.effect.target;
+            if (!t || !stage.contains(t)) continue;
+            const tm = a.effect.getTiming();
+            if (tm.iterations === Infinity) continue;
+            if (a.playbackRate !== r) a.playbackRate = r;
+          }
+        });
+      }
+      /* The stage is rebuilt by innerHTML and phases flip classes/attributes;
+         both surface as mutations, and getAnimations() flushes style so
+         freshly declared CSS animations are already there to be re-rated. */
+      window.addEventListener('DOMContentLoaded', () => {
+        const root = document.getElementById('app') || document.body;
+        new MutationObserver(applyPaceToAnimations).observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style', 'data-ai-phase', 'data-phase'] });
+        document.addEventListener('animationstart', applyPaceToAnimations, true);
+        document.addEventListener('transitionstart', applyPaceToAnimations, true);
+      });
       STATE.editChartBuffer = null;
       STATE.highlightDriverId = null;
 
@@ -11538,7 +11600,7 @@
           step.fn();
           STATE.flowQueueIdx++;
           runFlowQueue();
-        }, step.delay);
+        }, tempoMs(step.delay, STATE.flowQueueIdx === 0));
         STATE.flowTimers.timeouts.push(tid);
       }
 
@@ -13554,9 +13616,10 @@
         // Acme Corp. demo — ten scenes, one flow phase each:
         // 1 intro · 2 Maya on Windows · 3 opens Power BI · 4 Windows 365 · 5 Mac
         // 6 evergreen · 7 switch to Alex · 8 Alex requests · 9 Teams · 10 final
-        const SCENE_OF = { idle:0, bare:1, boot:2, launch:3, catalog:4, approach:4, clicking:5, checking:6, routing:7, config:8, done:9, final:9 };
+        // The story closes on the Teams/portal pair (scene 8); 'done'/'final' hold there.
+        const SCENE_OF = { idle:0, bare:1, boot:2, launch:3, catalog:4, approach:4, clicking:5, checking:6, routing:7, config:8, done:8, final:8 };
         const scene = SCENE_OF[ph] !== undefined ? SCENE_OF[ph] : 0;
-        const ended = scene === 9;
+        const ended = ph === 'done' || ph === 'final';
 
         const APPS = {
           excel:      { n:'Excel',      s:'microsoft-excel-2019' },
@@ -13598,10 +13661,9 @@
           ['Same laptop, different person', 'Alex signs in to Maya\u2019s device. The tiles wipe to his set.'],
           ['Alex requests an application', 'Employees can request the applications they need.'],
           ['Embedded or portal', 'The same workspace inside Teams or SharePoint, or on its own.'],
-          ['Acme Corp.', 'A consistent application experience wherever work happens.'],
         ];
-        const CHAPTER_PH = ['bare','boot','launch','catalog','clicking','checking','routing','config','done'];
-        const chap = ({ 0:0, 1:0, 2:1, 3:2, 4:3, 5:4, 6:5, 7:6, 8:7, 9:8 })[scene];
+        const CHAPTER_PH = ['bare','boot','launch','catalog','clicking','checking','routing','config'];
+        const chap = ({ 0:0, 1:0, 2:1, 3:2, 4:3, 5:4, 6:5, 7:6, 8:7 })[scene];
 
         // ── Acme Corp. identity ──
         const LOGO = `<svg class="ac-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 1.8 21.5h4.6l5.6-10.9 5.6 10.9h4.6z" fill="currentColor"/><path d="M8.6 21.5h6.8L12 15z" fill="currentColor" opacity=".45"/></svg>`;
@@ -16867,7 +16929,7 @@
           step.fn();
           STATE.ptQueueIdx++;
           runPtQueue();
-        }, step.delay);
+        }, tempoMs(step.delay, STATE.ptQueueIdx === 0));
         STATE.ptTimers.push(tid);
       }
       function startPt(tour){
@@ -17042,7 +17104,7 @@
           step.fn();
           STATE.obQueueIdx++;
           runObQueue();
-        }, step.delay);
+        }, tempoMs(step.delay, STATE.obQueueIdx === 0));
         STATE.flowTimers.timeouts.push(tid);
       }
 
@@ -17104,7 +17166,7 @@
           step.fn();
           STATE.drQueueIdx++;
           runDrQueue();
-        }, step.delay);
+        }, tempoMs(step.delay, STATE.drQueueIdx === 0));
         STATE.flowTimers.timeouts.push(tid);
       }
 
@@ -17169,7 +17231,7 @@
           step.fn();
           STATE.updQueueIdx++;
           runUpdQueue();
-        }, step.delay);
+        }, tempoMs(step.delay, STATE.updQueueIdx === 0));
         STATE.flowTimers.timeouts.push(tid);
       }
 
@@ -17259,7 +17321,7 @@
           i = Math.min(full.length, i + (Math.random() < 0.28 ? 2 : 1));
           typed.textContent = full.slice(0, i);
           if (i < full.length) {
-            const t = setTimeout(tick, 16 + Math.random() * 24);
+            const t = setTimeout(tick, tempoMs(16 + Math.random() * 24));
             STATE.flowTimers.timeouts.push(t);
           } else {
             const caret = span.querySelector('.ai-caret'); if (caret) caret.remove();
@@ -17277,7 +17339,7 @@
           step.fn();
           STATE.aiQueueIdx++;
           runAiQueue();
-        }, step.delay);
+        }, tempoMs(step.delay, STATE.aiQueueIdx === 0));
         STATE.flowTimers.timeouts.push(tid);
       }
 
@@ -17342,7 +17404,7 @@
           step.fn();
           STATE.mtQueueIdx++;
           runMtQueue();
-        }, step.delay);
+        }, tempoMs(step.delay, STATE.mtQueueIdx === 0));
         STATE.flowTimers.timeouts.push(tid);
       }
 
@@ -17412,7 +17474,7 @@
             STATE.ssCounterRaf = requestAnimationFrame(tick);
             return;
           }
-          const t = Math.min(1, (now - t0) / durationMs);
+          const t = Math.min(1, (now - t0) / tempoMs(durationMs));
           STATE.ssCounter = Math.round(from + (to - from) * ease(t));
           // Update only the counter text node (avoid full re-render every frame)
           const el = document.querySelector('.ss-counter-big');
@@ -17452,7 +17514,7 @@
             if (window.lucide) lucide.createIcons({ nameAttr: 'data-lucide', attrs: { class: 'lucide' } });
           }
           i++;
-          STATE._ssTickerTimer = setTimeout(tick, 700);
+          STATE._ssTickerTimer = setTimeout(tick, tempoMs(700));
         };
         tick();
       }
@@ -17523,7 +17585,7 @@
           step.fn();
           STATE.ssQueueIdx++;
           runSsQueue();
-        }, step.delay);
+        }, tempoMs(step.delay, STATE.ssQueueIdx === 0));
         STATE.ssTimers.push(tid);
       }
 
@@ -17753,6 +17815,7 @@
                         <button type="button" class="demo-modal-btn" data-action="step-flow" title="Step" aria-label="Step"><i data-lucide="chevrons-right"></i></button>
                         <button type="button" class="demo-modal-btn" data-action="reset-flow" title="Reset" aria-label="Reset"><i data-lucide="rotate-ccw"></i></button>`;
                       })()}
+                      ${(() => { const p = currentPace(); return `<button type="button" class="demo-modal-btn demo-modal-pace" data-action="demo-pace" title="${p.name} \u2014 click to change" aria-label="Playback pace: ${p.name}"><i data-lucide="gauge"></i><span>${p.label}</span></button>`; })()}
                       ${nextMod ? `
                         <button type="button" class="demo-modal-btn demo-modal-btn-next" data-action="next-demo-module" data-view="${nextMod.view}" title="Next: ${nextMod.name}" aria-label="Next: ${nextMod.name}">
                           <i data-lucide="arrow-right"></i>
@@ -21522,6 +21585,14 @@
             return;
           }
           if (action === 'select-device') { STATE.flowDevice = act.getAttribute('data-device'); startFlow(); return; }
+          if (action === 'demo-pace') {
+            cyclePace();
+            const btn = act.closest('.demo-modal-pace') || act;
+            const p = currentPace();
+            const lab = btn.querySelector('span'); if (lab) lab.textContent = p.label;
+            btn.title = p.name + ' \u2014 click to change'; btn.setAttribute('aria-label', 'Playback pace: ' + p.name);
+            return;
+          }
           if (action === 'toggle-flow' || action === 'step-flow' || action === 'reset-flow') {
             // Fan out to every selected view's animation. Admin Console + User Experience
             // share the same per-click flow, so we coalesce them.
@@ -21664,7 +21735,7 @@
             function runApQueue(){
               if (qIdx >= apQueue.length) return;
               const step = apQueue[qIdx];
-              const tid = setTimeout(() => { step.fn(); qIdx++; runApQueue(); }, step.delay);
+              const tid = setTimeout(() => { step.fn(); qIdx++; runApQueue(); }, tempoMs(step.delay, qIdx === 0));
               STATE.flowTimers.timeouts.push(tid);
             }
             runApQueue();
