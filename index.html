@@ -15198,8 +15198,8 @@
                       <i data-lucide="layout-grid" class="w-3 h-3"></i> Shared App Catalogs
                     </div>
                     <div class="flex flex-wrap gap-1.5">
-                      ${MT_SHARED_APPS.map(a => `<div class="mt-app-pill" style="background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.2);color:white"><i data-lucide="${a.icon}" class="w-3 h-3"></i> ${a.label}</div>`).join('')}
-                      ${MT_CUSTOM_APPS.map(a => `<div class="mt-app-pill" style="background:rgba(0, 0, 204,0.3);border-color:rgba(0, 0, 204,0.5);color:#AABBEE"><i data-lucide="package" class="w-3 h-3"></i> ${a.label}</div>`).join('')}
+                      ${MT_SHARED_APPS.map(a => `<div class="mt-app-pill" style="background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.2);color:white"><i data-lucide="${a.icon}" class="w-3 h-3"></i> ${a.label} <em style="font-style:normal;opacity:.75;font-weight:500">\u2013 Standard Package</em></div>`).join('')}
+                      ${MT_CUSTOM_APPS.map(a => `<div class="mt-app-pill" style="background:rgba(0, 0, 204,0.3);border-color:rgba(0, 0, 204,0.5);color:#AABBEE"><i data-lucide="package" class="w-3 h-3"></i> ${a.label} <em style="font-style:normal;opacity:.75;font-weight:500">\u2013 Custom Package</em></div>`).join('')}
                     </div>
                   </div>
                   <!-- Zone Governance -->
@@ -15218,8 +15218,9 @@
 
               <!-- CUSTOM APP CATALOG label -->
               ${past('catalog') ? `
-                <div class="text-center my-1">
+                <div class="flex items-center justify-center gap-3 my-1 flex-wrap">
                   <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full border border-slate-300 bg-white text-[10px] font-semibold text-[#1A1A2E]"><i data-lucide="package" class="w-3 h-3"></i> Custom App Catalog</span>
+                  <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-semibold text-white" style="background:#0000CC"><i data-lucide="check-check" class="w-3 h-3"></i> Standardize both vendor and in-house apps</span>
                 </div>
               ` : ''}
 
@@ -15242,18 +15243,19 @@
                     <div class="mt-zone mt-secondary ${past('customers') ? 'mt-visible' : 'mt-hidden'}" style="transition-delay:${i * 0.15}s">
                       <div class="flex items-center justify-between mb-1.5">
                         <div>
+                          <div class="text-[8px] font-semibold text-slate-500 uppercase tracking-wide">Secondary Zone</div>
                           <div class="text-[11px] font-bold text-[#1A1A2E]">${c.name}</div>
                         </div>
                         <i data-lucide="lock" class="w-3 h-3 text-slate-400"></i>
                       </div>
                       <div class="text-[9px] font-semibold text-slate-500 uppercase tracking-wide mb-1">Apps</div>
                       <div class="space-y-1 mb-2">
-                        <div class="mt-app-pill mt-custom text-[9px]"><i data-lucide="package" class="w-2.5 h-2.5"></i> ${c.custom} <span class="px-1 py-0 rounded text-[7px] font-bold bg-[#0000CC] text-white">${c.customNote}</span></div>
-                        ${MT_SHARED_APPS.map(a => `<div class="mt-app-pill text-[9px]"><i data-lucide="${a.icon}" class="w-2.5 h-2.5"></i> ${a.label}</div>`).join('')}
+                        <div class="mt-app-pill mt-custom text-[9px]" style="flex-wrap:wrap;row-gap:3px"><i data-lucide="package" class="w-2.5 h-2.5"></i> ${c.custom} (${c.customNote})<span style="display:inline-flex;gap:3px;margin-left:auto"><span class="px-1.5 py-0 rounded-full text-[7px] font-bold bg-[#0000CC] text-white">Custom</span><span class="px-1.5 py-0 rounded-full text-[7px] font-bold text-white" style="background:#00BFFF;color:#1A1A2E">Unique App ID</span></span></div>
+                        ${MT_SHARED_APPS.map(a => `<div class="mt-app-pill text-[9px]"><i data-lucide="${a.icon}" class="w-2.5 h-2.5"></i> ${a.label} <em style="font-style:normal;color:#4A4A5A;font-weight:500">\u2013 Standard Package</em></div>`).join('')}
                       </div>
                       <div class="text-[9px] font-semibold text-slate-500 uppercase tracking-wide mb-1">Controls</div>
                       <div class="flex flex-wrap gap-1">
-                        ${MT_CONTROLS.map(ctrl => `<div class="mt-control ${past('controls') ? 'mt-lit' : ''}">${ctrl}</div>`).join('')}
+                        ${MT_CONTROLS.map((ctrl, k) => `<div class="mt-control ${past('controls') ? 'mt-lit' : ''}" style="display:inline-flex;align-items:center;gap:3px"><i data-lucide="${['users','crosshair','bar-chart-3','shield-check'][k]}" class="w-2.5 h-2.5"></i>${ctrl}</div>`).join('')}
                       </div>
                     </div>
                   `).join('')}
@@ -15266,6 +15268,7 @@
                   <div class="mt-callout mt-show text-[#0000CC] flex items-center gap-1.5"><i data-lucide="repeat" class="w-3.5 h-3.5"></i> Publish once. Reuse everywhere.</div>
                   <div class="mt-callout mt-show text-emerald-600 flex items-center gap-1.5"><i data-lucide="lock" class="w-3.5 h-3.5"></i> Each zone keeps its own scope, reporting, and control.</div>
                 </div>
+                <div class="mt-callout mt-show text-center text-[11px] font-semibold mt-3" style="color:#0000CC;text-wrap:pretty">Application Workspace supports native multi-tenancy so teams can share standards while keeping environments isolated.</div>
               ` : ''}
 
             `}
