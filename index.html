@@ -1128,6 +1128,165 @@
       .mt-control.mt-lit { border-color: #0F7A3F; background: #EAF5EE; color: #005C7D; }
       .mt-callout { opacity: 0; transform: translateY(4px); transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1); font-size: 10px; font-weight: 600; }
       .mt-callout.mt-show { opacity: 1; transform: translateY(0); }
+      /* MSP mode of the multi-tenant view — one stage, one scene at a time */
+      .mspx-stage { position: relative; border-radius: 12px; background: #F6F8FF; border: 1px solid #DDE0F7; padding: 14px 14px 52px; min-height: 440px; overflow: hidden; }
+      .mspx-stage img { image-rendering: auto; }
+      .mspx-diagram { display: flex; flex-direction: column; }
+      .mspx-fade { animation: usSceneIn 320ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+      .mspx-cust, .mspx-parent, .mspx-app, .mspx-pill { transition: border-color 240ms cubic-bezier(0.2,0.8,0.2,1), box-shadow 240ms cubic-bezier(0.2,0.8,0.2,1), background-color 240ms cubic-bezier(0.2,0.8,0.2,1); }
+      @media (prefers-reduced-motion: reduce) { .mspx-stage *, .mspx-stage *::before, .mspx-stage *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; } }
+      .mspx-today-apps { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 6px 8px; border-radius: 6px; background: #FAFAFE; border: 1px solid #DDDDEE; }
+      .mspx-today-apps .mspx-logos { margin-left: 0; gap: 6px; }
+      @media (max-width: 1100px) { .mspx-today-apps em { display: none; } }
+      .mspx-today-apps em { font-style: normal; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; margin-left: auto; font-size: 8.5px; font-weight: 700; color: #8A8A9A; text-transform: uppercase; letter-spacing: 0.06em; }
+      .mspx-prow u { text-decoration: none; margin-left: auto; font-size: 7.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #CC2222; opacity: 0.7; }
+      .mspx-stage.is-value .mspx-diagram { opacity: 0.08; filter: blur(1px); transition: all 0.6s; }
+      @keyframes mspxEnter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+      .mspx-enter { opacity: 0; animation: mspxEnter 0.5s cubic-bezier(0.22,1,0.36,1) forwards; animation-delay: var(--d, 0ms); }
+      @keyframes mspxDrop { from { opacity: 0; transform: translateY(-16px) scale(0.96); } to { opacity: 1; transform: none; } }
+      .mspx-drop { opacity: 0; animation: mspxDrop 0.6s cubic-bezier(0.22,1,0.36,1) forwards; animation-delay: var(--d, 200ms); }
+      @keyframes mspxSlide { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: none; } }
+      .mspx-slide { opacity: 0; animation: mspxSlide 0.6s cubic-bezier(0.22,1,0.36,1) 300ms forwards; }
+      @keyframes mspxRise { 0% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-140px) scale(0.85); } }
+      .mspx-rise { animation: mspxRise 0.9s cubic-bezier(0.4,0,0.2,1) 100ms forwards; pointer-events: none; }
+      .mspx-top { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; min-height: 28px; }
+      .mspx-top .mspx-hint { margin-right: auto; }
+      .mspx-hint { display: inline-flex; white-space: nowrap; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: #fff; border: 1px solid #DDDDEE; font-size: 10.5px; color: #4A4A5A; }
+      .mspx-hint b { color: #0000CC; }
+      .mspx-count { display: inline-flex; white-space: nowrap; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: #fff; border: 1px solid; font-size: 10px; font-weight: 600; }
+      .mspx-count b { font-family: ui-monospace, monospace; font-size: 13px; font-weight: 800; letter-spacing: -0.02em; }
+      .mspx-count i { width: 1px; height: 12px; background: currentColor; opacity: 0.3; }
+      .mspx-count em { font-style: normal; color: #6A6A7A; font-weight: 500; }
+      .mspx-count.is-red { border-color: #F0AAAA; color: #A81C1C; }
+      .mspx-count.is-blue { border-color: #AABBEE; color: #0000CC; }
+      /* Parent zone */
+      .mspx-parent { background: #0000CC; color: #fff; border-radius: 10px; padding: 10px 12px; }
+      .mspx-parent-h { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+      .mspx-parent-h b { font-size: 12px; font-weight: 800; letter-spacing: -0.01em; }
+      .mspx-parent-h span { font-size: 9.5px; color: #AABBEE; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .mspx-parent-h b { white-space: nowrap; }
+      .mspx-lockchip { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 999px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.3); color: #fff !important; font-size: 8.5px !important; font-weight: 700; }
+      .mspx-parent-b { display: grid; grid-template-columns: 210px 1fr 1.15fr; gap: 12px; align-items: start; }
+      @media (max-width: 1000px) { .mspx-parent-b { grid-template-columns: 1fr 1fr; } .mspx-lap { grid-column: 1 / -1; max-width: 260px; } }
+      .mspx-sub { font-size: 8.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #AABBEE; margin-bottom: 5px; }
+      .mspx-sub em { font-style: normal; font-weight: 600; letter-spacing: 0; text-transform: none; color: #0F7A3F; }
+      .mspx-cust .mspx-sub { color: #8A8A9A; margin-top: 7px; }
+      .mspx-lap-scr { background: #1A1A2E; border-radius: 7px 7px 3px 3px; padding: 5px; box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
+      .mspx-lap-bar { display: flex; align-items: center; gap: 4px; padding: 4px 6px; background: #F0F0F6; border-radius: 3px 3px 0 0; font-size: 7.5px; font-weight: 700; color: #1A1A2E; }
+      .mspx-lap-bar em { font-style: normal; margin-left: auto; color: #6A6A7A; font-weight: 600; }
+      .mspx-lap-bar i, .mspx-lap-bar svg { width: 8px; height: 8px; color: #0000CC; }
+      .mspx-lrow { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 5px; padding: 3px 6px; background: #fff; border-top: 1px solid #F0F0F6; color: #1A1A2E; }
+      .mspx-lrow.is-rel { background: #F6F8FF; }
+      .mspx-lrow:last-child { border-radius: 0 0 3px 3px; }
+      .mspx-lrow b { display: block; font-size: 7.5px; font-weight: 600; line-height: 1.1; }
+      .mspx-lrow em { display: block; font-style: normal; font-size: 6px; color: #8A8A9A; line-height: 1.1; }
+      .mspx-lrow u { text-decoration: none; font-family: ui-monospace, monospace; font-size: 6.5px; color: #6A6A7A; }
+      .mspx-ok { display: inline-flex; align-items: center; gap: 2px; padding: 1px 4px; border-radius: 3px; font-size: 6.5px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; background: #F0F0F6; color: #8A8A9A; transition: all 0.4s; transition-delay: var(--d, 0ms); }
+      .mspx-ok i, .mspx-ok svg { width: 7px; height: 7px; }
+      .mspx-ok.is-on { background: #EAF5EE; color: #0F7A3F; }
+      .mspx-ok.is-rel.is-on { background: #0000CC; color: #fff; }
+      .mspx-lap-base { height: 6px; background: #C3C3D2; border-radius: 0 0 6px 6px; margin: 0 -6px; }
+      .mspx-lap-cap { display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 5px; font-size: 8.5px; font-weight: 600; color: #AABBEE; }
+      .mspx-lap-cap i, .mspx-lap-cap svg { width: 9px; height: 9px; }
+      .mspx-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+      @media (max-width: 1250px) { .mspx-tiles { grid-template-columns: 1fr; } }
+      .mspx-tile { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 6px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22); min-width: 0; }
+      .mspx-tile span { min-width: 0; }
+      .mspx-tile b { display: block; font-size: 9.5px; font-weight: 600; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .mspx-tile em { display: block; font-style: normal; font-size: 7.5px; color: #AABBEE; line-height: 1.15; }
+      .mspx-rel { display: flex; align-items: center; gap: 6px; padding: 5px 8px; border-radius: 6px; background: #fff; color: #1A1A2E; margin-bottom: 6px; }
+      .mspx-rel > span { min-width: 0; flex: 1; }
+      .mspx-rel b { display: block; font-size: 9px; font-weight: 700; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .mspx-rel em { display: block; font-style: normal; font-size: 7.5px; color: #6A6A7A; line-height: 1.15; }
+      .mspx-rel.is-wait { background: rgba(255,255,255,0.08); border: 1px dashed rgba(255,255,255,0.35); color: #AABBEE; }
+      .mspx-rel.is-wait b { font-weight: 600; }
+      .mspx-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 3px; }
+      .mspx-flow.is-col { flex-direction: column; align-items: stretch; gap: 4px; min-width: 0; }
+      .mspx-flow.is-col .mspx-fstep { white-space: normal; text-align: left; align-items: flex-start; }
+      .mspx-flow em { width: 8px; height: 1px; background: rgba(255,255,255,0.4); }
+      .mspx-fstep { display: inline-flex; white-space: nowrap; align-items: center; gap: 4px; padding: 2px 7px 2px 4px; border-radius: 999px; font-size: 8.5px; font-weight: 700; border: 1px solid rgba(255,255,255,0.3); color: #AABBEE; background: rgba(255,255,255,0.08); opacity: 0.55; transition: all 0.4s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--d, 0ms); }
+      .mspx-fstep i, .mspx-fstep svg { width: 9px; height: 9px; }
+      .mspx-fstep.is-on { opacity: 1; background: #fff; border-color: #fff; color: #0000CC; }
+      .mspx-cust .mspx-fstep { border-color: #DDDDEE; color: #8A8A9A; background: #FAFAFE; }
+      .mspx-cust .mspx-fstep.is-on { background: #F6F8FF; border-color: #0000CC; color: #0000CC; }
+      .mspx-eps { display: flex; flex-wrap: wrap; gap: 3px; }
+      .mspx-ep { width: 12px; height: 9px; border-radius: 2px; border: 1px solid #C3C3D2; background: #FAFAFE; position: relative; transition: all 0.3s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--d, 0ms); }
+      .mspx-ep::after { content: ''; position: absolute; left: 2px; right: 2px; bottom: -3px; height: 1.5px; border-radius: 1px; background: #C3C3D2; }
+      .mspx-ep.is-cyan { border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.15); }
+      .mspx-ep.is-cyan::after { background: rgba(255,255,255,0.45); }
+      .mspx-ep.is-cyan.is-on { border-color: #00BFFF; background: #00BFFF; }
+      .mspx-ep.is-green.is-on { border-color: #0F7A3F; background: #0F7A3F; }
+      .mspx-ep.is-amber.is-on { border-color: #CC8800; background: #CC8800; }
+      /* Connectors */
+      .mspx-conns { display: grid; gap: 10px; height: 44px; }
+      .mspx-conn { display: flex; flex-direction: column; align-items: center; }
+      .mspx-conn-line { position: relative; width: 2px; height: 26px; background: #C3C3D2; border-radius: 2px; overflow: visible; transition: background 0.4s; }
+      .mspx-conn.is-live .mspx-conn-line { background: #0000CC; }
+      .mspx-conn.mspx-draw .mspx-conn-line { transform-origin: top; animation: mspxDraw 0.5s cubic-bezier(0.22,1,0.36,1) forwards; animation-delay: var(--d, 0ms); transform: scaleY(0); }
+      @keyframes mspxDraw { to { transform: scaleY(1); } }
+      .mspx-pulse { position: absolute; left: -3px; top: -4px; width: 8px; height: 8px; border-radius: 50%; background: #00BFFF; box-shadow: 0 0 0 3px rgba(0,191,255,0.25); opacity: 0; animation: mspxPulse 0.9s cubic-bezier(0.4,0,0.6,1) infinite; animation-delay: calc(var(--d, 0ms) + 500ms); }
+      @keyframes mspxPulse { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { transform: translateY(26px); opacity: 0; } }
+      .mspx-conn-l { margin-top: 2px; display: inline-flex; align-items: center; gap: 3px; font-size: 8px; font-weight: 700; color: #8A8A9A; }
+      .mspx-conn.is-live .mspx-conn-l { color: #0000CC; }
+      /* Customers */
+      .mspx-custs { display: grid; gap: 12px; margin-top: 4px; }
+      .mspx-cust { background: #fff; border: 1.5px solid #0000CC; border-radius: 10px; padding: 10px 12px; min-width: 0; overflow: hidden; box-shadow: 0 1px 2px rgba(26,26,46,0.06); }
+      .mspx-cust .mspx-sub { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+      .mspx-cust .mspx-sub .mspx-stamp { margin-left: auto; }
+      .mspx-cust.is-today { border-color: #DDDDEE; }
+      .mspx-cust-h { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
+      .mspx-cust-h > * { min-width: 0; }
+      .mspx-cust-h b { font-size: 11px; font-weight: 800; color: #1A1A2E; letter-spacing: -0.01em; line-height: 1.2; text-wrap: balance; }
+      .mspx-cust-who, .mspx-cust-zone { display: inline-flex; align-items: center; gap: 3px; font-size: 8px; font-weight: 600; color: #8A8A9A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .mspx-pipe { display: grid; gap: 4px; margin-top: 6px; }
+      .mspx-prow { display: flex; align-items: center; gap: 6px; padding: 4px 7px; border-radius: 6px; border: 1px solid #F0AAAA; background: #FDF0F0; }
+      .mspx-prow i { font-style: normal; width: 13px; height: 13px; border-radius: 50%; background: #CC2222; color: #fff; font-size: 7.5px; font-weight: 800; display: inline-grid; place-items: center; flex: 0 0 auto; }
+      .mspx-prow b { font-size: 9.5px; font-weight: 700; color: #A81C1C; flex: 0 0 52px; }
+      .mspx-logos { display: inline-flex; gap: 3px; margin-left: auto; }
+      .mspx-await { display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 8px; padding: 12px 8px; border-radius: 6px; border: 1px dashed #C3C3D2; color: #8A8A9A; font-size: 9px; font-weight: 600; }
+      .mspx-apps { display: grid; grid-template-columns: 1fr; gap: 4px; }
+      .mspx-app { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; padding: 5px 7px; border-radius: 6px; border: 1px solid #DDDDEE; background: #fff; min-width: 0; transition: border-color 0.4s; }
+      .mspx-app > span:not(.mspx-stamp) { min-width: 0; flex: 1 1 90px; }
+      .mspx-app .mspx-stamp { margin-left: auto; }
+      .mspx-app b { display: block; font-size: 9.5px; font-weight: 600; color: #1A1A2E; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .mspx-app em { display: block; font-style: normal; font-family: ui-monospace, monospace; font-size: 7.5px; color: #8A8A9A; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .mspx-app.is-ok { border-color: #0F7A3F; }
+      .mspx-app.is-bad { border-color: #CC8800; background: #FFF8E8; }
+      .mspx-stamp { display: inline-flex; align-items: center; gap: 2px; padding: 1px 5px; border-radius: 3px; font-size: 7px; font-weight: 800; background: #EAF5EE; color: #0F7A3F; flex: 0 0 auto; white-space: nowrap; }
+      .mspx-stamp i, .mspx-stamp svg { width: 7px; height: 7px; }
+      .mspx-stamp.is-bad { background: #FFF1D6; color: #8A5A00; }
+      .mspx-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+      .mspx-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 5px; font-size: 8.5px; font-weight: 600; border: 1px solid #DDDDEE; background: #FAFAFE; color: #4A4A5A; }
+      .mspx-pill i, .mspx-pill svg { width: 9px; height: 9px; }
+      .mspx-pill.is-ctl { border-color: #0F7A3F; background: #EAF5EE; color: #005C7D; }
+      .mspx-ems { display: inline-grid; place-items: center; width: 14px; height: 14px; border-radius: 3px; color: #fff; flex: 0 0 auto; }
+      .mspx-ems i, .mspx-ems svg { width: 9px; height: 9px; stroke-width: 2.5; }
+      .mspx-ems.is-intune { background: #5B53D6; }
+      .mspx-ems.is-cm { background: #E84D1A; }
+      .mspx-pill.is-local { border-color: #0000CC; background: #F6F8FF; color: #0000CC; }
+      .mspx-pill u { text-decoration: none; font-size: 7px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; padding: 0 3px; border-radius: 3px; background: #0000CC; color: #fff; }
+      .mspx-behind { margin-top: 12px; padding: 10px 14px; border-radius: 8px; background: #fff; border: 1px solid #DDDDEE; }
+      .mspx-behind-t { display: flex; align-items: center; gap: 6px; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #8A8A9A; margin-bottom: 6px; }
+      .mspx-behind-t i, .mspx-behind-t svg { color: #0000CC; }
+      .mspx-behind-l { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; margin: 0; padding: 0; list-style: none; }
+      @media (max-width: 900px) { .mspx-behind-l { grid-template-columns: 1fr; } }
+      .mspx-behind-l li { position: relative; padding-left: 12px; font-size: 10px; line-height: 1.45; color: #4A4A5A; text-wrap: pretty; }
+      .mspx-behind-l li::before { content: '▸'; position: absolute; left: 0; top: 0; color: #CC2222; font-size: 9px; }
+      .mspx-behind-l b { color: #1A1A2E; font-weight: 700; }
+      /* Caption + value */
+      .mspx-cap { position: absolute; left: 14px; right: 14px; bottom: 12px; display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 8px; background: #1A1A2E; color: #fff; font-size: 11.5px; font-weight: 700; letter-spacing: -0.01em; text-wrap: pretty; }
+      .mspx-cap-n { width: 18px; height: 18px; border-radius: 50%; background: #00BFFF; color: #00008F; font-size: 9px; font-weight: 800; display: inline-grid; place-items: center; flex: 0 0 auto; }
+      .mspx-value { position: absolute; left: 14px; right: 14px; top: 14px; bottom: 54px; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: 18px 22px; border-radius: 10px; background: #0000CC; color: #fff; z-index: 2; }
+      .mspx-value-h b { display: block; font-size: 18px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; max-width: 28ch; }
+      .mspx-value-h span { display: block; font-size: 11px; line-height: 1.5; color: #AABBEE; margin-top: 8px; max-width: 80ch; text-wrap: pretty; }
+      .mspx-value-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+      @media (max-width: 900px) { .mspx-value-grid { grid-template-columns: repeat(2, 1fr); } }
+      .mspx-vcard { padding: 9px 10px; border-radius: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); }
+      .mspx-vcard b { display: block; font-size: 9.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #00BFFF; }
+      .mspx-vcard span { display: block; font-size: 9.5px; line-height: 1.35; margin-top: 3px; }
+      .mspx-value-f { display: flex; flex-wrap: wrap; gap: 6px 18px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 9.5px; color: #AABBEE; }
+      .mspx-value-f span { display: inline-flex; align-items: center; gap: 5px; }
+      .mspx-value-f b { color: #fff; font-weight: 700; }
       /* Dashboard & Reporting view */
       .dr-zone { border-radius: 10px; padding: 10px; transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
       .dr-zone.dr-hidden { opacity: 0; transform: translateY(10px); }
@@ -1138,7 +1297,7 @@
       .dr-feed-line.dr-drawn { height: 28px; }
       .dr-endpoint { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 6px; font-size: 9px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); transition: all 0.4s ease; }
       .dr-endpoint.dr-lit { border-color: rgba(0, 134, 179,0.6); background: rgba(0, 134, 179,0.25); color: white; }
-      .dr-metric { display: inline-flex; align-items: center; gap: 3px; padding: 2px 6px; border-radius: 4px; font-size: 9px; border: 1px solid #DDDDEE; background: #FAFAFE; color: #8A8A9A; transition: all 0.3s ease; }
+      .dr-metric { display: inline-flex; align-items: center; gap: 3px; padding: 2px 6px; border-radius: 4px; font-size: 9px; white-space: nowrap; line-height: 1.3; border: 1px solid #DDDDEE; background: #FAFAFE; color: #8A8A9A; transition: all 0.3s ease; }
       .dr-metric.dr-lit { border-color: #0000CC; background: #F6F8FF; color: #1A1A2E; }
       .dr-callout { opacity: 0; transform: translateY(4px); transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1); font-size: 10px; font-weight: 600; }
       .dr-callout.dr-show { opacity: 1; transform: translateY(0); }
@@ -10491,6 +10650,7 @@
         lcTimers: [],
         demoLoopPlaying: false,
         mtPhase: 'idle',
+        mtMode: 'tenant',
         mtRunning: false,
         mtPaused: false,
         mtQueue: [],
@@ -10997,7 +11157,7 @@
                 <div class="rws-slab rws-quiet">
                 <div class="rws-head">
                   <span class="rws-head-mk" aria-hidden="true">Re</span>
-                  <div class="rws-slab-t rws-chip-info rws-slab-info" tabindex="0">Recast Application Workspace<i class="rws-i rws-i-lt" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Application Workspace — the common layer on top</b><span class="rws-pop-g"><span><i>One front door for applications — users see a consistent workspace rather than needing to understand which backend delivers an application.</i><i>One application model — package, govern, update, and expose the application once instead of recreating that work for every environment.</i><i>Context-aware delivery — the appropriate local, virtual, cloud, or other delivery path can be presented based on the user’s context.</i><i>Application lifecycle across the estate — packaging, updates, approvals, self-service, and audit can be handled consistently.</i><i>Makes infrastructure change less disruptive — the endpoint or delivery platform can change while the employee’s application experience remains more consistent.</i></span></span></span></div>
+                  <div class="rws-slab-t rws-chip-info rws-slab-info" tabindex="0">Recast Application Workspace<i class="rws-i rws-i-lt" aria-hidden="true">i</i><span class="rws-pop" role="tooltip"><b class="rws-pop-t">Application Workspace — the application lifecycle and delivery control layer</b><span class="rws-pop-g"><span><i>End-to-end — one control layer for the whole application lifecycle, from definition through delivery.</i><i>Defines — the application is defined once: package, install logic, configuration, and policy.</i><i>Governs — approvals, entitlements, updates, and audit are applied consistently across every environment.</i><i>Automates delivery across all your systems — Intune, ConfigMgr, Citrix, AVD, and more — so the app reaches the right environment without being rebuilt each time.</i></span></span></span></div>
                   <!--LC_TOUR_BTN-->
                 </div>
 
@@ -11646,6 +11806,8 @@
         ['mt-drawn',   '.mt-sync-line'],
         ['mt-lit',     '.mt-control'],
         ['mt-show',    '.mt-callout'],
+        ['is-on',      '.mspx-ok, .mspx-ep, .mspx-fstep'],
+        ['is-live',    '.mspx-conn'],
         ['pt-visible', '.pt-zone'],
         ['pt-lit',     '.pt-step'],
         ['pt-drawn',   '.pt-line'],
@@ -14542,41 +14704,214 @@
       ];
       const MT_CONTROLS = ['Entitlements','Scoped deployments','Reporting','Governance'];
 
+      /* MSP mode. One parent zone owned by the MSP packages and tests the
+         applications common to its customers once; connectors synchronise
+         them on a schedule into one isolated child zone per customer, where
+         targeting, exceptions and any customer-specific configuration live. */
+      const MSP_ICO = (s, st) => `https://img.icons8.com/${st || 'fluency'}/96/${s}.png`;
+      const MSP_COMMON = [
+        {img:MSP_ICO('chrome'),                 label:'Google Chrome',        pub:'Google LLC',    v:'130.0.6723'},
+        {img:MSP_ICO('firefox--v1','color'),     label:'Mozilla Firefox',      pub:'Mozilla',       v:'131.0.2'},
+        {img:MSP_ICO('adobe-acrobat'),          label:'Adobe Acrobat Reader', pub:'Adobe Inc.',    v:'24.003.20112'},
+        {img:MSP_ICO('notepad-plus-plus','color'), label:'Notepad++',         pub:'Don Ho',        v:'8.7'},
+      ];
+      const mspImg = (a, cls) => `<img class="${cls || 'msp-ico'}" src="${a.img}" alt="${a.label}" draggable="false">`;
+      const MSP_BASELINE = ['Standard zone configuration', 'Initial setup scripted', 'Same baseline for every new customer', 'Exceptions handled after baseline'];
+      const MSP_CUSTOMERS = [
+        {name:'Northwind Health', tier:'pilot', tierLabel:'Pilot ring',  cadence:'Sync nightly',  targeting:'Intune groups',         custom:'Acrobat Reader \u00b7 custom config', customImg:MSP_ICO('adobe-acrobat'), devs:8},
+        {name:'Contoso Legal', tier:'broad', tierLabel:'Broad',       cadence:'Sync weekly',   targeting:'ConfigMgr collections', custom:null, devs:10},
+        {name:'Fabrikam Retail', tier:'broad', tierLabel:'Broad',       cadence:'Sync nightly',  targeting:'Intune groups',         custom:'Chrome \u00b7 managed policy', customImg:MSP_ICO('chrome'), devs:12},
+      ];
+
+      const MSP_CHAPTERS = [
+        ['today',      'Today',      'The same application work, repeated for every customer.'],
+        ['centralize', 'Centralize', 'One MSP parent zone manages and tests the common applications once.'],
+        ['validate',   'Validate',   'Every common release is validated centrally before anything goes downstream.'],
+        ['distribute', 'Distribute', 'Scheduled sync carries the approved release into every customer zone.'],
+        ['customize',  'Customize',  'Targeting, rules and exceptions stay in the customer zone. The parent package is untouched.'],
+        ['deliver',    'Deliver',    'Fast delivery to endpoints \u2014 and a fast rollback when a release misbehaves.'],
+        ['onboard',    'Onboard',    'The next customer starts from the standard baseline runbook.'],
+      ];
+      function renderMspView(past, is){
+        const p = STATE.mtPhase;
+        const changed = STATE._mspLast !== p; STATE._mspLast = p;
+        const idle = p === 'idle';
+        const chap = Math.max(0, MSP_CHAPTERS.findIndex(c => c[0] === p));
+        const seq = (base, i, step) => `--d:${(base + i * step)}ms`;
+        const ico = (a, sz) => `<img src="${a.img}" alt="${a.label}" draggable="false" style="width:${sz || 14}px;height:${sz || 14}px;object-fit:contain;flex:0 0 auto">`;
+        const logos = (sz) => `<span class="mspx-logos">${MSP_COMMON.map(a => ico(a, sz)).join('')}</span>`;
+        const enter = (ph, cls) => is(ph) ? (cls || 'mspx-enter') : '';
+        const endpoints = (n, on, tone, base) => `<div class="mspx-eps">${Array.from({length:n}, (_, i) => `<span class="mspx-ep ${on ? 'is-on' : ''} ${tone || ''}" style="${seq(base || 0, i, 70)}"></span>`).join('')}</div>`;
+        const emsMark = (t) => /ConfigMgr/.test(t)
+          ? `<span class="mspx-ems is-cm" title="Microsoft Configuration Manager"><i data-lucide="server"></i></span>`
+          : `<span class="mspx-ems is-intune" title="Microsoft Intune"><i data-lucide="cloud"></i></span>`;
+        const pill = (t, cls, d) => `<span class="mspx-pill ${cls || ''}" style="${d != null ? seq(d, 0, 0) : ''}">${t}</span>`;
+
+        // ── Counter (top-right of the stage): honest arithmetic from what is drawn ──
+        const counter = !past('centralize')
+          ? `<div class="mspx-count is-red ${enter('today')}"><b>12</b>packaging jobs<i></i><b>12</b>test cycles<i></i><em>3 customers \u00d7 4 apps, per release</em></div>`
+          : `<div class="mspx-count is-blue ${enter('centralize')}"><b>4</b>packages<i></i><b>4</b>test cycles<i></i><em>once, for every customer</em></div>`;
+
+        // ── Parent zone ──
+        const parent = past('centralize') ? `
+          <div class="mspx-parent ${enter('centralize')}">
+            <div class="mspx-parent-h">
+              <i data-lucide="layers" class="w-3.5 h-3.5" style="color:#00BFFF"></i>
+              <b>MSP Parent Zone</b><span>Central application management + testing</span>
+              ${past('customize') ? `<span class="mspx-lockchip"><i data-lucide="lock" class="w-2.5 h-2.5"></i>Parent packages unchanged</span>` : ''}
+            </div>
+            <div class="mspx-parent-b">
+              <div class="mspx-lap">
+                <div class="mspx-lap-scr">
+                  <div class="mspx-lap-bar"><i data-lucide="layers"></i>Parent zone \u203a Packages<em>${past('validate') ? 'Release testing' : 'Managed once'}</em></div>
+                  ${MSP_COMMON.map((a, i) => {
+                    const rel = past('validate') && i === 0;
+                    return `<div class="mspx-lrow ${rel ? 'is-rel' : ''}">${ico(a, 13)}<span><b>${a.label}</b><em>${a.pub}</em></span><u>v${a.v}</u><span class="mspx-ok ${past('validate') ? 'is-on' : ''} ${rel ? 'is-rel' : ''}" style="${seq(rel ? 1900 : 300, i, 0)}">${past('validate') ? (rel ? '<i data-lucide="check"></i>Approved' : '<i data-lucide="check"></i>Validated') : 'Managed'}</span></div>`;
+                  }).join('')}
+                </div>
+                <div class="mspx-lap-base"></div>
+                <div class="mspx-lap-cap"><i data-lucide="monitor"></i>MSP engineer</div>
+              </div>
+              <div class="mspx-parent-mid">
+                <div class="mspx-sub">Common applications</div>
+                <div class="mspx-tiles">${MSP_COMMON.map((a, i) => `<div class="mspx-tile ${is('centralize') ? 'mspx-enter' : ''}" style="${seq(500, i, 120)}">${ico(a, 22)}<span><b>${a.label}</b><em>${a.pub}</em></span></div>`).join('')}</div>
+              </div>
+              <div class="mspx-parent-right">
+                <div class="mspx-sub">Release pipeline</div>
+                ${past('validate') ? `
+                  <div class="mspx-rel ${enter('validate', 'mspx-drop')}">${ico(MSP_COMMON[0], 20)}<span><b>New release \u00b7 Google Chrome</b><em>v130.0.6723 from the vendor</em></span></div>
+                  <div class="mspx-flow">${['Validate', 'Test / UAT', 'Approved'].map((t, i) => `<span class="mspx-fstep ${past('validate') ? 'is-on' : ''}" style="${seq(is('validate') ? 700 : 0, i, 550)}"><i data-lucide="check"></i>${t}</span>${i < 2 ? '<em></em>' : ''}`).join('')}</div>
+                  <div class="mspx-sub" style="margin-top:8px">MSP test endpoints</div>
+                  ${endpoints(8, true, 'is-cyan', is('validate') ? 1100 : 0)}` : `
+                  <div class="mspx-rel is-wait"><i data-lucide="download" class="w-3 h-3"></i><span><b>Waiting for the next vendor release</b></span></div>
+                  <div class="mspx-flow">${['Validate', 'Test / UAT', 'Approved'].map((t, i) => `<span class="mspx-fstep"><i data-lucide="circle"></i>${t}</span>${i < 2 ? '<em></em>' : ''}`).join('')}</div>
+                  <div class="mspx-sub" style="margin-top:8px">MSP test endpoints</div>
+                  ${endpoints(8, false, 'is-cyan', 0)}`}
+              </div>
+            </div>
+          </div>` : '';
+
+        // ── Connectors ──
+        const custCount = past('onboard') ? 4 : 3;
+        const connectors = past('centralize') ? `
+          <div class="mspx-conns" style="grid-template-columns:repeat(${custCount},1fr)">
+            ${Array.from({length: custCount}, (_, i) => {
+              const live = past('distribute') && (i < 3 || past('onboard'));
+              const fresh = (is('distribute') && i < 3) || (is('onboard') && i === 3);
+              return `<div class="mspx-conn ${live ? 'is-live' : ''} ${fresh ? 'mspx-draw' : ''}" style="${seq(fresh ? 200 : 0, i, 180)}">
+                <span class="mspx-conn-line">${fresh ? '<span class="mspx-pulse"></span><span class="mspx-pulse" style="animation-delay:.9s"></span>' : ''}</span>
+                <span class="mspx-conn-l">${live ? '<i data-lucide="refresh-cw" class="w-2.5 h-2.5"></i>Scheduled sync' : '<i data-lucide="plug" class="w-2.5 h-2.5"></i>Connector'}</span>
+              </div>`; }).join('')}
+          </div>` : '';
+
+        // ── Customer zones ──
+        const cardFor = (c, i) => {
+          const isNew = i === 3;
+          if (!past('centralize')) {
+            // Scene 1: the MSP repeats the full pipeline inside every customer.
+            return `<div class="mspx-cust is-today ${enter('today')}" style="${seq(0, i, 160)}">
+              <div class="mspx-cust-h"><b>${c.name}</b><span class="mspx-cust-who"><i data-lucide="monitor" class="w-2.5 h-2.5"></i>MSP engineer</span></div>
+              <div class="mspx-today-apps ${is('today') ? 'mspx-enter' : ''}" style="${seq(200 + i * 160, 0, 0)}">${logos(22)}<em>Same 4 apps</em></div>
+              <div class="mspx-pipe">${['Package', 'Test', 'Import', 'Deploy'].map((t, j) => `<div class="mspx-prow ${is('today') ? 'mspx-enter' : ''}" style="${seq(400 + i * 160, j, 140)}"><i>${j + 1}</i><b>${t}</b><u>again</u></div>`).join('')}</div>
+            </div>`;
+          }
+          const bad = past('deliver') && i === 1;
+          return `<div class="mspx-cust ${isNew ? enter('onboard', 'mspx-slide') : ''}">
+            <div class="mspx-cust-h"><b>${c.name}</b><span class="mspx-cust-zone"><i data-lucide="lock" class="w-2.5 h-2.5"></i>child zone</span></div>
+            ${is('centralize') && !isNew ? `<div class="mspx-pipe mspx-rise">${['Package', 'Test', 'Import', 'Deploy'].map((t, j) => `<div class="mspx-prow"><i>${j + 1}</i><b>${t}</b></div>`).join('')}</div>` : ''}
+            ${isNew ? `
+              <div class="mspx-sub">Baseline runbook</div>
+              <div class="mspx-flow is-col">${['Apply standard baseline', 'Configure targeting', 'Add exceptions', 'Operational'].map((t, j) => `<span class="mspx-fstep is-on" style="${seq(is('onboard') ? 900 : 0, j, 500)}"><i data-lucide="check"></i>${t}</span>`).join('')}</div>` : ''}
+            ${past('distribute') && !isNew ? `
+              <div class="mspx-sub">Synced from parent</div>
+              <div class="mspx-apps">${MSP_COMMON.map((a, j) => {
+                const isBad = bad && j === 1;
+                const d = is('distribute') ? 900 + i * 180 + j * 110 : 0;
+                return `<div class="mspx-app ${is('distribute') ? 'mspx-enter' : ''} ${past('deliver') ? (isBad ? 'is-bad' : 'is-ok') : ''}" style="${seq(d, 0, 0)}">${ico(a, 18)}<span><b>${a.label}</b><em>${isBad ? 'v131.0.2 \u2192 v131.0.1' : 'v' + a.v}</em></span>${past('deliver') ? `<span class="mspx-stamp ${isBad ? 'is-bad' : ''} ${is('deliver') ? 'mspx-enter' : ''}" style="${seq(isBad ? 1900 : 300 + i * 150 + j * 90, 0, 0)}"><i data-lucide="${isBad ? 'undo-2' : 'check'}"></i>${isBad ? 'Rolled back' : 'Delivered'}</span>` : ''}</div>`;
+              }).join('')}</div>` : (!isNew ? `<div class="mspx-await"><i data-lucide="clock" class="w-3 h-3"></i>Awaiting scheduled sync</div>` : '')}
+            ${past('customize') && !isNew ? `
+              <div class="mspx-sub">Customer-specific \u00b7 kept local</div>
+              <div class="mspx-chips">
+                ${pill(`${emsMark(c.targeting)}Targeting \u00b7 ${c.targeting}`, 'is-ctl ' + (is('customize') ? 'mspx-enter' : ''), is('customize') ? 300 + i * 150 : 0)}
+                ${pill('Groups, rules and deployment requirements', 'is-ctl ' + (is('customize') ? 'mspx-enter' : ''), is('customize') ? 500 + i * 150 : 0)}
+                ${c.custom ? pill(`<img src="${c.customImg}" alt="" style="width:12px;height:12px;object-fit:contain">${c.custom}<u>local</u>`, 'is-local ' + (is('customize') ? 'mspx-enter' : ''), is('customize') ? 1100 + i * 150 : 0) : ''}
+              </div>` : ''}
+            ${past('deliver') && !isNew ? `
+              <div class="mspx-sub">Endpoints ${bad ? `<span class="mspx-stamp is-bad ${is('deliver') ? 'mspx-enter' : ''}" style="${seq(1600, 0, 0)}"><i data-lucide="alert-triangle"></i>Issue detected</span>` : `<span class="mspx-stamp ${is('deliver') ? 'mspx-enter' : ''}" style="${seq(900 + i * 150, 0, 0)}"><i data-lucide="zap"></i>Rapid delivery</span>`}</div>
+              ${endpoints(c.devs, true, bad ? 'is-amber' : 'is-green', is('deliver') ? 200 + i * 150 : 0)}` : ''}
+          </div>`;
+        };
+        const CUSTS = past('onboard') ? MSP_CUSTOMERS.concat([{name:'Tailwind Logistics', targeting:'Intune groups', custom:null, devs:8}]) : MSP_CUSTOMERS;
+        const customers = `<div class="mspx-custs" style="grid-template-columns:repeat(${CUSTS.length},minmax(0,1fr))">${CUSTS.map(cardFor).join('')}</div>`;
+        const behind = !past('centralize') ? `
+          <div class="mspx-behind ${enter('today')}" style="--d:900ms">
+            <div class="mspx-behind-t"><i data-lucide="eye" class="w-3 h-3"></i>Behind the scenes \u00b7 what the MSP repeats today</div>
+            <ul class="mspx-behind-l">
+              <li><b>Package</b> \u2014 Chrome, Firefox, Acrobat Reader and Notepad++ are packaged separately for each customer.</li>
+              <li><b>Test</b> \u2014 every vendor release is tested three times, once per customer environment.</li>
+              <li><b>Import and deploy</b> \u2014 the same import and deployment steps are repeated in every tenant.</li>
+              <li><b>Engineering time</b> grows with every customer added, even though the applications are identical.</li>
+            </ul>
+          </div>` : '';
+
+        const value = '';
+
+        const caption = idle ? '' : `<div class="mspx-cap mspx-enter" key="${p}"><span class="mspx-cap-n">${chap + 1}</span>${MSP_CHAPTERS[chap][2]}</div>`;
+        const hint = '';
+
+        return `
+          <div class="us-body2">
+            <div class="mspx-stage">
+              <div class="mspx-top">${hint}${counter}</div>
+              <div class="mspx-diagram ${changed ? 'mspx-fade' : ''}">${parent}${connectors}${customers}${behind}</div>
+              ${value}${caption}
+            </div>
+            <aside class="us-rail" aria-label="Journey steps">
+              <div class="us-rail-t">The MSP story</div>
+              ${MSP_CHAPTERS.map((c, i) => `
+                <button type="button" class="us-step focus-ring ${!idle && chap > i ? 'is-done' : ''} ${!idle && chap === i ? 'is-on' : ''}" data-action="msp-chapter" data-ph="${c[0]}" title="Jump to this scene">
+                  <span class="us-step-n">${!idle && chap > i ? '\u2713' : i + 1}</span>
+                  <div class="us-step-tx"><b>${c[1]}</b><span>${c[2]}</span></div>
+                </button>`).join('')}
+            </aside>
+          </div>`;
+      }
       const DR_ENDPOINTS = ['deployments','devices','events','identities','licenses','packages','servers','users','workspaces'];
       const DR_DASHBOARDS = [
-        {id:'userEvents', label:'User Events', icon:'users', metrics:['Successful Logins','Denied Logins','Failed Logins','Logoff Activity'], bars:[18,12,4,8]},
-        {id:'appEvents', label:'App Events', icon:'app-window', metrics:['Install Health %','Launch Health %','Distribution Success'], bars:[20,16,14]},
-        {id:'licensing', label:'Licensing', icon:'key', metrics:['Install Counts','Launch Counts','Total Cost'], bars:[22,18,10]},
-        {id:'devices', label:'Devices', icon:'monitor', metrics:['Install Health','OS Version','Manufacturer'], bars:[16,20,12]},
-        {id:'endpoint', label:'Endpoint Info', icon:'hard-drive', metrics:['Device Metadata','Event Data','App Status'], bars:[14,18,22]},
-        {id:'agents', label:'Agent Info', icon:'cpu', metrics:['Version Dist.','Last Seen','Package Status'], bars:[10,20,16]},
+        { icon:'users',       label:'User Events',   bars:[16,22,6,10],  metrics:['Successful Logins','Denied Logins','Failed Logins','Logoff Activity'] },
+        { icon:'app-window',  label:'App Events',    bars:[22,20,18],    metrics:['Install Health %','Launch Health %','Distribution Success'] },
+        { icon:'key-round',   label:'Licensing',     bars:[20,22,14],    metrics:['Install Counts','Launch Counts','Total Cost'] },
+        { icon:'monitor',     label:'Devices',       bars:[18,22,20],    metrics:['Install Health','OS Version','Manufacturer'] },
+        { icon:'hard-drive',  label:'Endpoint Info', bars:[14,18,22],    metrics:['Device Metadata','Event Data','App Status'] },
+        { icon:'cpu',         label:'Agent Info',    bars:[12,20,22],    metrics:['Version Dist.','Last Seen','Package Status'] },
       ];
       const DR_ZONES_LIST = ['Zone A','Zone B','Zone C'];
-
-      // Default Windows desktop icons (Intune side)
-      const OB_WIN_ICONS = [
-        {l:'E',c:'#0078D4',n:'Edge'},{l:'\ud83d\udcc1',c:'#F0C75E',n:'Files'},{l:'\u2699',c:'#4A4A5A',n:'Settings'},{l:'\ud83d\uddd1',c:'#6A6A7A',n:'Recycle'}
+      const OB_WIN_ICONS = [{l:'E',c:'#0078D4',n:'Edge'},{l:'R',c:'#0078D4',n:'Recycle Bin'},{l:'F',c:'#F8D775',n:'Files'}];
+      const OB_INTUNE_SLOW = [{l:'O',c:'#D83B01',n:'Office'},{l:'T',c:'#5B53D6',n:'Teams'}];
+      /* Setup Store ticker — vendors and apps that scroll through the live rail */
+      const SS_VENDORS = [
+        {l:'M', c:'#0067B8'}, {l:'A', c:'#ED2224'}, {l:'G', c:'#4285F4'}, {l:'Z', c:'#0B5CFF'},
+        {l:'S', c:'#36C5F0'}, {l:'Mz', c:'#FF7139'}, {l:'C', c:'#3A3A4C'}, {l:'J', c:'#5382A1'},
       ];
-      // Intune managed apps that slowly trickle in
-      const OB_INTUNE_SLOW = [
-        {l:'S',c:'#0000CC',n:'Security'},{l:'V',c:'#0000A8',n:'VPN'}
+      const SS_TICKER_APPS = [
+        'Microsoft Teams: packaged', 'Adobe Acrobat Reader DC: packaged', 'Google Chrome: packaged', 'Zoom Workplace: packaged',
+        'Slack: packaged', 'Mozilla Firefox ESR: packaged', 'Citrix Workspace: packaged', 'Java JDK: packaged',
       ];
 
       /* ========== SETUP STORE VIEW ==========
-         Same storyboard grammar as the User Experience module: one realistic
-         laptop showing the Application Workspace admin console, a "behind the
-         scenes" panel beside it naming the work Recast performs, and a journey
-         rail. Two journeys — the Setup Store catalog and a custom package —
-         switched by the mode toggle. */
+         What the admin sees: a Windows laptop showing the Application
+         Workspace admin console, and a journey rail. Two journeys — the
+         Setup Store catalog and a custom package — switched by the mode
+         toggle. Scenes are driven by STATE.ssAct ('1'..'4', 'done'). */
       function renderSetupStoreView(){
         const custom = (STATE.ssMode || 'curated') === 'custom';
         const act = STATE.ssAct || 'idle';
         const scene = act === 'idle' ? 0 : act === 'done' ? 5 : (parseInt(act, 10) || 0);
         const ended = act === 'done';
-        const running = STATE.ssRunning;
+        const sceneChanged = STATE._ssLastScene !== scene + (custom ? 'c' : 'k'); STATE._ssLastScene = scene + (custom ? 'c' : 'k');
 
         const LOGO = `<svg class="ac-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 1.8 21.5h4.6l5.6-10.9 5.6 10.9h4.6z" fill="currentColor"/><path d="M8.6 21.5h6.8L12 15z" fill="currentColor" opacity=".45"/></svg>`;
-        const admin = { name: 'Jordan Lee', initials: 'JL', role: 'IT', title: 'IT Administrator', accent: '#0E8A7B' };
+        const admin = { name: 'Jordan Lee', initials: 'JL', accent: '#0E8A7B' };
         const ICON = (s, st) => `https://img.icons8.com/${st || 'fluency'}/96/${s}.png`;
         const img = (src, alt, cls) => `<img class="${cls || ''}" src="${src}" alt="${alt || ''}" draggable="false">`;
         const STORE = [
@@ -14646,7 +14981,7 @@
             </div>
           </div>`;
 
-        // ── Console pages ──
+        // ── Setup Store pages ──
         const card = (a, o = {}) => `
           <div class="sa-card ${o.pop ? 'us-in' : ''} ${o.hot ? 'is-hot' : ''}" style="--d:${o.d || 0}ms">
             <div class="sa-card-t">${img(a[3], a[0])}<span><b>${a[0]}</b><em>${a[1]}</em></span></div>
@@ -14660,19 +14995,48 @@
           </div>`;
         const storeHome = (pop) => storeHead('') + `<div class="sa-grid">${STORE.map((a, i) => card(a, { pop, d: 300 + i * 55 })).join('')}</div>`;
         const storeSearch = () => storeHead('zoom') + `
-          <div class="sa-results us-in" style="--d:1500ms"><b>3 results</b><span>for \u201czoom\u201d \u00b7 all packaged and tested by Recast</span></div>
-          <div class="sa-grid sa-grid-3">${ZOOMS.map((a, i) => card(a, { pop: true, d: 1600 + i * 180, hot: i === 0 })).join('')}</div>
-          <svg class="sa-cur us-in" style="--d:3200ms;left:19%;top:56%" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 1.5L9.5 19z" fill="#111" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+          <div class="sa-results us-in" style="--d:600ms"><b>3 results</b><span>for \u201czoom\u201d \u00b7 all packaged and tested by Recast</span></div>
+          <div class="sa-grid sa-grid-3">${ZOOMS.map((a, i) => card(a, { pop: true, d: 800 + i * 180, hot: i === 0 })).join('')}</div>
+          <svg class="sa-cur us-in" style="--d:2200ms;left:19%;top:56%" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 1.5L9.5 19z" fill="#111" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+        const publishDrawer = (a, o = {}) => `
+          <aside class="sa-drawer us-in" style="--d:${o.d || 300}ms">
+            <div class="sa-dh">${a.img ? img(a.img, a.name) : acmeIco}<span><b>${a.name}</b><em>v${a.ver} \u00b7 ${a.pub}</em></span><span class="sa-pill ${o.custom ? 'sa-pill-custom' : ''}">${o.custom ? 'Custom' : 'Managed'}</span></div>
+            <div class="sa-sec"><span>Platforms</span><div class="sa-opts">${[['monitor', 'Windows'], ['cloud', 'Windows 365'], ['laptop', 'macOS']].map(([ic, n], i) => `<span class="sa-opt ${o.custom && i === 2 ? '' : 'is-sel'} us-in" style="--d:${(o.d || 300) + 700 + i * 250}ms">${o.custom && i === 2 ? '' : '<i data-lucide="check"></i>'}${n}</span>`).join('')}</div></div>
+            <div class="sa-sec"><span>Entitlement</span><div class="sa-opts">${(o.groups || ['Finance', 'Sales']).map((n, i) => `<span class="sa-opt is-sel us-in" style="--d:${(o.d || 300) + 1600 + i * 250}ms"><i data-lucide="check"></i>${n}</span>`).join('')}<span class="sa-opt us-in" style="--d:${(o.d || 300) + 2100}ms">+ Add group</span></div></div>
+            <div class="sa-sec"><span>Updates</span><div class="sa-opts"><span class="sa-opt is-sel us-in" style="--d:${(o.d || 300) + 2400}ms"><i data-lucide="check"></i>${o.custom ? 'Manual \u2014 you upload each new version' : 'Follow vendor releases \u00b7 ring-based'}</span></div></div>
+            <span class="sa-btn us-in" style="--d:${(o.d || 300) + 2800}ms">Publish to Acme<span class="sa-btn-b us-in" style="--d:${(o.d || 300) + 3900}ms"><i data-lucide="check"></i>Published</span></span>
+          </aside>`;
         const storePublish = () => storeHead('zoom') + `
           <div class="sa-results"><b>3 results</b><span>for \u201czoom\u201d</span></div>
           <div class="sa-grid sa-grid-3 sa-dim">${ZOOMS.map((a, i) => card(a, { hot: i === 0 })).join('')}</div>
-          <aside class="sa-drawer us-in" style="--d:300ms">
-            <div class="sa-dh">${img(zoom[3], zoom[0])}<span><b>${zoom[0]}</b><em>v${zoom[2]} \u00b7 ${zoom[1]}</em></span><span class="sa-pill">Managed</span></div>
-            <div class="sa-sec"><span>Platforms</span><div class="sa-opts">${[['monitor', 'Windows'], ['cloud', 'Windows 365'], ['laptop', 'macOS']].map(([ic, n], i) => `<span class="sa-opt is-sel us-in" style="--d:${1000 + i * 250}ms"><i data-lucide="check"></i>${n}</span>`).join('')}</div></div>
-            <div class="sa-sec"><span>Entitlement</span><div class="sa-opts">${['Finance', 'Sales'].map((n, i) => `<span class="sa-opt is-sel us-in" style="--d:${1900 + i * 250}ms"><i data-lucide="check"></i>${n}</span>`).join('')}<span class="sa-opt us-in" style="--d:2400ms">+ Add group</span></div></div>
-            <div class="sa-sec"><span>Updates</span><div class="sa-opts"><span class="sa-opt is-sel us-in" style="--d:2700ms"><i data-lucide="check"></i>Follow vendor releases \u00b7 ring-based</span></div></div>
-            <span class="sa-btn us-in" style="--d:3100ms">Publish to Acme<span class="sa-btn-b us-in" style="--d:4200ms"><i data-lucide="check"></i>Published</span></span>
-          </aside>`;
+          ${publishDrawer({ name: zoom[0], ver: zoom[2], pub: zoom[1], img: zoom[3] })}`;
+
+        // ── Packages table (shared) ──
+        // row: [name, iconHtml|url, version, newVersion|'', managed, opts]
+        const pkgTable = (rows, o = {}) => `
+          <div class="sa-table">
+            <div class="sa-tr sa-th"><span>Application</span><span>Version</span><span>Source</span><span>Status</span></div>
+            ${rows.map((r, i) => {
+              const ic = /^http/.test(r[1]) ? img(r[1], r[0]) : r[1];
+              const ver = r[3]
+                ? `<span class="sa-ver"><em>${r[2]}</em><i data-lucide="arrow-right"></i><b class="us-in" style="--d:${(o.d || 1200) + i * 160}ms">${r[3]}</b></span>`
+                : `<span class="sa-ver">${r[2]}</span>`;
+              const src = r[4] ? 'Setup Store' : 'Custom';
+              const status = r[3]
+                ? (r[4] ? `<span class="sa-ok us-in" style="--d:${(o.d || 1200) + 900 + i * 160}ms"><i data-lucide="check"></i>Updated automatically</span>`
+                        : `<span class="sa-pill sa-pill-warn">Awaiting your file</span>`)
+                : `<span class="sa-pill ${r[4] ? '' : 'sa-pill-custom'}">${r[4] ? 'Managed' : 'Custom'}</span>`;
+              return `<div class="sa-tr ${r[5] && r[5].hot ? 'is-hot' : ''} ${r[5] && r[5].pop ? 'us-in' : ''}" style="--d:${(r[5] && r[5].d) || 0}ms"><span class="sa-app">${ic}${r[0]}</span>${ver}<span>${src}</span>${status}</div>`;
+            }).join('')}
+          </div>`;
+        const PKG_ROWS = (o = {}) => [
+          ['Zoom Workplace', ICON('zoom'), '6.2.5', o.update ? '6.3.0' : '', true, o.update ? { hot: true } : null],
+          ['Google Chrome', ICON('chrome'), '128.0.6613', o.update ? '129.0.6668' : '', true],
+          ['Adobe Acrobat Reader', ICON('adobe-acrobat'), '24.001.20643', '', true],
+          ['Microsoft Teams', ICON('microsoft-teams-2019'), '24215.1005', '', true],
+          ['Slack', ICON('slack', 'color'), '4.40.126', '', true],
+        ];
+
         // ── Custom package pages ──
         // Everything about a custom package is defined by the customer. Fields
         // start empty and are typed by Jordan; nothing is inferred, inherited
@@ -14680,291 +15044,83 @@
         const CM = 'Acme Case Manager';
         const CM_FILE = 'AcmeCaseManager-4.2.0.msi';
         const typed = (txt, d, ms) => `<span class="sa-q" style="--w:${txt.length}ch;animation:saType ${ms || 700}ms steps(${txt.length}) ${d}ms forwards">${txt}</span>`;
+        const cmRow = (o = {}) => [CM, acmeIco, o.ver || '4.2.0', o.newVer || '', false, o.opt || null];
         const packages = (o = {}) => `
-          <div class="sa-h"><b>Packages</b><span>Manage \u203a Packages \u00b7 ${o.custom ? 413 : 412} in production</span>${o.addBtn ? `<span class="sa-btn sa-btn-inline sa-btn-hot us-in" style="--d:600ms;margin-left:auto"><i data-lucide="plus"></i>Add custom package</span>` : ''}</div>
-          ${pkgTable([
-            ['Zoom Workplace', ICON('zoom'), '6.2.5', '', true],
-            ['Google Chrome', ICON('chrome'), '128.0.6613', '', true],
-            ['Microsoft Teams', ICON('microsoft-teams-2019'), '24215.1005', '', true],
-            ...(o.custom ? [[CM, null, '4.2.0', '', false]] : []),
-            ['Adobe Acrobat Reader', ICON('adobe-acrobat'), '24.001.20643', '', true],
-          ])}`;
+          <div class="sa-h"><b>Packages</b><span>Manage \u203a Packages \u00b7 ${o.custom ? 413 : 412} in production</span>${o.addBtn ? `<span class="sa-btn sa-btn-inline sa-btn-hot us-in" style="--d:${o.addD || 900}ms"><i data-lucide="plus"></i>Add custom package</span>` : reMark}</div>
+          ${pkgTable((o.custom ? [cmRow(o.cm || {})] : []).concat(PKG_ROWS(o)), o)}
+          ${o.note ? `<div class="sa-note us-in" style="--d:${o.noteD || 2600}ms"><i data-lucide="${o.noteIcon || 'refresh-cw'}"></i>${o.note}</div>` : ''}`;
         const newPkg = () => `
           <div class="sa-h"><b>Add custom package</b><span>Manage \u203a Packages \u203a Add your own</span></div>
           <div class="sa-drop is-drop">
             <i data-lucide="upload-cloud"></i><span>Drop your installer or script \u2014 MSI, EXE, PKG, DMG, PS1</span>
-            <span class="sa-file"><i data-lucide="file-box"></i>${CM_FILE}<em>61.4 MB</em></span>
-            <span class="sa-prog sa-prog-w"><i style="--d:1200ms"></i></span>
-            <span class="sa-ok us-in" style="--d:3800ms"><i data-lucide="check"></i>Uploaded \u00b7 ready to define</span>
-          </div>`;
-        // Form: labels visible, inputs empty; Jordan types each value.
-        const FORM = [
-          ['Name', CM, 500, 700],
-          ['Version', '4.2.0', 1400, 300],
-          ['Install command', 'msiexec /i ' + CM_FILE + ' /qn', 1900, 1300],
-          ['Uninstall command', 'msiexec /x {6B1F\u2026D2A7} /qn', 3400, 900],
-          ['Detection rule', 'MSI product code {6B1F\u2026D2A7} \u00b7 version \u2265 4.2.0', 4500, 1300],
-        ];
-        const pkgForm = () => `
-          <div class="sa-h"><span class="sa-app sa-app-lg">${acmeIco}<b>Define package</b></span><span>${CM_FILE}</span><span class="sa-pill sa-pill-custom">Custom</span></div>
-          <div class="sa-form">
-            ${FORM.map(([k, v, d, ms]) => `<label class="sa-lab">${k}</label><span class="sa-input ${d ? '' : ''}" style="--f:${d}ms">${typed(v, d, ms)}<i class="ac-caret sa-caret" style="--f:${d}ms;--e:${d + (ms || 700)}ms"></i></span>`).join('')}
-            <label class="sa-lab">Platforms</label><span class="sa-opts"><span class="sa-opt us-in" style="--d:5900ms"><span class="sa-box sa-box-anim" style="--d:6000ms"><i data-lucide="check"></i></span>Windows</span><span class="sa-opt">macOS</span></span>
+            <span class="sa-file us-in" style="--d:900ms"><i data-lucide="file"></i>${CM_FILE}<em>\u00b7 48.2 MB</em></span>
+            <div class="sa-prog" style="width:60%"><i style="--d:1400ms"></i></div>
+            <span class="sa-ok us-in" style="--d:4000ms"><i data-lucide="check"></i>Uploaded \u00b7 hash recorded</span>
           </div>
-          <div class="sa-note sa-note-plain us-in" style="--d:6100ms"><i data-lucide="pencil"></i>Nothing is assumed about your package. You tell it how to install and how to detect it.</div>`;
-        // Spotlight step: access + publish, as a pane stack synced to the checklist.
-        const CSTEPS = ['Define', 'Access', 'Catalog', 'Delivery', 'Import'];
-        const cStep = (n) => `<span class="sa-steps">${CSTEPS.map((s, i) => `<span class="${i < n ? 'is-done' : i === n ? 'is-on' : ''}">${i < n ? '\u2713' : i + 1} ${s}</span>`).join('')}</span>`;
-        const cHead = (n, sub) => `<div class="sa-h"><span class="sa-app sa-app-lg">${acmeIco}<b>${CM}</b></span><span>${sub}</span>${cStep(n)}</div>`;
-        const publishCustom = () => `
-          <div class="sa-swap-page sa-panes">
-            ${pane(0, 3200, cHead(1, 'v4.2.0 \u00b7 who gets it') + `
-              <div class="sa-wiz">
-                <div class="sa-wiz-l"><span class="sa-sec-t">Groups</span>
-                  <div class="sa-opts">${['Legal', 'Finance'].map((n, i) => `<span class="sa-opt is-sel us-in" style="--d:${2000 + i * 250}ms"><i data-lucide="check"></i>${n}</span>`).join('')}<span class="sa-opt us-in" style="--d:2500ms">+ Add group</span></div>
-                  <span class="sa-sec-t" style="margin-top:3px">Approver <em style="color:#8A8A9A">optional</em></span>
-                  <div class="sa-opts"><span class="sa-opt is-sel us-in" style="--d:2700ms"><i data-lucide="user-check"></i>Legal operations lead</span></div>
-                </div>
-                <div class="sa-wiz-r"><span class="sa-sec-t">Defined by you</span>
-                  ${[['Install', 'msiexec \u2026 /qn'], ['Detection', 'Product code \u00b7 \u2265 4.2.0'], ['Platform', 'Windows']].map(([k, v]) => `<div class="sa-ck"><span class="sa-box is-on"><i data-lucide="check"></i></span><span><b>${k}</b><em>${v}</em></span></div>`).join('')}
-                </div>
-              </div>`)}
-            ${pane(3200, 4100, cHead(2, 'v4.2.0 \u00b7 catalog') + `
-              <div class="sa-rev-card sa-rev-one"><span class="sa-sec-t"><i data-lucide="store"></i>Publish to Catalog</span>
-                <div class="sa-ck"><span class="sa-box sa-box-anim" style="--d:3500ms"><i data-lucide="check"></i></span><span><b>Show in the Acme Workspace catalog</b><em>Users outside Legal and Finance can request it themselves</em></span></div>
-                <div class="sa-ck"><span class="sa-box sa-box-anim" style="--d:3700ms"><i data-lucide="check"></i></span><span><b>Route requests to the approver</b><em>Legal operations lead</em></span></div>
-              </div>`)}
-            ${pane(4100, 5300, cHead(3, 'v4.2.0 \u00b7 delivery controls') + `
-              <div class="sa-wiz">
-                <div class="sa-wiz-l"><span class="sa-sec-t">Controls</span>
-                  ${[['Filters', 'Windows 11 \u00b7 corporate network', 4300], ['Self-service', 'Install and repair from the workspace', 4550], ['Repair', 'Re-run install if detection fails', 4800]].map(([k, v, d]) => `<div class="sa-ck"><span class="sa-box sa-box-anim" style="--d:${d}ms"><i data-lucide="check"></i></span><span><b>${k}</b><em>${v}</em></span></div>`).join('')}
-                </div>
-                <div class="sa-wiz-r"><span class="sa-sec-t">Summary</span>
-                  <span class="sa-muted">${CM} 4.2.0 \u00b7 Legal, Finance \u00b7 Windows \u00b7 in catalog</span>
-                  <span class="sa-btn us-in" style="--d:4700ms">Import<span class="sa-btn-b us-in" style="--d:5000ms"><i data-lucide="check"></i>Imported</span></span>
-                </div>
-              </div>`)}
-            ${pane(5300, 0, `<div class="sa-h"><b>Packages</b><span>Manage \u203a Packages \u00b7 413 in production</span>${cStep(5)}</div>` + pkgTable([
-                ['Zoom Workplace', ICON('zoom'), '6.2.5', '', true],
-                ['Google Chrome', ICON('chrome'), '128.0.6613', '', true],
-                ['Microsoft Teams', ICON('microsoft-teams-2019'), '24215.1005', '', true],
-                [CM, null, '4.2.0', '', false, '<span class="sa-pill sa-pill-custom us-in" style="--d:5700ms">New</span>'],
-              ]), true)}
-          </div>`;
-        // New version: the file swaps, detection is updated, everything else stays lit.
-        const customUpdate = () => `
-          <div class="sa-h"><span class="sa-app sa-app-lg"><span class="sa-swap sa-ico-swap"><span class="sa-out" style="--d:1800ms">${acmeIco}</span><span class="sa-in" style="--d:1800ms">${acmeIco}</span></span><b>${CM}</b></span><span class="sa-ver"><em>4.2.0</em><i data-lucide="arrow-right"></i><b class="us-in" style="--d:1800ms">4.3.0</b></span><span class="sa-pill sa-pill-custom">Custom</span></div>
-          <div class="sa-fields sa-fields-1">
-            <div class="sa-field us-in" style="--d:400ms"><i data-lucide="file-box"></i><span>Binaries</span><b><span class="sa-swap"><span class="sa-out" style="--d:1800ms">${CM_FILE}</span><span class="sa-in" style="--d:1800ms">AcmeCaseManager-4.3.0.msi \u00b7 62.0 MB</span></span></b><i data-lucide="pencil" class="sa-okk"></i></div>
-            <div class="sa-field us-in" style="--d:700ms"><i data-lucide="scan-search"></i><span>Detection</span><b><span class="sa-swap"><span class="sa-out" style="--d:2800ms">Product code \u00b7 version \u2265 4.2.0</span><span class="sa-in" style="--d:2800ms">Product code \u00b7 version \u2265 4.3.0</span></span></b><i data-lucide="pencil" class="sa-okk"></i></div>
-            <div class="sa-field sa-field-keep us-in" style="--d:1000ms"><i data-lucide="filter"></i><span>Filters</span><b>Windows 11 \u00b7 corporate network</b><span class="sa-pill">kept</span></div>
-            <div class="sa-field sa-field-keep us-in" style="--d:1000ms"><i data-lucide="users"></i><span>Entitlements</span><b>Legal, Finance \u00b7 approver</b><span class="sa-pill">kept</span></div>
-            <div class="sa-field sa-field-keep us-in" style="--d:1000ms"><i data-lucide="history"></i><span>History</span><b>4.1.0 \u2192 4.2.0 \u2192 4.3.0</b><span class="sa-pill">kept</span></div>
-          </div>`;
+          <div class="sa-kv us-in" style="--d:4300ms"><span>File</span><b>${CM_FILE}</b><span>Type</span><b>Windows Installer (MSI)</b><span>Product</span><b>${typed(CM, 4600, 900)}</b><span>Version</span><b>${typed('4.2.0', 5600, 400)}</b></div>`;
+        const defineInstall = () => `
+          <div class="sa-h"><b>${CM}</b><span>Manage \u203a Packages \u203a Define how it installs</span><span class="sa-pill sa-pill-custom">Custom</span></div>
+          <div class="sa-wiz">
+            <div class="sa-form">
+              <span class="sa-lab">Install command</span><span class="sa-input">${typed('msiexec /i AcmeCaseManager-4.2.0.msi /qn', 300, 1400)}</span>
+              <span class="sa-lab">Uninstall</span><span class="sa-input">${typed('msiexec /x {A1C3-4E2F} /qn', 1900, 900)}</span>
+              <span class="sa-lab">Detection</span><span class="sa-input">${typed('HKLM\\\\Software\\\\Acme\\\\CaseManager\\\\Version = 4.2.0', 3000, 1300)}</span>
+              <span class="sa-lab">Restart</span><span class="sa-input">${typed('Never', 4500, 300)}</span>
+              <span class="sa-lab">Runs as</span><span class="sa-input">${typed('System', 5000, 300)}</span>
+            </div>
+            <div class="sa-code us-in" style="--d:600ms"><b>You define it</b><span>Silent switches, detection logic, dependencies and restart behavior are yours to specify \u2014 Application Workspace records and enforces them.</span></div>
+          </div>
+          <div class="sa-note sa-note-plain us-in" style="--d:5600ms"><i data-lucide="info"></i>Nothing is inferred or pre-populated for a custom package.</div>`;
+        const customPublish = () => `
+          <div class="sa-h"><b>Packages</b><span>Manage \u203a Packages \u00b7 413 in production</span>${reMark}</div>
+          <div class="sa-dim">${pkgTable([cmRow({ opt: { hot: true } })].concat(PKG_ROWS()))}</div>
+          ${publishDrawer({ name: CM, ver: '4.2.0', pub: 'Acme Corp. \u00b7 in-house' }, { custom: true, groups: ['Case workers', 'Legal'] })}`;
 
-        // ── Shared: packages table, connectors, rollout ──
-        const pkgTable = (rows) => `
-          <div class="sa-table">
-            <div class="sa-tr sa-th"><span>Application</span><span>Version</span><span>Source</span><span>Status</span></div>
-            ${rows.map(([n, ic, v, v2, managed, status]) => `
-              <div class="sa-tr ${v2 || status ? 'is-hot' : ''}">
-                <span class="sa-app">${ic ? img(ic, n) : acmeIco}${n}</span>
-                <span class="sa-ver">${v2 ? `<em>${v}</em><i data-lucide="arrow-right"></i><b class="us-in" style="--d:2600ms">${v2}</b>` : v}</span>
-                <span>${managed ? '<span class="sa-pill">Setup Store</span>' : '<span class="sa-pill sa-pill-custom">Custom</span>'}</span>
-                ${status ? status : v2
-                  ? `<span class="sa-swap"><span class="sa-out" style="--d:3800ms"><span class="sa-pill sa-pill-warn">Updating \u00b7 ring 2/3</span><span class="sa-prog"><i style="--d:900ms"></i></span></span><span class="sa-in" style="--d:3800ms"><span class="sa-ok"><i data-lucide="check"></i>Current</span></span></span>`
-                  : `<span class="sa-ok"><i data-lucide="check"></i>Current</span>`}
-              </div>`).join('')}
-          </div>`;
-        const CONNS = [['monitor', 'Windows applications', 'Setup Store \u00b7 Windows'], ['laptop', 'Mac applications', 'Setup Store \u00b7 macOS'], ['shopping-bag', 'Microsoft Store', 'Store apps'], ['box', 'Custom packages', 'Your installers and scripts']];
+        // ── Connectors page ──
+        const CONNS = [['monitor', 'Windows applications', 'Setup Store \u00b7 Windows'], ['laptop', 'Mac applications', 'Setup Store \u00b7 macOS'], ['shopping-bag', 'Microsoft Store', 'Store apps'], ['cloud', 'Microsoft Intune', 'Deployment target'], ['server', 'ConfigMgr', 'Deployment target']];
         const connectors = () => `
           <div class="sa-h"><b>Connectors</b><span>Application sources linked to Acme Workspace</span>${reMark}</div>
           <div class="sa-conns">
-            ${CONNS.map(([ic, n, s], i) => `<div class="sa-conn us-in" style="--d:${400 + i * 350}ms"><span class="sa-conn-ic"><i data-lucide="${ic}"></i></span><span class="sa-conn-tx"><b>${n}</b><em>${s}</em></span>
-              <span class="sa-swap"><span class="sa-out" style="--d:${1700 + i * 400}ms"><span class="sa-st sa-st-wait">Syncing\u2026</span></span><span class="sa-in" style="--d:${1700 + i * 400}ms"><span class="sa-st"><i data-lucide="check"></i>Connected</span></span></span></div>`).join('')}
+            ${CONNS.map(([ic, n, s], i) => `<div class="sa-conn us-in" style="--d:${300 + i * 260}ms"><span class="sa-conn-ic"><i data-lucide="${ic}"></i></span><span class="sa-conn-tx"><b>${n}</b><em>${s}</em></span><span class="sa-steps">${['Development', 'Test', 'Acceptance', 'Production'].map((st, j) => `<span class="${j < 3 ? 'is-done' : 'is-on'}">${st}</span>`).join('')}</span><span class="sa-st us-in" style="--d:${1800 + i * 260}ms"><i data-lucide="check"></i>Connected</span></div>`).join('')}
           </div>
-          <div class="sa-note us-in" style="--d:3600ms"><i data-lucide="refresh-cw"></i>Imports are consistent and repeatable. New versions arrive already tested.</div>`;
-        const STAGES = [['Test', 'IT pilot \u00b7 12 devices', 1400, 'Validated'], ['Acceptance', 'Finance leads', 2600, 'Promoted'], ['Production', '214 devices', 3800, 'Live']];
-        const rollout = () => `
-          <div class="sa-h"><span class="sa-app sa-app-lg">${img(zoom[3], zoom[0])}<b>Zoom Workplace</b></span><span class="sa-ver"><em>6.2.5</em><i data-lucide="arrow-right"></i><b>6.2.6</b></span><span class="sa-pill sa-pill-warn us-in" style="--d:300ms">New version from Recast</span></div>
-          <div class="sa-dtap sa-dtap-3">
-            ${STAGES.map(([n, s, d, ok], i) => `
-              <div class="sa-env"><b>${n}</b><span>${s}</span>
-                <span class="sa-swap"><span class="sa-out" style="--d:${d}ms"><span class="sa-st sa-st-wait">${i === 0 ? 'Testing\u2026' : 'Waiting'}</span></span><span class="sa-in" style="--d:${d}ms"><span class="sa-st"><i data-lucide="check"></i>${ok}</span></span></span>
-              </div>${i < 2 ? `<i data-lucide="arrow-right" class="sa-dtap-ar us-in" style="--d:${d + 300}ms"></i>` : ''}`).join('')}
-          </div>
-          <div class="sa-note us-in" style="--d:4300ms"><i data-lucide="package-check"></i>No repackaging. Your MST is re-applied. Validate in Test, promote when satisfied.</div>`;
+          <div class="sa-note us-in" style="--d:3400ms"><i data-lucide="refresh-cw"></i>Setup Store connectors sync new vendor releases into Development automatically; you promote them to Production.</div>`;
 
-        // Import wizard as a pane stack. Each pane fades in at --in and out at
-        // --out; the behind-the-scenes checklist ticks on the same clock.
-        const WSTEPS = ['Settings', 'Review', 'Access', 'Import'];
-        const wStep = (n) => `<span class="sa-steps">${WSTEPS.map((s, i) => `<span class="${i < n ? 'is-done' : i === n ? 'is-on' : ''}">${i < n ? '\u2713' : i + 1} ${s}</span>`).join('')}</span>`;
-        const wHead = (n, sub) => `<div class="sa-h"><span class="sa-app sa-app-lg">${img(zoom[3], zoom[0])}<b>Add Zoom Workplace</b></span><span>${sub}</span>${wStep(n)}</div>`;
-        const pane = (tin, tout, inner, last) => `<div class="sa-pane ${last ? 'sa-pane-last' : ''}" style="--in:${tin}ms;--out:${tout}ms">${inner}</div>`;
-        const wizardOne = () => `
-          <div class="sa-swap-page sa-panes">
-            ${pane(0, 2300, wHead(0, 'v6.2.5 \u00b7 install settings') + `
-              <div class="sa-wiz">
-                <div class="sa-wiz-l"><span class="sa-sec-t">Install settings<em>MSI \u00b7 Recast GUI</em></span>
-                  ${[['Disable auto-update', 'Recast manages versions', 700], ['Sign in with SSO', 'acme.zoom.us', 1000], ['Install for all users', 'Per-machine', 1300]].map(([k, v, d], i) => `<div class="sa-ck us-in" style="--d:${300 + i * 150}ms"><span class="sa-box sa-box-anim" style="--d:${d}ms"><i data-lucide="check"></i></span><span><b>${k}</b><em>${v}</em></span></div>`).join('')}
-                </div>
-                <div class="sa-wiz-r"><span class="sa-sec-t">Generated transform</span>
-                  <div class="sa-code us-in" style="--d:1700ms"><b>ZoomWorkplace-6.2.5-Acme.mst</b><span>ZoomAutoUpdate=0</span><span>EnableSSO=1 \u00b7 SSO_URL=acme.zoom.us</span><span>ALLUSERS=1</span></div>
-                  <span class="sa-ok us-in" style="--d:1900ms"><i data-lucide="check"></i>Applied on every install and update</span>
-                </div>
-              </div>`)}
-            ${pane(2300, 3000, wHead(1, 'v6.2.5 \u00b7 review \u00b7 vulnerabilities') + `
-              <div class="sa-rev-card sa-rev-one"><span class="sa-sec-t"><i data-lucide="shield-alert"></i>Known vulnerabilities</span>
-                <div class="sa-cve-row"><span class="sa-pill sa-pill-warn">CVE-2024-24691</span><span><b>Improper input validation</b><em>Severity 7.8 \u00b7 affects 6.2.4 and earlier</em></span><span class="sa-ok us-in" style="--d:2700ms"><i data-lucide="check"></i>Fixed in 6.2.5</span></div>
-                <span class="sa-ok us-in" style="--d:2800ms"><i data-lucide="shield-check"></i>No open vulnerabilities in this version</span>
-              </div>`)}
-            ${pane(3000, 3700, wHead(1, 'v6.2.5 \u00b7 review \u00b7 dependencies') + `
-              <div class="sa-rev-card sa-rev-one"><span class="sa-sec-t"><i data-lucide="git-branch"></i>Required dependencies</span>
-                <div class="sa-dep">${img(ICON('ms-edge-new'), 'Edge')}<span><b>Microsoft Edge WebView2 Runtime</b><em>Setup Store \u00b7 129.0 \u00b7 pulled in with this import</em></span><span class="sa-box sa-box-anim" style="--d:3400ms"><i data-lucide="check"></i></span></div>
-                <span class="sa-muted">Installed first, then Zoom Workplace. One import, both packages.</span>
-              </div>`)}
-            ${pane(3700, 4400, wHead(1, 'v6.2.5 \u00b7 review \u00b7 supersedence') + `
-              <div class="sa-rev-card sa-rev-one"><span class="sa-sec-t"><i data-lucide="layers"></i>Supersedence</span>
-                <div class="sa-sup"><span class="sa-ver sa-ver-lg"><em>6.2.4</em><i data-lucide="arrow-right"></i><b>6.2.5</b></span><span><b>Replaces 6.2.4 in place</b><em>214 devices upgrade on next launch \u00b7 no uninstall</em></span><span class="sa-ok us-in" style="--d:4100ms"><i data-lucide="check"></i>Set</span></div>
-              </div>`)}
-            ${pane(4400, 5500, wHead(2, 'v6.2.5 \u00b7 who gets it') + `
-              <div class="sa-wiz">
-                <div class="sa-wiz-l"><span class="sa-sec-t">Groups</span>
-                  <div class="sa-opts">${['Finance', 'Sales'].map((n, i) => `<span class="sa-opt is-sel us-in" style="--d:${4600 + i * 200}ms"><i data-lucide="check"></i>${n}</span>`).join('')}</div>
-                  <span class="sa-sec-t" style="margin-top:3px">Approver <em style="color:#8A8A9A">optional</em></span>
-                  <div class="sa-opts"><span class="sa-opt is-sel us-in" style="--d:4900ms"><i data-lucide="user-check"></i>Finance manager</span></div>
-                </div>
-                <div class="sa-wiz-r"><span class="sa-sec-t">Platforms</span>
-                  <div class="sa-opts">${['Windows', 'Windows 365', 'macOS'].map((n) => `<span class="sa-opt is-sel"><i data-lucide="check"></i>${n}</span>`).join('')}</div>
-                  <span class="sa-btn us-in" style="--d:4700ms">Import<span class="sa-btn-b us-in" style="--d:5200ms"><i data-lucide="check"></i>Imported</span></span>
-                </div>
-              </div>`)}
-            ${pane(5500, 0, `<div class="sa-h"><b>Packages</b><span>Manage \u203a Packages \u00b7 413 in production</span>${wStep(4)}</div>` + pkgTable([
-                ['Zoom Workplace', ICON('zoom'), '6.2.5', '', true, '<span class="sa-pill sa-pill-custom us-in" style="--d:5900ms">New</span>'],
-                ['Google Chrome', ICON('chrome'), '128.0.6613', '', true],
-                ['Adobe Acrobat Reader', ICON('adobe-acrobat'), '24.001.20643', '', true],
-                [CM, null, '4.2.0', '', false],
-              ]), true)}
-          </div>`;
-
-        // Behind-the-scenes variant: a checklist. Each box ticks at its delay.
-        const btsChecks = (title, ico, rows, foot, d0, k) => `
-          <aside class="rw-bts-panel us-in" style="--d:${d0 || 500}ms">
-            <div class="rw-bts-head"><span class="rw-bts-k">${k || 'Behind the scenes \u00b7 Recast'}</span><span class="rw-bts-t">${ico}<b>${title}</b></span></div>
-            <ol class="rw-bts-steps rw-bts-checks">${rows.map(([t, s, d]) => `<li class="us-in" style="--d:${d - 400}ms"><span class="rw-bts-box sa-box sa-box-anim" style="--d:${d}ms"><i data-lucide="check"></i></span><span class="rw-bts-tx"><b>${t}</b><span>${s}</span></span></li>`).join('')}</ol>
-            ${foot ? `<div class="rw-bts-foot us-in" style="--d:${rows[rows.length - 1][2] + 600}ms"><i data-lucide="${foot[0]}"></i>${foot[1]}</div>` : ''}
-          </aside>`;
-
-        // ── Behind the scenes ──
-        const bts = (title, ico, rows, foot, d0) => `
-          <aside class="rw-bts-panel us-in" style="--d:${d0 || 500}ms">
-            <div class="rw-bts-head"><span class="rw-bts-k">Behind the scenes \u00b7 Recast</span><span class="rw-bts-t">${ico}<b>${title}</b></span></div>
-            <ol class="rw-bts-steps">${rows.map(([ic, t, s, d]) => `<li class="us-in" style="--d:${d}ms"><span class="rw-bts-dot"><i data-lucide="${ic}"></i></span><span class="rw-bts-tx"><b>${t}</b><span>${s}</span></span><i data-lucide="check" class="rw-bts-ok us-in" style="--d:${d + 450}ms"></i></li>`).join('')}</ol>
-            ${foot ? `<div class="rw-bts-foot us-in" style="--d:${rows[rows.length - 1][3] + 700}ms"><i data-lucide="${foot[0]}"></i>${foot[1]}</div>` : ''}
-          </aside>`;
-        const pair = (screen, panel, linkIc, linkD) => `
-          <div class="rw-bts">
-            <div class="rw-bts-dev">${laptop(screen)}</div>
-            <div class="rw-bts-link us-in" style="--d:${linkD || 600}ms"><i></i><span><i data-lucide="${linkIc}"></i></span><i></i></div>
-            ${panel}
-          </div>`;
-        const say = (msg, sub, d) => `<div class="us-say us-in" style="--d:${d || 0}ms"><b>${msg}</b>${sub ? `<span>${sub}</span>` : ''}</div>`;
-        const zoomIco = img(zoom[3], zoom[0], 'rw-bts-ico');
-        const acmeBts = `<span class="ac-tile rw-bts-ico">${LOGO}</span>`;
+        // ── Scene selection ──
+        let page, active, crumb;
+        if (!custom) {
+          [active, crumb] = ['Setup Store', 'store'];
+          if (scene === 0 || scene === 5) page = storeHome(false);
+          else if (scene === 1) page = storeHome(true);
+          else if (scene === 2) { [active, crumb] = ['Packages', 'connectors']; page = connectors(); }
+          else if (scene === 3) page = storePublish();
+          else { [active, crumb] = ['Packages', 'packages']; page = packages({ update: true, note: 'Zoom 6.3.0 detected by the Setup Store, validated through Development, Test and Acceptance, released to Production. No repackaging.' }); }
+        } else {
+          [active, crumb] = ['Packages', 'packages'];
+          if (scene === 0 || scene === 5) page = packages({ custom: true, addBtn: true });
+          else if (scene === 1) page = newPkg();
+          else if (scene === 2) page = defineInstall();
+          else if (scene === 3) page = customPublish();
+          else page = packages({ custom: true, cm: { newVer: '4.3.0', opt: { hot: true } }, note: 'A new version of your own package means you upload the new file and update the install details \u2014 Application Workspace then delivers it the same way.', noteIcon: 'upload', noteD: 1800 });
+        }
+        const stage = laptop(console_(active, crumb, page));
 
         const CHAPTERS = custom ? [
           ['Custom package', 'Your in-house tools, line-of-business installers, and scripts. Built and defined by you.'],
           ['Upload the file', 'Bring your package into Application Workspace.'],
           ['Define how it installs', 'You set the install details and detection logic. Nothing is assumed about your package \u2014 you tell it.'],
-          ['Set access and publish', 'Pick who gets it, import. From here it is managed like any Setup Store app.'],
-          ['New version, no repackaging', 'Swap the binaries, update detection. Filters, entitlements, and history stay.'],
-          ['Managed like every other app', 'Same catalog. Same controls. Same place.'],
+          ['Assign and publish', 'Choose platforms and groups, then publish to Acme.'],
+          ['New version, your file', 'You bring the new installer; delivery is handled the same way.'],
         ] : [
           ['Setup Store', '8,500+ curated applications, packaged and tested by Recast.'],
-          ['A curated catalog', 'Recast\u2019s own team packages, tests and vets every application.'],
-          ['Connectors', 'Windows, Mac and Microsoft Store sources, imported consistently.'],
-          ['Configure and import', 'Tick a few settings, pick who gets it, import. Recast handles the rest.'],
-          ['New version, no repackaging', 'Validate in Test, promote to Production.'],
-          ['Setup Store', '8,500+ curated applications, packaged and tested by Recast.'],
+          ['A curated catalog', 'Verified sources, tested install logic, updated daily.'],
+          ['Connectors', 'Sources and deployment targets linked once; releases move Development \u2192 Production.'],
+          ['Configure and import', 'Pick platforms, entitlements and update policy. Publish.'],
+          ['New version, no repackaging', 'A vendor release is detected, validated and released automatically.'],
         ];
-
-        const reBts = `<span class="sa-re-big rw-bts-ico">Re</span>`;
-        let stage = '';
-        const intro = () => `<div class="us-lapbtn focus-ring" data-action="start-ss" role="button" tabindex="0" aria-label="${ended ? 'Replay' : 'Play'} the demo" title="${ended ? 'Replay' : 'Play'}">
-          <div class="sa-intro">
-            ${laptop(console_(custom ? 'Packages' : 'Setup Store', custom ? 'packages' : 'store', custom ? packages({ custom: ended, addBtn: !ended }) : storeHome(!running && !ended)))}
-          </div></div>`;
-        const scn = (screen, panel, ic, d) => `<div class="us-story">${pair(screen, panel, ic, d)}</div>`;
-
-        if (scene === 0 || ended) {
-          stage = intro();
-        } else if (!custom) {
-          if (scene === 1) stage = scn(console_('Setup Store', 'store', storeHome(true)), bts('Recast Setup Store', reBts, [
-            ['users', 'Recast\u2019s team packages every app', 'Not a wrapper around Winget or a public repo', 900],
-            ['flask-conical', 'Tested before it ships', 'Install, update and uninstall verified', 1600],
-            ['shield-check', 'Checked for known vulnerabilities', 'CVEs surfaced before you publish', 2300],
-            ['zap', 'New versions land fast', 'Already tested \u2014 ready to push, no waiting', 3000],
-          ], ['store', '8,500+ applications \u00b7 Windows and Mac'], 700), 'store', 600,
-            'A curated catalog of 8,500+ applications.', 'Every one packaged, tested and vetted by Recast. Nothing pulled unverified from a public source.', 4200);
-          else if (scene === 2) stage = scn(console_('Connectors', 'connectors', connectors()), bts('Connectors', reBts, [
-            ['monitor', 'Windows applications', 'Linked to the Setup Store', 1700],
-            ['laptop', 'Mac applications', 'Linked to the Setup Store', 2100],
-            ['shopping-bag', 'Microsoft Store', 'Linked', 2500],
-            ['refresh-cw', 'Consistent, repeatable imports', 'New versions arrive already tested', 3300],
-          ], ['plug', 'One workspace, every source'], 1500), 'plug', 1400,
-            'Connectors link the workspace to each source.', 'Windows, Mac and Microsoft Store. Imports stay consistent and repeatable.', 4200);
-          else if (scene === 3) stage = scn(console_('Setup Store', 'store/zoom-workplace/import', wizardOne()), btsChecks('Zoom Workplace 6.2.5', zoomIco, [
-            ['MST generated', 'From the ticked options \u00b7 no silent-switch hunting', 1800],
-            ['Known CVEs checked', 'CVE-2024-24691 fixed in 6.2.5 \u00b7 none open', 2800],
-            ['Dependencies pulled in', 'Edge WebView2 \u00b7 same import', 3500],
-            ['Supersedence set', '6.2.5 replaces 6.2.4 in place', 4200],
-            ['Access by group', 'Finance, Sales \u00b7 approver optional', 5000],
-            ['In Manage \u203a Packages', 'Live in Acme Workspace, every platform', 5900],
-          ], ['clock', 'Catalog to workspace in minutes \u00b7 no packaging'], 400), 'check-check', 300,
-            'Configure and import.', 'A few choices, one click. Recast handles the checks on the way there.', 6000);
-          else stage = scn(console_('Packages', 'packages/zoom-workplace', rollout()), bts('Zoom Workplace', zoomIco, [
-            ['scan-search', 'New version detected by Recast', 'Zoom 6.2.6 released by the vendor', 600],
-            ['package-check', 'Packaged and tested by Recast', 'In the catalog quickly, already verified', 1400],
-            ['flask-conical', 'You validate in Test', 'Rollout stages before production', 2400],
-            ['rocket', 'Promote when satisfied', 'No repackaging \u00b7 your MST re-applied', 3600],
-          ], ['shield-check', 'Nothing for your team to repackage'], 400), 'refresh-cw', 300,
-            'New version? No repackaging.', 'Recast tests and packages it. You validate in Test and promote once satisfied.', 4600);
-        } else {
-          if (scene === 1) stage = scn(console_('Packages', 'packages/new', newPkg()), bts(CM, acmeBts, [
-            ['upload', 'Your file, your build', CM_FILE + ' \u00b7 built by Acme', 1600],
-            ['badge-check', 'Signature checked', 'Acme Corp. code-signing certificate', 2600],
-            ['shield-check', 'Malware scan', '0 / 72 engines flagged', 3300],
-            ['package', 'Stored as a package', 'Ready for you to define', 4100],
-          ], ['file-box', 'Nothing read into it. Nothing assumed.'], 1400), 'upload', 1300);
-          else if (scene === 2) stage = scn(console_('Packages', 'packages/acme-case-manager/define', pkgForm()), bts(CM, acmeBts, [
-            ['pencil', 'Name and version', 'Entered by Jordan', 1600],
-            ['terminal', 'Install and uninstall commands', 'Entered by Jordan \u00b7 not generated', 3600],
-            ['scan-search', 'Detection rule', 'Defined by Jordan \u00b7 product code and version', 5400],
-            ['monitor', 'Platform', 'Windows, chosen by Jordan', 6100],
-          ], ['pencil', 'Tell it how to install. Once.'], 1400), 'pencil', 1300);
-          else if (scene === 3) stage = scn(console_('Packages', 'packages/acme-case-manager/publish', publishCustom()), btsChecks(CM + ' 4.2', acmeBts, [
-            ['Package uploaded', 'Your installer, your build', 900],
-            ['Install and detection defined', 'By you, not assumed', 1500],
-            ['Access by group', 'Legal, Finance \u00b7 approver optional', 2900],
-            ['Published to Catalog', 'Users can request it themselves', 3800],
-            ['Delivery controls applied', 'Filters, self-service, repair', 4900],
-            ['In Manage \u203a Packages', 'Alongside every Setup Store app', 5700],
-          ], ['check-check', 'Everything they get, it gets.'], 400, 'Behind the scenes \u00b7 your package'), 'check-check', 300);
-          else stage = scn(console_('Packages', 'packages/acme-case-manager', customUpdate()), bts(CM + ' 4.3', acmeBts, [
-            ['file-box', 'You swap the binaries', 'AcmeCaseManager-4.3.0.msi uploaded by Jordan', 1900],
-            ['scan-search', 'You update detection', 'Version \u2265 4.3.0', 2900],
-            ['filter', 'Filters and entitlements stay', 'Legal, Finance \u00b7 Windows 11 \u00b7 approver', 3600],
-            ['history', 'History kept', '4.1.0 \u2192 4.2.0 \u2192 4.3.0', 4300],
-          ], ['repeat', 'New version. Nothing to rebuild.'], 1700), 'repeat', 1600);
-        }
-
-        const who = (scene >= 1 && !ended) ? `<div class="us-who"><span class="us-who-ava" style="background:${admin.accent}">${admin.initials}</span><span class="us-who-col"><span class="us-who-txt">${admin.name} \u00b7 ${admin.title}</span></span></div>` : '';
-        const sceneKey = `${custom ? 'c' : 's'}${ended ? 0 : scene}`;
-        const sceneChanged = STATE._ssScene !== sceneKey;
-        STATE._ssScene = sceneKey;
+        const chap = scene;
 
         return `
-          <div class="section-card p-4 us-card" id="ss-panel">
+          <div class="section-card p-4">
             <div class="flex items-center justify-between mb-2 gap-2 flex-wrap">
               ${ended
                 ? `<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200" style="white-space:nowrap"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500" style="flex-shrink:0"></i><span class="text-xs font-semibold text-emerald-700">Demo complete \u2014 click any step to replay</span></div>`
@@ -14976,167 +15132,48 @@
             </div>
             <div class="us-body2">
               <div class="us-stage rw-stage">
-                ${who}
-                <div class="us-scene ${sceneChanged ? 'us-scenefade' : ''}">${stage}</div>
+                <div class="us-scene ${sceneChanged ? 'us-scenefade' : ''}"><div class="sa-intro">${stage}</div></div>
               </div>
               <aside class="us-rail" aria-label="Journey steps">
                 <div class="us-rail-t">The journey</div>
                 ${CHAPTERS.map((c, i) => `
-                  <button type="button" class="us-step focus-ring ${scene > i ? 'is-done' : ''} ${scene === i ? 'is-on' : ''}" data-action="ss-chapter" data-scene="${i}" title="Jump to this scene">
-                    <span class="us-step-n">${scene > i ? '\u2713' : i + 1}</span>
+                  <button type="button" class="us-step focus-ring ${chap > i ? 'is-done' : ''} ${chap === i ? 'is-on' : ''}" data-action="ss-chapter" data-scene="${i}" title="Jump to this scene">
+                    <span class="us-step-n">${chap > i ? '\u2713' : i + 1}</span>
                     <div class="us-step-tx"><b>${c[0]}</b><span>${c[1]}</span></div>
                   </button>`).join('')}
               </aside>
             </div>
-          </div>
-        `;
+          </div>`;
       }
 
-      const SS_VENDORS = [
-        {l:'A',c:'#ED2224',n:'Adobe'},     {l:'C',c:'#3A3A4C',n:'Citrix'},
-        {l:'G',c:'#4285F4',n:'Google'},    {l:'M',c:'#0067B8',n:'Microsoft'},
-        {l:'Mz',c:'#FF7139',n:'Mozilla'},  {l:'V',c:'#607078',n:'VMware'},
-        {l:'Z',c:'#0B5CFF',n:'Zoom'},      {l:'N',c:'#76B900',n:'Notepad++'},
-        {l:'7',c:'#1A8A1A',n:'7-Zip'},     {l:'O',c:'#0000CC',n:'OpenVPN'},
-        {l:'P',c:'#FB7299',n:'Python'},    {l:'J',c:'#5382A1',n:'Java'},
-      ];
-
-      const SS_PACKAGE_FIELDS = [
-        {icon:'shield-check', label:'Verified vendor source',
-         capAdobe:'Hunting verified vendor source\u2026',
-         capYour:'Same vendor verification\u2026'},
-        {icon:'terminal',     label:'Tested silent switches',
-         capAdobe:'Testing silent install switches\u2026',
-         capYour:'Same silent switch testing\u2026'},
-        {icon:'wand-2',       label:'MSI Configuration Wizard',
-         capAdobe:'Generating MSI Configuration Wizard\u2026',
-         capYour:'Same enterprise defaults applied\u2026'},
-        {icon:'package-plus', label:'Install + uninstall actions',
-         capAdobe:'Mapping install + uninstall actions\u2026',
-         capYour:'Same install + uninstall mapping\u2026'},
-        {icon:'scan-search',  label:'Detection filters',
-         capAdobe:'Building detection filters\u2026',
-         capYour:'Same detection filter logic\u2026'},
-        {icon:'link-2',       label:'Dependencies resolved',
-         capAdobe:'Resolving dependencies\u2026',
-         capYour:'Same dependency resolution\u2026'},
-        {icon:'image',        label:'Icon, description, website',
-         capAdobe:'Pulling icon, description, website\u2026',
-         capYour:'Same metadata harvesting\u2026'},
-        {icon:'mouse-pointer-click', label:'Shortcuts (Launch / Help / Docs)',
-         capAdobe:'Wiring shortcuts (Launch / Help / Docs)\u2026',
-         capYour:'Same shortcut configuration\u2026'},
-      ];
-
-      const SS_TICKER_APPS = [
-        'Adobe Acrobat: packaged',
-        'Microsoft Teams: packaged',
-        'Zoom Workplace: packaged',
-        'Notepad++ v8.7: packaged',
-        'Google Chrome 130: packaged',
-        '7-Zip 24.07: packaged',
-        'Mozilla Firefox ESR: packaged',
-        'OpenVPN 2.6: packaged',
-        'Citrix Workspace: packaged',
-        'VMware Horizon: packaged',
-        'Python 3.12: packaged',
-        'Java JDK 21: packaged',
-      ];
-
-      // Real catalog rows — 30+ app names with versions for the dense scrolling column.
-      // Doubled at render time to make the marquee loop seamlessly.
-      const SS_CATALOG_APPS = [
-        {l:'A',  c:'#ED2224', n:'Adobe Acrobat Reader DC',   v:'24.001.20065'},
-        {l:'M',  c:'#0067B8', n:'Microsoft Teams',            v:'1.7.00.31566'},
-        {l:'G',  c:'#4285F4', n:'Google Chrome',              v:'130.0.6723.92'},
-        {l:'Mz', c:'#FF7139', n:'Mozilla Firefox ESR',        v:'128.4.0'},
-        {l:'Z',  c:'#0B5CFF', n:'Zoom Workplace',             v:'6.2.10'},
-        {l:'7',  c:'#1A8A1A', n:'7-Zip',                      v:'24.07'},
-        {l:'N',  c:'#76B900', n:'Notepad++',                  v:'8.7'},
-        {l:'V',  c:'#607078', n:'VMware Horizon Client',      v:'2406'},
-        {l:'C',  c:'#3A3A4C', n:'Citrix Workspace',           v:'2402.10'},
-        {l:'O',  c:'#0000CC', n:'OpenVPN Connect',            v:'3.5.0'},
-        {l:'P',  c:'#FB7299', n:'Python',                     v:'3.12.7'},
-        {l:'J',  c:'#5382A1', n:'Java JDK',                   v:'21.0.4'},
-        {l:'V',  c:'#5C6BC0', n:'Visual Studio Code',         v:'1.93.1'},
-        {l:'G',  c:'#F05033', n:'Git',                        v:'2.46.0'},
-        {l:'S',  c:'#36C5F0', n:'Slack',                      v:'4.40.133'},
-        {l:'D',  c:'#5865F2', n:'Docker Desktop',             v:'4.34.2'},
-        {l:'A',  c:'#1A73E8', n:'Adobe Creative Cloud',       v:'6.4.0'},
-        {l:'M',  c:'#107C10', n:'Microsoft Office 365',       v:'2410'},
-        {l:'P',  c:'#A4373A', n:'PowerShell',                 v:'7.4.5'},
-        {l:'R',  c:'#198CE7', n:'Postman',                    v:'11.16.0'},
-        {l:'F',  c:'#0061FF', n:'Foxit PDF Reader',           v:'2024.3'},
-        {l:'W',  c:'#25D366', n:'WhatsApp Desktop',           v:'2.2447.7'},
-        {l:'D',  c:'#FB7300', n:'Dropbox',                    v:'212.4.5946'},
-        {l:'O',  c:'#0F9D58', n:'OneDrive',                   v:'24.190.0921'},
-        {l:'E',  c:'#0078D4', n:'Microsoft Edge',             v:'130.0.2849.46'},
-        {l:'B',  c:'#0F62FE', n:'Box Drive',                  v:'2.40.323'},
-        {l:'P',  c:'#3A3A4C', n:'PuTTY',                      v:'0.81'},
-        {l:'W',  c:'#01A4EF', n:'WinSCP',                     v:'6.3.5'},
-        {l:'V',  c:'#499CD3', n:'VLC Media Player',           v:'3.0.21'},
-        {l:'A',  c:'#5B89C7', n:'Audacity',                   v:'3.6.4'},
-      ];
-
-      /* Six queries in the order an admin would actually type them, each
-         resolving to a real title at a real version. --q on the rendered
-         elements is the index; the CSS keys every delay off it. */
-      const SS_SEARCHES = [
-        { q:'acrobat', hits:'3 results', n:'Adobe Acrobat Reader DC', s:'Acrobat', v:'24.001.20065', l:'A',  c:'#ED2224' },
-        { q:'zoom',    hits:'2 results', n:'Zoom Workplace',          s:'Zoom',    v:'6.2.10',       l:'Z',  c:'#0B5CFF' },
-        { q:'7-zip',   hits:'1 result',  n:'7-Zip',                   s:'7-Zip',   v:'24.07',        l:'7',  c:'#1A8A1A' },
-        { q:'chrome',  hits:'4 results', n:'Google Chrome',           s:'Chrome',  v:'130.0.6723.92',l:'G',  c:'#4285F4' },
-        { q:'citrix',  hits:'6 results', n:'Citrix Workspace',        s:'Citrix',  v:'2402.10',      l:'C',  c:'#3A3A4C' },
-        { q:'autocad', hits:'5 results', n:'Autodesk AutoCAD',        s:'AutoCAD', v:'2025.1',       l:'Ac', c:'#E51050' },
-      ];
-      /* Twelve real catalog entries. The six the queries resolve to sit at odd
-         indices so they scatter across the grid rather than clustering. */
-      const SS_SHELF = [
-        { l:'M',  c:'#0067B8', n:'Microsoft Teams',          p:'Microsoft',   v:'1.7.00.31566' },
-        { l:'A',  c:'#ED2224', n:'Adobe Acrobat Reader DC',  p:'Adobe',       v:'24.001.20065', q:0 },
-        { l:'Mz', c:'#FF7139', n:'Mozilla Firefox ESR',      p:'Mozilla',     v:'128.4.0' },
-        { l:'Z',  c:'#0B5CFF', n:'Zoom Workplace',           p:'Zoom',        v:'6.2.10',       q:1, aw:'zoom' },
-        { l:'V',  c:'#5C6BC0', n:'Visual Studio Code',       p:'Microsoft',   v:'1.93.1' },
-        { l:'7',  c:'#1A8A1A', n:'7-Zip',                    p:'Igor Pavlov', v:'24.07',        q:2 },
-        { l:'N',  c:'#76B900', n:'Notepad++',                p:'Don Ho',      v:'8.7' },
-        { l:'G',  c:'#4285F4', n:'Google Chrome',            p:'Google',      v:'130.0.6723.92', q:3, aw:'chrome' },
-        { l:'S',  c:'#36C5F0', n:'Slack',                    p:'Salesforce',  v:'4.40.133', aw:'slack' },
-        { l:'C',  c:'#3A3A4C', n:'Citrix Workspace',         p:'Citrix',      v:'2402.10',      q:4 },
-        { l:'J',  c:'#5382A1', n:'Java JDK',                 p:'Oracle',      v:'21.0.4' },
-        { l:'Ac', c:'#E51050', n:'Autodesk AutoCAD',         p:'Autodesk',    v:'2025.1',       q:5 },
-      ];
-
-      const SS_CONNECTORS = [
-        {label:'Application Workspace', primary:true},
-        {label:'Microsoft Intune'},
-        {label:'ConfigMgr / SCCM'},
-        {label:'MDT'},
-        {label:'Ivanti EPM'},
-        {label:'ZENworks'},
-      ];
-
-      const SS_CALLOUTS = [
-        {icon:'clock',    title:'Hours per app, already done',
-         body:'Hunting links, testing switches, scanning, packaging — done before you start.'},
-        {icon:'refresh-cw', title:'Continuous, not project-based',
-         body:'8,500+ apps · daily updates · 30+ languages · OEM-grade quality.'},
-        {icon:'unlock',   title:'Available standalone',
-         body:'Existing OEM customers license the catalog alone for their own delivery stack.'},
-      ];
-
+      const MT_PHASES = { tenant: ['idle','primary','catalog','syncing','customers','controls','done'],
+                          msp:    ['idle','today','centralize','validate','distribute','customize','deliver','onboard'] };
       function renderMultiTenantView(){
         const p = STATE.mtPhase;
-        const past = (target) => {
-          const order = ['idle','primary','catalog','syncing','customers','controls','done'];
-          return order.indexOf(p) >= order.indexOf(target);
-        };
+        const msp = (STATE.mtMode || 'tenant') === 'msp';
+        const order = MT_PHASES[msp ? 'msp' : 'tenant'];
+        const past = (target) => order.indexOf(p) >= order.indexOf(target);
         const is = (target) => p === target;
+        const toggle = `
+              <div class="ss-mode-toggle" role="tablist" aria-label="Multi-tenant journeys">
+                <button type="button" role="tab" class="ss-mode-pill ${!msp ? 'is-active' : ''}" data-action="mt-mode" data-mode="tenant" aria-selected="${!msp}"><i data-lucide="building-2" class="w-3 h-3"></i><span class="ss-mode-label">Multi-Tenant</span></button>
+                <button type="button" role="tab" class="ss-mode-pill ${msp ? 'is-active' : ''}" data-action="mt-mode" data-mode="msp" aria-selected="${msp}"><i data-lucide="network" class="w-3 h-3"></i><span class="ss-mode-label">MSP</span></button>
+              </div>`;
+
+        if (msp) return `
+          <div class="section-card p-4">
+            <div class="flex items-center justify-between mb-3 gap-3 flex-wrap">
+              <div class="bts-label bts-label-platform"><i data-lucide="network" class="w-3 h-3"></i> MSP \u00b7 Setup at Scale</div>
+              ${toggle}
+            </div>
+            ${renderMspView(past, is)}
+          </div>`;
 
         return `
           <div class="section-card p-4">
-            <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center justify-between mb-3 gap-3 flex-wrap">
               <div class="bts-label bts-label-platform"><i data-lucide="building-2" class="w-3 h-3"></i> Multi-Tenant Deployment</div>
-
+              ${toggle}
             </div>
 
             ${!past('primary') ? `
@@ -15310,7 +15347,7 @@
                       <div class="flex items-center justify-between mb-1.5">
                         <div class="flex items-center gap-1.5">
                           <i data-lucide="${d.icon}" class="w-3.5 h-3.5 text-[#0000CC]"></i>
-                          <span class="text-[11px] font-bold text-[#1A1A2E]">${d.label}</span>
+                          <span class="text-[11px] font-bold text-[#1A1A2E]" style="white-space:nowrap">${d.label}</span>
                         </div>
                         <div class="flex items-end gap-1" style="height:22px">
                           ${d.bars.map((h, bi) => `<div class="dr-bar ${past('dashboards') ? 'dr-grow' : ''}" style="--h:${h}px;transition-delay:${(i * 0.12) + (bi * 0.1)}s;opacity:${0.5 + bi * 0.15}"></div>`).join('')}
@@ -17386,8 +17423,9 @@
 
       /* ========== MT ANIMATION ENGINE ========== */
       function buildMtQueue(){
-        const phases = ['primary','catalog','syncing','customers','controls','done'];
-        const delays = [800, 1200, 1200, 1500, 1200, 1500];
+        const msp = (STATE.mtMode || 'tenant') === 'msp';
+        const phases = MT_PHASES[msp ? 'msp' : 'tenant'].slice(1);
+        const delays = msp ? [500, 2600, 2400, 3000, 3000, 2800, 3200] : [800, 1200, 1200, 1500, 1200, 1500];
         const queue = [];
         phases.forEach((phase, i) => {
           queue.push({ delay: delays[i], fn(){ STATE.mtPhase = phase; demoPhaseRender(); } });
@@ -17815,7 +17853,6 @@
                         <button type="button" class="demo-modal-btn" data-action="step-flow" title="Step" aria-label="Step"><i data-lucide="chevrons-right"></i></button>
                         <button type="button" class="demo-modal-btn" data-action="reset-flow" title="Reset" aria-label="Reset"><i data-lucide="rotate-ccw"></i></button>`;
                       })()}
-                      ${(() => { const p = currentPace(); return `<button type="button" class="demo-modal-btn demo-modal-pace" data-action="demo-pace" title="${p.name} \u2014 click to change" aria-label="Playback pace: ${p.name}"><i data-lucide="gauge"></i><span>${p.label}</span></button>`; })()}
                       ${nextMod ? `
                         <button type="button" class="demo-modal-btn demo-modal-btn-next" data-action="next-demo-module" data-view="${nextMod.view}" title="Next: ${nextMod.name}" aria-label="Next: ${nextMod.name}">
                           <i data-lucide="arrow-right"></i>
@@ -21393,6 +21430,25 @@
             STATE.ssPaused = true;
             _setDemoFrozen(false);
             refreshDemoControls();
+            return;
+          }
+          if (action === 'msp-chapter') {
+            const ph = act.getAttribute('data-ph');
+            STATE.flowTimers.timeouts.forEach(id => clearTimeout(id)); STATE.flowTimers.timeouts = [];
+            STATE.mtQueue = buildMtQueue();
+            const n = Math.max(0, MT_PHASES.msp.indexOf(ph) - 1);
+            STATE.mtQueueIdx = n;
+            STATE.mtRunning = true; STATE.mtPaused = false;
+            STATE.mtQueue[n].fn(); STATE.mtQueueIdx++;
+            STATE.mtPaused = true;
+            refreshDemoControls();
+            return;
+          }
+          if (action === 'mt-mode') {
+            const newMode = act.getAttribute('data-mode') || 'tenant';
+            if ((STATE.mtMode || 'tenant') === newMode) return;
+            STATE.mtMode = newMode;
+            resetMt();
             return;
           }
           if (action === 'ss-mode') {
