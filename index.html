@@ -3790,9 +3790,9 @@
          inputs enter from the left, outputs leave to the right. All motion
          lives in the circle (orbiting dots, sequential stage pulses) and on
          its connectors. ── */
-      .rws-io.rws-io-orbit { grid-template-columns: minmax(0, 1fr) minmax(430px, 2.4fr) minmax(0, 1fr); align-items: center; gap: 10px 28px; max-width: 1800px; margin-left: auto; margin-right: auto; width: 100%; box-sizing: border-box; }
+      .rws-io.rws-io-orbit { grid-template-columns: minmax(0, 1fr) minmax(430px, 2.4fr) minmax(0, 1fr); align-items: center; gap: 10px 28px; max-width: 1800px; margin-left: 0; margin-right: auto; justify-items: start; width: 100%; box-sizing: border-box; }
       .rws-io-orbit .lc-orbit-wrap.lc-in-diagram { width: 100%; }
-      .rws-io-orbit .lc-in-diagram .lc-orbit { flex: 1 1 auto; margin: 0 auto; }
+      .rws-io-orbit .lc-in-diagram .lc-orbit { flex: 1 1 auto; margin: 0 auto 0 0; }
       .rws-io-orbit .rws-pill-store { display: grid; grid-template-columns: 18px 1fr; align-items: center; column-gap: 8px; row-gap: 1px; }
       .rws-io-orbit .rws-pill-store b { white-space: normal; line-height: 1.2; }
       .rws-io-orbit .rws-pill-store em { grid-column: 2; margin-left: 0; font-size: 10px; }
@@ -10592,7 +10592,7 @@
          the diagram is wide enough to draw the ring. ── */
       @media (min-width: 901px) {
         .lc-in-diagram { padding: 14px 0 10px; flex-wrap: wrap; gap: 10px 26px; position: relative; }
-        .lc-in-diagram .lc-orbit { max-width: 1144px !important; aspect-ratio: 880 / 390; display: block; flex: 1 1 100%; margin: 0 auto; }
+        .lc-in-diagram .lc-orbit { max-width: 1144px !important; aspect-ratio: 880 / 390; display: block; flex: 1 1 100%; margin: 0 auto 0 0; }
         .lc-in-diagram .lc-arc { display: flex; flex: 0 1 300px; max-width: 300px; text-align: left; padding: 0 0 0 13px; border-right: none; border-left: 2px solid var(--r-divider, #DDDDEE); }
         .lc-in-diagram .lc-arc-r { order: 1; }
         .lc-in-diagram .lc-arc-l { order: 2; }
@@ -20834,19 +20834,6 @@
               </div>
             ` : `
             <div class="bi2">
-              <div class="section-card bi4">
-                <div class="bi-head"><div class="bi-col-h">Business outcomes</div><div class="bi-leg"><span>Six outcomes, what moves them, and how you measure each</span></div></div>
-                <div class="bi4-m">
-                  <div class="bi4-hd"><span>Business outcome</span><span>What changes</span><span>Business measure</span><span>What the data can tell you</span></div>
-                  ${BI_OUTCOME_MATRIX.map((r, i) => `
-                  <div class="bi4-r">
-                    <span class="bi4-o"><i class="bi4-n">${String(i + 1).padStart(2, '0')}</i><i data-lucide="${r[4]}"></i><b>${r[0]}</b></span>
-                    <span class="bi4-c">${r[1]}</span>
-                    <span class="bi4-c bi4-meas">${r[2].split(', ').map((t) => `<em>${t}</em>`).join('')}</span>
-                    <span class="bi4-c">${r[3]}</span>
-                  </div>`).join('')}
-                </div>
-              </div>
               <div class="bi2-row">
                 <div class="section-card bi2-chart">
                   <div class="bi-head">
